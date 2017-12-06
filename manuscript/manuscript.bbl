@@ -1,0 +1,65 @@
+\begin{thebibliography}{10}
+\providecommand{\natexlab}[1]{#1}
+
+\bibitem[{Bloom(2014{\natexlab{a}})}]{bloom2014experimentally}
+Bloom JD. 2014{\natexlab{a}}.
+\newblock An experimentally determined evolutionary model dramatically improves
+  phylogenetic fit.
+\newblock \emph{Molecular Biology and Evolution}. 31:1956--1978.
+
+\bibitem[{Bloom(2014{\natexlab{b}})}]{bloom2014informed}
+Bloom JD. 2014{\natexlab{b}}.
+\newblock An experimentally informed evolutionary model improves phylogenetic
+  fit to divergent lactamase homologs.
+\newblock \emph{Mol. Biol. Evol.} 31:2753--2769.
+
+\bibitem[{Bloom(2017)}]{bloom2017identification}
+Bloom JD. 2017.
+\newblock Identification of positive selection in genes is greatly improved by
+  using experimentally informed site-specific models.
+\newblock \emph{Biology Direct}. 12:1.
+
+\bibitem[{Doud and Bloom(2016)}]{doud2016accurate}
+Doud MB, Bloom JD. 2016.
+\newblock Accurate measurement of the effects of all amino-acid mutations to
+  influenza hemagglutinin.
+\newblock \emph{Viruses}. 8:155.
+
+\bibitem[{Halpern and Bruno(1998)}]{halpern1998evolutionary}
+Halpern AL, Bruno WJ. 1998.
+\newblock Evolutionary distances for protein-coding sequences: modeling
+  site-specific residue frequencies.
+\newblock \emph{Molecular biology and evolution}. 15:910--917.
+
+\bibitem[{Hasegawa et~al.(1985)Hasegawa, Kishino, and
+  Yano}]{hasegawa1985dating}
+Hasegawa M, Kishino H, Yano Ta. 1985.
+\newblock Dating of the human-ape splitting by a molecular clock of
+  mitochondrial {DNA}.
+\newblock \emph{Journal of molecular evolution}. 22:160--174.
+
+\bibitem[{Hilton et~al.(2017)Hilton, Doud, and Bloom}]{hilton2017phydms}
+Hilton SK, Doud MB, Bloom JD. 2017.
+\newblock phydms: Software for phylogenetic analyses informed by deep
+  mutational scanning.
+\newblock \emph{bioRxiv}. p. 121830.
+
+\bibitem[{McCandlish and Stoltzfus(2014)}]{mccandlish2014modeling}
+McCandlish DM, Stoltzfus A. 2014.
+\newblock Modeling evolution using the probability of fixation: history and
+  implications.
+\newblock \emph{The Quarterly review of biology}. 89:225--252.
+
+\bibitem[{Spielman and Wilke(2015)}]{spielman2015relationship}
+Spielman SJ, Wilke CO. 2015.
+\newblock The relationship between {dN/dS} and scaled selection coefficients.
+\newblock \emph{Molecular Biology and Evolution}. 32:1097--1108.
+
+\bibitem[{Yang et~al.(2000)Yang, Nielsen, Goldman, and
+  Pedersen}]{yang2000codon}
+Yang Z, Nielsen R, Goldman N, Pedersen AMK. 2000.
+\newblock Codon-substitution models for heterogeneous selection pressure at
+  amino acid sites.
+\newblock \emph{Genetics}. 155:431--449.
+
+\end{thebibliography}
