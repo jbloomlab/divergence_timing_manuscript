@@ -5,6 +5,6 @@ Specifically, it looks at the difference in HA tree branch lengths using ExpCMs 
 
 This repo contains the following directories
 
-`./manuscript/`: contains the manuscript describing the project.
+[`./manuscript/`](./manuscript/): contains the manuscript describing the project.
 
-`./analysis/`: contains the code and analysis for the project. 
+`./analysis/`: contains the code and analysis for the project.
