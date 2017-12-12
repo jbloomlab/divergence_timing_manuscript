@@ -330,8 +330,8 @@ rule subsample_divergence_level_WSN:
         else:
             level = WSN_LEVELS[1]
         final = [x for x in SeqIO.parse(input.fasta, "fasta") if int(x.id.split("_")[-1]) in level]
-        with open(output.fasta, "w") as f:
-            f.write("done")
+        with open(output.fasta, "w") as output_handle:
+            SeqIO.write(final, output_handle, "fasta")
 
 rule subsample_divergence_level_Perth:
     """
@@ -351,8 +351,8 @@ rule subsample_divergence_level_Perth:
         else:
             level = PERTH_LEVELS[1]
         final = [x for x in SeqIO.parse(input.fasta, "fasta") if int(x.id.split("_")[-1]) in level]
-        with open(output.fasta, "w") as f:
-            f.write("done")
+        with open(output.fasta, "w") as output_handle:
+            SeqIO.write(final, output_handle, "fasta")
 
 ## Create final summary file (next 1 rule)
 rule calculate_divergence:
