@@ -7,4 +7,4 @@ This repo contains the following directories
 
 [`./manuscript/`](./manuscript/): contains the manuscript describing the project.
 
-`./analysis/`: contains the code and analysis for the project.
+[`./analysis/`](./analysis/): contains the code and analysis for the project.

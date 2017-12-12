@@ -1,0 +1,1 @@
+cat raw/all_H13.fasta references/Perth_HA_reference.fasta > _temp_Perth_13.fasta

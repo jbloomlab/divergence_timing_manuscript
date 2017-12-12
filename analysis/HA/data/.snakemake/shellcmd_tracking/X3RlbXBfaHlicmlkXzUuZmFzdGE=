@@ -1,0 +1,1 @@
+cat raw/all_H5.fasta references/WSN_hybrid_reference.fasta > _temp_hybrid_5.fasta

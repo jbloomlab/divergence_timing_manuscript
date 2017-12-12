@@ -1,0 +1,1 @@
+phydms_prepalignment _temp_WSN_9.fasta HA_9_WSN_prep.fasta Reference_WSN_HA_coding_sequence_noStart_noStop --minidentity 0.3
