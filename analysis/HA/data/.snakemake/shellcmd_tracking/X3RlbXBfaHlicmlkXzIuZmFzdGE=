@@ -1,1 +1,0 @@
-cat raw/all_H2.fasta references/WSN_hybrid_reference.fasta > _temp_hybrid_2.fasta

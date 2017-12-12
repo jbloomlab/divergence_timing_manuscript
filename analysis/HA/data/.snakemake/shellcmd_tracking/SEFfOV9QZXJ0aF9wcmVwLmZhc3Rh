@@ -1,1 +1,0 @@
-phydms_prepalignment _temp_Perth_9.fasta HA_9_Perth_prep.fasta Reference_Perth2009_HA_coding_sequence_noStop --minidentity 0.3

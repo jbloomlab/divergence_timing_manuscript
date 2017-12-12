@@ -1,1 +1,0 @@
-cat raw/all_H1.fasta references/Perth_HA_reference.fasta > _temp_Perth_1.fasta

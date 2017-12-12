@@ -1,1 +1,0 @@
-cat raw/all_H1.fasta references/WSN_HA_reference.fasta > _temp_WSN_1.fasta
