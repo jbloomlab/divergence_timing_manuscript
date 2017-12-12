@@ -1,0 +1,55 @@
+"""
+Pipeline for prepping HA sequences for `phydms`
+
+SKH 20171212
+"""
+import glob
+import os
+# from Bio import SeqIO
+# import re
+# import random
+# import os
+# import pandas as pd
+# import glob
+# import scipy
+# from pymodules.utils import *
+# from collections import Counter
+
+# Globals ---------------------------------------------------------------------
+
+# Directories
+ALIGNMENT_DIR = "../data/subsample/"
+PREFERNCES_DIR = "../data/references/"
+
+# Alignment IDs
+ALIGNMENT_IDS = ["_".join(os.path.basename(x).split(".")[0].split("_")[1:]) for x in glob.glob("{0}/*.fasta".format(ALIGNMENT_DIR))]
+WSN_IDS = [x for x in ALIGNMENT_IDS if "WSN" in x]
+PERTH_IDS = [x for x in ALIGNMENT_IDS if "Perth" in x]
+HYBRID_IDS = [x for x in ALIGNMENT_IDS if "hybrid" in x]
+assert (len(WSN_IDS) + len(PERTH_IDS) + len(HYBRID_IDS)) == len(ALIGNMENT_IDS)
+
+# Rules -----------------------------------------------------------------------
+
+rule all:
+    input:
+        expand("{perth_id}.txt", perth_id=PERTH_IDS)
+
+## Add in each reference sequence to each set of HA sequences (next 3 rules)
+rule run_phydms_Lee:
+    """
+    This rule runs `phydms_comprehensive` for the alignments aligned to Perth.
+    """
+    message: "Running `phydms_comprehensive` with Juhye's preferences."
+    input:
+        alignment = "{0}HA_{perth_id}.fasta".format(ALIGNMENT_DIR)
+    output:
+        modelcomparison = "{perth_id}.txt"
+    # params:
+    #     prefs = "{0}HA_Lee_prefs.csv".format(PREF_DIR),
+    #     alignment_prefix = 'HA_greater_{cutoff}'
+    run:
+        with open(output.modelcomparison, "w") as f:
+            f.write("done")
+    # shell:
+    #     'phydms_comprehensive phydms/{params.alignment_prefix}/ {input.alignment} {params.prefs} --raxml raxmlHPC-SSE3 --gammaomega --randprefs'
+    #     # 'phydms_comprehensive phydms/{params.alignment_prefix}/ {input.alignment} {params.prefs} --raxml raxml --gammaomega --no-avgprefs'
