@@ -32,13 +32,13 @@ I calculated the expected pairwise amino-acid identity at site for four models
 
 These models are defined by three model parameter files
 
-1. `YNGKP_M0_modelparams.txt`  
-2. `YNGKP_M5_modelparams.txt`  
-3. `ExpCM_HA_Doud_prefs_modelparams.txt`
+1. [`YNGKP_M0_modelparams.txt`](YNGKP_M0_modelparams.txt)    
+2. [`YNGKP_M5_modelparams.txt`](YNGKP_M5_modelparams.txt)
+3. [`ExpCM_HA_Doud_prefs_modelparams.txt`](ExpCM_HA_Doud_prefs_modelparams.txt)
 
-The fourth model (`GY94 + $\omega_r$`) is also defined by the parameters in `YNGKP_M0_modelparams.txt` except for the $\omega$ parameter.
+The fourth model (`GY94 + $\omega_r$`) is also defined by the parameters in [`YNGKP_M0_modelparams.txt`](YNGKP_M0_modelparams.txt) except for the $\omega$ parameter.
 
-The preferences for the `ExpCM` model are in `HA_Doud_prefs.csv`.
+The preferences for the `ExpCM` model are in [`HA_Doud_prefs.csv`](HA_Doud_prefs.csv).
 
 ## Script
 
@@ -46,7 +46,7 @@ The code is found in [`decay_to_stationary_plot.py`](decay_to_stationary_plot.py
 
 ## Outputs
 
-1. `spielman_wr.csv`: The $\omega_r$ value calcualted for each site in the `ExpCM`  
+1. [`spielman_wr.csv`](spielman_wr.csv): The $\omega_r$ value calculated for each site in the `ExpCM`  
 
 Example:   
 
@@ -56,7 +56,7 @@ site|wr
 2|0.34
 3|0.35
 
-2. `expected_identity_given_time_t.csv`: The expected amino-acid identity at each site given time t. This value is called f in the table.
+2. [`expected_identity_given_time_t.csv`](expected_identity_given_time_t.csv): The expected amino-acid identity at each site given time t. This value is called f in the table.
 
 
 Example:
