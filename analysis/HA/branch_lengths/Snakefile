@@ -23,33 +23,65 @@ PREFERNCES_DIR = "../data/references/"
 
 # Alignment IDs
 ALIGNMENT_IDS = ["_".join(os.path.basename(x).split(".")[0].split("_")[1:]) for x in glob.glob("{0}/*.fasta".format(ALIGNMENT_DIR))]
-WSN_IDS = [x for x in ALIGNMENT_IDS if "WSN" in x]
-PERTH_IDS = [x for x in ALIGNMENT_IDS if "Perth" in x]
-HYBRID_IDS = [x for x in ALIGNMENT_IDS if "hybrid" in x]
-assert (len(WSN_IDS) + len(PERTH_IDS) + len(HYBRID_IDS)) == len(ALIGNMENT_IDS)
+SEEDS = [int(x.split("_")[-1]) for x in ALIGNMENT_IDS]
+LEVELS = ["high", "intermediate", "low"]
+# WSN_IDS = [x for x in ALIGNMENT_IDS if "WSN" in x]
+# PERTH_IDS = [x for x in ALIGNMENT_IDS if "Perth" in x]
+# HYBRID_IDS = [x for x in ALIGNMENT_IDS if "hybrid" in x]
+# assert (len(WSN_IDS) + len(PERTH_IDS) + len(HYBRID_IDS)) == len(ALIGNMENT_IDS)
+# print(WSN_IDS)
 
 # Rules -----------------------------------------------------------------------
 
 rule all:
     input:
-        expand("{perth_id}.txt", perth_id=PERTH_IDS)
+        expand("phydms/Perth_{level}_{seed}_modelcomparison.md", level=LEVELS, seed=SEEDS),
+        expand("phydms/WSN_{level}_{seed}_modelcomparison.md", level=LEVELS, seed=SEEDS),
+        expand("phydms/hybrid_high_{seed}_modelcomparison.md", seed=SEEDS)
 
-## Add in each reference sequence to each set of HA sequences (next 3 rules)
+## Run `phydms_comprehensive` for each of the preference sets (next 3 rules)
 rule run_phydms_Lee:
     """
     This rule runs `phydms_comprehensive` for the alignments aligned to Perth.
     """
     message: "Running `phydms_comprehensive` with Juhye's preferences."
     input:
-        alignment = "{0}HA_{perth_id}.fasta".format(ALIGNMENT_DIR)
+        alignment = ALIGNMENT_DIR + "HA_Perth_{level}_{seed}.fasta"
     output:
-        modelcomparison = "{perth_id}.txt"
-    # params:
-    #     prefs = "{0}HA_Lee_prefs.csv".format(PREF_DIR),
-    #     alignment_prefix = 'HA_greater_{cutoff}'
-    run:
-        with open(output.modelcomparison, "w") as f:
-            f.write("done")
-    # shell:
-    #     'phydms_comprehensive phydms/{params.alignment_prefix}/ {input.alignment} {params.prefs} --raxml raxmlHPC-SSE3 --gammaomega --randprefs'
-    #     # 'phydms_comprehensive phydms/{params.alignment_prefix}/ {input.alignment} {params.prefs} --raxml raxml --gammaomega --no-avgprefs'
+        modelcomparison = "phydms/Perth_{level}_{seed}_modelcomparison.md"
+    params:
+        prefs = "{0}HA_Lee_prefs.csv".format(PREFERNCES_DIR),
+        phydms_id = 'Perth_{level}_{seed}'
+    shell:
+        'phydms_comprehensive phydms/{params.phydms_id} {input.alignment} {params.prefs} --raxml raxml --gammaomega --randprefs'
+
+rule run_phydms_Doud:
+    """
+    This rule runs `phydms_comprehensive` for the alignments aligned to WSN.
+    """
+    message: "Running `phydms_comprehensive` with Mike's preferences."
+    input:
+        alignment = ALIGNMENT_DIR + "HA_WSN_{level}_{seed}.fasta"
+    output:
+        modelcomparison = "phydms/WSN_{level}_{seed}_modelcomparison.md"
+    params:
+        prefs = "{0}HA_Doud_prefs.csv".format(PREFERNCES_DIR),
+        phydms_id = 'WSN_{level}_{seed}'
+    shell:
+        'phydms_comprehensive phydms/{params.phydms_id} {input.alignment} {params.prefs} --raxml raxml --gammaomega --randprefs'
+
+rule run_phydms_hybrid:
+    """
+    This rule runs `phydms_comprehensive` for the alignments aligned to the
+    hybrid sequence.
+    """
+    message: "Running `phydms_comprehensive` with average preferences."
+    input:
+        alignment = ALIGNMENT_DIR + "HA_hybrid_high_{seed}.fasta"
+    output:
+        modelcomparison = "phydms/hybrid_high_{seed}_modelcomparison.md"
+    params:
+        prefs = "{0}HA_average_prefs.csv".format(PREFERNCES_DIR),
+        phydms_id = 'hybrid_high_{seed}'
+    shell:
+        'phydms_comprehensive phydms/{params.phydms_id} {input.alignment} {params.prefs} --raxml raxml --gammaomega --randprefs'
