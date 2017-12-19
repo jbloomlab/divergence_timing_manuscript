@@ -34,7 +34,7 @@ I made a few slight adjustments to this file:
 
 The mapping of shared sites to sequential sites can be found in [`hybrid_numbering.csv`](hybrid_numbering.csv).
 
-To make [`HA_average_prefs.csv`](HA_average_prefs.csv) I calculated $\pi_{r,A\left(x\right)} = \frac{\pi_{Doud,r,A\left(x\right)} + \pi_{Lee,r,A\left(x\right)}}{2}$ for $r \in \{\rm{shared \ sites}\}$.
+To make [`HA_average_prefs.csv`](HA_average_prefs.csv) I calculated $\pi_{r,A\left(x\right)} = \frac{\pi_{Doud,r,A\left(x\right)} + \pi_{Lee,r,A\left(x\right)}}{2}$ for $r \in \{\rm{shared \ sites}\}$ using the script [`make_hybrid_prefs.py`](make_hybrid_prefs.py).
 
 ## Required Sequences
 
