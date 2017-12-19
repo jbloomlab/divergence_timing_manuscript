@@ -16,12 +16,19 @@ This includes the scan performed by Mike Doud and Jesse Bloom ([doud2016accurate
 
 #### [`HA_Lee_prefs.csv`](HA_Lee_prefs.csv)
 
-These measurements are from Juhye's `dms_tools` (not `dms_tools2`) analysis.
+Theses measurements are Juhye's average preferences (from her `dms_tools2` analysis).
+The original file she sent to me (over slack on 12/14/17) *included the start codon* but *excluded the stop codon*.  
+I had already created my alignments with a reference sequence which *excluded the start and stop codon*.
+Therefore, I took the file Juhye sent me, deleted the first (start codon) row and re-numbered so the preferences are in sequential numbering.
 
 #### [`HA_Doud_prefs`](HA_Doud_prefs.csv)
 
-These measurements are from  `/fh/fast/bloom_j/computational_notebooks/mdoud/2016/2016_WSN_HA_analysis/preferences/2016-WSNHA_merged_prefs_renumbered.txt`
-Unlike the preference file in Mike's paper, this file is *just* Mike's 2016 data and not the average of Doud2016 and Bargavi's data.
+These measurements are from [doud2016accurate](http://www.mdpi.com/1999-4915/8/6/155).
+Specifically, they are the the unscaled, average of Mike and Bargavi's data (Supplemental_File_2_HApreferences.txt).
+I made a few slight adjustments to this file:   
+
+1. The file was in the old `dms_tools` format and I changed it into a `.csv` file.   
+2. The file was in sequential WSN numbering starting at the start codon. I changed the numbering to sequential WSN numbering starting at the second codon. (Site 2 in the original file became site1 and site 565 in the original file became site 564.)
 
 #### Hybrid preferences
 
