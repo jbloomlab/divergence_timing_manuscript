@@ -66,7 +66,7 @@
 \newcommand{\DNA}{\textbf{DNA}}
 \newcommand{\virus}{\textbf{virus}}
 
-\newcommand\comment[1]{{\color{magenta}#1}}
+\newcommand\skhcomment[1]{{\color{magenta}#1}}
 
 
 \usepackage{hyperref}
@@ -78,7 +78,7 @@
 \usepackage{array}
 \newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
 
-\title{Experimentally Informed Site-Specific Substitution Models Substantially Deepen Divergence Estimates} 
+\title{Experimentally Informed Site-Specific Substitution Models Substantially Deepen Viral Divergence Estimates} 
 
 \author
 {Sarah K. Hilton$^{1,2}$  and Jesse D. Bloom$^{1,2,}$\\
@@ -99,9 +99,6 @@
 
 
 \begin{document} 
-
-% Double-space the manuscript.
-
 
 % Make the title.
 
@@ -125,42 +122,151 @@ Overall, this study underscores the importance of modeling purifying selection w
 \clearpage
 
 \section*{Introduction} 
+Estimating the age of a virus is essential to understanding its evolutionary history, including its emergence, spread, and past zoonoses. 
+This estimation is commonly done using the concept a ``molecular clock" to transform the branch lengths of the viral phylogenetic tree into age in years. 
+However, this molecular dating technique often underestimates the age of many viruses, including measles, foamy virus, and ebola \skhcomment{(citations)}, compared to other methods which are independent of the viral phylogeny. 
+For example, SIV (the original source of HIV) is estimated to be less than a million years old based on the viral phylogeny \citep{sharp2000origins,wertheim2009dating,worobey2010island} but estimated to be several million years old based on the host tree or endogenous retroviral elements  \citep{compton2013host} \skhcomment{(other citations)}. 
+Overall, there is a systematic and substantially large underestimation of of branch length on viral phylogenies. 
+\skhcomment{long branches}
 
-\textit{Introduction outline}    
-\textit{1. Estimating the divergence date of viruses is important and common.}  
-\textit{2. There are numerous examples of molecular dating techniques contradicting other dating methods for viruses.}  
-\textit{3. Why purifying selection could cause branch length underestimation.}  
-\textit{4. Discussion of the attempts/methods made thus far to model site-to-site rate variation.}  
-\textit{5. We use empirical measurements to model site-specific purifying selection. }  
-\textit{6. In this study we compare branch lengths of trees optimized by GY94 and ExpCM models and see an extension in branch lengths with ExCM and with $\Gamma\omega$. }  
+Branch length underestimation is due, in part, to strong purifying selection masking the evolutionary signal in the observed sequences. 
+Purifying selection can lead to mutational saturation, where multiple unobserved, substitutions occur at a single site along a long branch and erase the divergence signal \citep{holmes2003molecular}.
+Furthermore, proteins do not have equal preference for all amino acids at all sites, this evident by a simple visual inspection of a multiple sequence alignment. 
+How many and which amino acids tolerated at each site of the protein generate a site-specific expected rate of change. 
+Failing to account for these site-specific constraints will lead to branch length underestimation. 
+\skhcomment{you will have mutational saturation no matter what - this is a separate, addressable issue?}
+\skhcomment{talk about the high mutation rate in viruses?}
 
-\textbf{Estimating the age of viruses is important to understanding their evolutionary history, including co-evolution with their host species.}
-Molecular dating techniques are commonly used to estimate the dates of viruses. 
-However, these dates are consistently younger than the dates obtained by other methods which are independent of phylogenetic trees, often by orders of magnitude. 
-\textit{example HIV/SIV, foamy virus, or measles}
+Substitution models which address site-to-site rate variation have been developed to decrease the bias in long branch estimation. 
+The most common strategy is to allow a single rate-controlling parameter to vary according to some statistical distribution, such as a $\Gamma$-distributed $\omega$ (~dN/dS) \citep{yang2000codon}. 
+This flexibility in the value of $\omega$ accounts for the site-to-site rate variation by allow some sites to have a higher dN/dS value than others. 
+While this modification is simple and only requires the addition of one extra parameter, it does not describe site-specificity in its stationary state. 
+That is, at evolutionary equilibrium, this model still assumes that each site in the protein evolves identically.  
 
-\textbf{Failing to account for site-specific purifying selection results in an underestimation of branch lengths.} 
-It has long been observed that protein-coding genes have a non-uniform distribution of amino-acid frequencies across the sites in the protein. 
-Multiple sequence alignments of homologs show some sites which are conserved and appeared to be mutationally constrained and other sites which are variable and appear to be mutationally tolerant. 
-This site-specific purifying selection dictates the expectation of change at a given site which is translated into branch length. 
-\textit{The strength of purifying selection at a given site gives the expectation of change which directly relates to branch length. 
-Specifically, failing to account for constraint will lead to an underestimation in branch length because your expectation of change will be too high.} 
+An alternative approach is to model the site-specific amino-acid frequencies explicitly, such as those models in the mutation-selection family \citep{halpern1998evolutionary}. 
+In these models, each amino-acid at each site in the protein is described by its own parameter and these differences are reflected in the stationary state of the model. 
+The rate of change at a given site is controlled by these amino acid profiles and can now vary from site to site, as expected based on observations in nature. 
+Importantly, these rate variations are not constrained to an arbitrary statistical distribution but by parameters with a direct biological interpretation. 
 
-\textbf{Different substitution models have been developed to address the effect of site-specific purifying selection.}
-Most commonly, a rate parameter is described by some statistical distribution fit across the entire protein, such as the $\Gamma$-distributed $\omega$ in the YNGKP M5 \citep{yang2000codon}. 
-Other approaches have tried to explicitly model the site-specific amino-acid frequencies, such as mutation-selection models \citep{halpern1998evolutionary}. 
-While perhaps the most biologically-relevant, mutation-selection models are heavily parametrized and run the risk of overfitting in most practical applications. 
-However, we have previously shown that we can model this site-specific purifying selection using empirical measurements of mutational constraint from a high-throughput assay called deep mutational scanning. 
-We hypothesize that using these experimentally informed models will estimate longer branches than traditional models. 
+Mutation-selection models are assumably more biologically relevant but pose more practical challenges than the $\Gamma\omega$ models. 
+These models are highly parametrized with 19 free parameters (the 20 amino acid preferences are constrained to sum to one) per site leading to thousands of parameters for the length of a normal protein. 
+One way to avoid overfitting is to implement the model as a mixture model in either a bayesian \citep{lartillot2004bayesian} or maximum likelihood framework \citep{si2008empirical}. 
+Alternatively, you can reduce the parameter space by defining the amino-acid frequencies \textit{a priori}. 
+We have shown previously that we can define an Experimentally Informed Codon Model (ExpCM) \citep{bloom2014experimentally,bloom2014informed} from the mutation-selection family using measurements from deep mutational scanning \citep{fowler2014deep}, a high-throughput functional assay. 
+ExpCM are therefore defined by amino-acid preferences measured in a \textit{single} genetic background and do not reflect any epistatic changes which may have occurred over the virus's evolutionary history. 
+But they do contain as a few parameters as the traditional codon models while maintaining a site-specific stationary state. 
+We hypothesize that the ExpCM will estimate longer branches than the traditional models due to the protein-specific description of purifying selection. 
+\skhcomment{CAT model has been shown to work well (better) on saturated data.}
 
-\textbf{Here, we address this hypothesis by comparing the branch lengths on phylogenetic trees describing influenza virus hemagglutinin optimized by different substitution models.}
-By comparing the trees optimized with and without the experimental descriptions of purifying selection, we show that failing to account for site-specific constraints results in shorter estimations of branch length. 
-We used two different experimentally informed models, defined by experimental measurements from one of two diverged homologs. 
-For each model, the branchs from the experimental focal sequence are extended compared to traditional models.  
-This branch length extension is seen even in the presence of model parameters which are traditionally used to describe site-to-site rate variation.  
-These results underscore the importance of modeling purifying selection when estimating divergence dates and suggest that experimental measurement may be used to account for this selection while avoiding overparameterization. 
+In order to test this hypothesis, we compared the branch lengths of a influenza virus HA phylogenetic trees optimized by different substitution models. 
+We found that the ExpCM did extend the length of branches from the focal sequence on the tree \skhcomment{define focal} and that this extension was seen even in the context of $\Gamma$-distributed rate variation. 
+Furthermore, we found this extension occurred even in the presence of $\Gamma$-distributed $\omega$, indicating that they are both important for modeling purifying selection. 
+This supports the conclusion that modeling purifying selection, especially in a model with a non-uniform stationary state, is important to estimating the branch lengths on phylogenetic trees. 
 
 \section*{Results and Discussion}
+
+\subsection*{Effect of stationary state and rate variation on long branch estimation}
+
+What are the points for this section? 
+\begin{enumerate}
+  \item Different substitution models have different definitions of rate variation and this allows us to compare the effects of different attributes. 
+  \item GY94 has a uniform stationary state and no rate variation - it estimates the shortest branches and reaches equilibrium right around 0.05. 
+  \item The addition of rate variation for a model with a uniform stationary state does increase the branch length. 
+  \item Using site-specific models allows you to model site-specific constraint. The more constrained the site the bigger the difference between non-uniform and uniform substitution models 
+  \item You can infer an dN/dS value from mutation-selection models. When you add this value to the base model you see the line come up but not as much as the true ExpCM. 
+  \item 
+\end{enumerate}
+
+
+\begin{figure}[H]
+\centerline{\includegraphics[width=0.85\textwidth]{figures/model_feature}}
+\caption{\label{model_feature}
+\textbf{Comparison of substitution model features.}
+Site-specific amino-acid profiles and $\Gamma$-distributed rate variation are both substitution model features which have been shown or theorized to lengthen branches. 
+The models YNGKP M0, YNGKP M5, ExpCM, and ExpCM+$\Gamma\omega$ represent all possible combinations of these two features. 
+Blue indicates presence and white indicates absence of a feature. 
+}
+\end{figure}
+
+\begin{figure}[H]
+\centerline{\includegraphics[width=0.85\textwidth]{figures/decay2.pdf}}
+\caption{\label{decay}
+\textbf{Effect of stationary state and rate variation on long branch estimation.}
+The expected pairwise identity trajectories were calculated using \ref{eq:f} and models described in \ref{tab:decay_params}.
+The trajectories of the YNKGP M0 (blue) and YNGKP M5 (green) do not vary from panel to panel because neither model is site-specific. 
+The deviation in trajectory of the ExpCM (red) from the YNGKP M0 (blue) increases from left to right as the mutational constraint of the amino-acid profile increases (logoplots, above). 
+The deviation in trajectory of the YNGKP model with a site-specific $\omega$ value inferred from the ExpCM (yellow, \ref{eq:w_r}) is also positively correlated with the constraint of the site-specific amino-acid profiles but the effect size is smaller.  
+}
+\end{figure}
+
+\subsection*{Model performance under simulated, site-specific data.}
+
+\begin{figure}[H]
+\centerline{\includegraphics[width=0.85\textwidth]{figures/simulations}}
+\caption{\label{simulations}
+\textbf{Model performance under simulated, site-specific data.} 
+Alignments were simulated under an ExpCM (\ref{tab:sim_params}) along an HA tree and the branches were re-optimized by a model from the ExpCM or YNGKP family. 
+The randomized ExpCMs have amino-acid profiles shuffled among the sites 
+These randomized models are still site-specific but the relationship between the site and the experimental data is broken. 
+Grey points represent the length of one branch and the black points are the mean branch lengths over eight simulations. 
+The grey, dashed line is the reference line $y=x$, depicting the behavior of a model which is an unbiased estimator of the simulated branch length. 
+}
+\end{figure}
+
+
+\subsection*{Actual Data}
+\begin{figure}[H]
+\centerline{\includegraphics[width=0.85\textwidth]{figures/tree_doud}}
+\caption{\label{fig:tree_doud}
+\textbf{Trees optimized with an ExpCM defined by H1 preferences lengthen branches from the focal H1 sequence compared to YNGKP models.} 
+The branch lengths of a base topology inferred using the GTR-CAT model were optimized by \textbf{(A)} an ExpCM defined by H1 preferences, \textbf{(B)} an ExpCM+$\Gamma\omega$ defined by H1 preferences, \textbf{(C)} YNKGP M0, and \textbf{(D)} YNGKP M5.
+The branch lengths are normalized to the distance between A/South Carolina/1/1918 and A/Solomon Islands/3/2006 and colored to indicate the distance from the H1 focal sequence (black triangle).
+}
+\end{figure}
+
+\begin{figure}[H]
+\centerline{\includegraphics[width=0.85\textwidth]{figures/tree_lee}}
+\caption{\label{fig:tree_lee}
+\textbf{Trees optimized with an ExpCM defined by H3 preferences lengthen branches from the focal H3 sequence compared to YNGKP models.} 
+The branch lengths of a base topology inferred using the GTR-CAT model were optimized by \textbf{(A)} an ExpCM defined by H3 preferences, \textbf{(B)} an ExpCM+$\Gamma\omega$ defined by H3 preferences, \textbf{(C)} YNKGP M0, and \textbf{(D)} YNGKP M5.
+The branch lengths are normalized to the distance between A/South Carolina/1/1918 and A/Solomon Islands/3/2006 and colored to indicate the distance from the H3 focal sequence (black circle).
+}
+\end{figure}
+
+\begin{figure}[H]
+\centerline{\includegraphics[width=0.85\textwidth]{figures/tree_average}}
+\caption{\label{fig:tree_average}
+\textbf{Trees optimized with an ExpCM defined by the average of H1 and H3 preferences lengthen branches from both the focal H3 sequence and the focal H1 sequence compared to YNGKP models.} 
+The branch lengths of a base topology inferred using the GTR-CAT model were optimized by \textbf{(A)} an ExpCM defined by the average preferences, \textbf{(B)} an ExpCM+$\Gamma\omega$ defined by the average preferences, \textbf{(C)} YNKGP M0, and \textbf{(D)} YNGKP M5.
+The branch lengths are normalized to the distance between A/South Carolina/1/1918 and A/Solomon Islands/3/2006.
+The black triangle indicates the H1 focal sequence and the black circle indicates the focal sequence.
+}
+\end{figure}
+
+\subsection{Competing effects of shifting preferences and long branches.}
+
+\begin{figure}[H]
+\centerline{\includegraphics[width=0.85\textwidth]{figures/experiment_doud}}
+\caption{\label{fig:experiment_doud}
+\textbf{The ExpCM defined by H1 preferences lengthen longer branches on the HA tree.} 
+\textbf{(A)} An HA alignment was subsampled to create three smaller alignments with varying degrees of divergence from the focal H1 sequence, referred to as "low", "intermediate", and "high". 
+\textbf{(B)} A phylogenetic tree of the "high" alignment was constructed using the GTR-CAT model. 
+The colors denote the alignment and the black circle denotes the focal H3 sequence. 
+\textbf{(C)} The value of the ExpCM and ExpCM+$\Gamma\omega$ stringency parameter $\beta$ decreases as the divergence from the focal H1 sequence increases. 
+\textbf{(D)} Comparisons of branch lengths optimized by the four substitution models for the varying degrees of divergence. 
+Black points represent branches from the focal H3 sequence and grey points represent all other branches.  
+The branch lengths are in average number of codon substitutions per site. 
+}
+\end{figure}
+
+\section*{Conclusion}
+
+\begin{enumerate}
+  \item We don't allow any of the models to vary by lineage. 
+\end{enumerate}
+
+\newpage
+\section*{Materials and Methods}
 
 \subsection*{Substitution models}
 \subsubsection*{GY94 models}
@@ -206,77 +312,6 @@ p_{r,x} = \frac{\left(\pi_{r,\mathcal{A}\left(x\right)}\right)^{\beta} \phi_{x_0
 \subsection*{Theoretical effect of model choice on branch length}
 \subsection*{Effect of model choice on natural sequences}
 
-\begin{figure}
-\centerline{\includegraphics[width=0.85\textwidth]{figures/model_feature}}
-\caption{\label{model_feature}
-\textbf{Comparison of substitution model features.}
-Site-specific amino-acid profiles and $\Gamma$-distributed rate variation are both substitution model features which have been shown or theorized to lengthen branches. 
-The models YNGKP M0, YNGKP M5, ExpCM, and ExpCM+$\Gamma\omega$ represent all possible combinations of these two features. 
-Blue indicates presence and white indicates absence of a feature. 
-}
-\end{figure}
-
-\begin{figure}
-\centerline{\includegraphics[width=0.85\textwidth]{figures/decay}}
-\caption{\label{decay}
-\textbf{ExpCMs infer longer branches than YNGKP models for sites with mutational constraint.}
-The expected pairwise identity trajectories were calculated using \ref{eq:f} and models described in \ref{tab:decay_params}.
-The trajectories of the YNKGP M0 (blue) and YNGKP M5 (green) do not vary from panel to panel because neither model is site-specific. 
-The deviation in trajectory of the ExpCM (red) from the YNGKP M0 (blue) increases from left to right as the mutational constraint of the amino-acid profile increases (logoplots, above). 
-The deviation in trajectory of the YNGKP model with a site-specific $\omega$ value inferred from the ExpCM (yellow, \ref{eq:w_r}) is also positively correlated with the constraint of the site-specific amino-acid profiles but the effect size is smaller.  
-}
-\end{figure}
-
-\begin{figure}
-\centerline{\includegraphics[width=0.85\textwidth]{figures/simulations}}
-\caption{\label{simulations}
-\textbf{Branch lengths simulated under an ExpCM are underestimated by YNGKP models and long branches are disproportionally affected.} 
-Alignments were simulated under an ExpCM (\ref{tab:sim_params}) along an HA tree and the branches were re-optimized by a model from the ExpCM or YNGKP family. 
-The randomized ExpCMs have amino-acid profiles shuffled among the sites 
-These randomized models are still site-specific but the relationship between the site and the experimental data is broken. 
-Grey points represent the length of one branch and the black points are the mean branch lengths over eight simulations. 
-The grey, dashed line is the reference line $y=x$, depicting the behavior of a model which is an unbiased estimator of the simulated branch length. 
-}
-\end{figure}
-
-
-\begin{figure}
-\centerline{\includegraphics[width=0.85\textwidth]{figures/tree_doud}}
-\caption{\label{fig:tree_doud}
-\textbf{Trees optimized with an ExpCM defined by H1 preferences lengthen branches from the focal H1 sequence compared to YNGKP models.} 
-The branch lengths of a base topology inferred using the GTR-CAT model were optimized by \textbf{(A)} an ExpCM defined by H1 preferences, \textbf{(B)} an ExpCM+$\Gamma\omega$ defined by H1 preferences, \textbf{(C)} YNKGP M0, and \textbf{(D)} YNGKP M5.
-The branch lengths are normalized to the distance between A/South Carolina/1/1918 and A/Solomon Islands/3/2006 and colored to indicate the distance from the H1 focal sequence (black triangle).
-}
-\end{figure}
-
-\begin{figure}
-\centerline{\includegraphics[width=0.85\textwidth]{figures/tree_lee}}
-\caption{\label{fig:tree_lee}
-\textbf{Trees optimized with an ExpCM defined by H3 preferences lengthen branches from the focal H3 sequence compared to YNGKP models.} 
-The branch lengths of a base topology inferred using the GTR-CAT model were optimized by \textbf{(A)} an ExpCM defined by H3 preferences, \textbf{(B)} an ExpCM+$\Gamma\omega$ defined by H3 preferences, \textbf{(C)} YNKGP M0, and \textbf{(D)} YNGKP M5.
-The branch lengths are normalized to the distance between A/South Carolina/1/1918 and A/Solomon Islands/3/2006 and colored to indicate the distance from the H3 focal sequence (black circle).
-}
-\end{figure}
-
-\begin{figure}
-\centerline{\includegraphics[width=0.85\textwidth]{figures/tree_average}}
-\caption{\label{fig:tree_average}
-\textbf{Trees optimized with an ExpCM defined by the average of H1 and H3 preferences lengthen branches from both the focal H3 sequence and the focal H1 sequence compared to YNGKP models.} 
-The branch lengths of a base topology inferred using the GTR-CAT model were optimized by \textbf{(A)} an ExpCM defined by the average preferences, \textbf{(B)} an ExpCM+$\Gamma\omega$ defined by the average preferences, \textbf{(C)} YNKGP M0, and \textbf{(D)} YNGKP M5.
-The branch lengths are normalized to the distance between A/South Carolina/1/1918 and A/Solomon Islands/3/2006.
-The black triangle indicates the H1 focal sequence and the black circle indicates the focal sequence.
-}
-\end{figure}
-
-\section*{Conclusion}
-
-\newpage
-\section*{Materials and Methods}
-
-\subsubsection*{Experimentally informed codon model (ExpCM)}
-
-\subsubsection*{YNGKP M0}
-
 \subsubsection*{ExpCM + $\Gamma\omega$ and YNGKP M5}
 
 
@@ -289,6 +324,7 @@ We inferred the average nonsynonymous fixation rate from the ExpCM following~\ci
 where $p_{r,x}$ is the stationary state of the ExpCM at site $r$ and codon $x$, $P_{r,xy}$ is the substitution rate from codon $x$ to codon $y$ at site $r$, $Q_{xy}$ is the mutation rate from codon $x$ to codon $y$, and $N_x$ is the set of codons that are nonsynonymous to codon $x$ and differ from codon $x$ by only one nucleotide. 
 
 \subsubsection*{Expected pairwise amino-acid identity}
+\textit{Do I need to talk about the branchScale scaling I used?}
 The expected pairwise amino-acid identity at a site $r$ over time $t$ for a given model is 
 \begin{equation}
 \label{eq:f}
@@ -301,41 +337,27 @@ where $a$ is all amino acids, $p_{r,x}$ is the stationary state of the model at 
 
 \subsection*{Model Parameters for the simulations}
 
-\begin{figure}
+\begin{figure}[H]
 \centerline{\includegraphics[width=0.85\textwidth]{figures/prefs_doud}}
 \caption{\label{fig:prefs_doud}
 \textbf{H1 preferences measured by \cite{doud2016accurate} rescaled with the ExpCM stringency parameter optimized in \ref{fig:tree_doud}A  ($\beta = 1.21$)} 
 }
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
 \centerline{\includegraphics[width=0.85\textwidth]{figures/prefs_lee}}
 \caption{\label{fig:prefs_lee}
 \textbf{H3 preferences measured by \textit{lee} rescaled with the ExpCM stringency parameter optimized in \ref{fig:tree_lee}A  ($\beta = 1.46$)} 
 }
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
 \centerline{\includegraphics[width=0.85\textwidth]{figures/prefs_average}}
 \caption{\label{fig:prefs_average}
 \textbf{The average of the H1 preferences measured by \cite{doud2016accurate} and the H3 preferences measured by \textit{Lee} rescaled with the ExpCM stringency parameter optimized in \ref{fig:tree_average}A  ($\beta = 1.82$)}}
 \end{figure}
 
-\begin{figure}
-\centerline{\includegraphics[width=0.85\textwidth]{figures/experiment_doud}}
-\caption{\label{fig:experiment_doud}
-\textbf{The ExpCM defined by H1 preferences lengthen longer branches on the HA tree.} 
-\textbf{(A)} An HA alignment was subsampled to create three smaller alignments with varying degrees of divergence from the focal H1 sequence, referred to as "low", "intermediate", and "high". 
-\textbf{(B)} A phylogenetic tree of the "high" alignment was constructed using the GTR-CAT model. 
-The colors denote the alignment and the black circle denotes the focal H3 sequence. 
-\textbf{(C)} The value of the ExpCM and ExpCM+$\Gamma\omega$ stringency parameter $\beta$ decreases as the divergence from the focal H1 sequence increases. 
-\textbf{(D)} Comparisons of branch lengths optimized by the four substitution models for the varying degrees of divergence. 
-Black points represent branches from the focal H3 sequence and grey points represent all other branches.  
-The branch lengths are in average number of codon substitutions per site. 
-}
-\end{figure}
-
-\begin{figure}
+\begin{figure}[H]
 \centerline{\includegraphics[width=0.85\textwidth]{figures/experiment_lee}}
 \caption{\label{fig:experiment_lee}
 \textbf{The ExpCM defined by H1 preferences lengthen longer branches on the HA tree.} 
@@ -349,7 +371,7 @@ The branch lengths are in average number of codon substitutions per site.
 }
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
 \centerline{\includegraphics[width=0.85\textwidth]{figures/dms}}
 \caption{\label{fig:dms}
 \textbf{Schematic of deep mutational scanning.} 

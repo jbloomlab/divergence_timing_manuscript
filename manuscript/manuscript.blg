@@ -2,51 +2,59 @@ This is BibTeX, Version 0.99d (TeX Live 2015)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: manuscript.aux
 Case mismatch error between cite keys Doud2016accurate and doud2016accurate
----line 48 of file manuscript.aux
+---line 66 of file manuscript.aux
  : \citation{Doud2016accurate
  :                           }
 I'm skipping whatever remains of this command
 The style file: mbe.bst
 Database file #1: references.bib.bib
-You've used 10 entries,
+Repeated entry---line 379 of file references.bib.bib
+ : @article{lartillot2004bayesian
+ :                               ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 7598 of file references.bib.bib
+ : @article{compton2013host
+ :                         ,
+I'm skipping whatever remains of this entry
+You've used 18 entries,
             2767 wiz_defined-function locations,
-            637 strings with 6195 characters,
-and the built_in function-call counts, 7639 in all, are:
-= -- 722
-> -- 228
-< -- 8
-+ -- 146
-- -- 63
-* -- 571
-:= -- 1125
-add.period$ -- 50
-call.type$ -- 10
-change.case$ -- 71
-chr.to.int$ -- 9
-cite$ -- 10
-duplicate$ -- 582
-empty$ -- 614
-format.name$ -- 91
-if$ -- 1566
+            698 strings with 7781 characters,
+and the built_in function-call counts, 14599 in all, are:
+= -- 1373
+> -- 479
+< -- 11
++ -- 315
+- -- 132
+* -- 1138
+:= -- 2138
+add.period$ -- 88
+call.type$ -- 18
+change.case$ -- 133
+chr.to.int$ -- 17
+cite$ -- 18
+duplicate$ -- 1083
+empty$ -- 1168
+format.name$ -- 185
+if$ -- 2976
 int.to.chr$ -- 2
-int.to.str$ -- 1
-missing$ -- 80
-newline$ -- 54
-num.names$ -- 40
-pop$ -- 175
+int.to.str$ -- 2
+missing$ -- 149
+newline$ -- 93
+num.names$ -- 72
+pop$ -- 332
 preamble$ -- 1
-purify$ -- 61
+purify$ -- 115
 quote$ -- 0
-skip$ -- 176
+skip$ -- 309
 stack$ -- 0
-substring$ -- 697
-swap$ -- 196
-text.length$ -- 1
+substring$ -- 1395
+swap$ -- 336
+text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 90
+type$ -- 162
 warning$ -- 0
-while$ -- 66
+while$ -- 125
 width$ -- 0
-write$ -- 133
-(There was 1 error message)
+write$ -- 234
+(There were 3 error messages)
