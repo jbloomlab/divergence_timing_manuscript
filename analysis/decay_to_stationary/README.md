@@ -36,6 +36,8 @@ These models are defined by three model parameter files
 2. [`YNGKP_M5_modelparams.txt`](YNGKP_M5_modelparams.txt)
 3. [`ExpCM_HA_Doud_prefs_modelparams.txt`](ExpCM_HA_Doud_prefs_modelparams.txt)
 
+These model parameters come from the `WSN_low_0` run.
+
 The fourth model (`GY94 + $\omega_r$`) is also defined by the parameters in [`YNGKP_M0_modelparams.txt`](YNGKP_M0_modelparams.txt) except for the $\omega$ parameter.
 
 The preferences for the `ExpCM` model are in [`HA_Doud_prefs.csv`](HA_Doud_prefs.csv).
@@ -66,3 +68,13 @@ Model|Site|Time|f
 ExpCM|1|0|1.0
 ExpCM|1|1|0.60
 ExpCM|1|2|0.41
+
+## Stationary state script
+
+The model feature figure requires  
+1. the stationary state of an `ExpCM`
+2. the stationary state of a `YNGKP M0`
+3. the 4 $\omega_r$ from a `YNGKP M5`
+4. the $\omega$ from `YNGKP M0`
+
+The script [`stationary_state.py`](stationary_state.py) extracts the $\omega$ values from the modelparam files and creates a set of "preferences" from the stationary state of an `ExpCM` and `YNGKP M0`. 

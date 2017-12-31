@@ -1,21 +1,14 @@
 """
-The purpose of this script is to perform the calculations to make the
-"decay to stationary state" plot.
+The purpose of this script is to calculate how long it takes a model to reach
+an expected pairwise identity of 50%.
 
-This includes calculating the "spielman w_r" rates of non-syn change from the
-`ExpCM` applying these site-specific values to the `YNGKP_M0`.
-
-To run doctest, type:
-`python3 -m doctest -v test_doctest.py`
-
-SKH 20170910
+SKH 20171215
 """
 
 import pandas as pd
 from phydmslib.constants import *
 import phydmslib.models
 import phydmslib.file_io
-import os
 
 
 ## Define the models
@@ -148,79 +141,24 @@ def get_Mrt(r,t,model,model_name):
         raise ValueError("Cannot handel model {0}".format(model_name))
 
 def main():
-    """
-    The basic workflow of this script is
-    1. define the input files for the various models
-    2. Create `ExCM` model
-    3. Create `YNGKP_M0` and `YNGKP_M5` models with the same number of sites as `ExpCM`
-    4. Calculate the `spielman_wr` values from the `ExpCM`
-    5. Loop through the sites and models. Create a `YNGKP_wr` for each site. Loop through times and amino-acids to calculate `f`.
-    6. Output the dataframe.
-    """
+    target_sites = [90, 51, 23, 490, 81]
+    target_divs = [0.95, 0.75, 0.5]
+    df = pd.read_csv("expected_identity_given_time_t_long.csv")
+    print(len(df))
+    df = df[df["Site"].isin(target_sites)]
+    print(len(df))
 
-    ## Set up the parameter files
-    phydms_dir = "../HA/branch_lengths/phydms/"
-    prefs_dir = "../HA/data/references/"
-    ExpCM_modelparams_fname = "{0}WSN_low_0_ExpCM_HA_Doud_prefs_modelparams.txt".format(phydms_dir)
-    YNGKP_M0_modelparams_fname = "{0}WSN_low_0_YNGKP_M0_modelparams.txt".format(phydms_dir)
-    YNGKP_M5_modelparams_fname = "{0}WSN_low_0_YNGKP_M5_modelparams.txt".format(phydms_dir)
-    prefs_fname = "{0}HA_Doud_prefs.csv".format(prefs_dir)
-    if not os.path.isdir("outputs"):
-        os.makedirs("outputs")
-    ## define the maximum amount of time
-    max_time = 30
-
-    ## setup up the final dataframe
-    df = {"Model":[], "Time":[], "f":[], "Site":[]}
-
-    ## Make the models
-    model_list = ["ExpCM", "GY94", "GY94 + wr", "GY94 + Gr"]
-    models = {}
-    if "ExpCM" in model_list:
-        models["ExpCM"] = create_model_ExpCM(ExpCM_modelparams_fname, prefs_fname)
-    else:
-        raise ValueError("Must include `ExpCM`.")
-    if "GY94" in model_list:
-        models["GY94"] = create_model_YNGKP_M0(YNGKP_M0_modelparams_fname, models["ExpCM"].nsites)
-    if "GY94 + Gr" in model_list:
-        models["GY94 + Gr"] = create_model_YNGKP_M5(YNGKP_M5_modelparams_fname, models["ExpCM"].nsites)
-    if "GY94 + wr" in model_list:
-        ## calculate the spielman_wr values
-        spielman_wr = models["ExpCM"].spielman_wr()
-        wr = pd.DataFrame({"site":[x+1 for x in range(len(spielman_wr))], "wr":spielman_wr})
-        wr.to_csv("outputs/spielman_wr.csv", index=False)
-
-
-    ## Perform the calculations
-    # for r in [89, 50, 22, 489, 80]:
-    #     print(r)
-    for r in range(models["ExpCM"].nsites):
-        if r%25 == 0:
-            print(r)
-        for model_name in model_list:
-            if model_name != "GY94 + wr":
-                model = models[model_name]
-                _r = r # dummy site to accomadate `YNGKP + wr`
-            else:
-                model = create_model_YNGKP_wr(YNGKP_M0_modelparams_fname, spielman_wr[r])
-                _r = 0
-            pr = get_pr(_r,model,model_name)
-            for t in range(max_time):
-            # for t in scipy.arange(0,max_time,0.25):
-                if t == 0:
-                    f_rt = 1
-                else:
-                    f_rt = 0
-                    Mrt = get_Mrt(_r, t, model, model_name)
-                    for x in range(N_AA):
-                        f_rt += f_calculation(x, pr, Mrt, model_name)
-                df["Model"].append(model_name)
-                df["Time"].append(t)
-                df["f"].append(f_rt)
-                df["Site"].append(r+1)
-    df = pd.DataFrame(df)
-    df.to_csv("outputs/expected_identity_given_time_t.csv", index=False)
-    print("done.")
+    final = {"Model":[], "Site":[], "Time":[], "f":[], "target_div":[]}
+    for target_div in target_divs:
+        for name, group in df.groupby(["Model","Site"]):
+            time = group[group["f"] >= target_div]["Time"].max()
+            final["Model"].append(name[0])
+            final["Site"].append(name[1])
+            final["Time"].append(time)
+            final["f"].append(group[group["f"] >= target_div]["f"].min())
+            final["target_div"].append(target_div)
+    final = pd.DataFrame(final)
+    print(final)
 
 if __name__ == '__main__':
     main()
