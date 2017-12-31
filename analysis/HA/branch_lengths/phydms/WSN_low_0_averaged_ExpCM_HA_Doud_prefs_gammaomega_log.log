@@ -1,0 +1,93 @@
+2017-12-30 18:30:11,737 - INFO - Beginning execution of phydms in directory /fh/fast/bloom_j/computational_notebooks/skhilton/2017/divergence_timing_manuscript/analysis/HA/branch_lengths
+
+2017-12-30 18:30:11,738 - INFO - Progress is being logged to phydms/WSN_low_0_averaged_ExpCM_HA_Doud_prefs_gammaomega_log.log
+
+2017-12-30 18:30:11,738 - INFO - Version information:
+	Time and date: Sat Dec 30 18:30:10 2017
+	Platform: Linux-3.13.0-68-generic-x86_64-with-debian-jessie-sid
+	Python version: 3.6.0 |Continuum Analytics, Inc.| (default, Dec 23 2016, 12:22:00)  [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]
+	phydms version: 2.2.0
+	Bio version: 1.69
+	cython version: 0.25.2
+	numpy version: 1.13.3
+	scipy version: 0.19.0
+	matplotlib version: 2.1.0
+	natsort version: 5.0.2
+	sympy version: 1.0
+	six version: 1.11.0
+	pandas version: 0.21.0
+	pyvolve version: 0.8.4
+	statsmodels version: 0.8.0
+	weblogolib version: 3.5.0
+	PyPDF2 version: 1.26.0
+
+2017-12-30 18:30:11,738 - INFO - Parsed the following arguments:
+	alignment = ../data/subsample/HA_WSN_low_0.fasta
+	tree = phydms/WSN_low_0_RAxML_tree.newick
+	model = ('ExpCM', '../data/references/HA_Doud_prefs.csv')
+	outprefix = phydms/WSN_low_0_averaged_ExpCM_HA_Doud_prefs_gammaomega
+	brlen = optimize
+	gammaomega = True
+	gammabeta = False
+	omegabysite = False
+	omegabysite_fixsyn = False
+	diffprefsbysite = False
+	diffprefsprior = ('invquadratic', 150.0, 0.5)
+	fitphi = False
+	randprefs = False
+	avgprefs = True
+	divpressure = None
+	ncpus = 4
+	fitprefsmethod = 2
+	ncats = 4
+	minbrlen = 1e-06
+	minpref = 0.002
+	seed = 1
+	initparams = None
+	profile = False
+	opt_details = False
+	nograd = False
+
+2017-12-30 18:30:11,738 - INFO - Random number seed: 1
+
+2017-12-30 18:30:11,739 - INFO - Reading alignment from ../data/subsample/HA_WSN_low_0.fasta
+2017-12-30 18:30:12,048 - INFO - Read 28 aligned sequences from ../data/subsample/HA_WSN_low_0.fasta, each consisting of 564 codons.
+
+2017-12-30 18:30:12,048 - INFO - The model will be an ExpCM informed by site-specific amino-acid preferences in ../data/references/HA_Doud_prefs.csv
+2017-12-30 18:30:12,048 - INFO - Preferences will be averaged across sites.
+2017-12-30 18:30:14,210 - INFO - Successfully read site-specific amino-acid preferences for all 564 sites.
+
+2017-12-30 18:30:14,212 - INFO - Nucleotide frequency parameters phi will be set so stationary state matches alignment nucleotide frequencies of A = 0.343, C = 0.182, G = 0.233, T = 0.241
+
+2017-12-30 18:30:30,465 - INFO - Omega will be drawn from 4 gamma-distributed categories.
+
+2017-12-30 18:31:17,920 - INFO - Reading tree from phydms/WSN_low_0_RAxML_tree.newick
+2017-12-30 18:31:17,924 - INFO - Tree has 28 tips.
+2017-12-30 18:31:17,931 - INFO - Adjusted 1 branch lengths up to minbrlen 1e-06
+
+2017-12-30 18:31:17,931 - INFO - Initializing TreeLikelihood..
+2017-12-30 18:32:59,303 - INFO - TreeLikelihood initialized.
+2017-12-30 18:32:59,312 - INFO - Maximizing log likelihood (initially -19302.41).
+2017-12-30 18:32:59,312 - INFO - Branch lengths will be optimized individually.
+2017-12-30 19:58:39,542 - INFO - Maximization complete:
+	Step 1: optimized parameters, loglik went from -19302.41 to -17059.26 (16 iterations, 22 function evals)
+	Step 2: optimized branches, loglik went from -17059.26 to -17047.71 (75 iterations, 82 function evals)
+	Step 3: optimized parameters, loglik went from -17047.71 to -17046.62 (9 iterations, 13 function evals)
+	Step 4: optimized branches, loglik went from -17046.62 to -17046.50 (22 iterations, 29 function evals)
+	Step 5: optimized parameters, loglik went from -17046.50 to -17046.49 (2 iterations, 5 function evals)
+	Step 6: optimized branches, loglik went from -17046.49 to -17046.48 (4 iterations, 8 function evals)
+	Step 7: optimized parameters, loglik went from -17046.48 to -17046.48 (1 iterations, 3 function evals)
+2017-12-30 19:58:39,544 - INFO - Optimized log likelihood is -17046.48.
+2017-12-30 19:58:39,544 - INFO - Writing log likelihood to phydms/WSN_low_0_averaged_ExpCM_HA_Doud_prefs_gammaomega_loglikelihood.txt
+2017-12-30 19:58:39,554 - INFO - Model parameters after optimization:
+	alpha_omega = 0.465421
+	beta = 0.905618
+	beta_omega = 3.61497
+	kappa = 3.83372
+	phiA = 0.362446
+	phiC = 0.173748
+	phiG = 0.233108
+2017-12-30 19:58:39,554 - INFO - Writing model parameters to phydms/WSN_low_0_averaged_ExpCM_HA_Doud_prefs_gammaomega_modelparams.txt
+2017-12-30 19:58:39,559 - INFO - Writing the optimized tree to phydms/WSN_low_0_averaged_ExpCM_HA_Doud_prefs_gammaomega_tree.newick
+
+2017-12-30 19:58:39,569 - INFO - Successful completion of phydms

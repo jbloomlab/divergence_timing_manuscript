@@ -1,0 +1,92 @@
+2017-12-31 09:56:09,060 - INFO - Beginning execution of phydms in directory /fh/fast/bloom_j/computational_notebooks/skhilton/2017/divergence_timing_manuscript/analysis/HA/branch_lengths
+
+2017-12-31 09:56:09,060 - INFO - Progress is being logged to phydms/hybrid_high_0_YNGKP_M0_log.log
+
+2017-12-31 09:56:09,060 - INFO - Version information:
+	Time and date: Sun Dec 31 09:56:07 2017
+	Platform: Linux-3.13.0-68-generic-x86_64-with-debian-jessie-sid
+	Python version: 3.6.0 |Continuum Analytics, Inc.| (default, Dec 23 2016, 12:22:00)  [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]
+	phydms version: 2.2.0
+	Bio version: 1.69
+	cython version: 0.25.2
+	numpy version: 1.13.3
+	scipy version: 0.19.0
+	matplotlib version: 2.1.0
+	natsort version: 5.0.2
+	sympy version: 1.0
+	six version: 1.11.0
+	pandas version: 0.21.0
+	pyvolve version: 0.8.4
+	statsmodels version: 0.8.0
+	weblogolib version: 3.5.0
+	PyPDF2 version: 1.26.0
+
+2017-12-31 09:56:09,061 - INFO - Parsed the following arguments:
+	alignment = ../data/subsample/HA_hybrid_high_0.fasta
+	tree = phydms/hybrid_high_0_RAxML_tree.newick
+	model = YNGKP_M0
+	outprefix = phydms/hybrid_high_0_YNGKP_M0
+	brlen = optimize
+	gammaomega = False
+	gammabeta = False
+	omegabysite = False
+	omegabysite_fixsyn = False
+	diffprefsbysite = False
+	diffprefsprior = ('invquadratic', 150.0, 0.5)
+	fitphi = False
+	randprefs = False
+	avgprefs = False
+	divpressure = None
+	ncpus = 1
+	fitprefsmethod = 2
+	ncats = 4
+	minbrlen = 1e-06
+	minpref = 0.002
+	seed = 1
+	initparams = None
+	profile = False
+	opt_details = False
+	nograd = False
+
+2017-12-31 09:56:09,061 - INFO - Random number seed: 1
+
+2017-12-31 09:56:09,061 - INFO - Reading alignment from ../data/subsample/HA_hybrid_high_0.fasta
+2017-12-31 09:56:09,706 - INFO - Read 87 aligned sequences from ../data/subsample/HA_hybrid_high_0.fasta, each consisting of 552 codons.
+
+2017-12-31 09:56:09,707 - INFO - Codon substitution model with be M0 version of YNGKP (Yang, Nielsen, Goldman, & Pederson. Genetics. 155:431-449).
+2017-12-31 09:56:09,763 - INFO - Reading tree from phydms/hybrid_high_0_RAxML_tree.newick
+2017-12-31 09:56:09,768 - INFO - Tree has 87 tips.
+2017-12-31 09:56:09,807 - INFO - Adjusted 1 branch lengths up to minbrlen 1e-06
+
+2017-12-31 09:56:09,807 - INFO - Initializing TreeLikelihood..
+2017-12-31 09:56:14,749 - INFO - TreeLikelihood initialized.
+2017-12-31 09:56:14,751 - INFO - Maximizing log likelihood (initially -61091.51).
+2017-12-31 09:56:14,751 - INFO - Branch lengths will be optimized individually.
+2017-12-31 10:26:41,734 - INFO - Maximization complete:
+	Step 1: optimized parameters, loglik went from -61091.51 to -53969.33 (14 iterations, 25 function evals)
+	Step 2: optimized branches, loglik went from -53969.33 to -53936.04 (95 iterations, 100 function evals)
+	Step 3: optimized parameters, loglik went from -53936.04 to -53931.77 (4 iterations, 9 function evals)
+	Step 4: optimized branches, loglik went from -53931.77 to -53930.22 (37 iterations, 42 function evals)
+	Step 5: optimized parameters, loglik went from -53930.22 to -53929.32 (10 iterations, 15 function evals)
+	Step 6: optimized branches, loglik went from -53929.32 to -53929.14 (4 iterations, 6 function evals)
+	Step 7: optimized parameters, loglik went from -53929.14 to -53929.02 (4 iterations, 13 function evals)
+	Step 8: optimized branches, loglik went from -53929.02 to -53928.93 (2 iterations, 5 function evals)
+	Step 9: optimized parameters, loglik went from -53928.93 to -53928.92 (1 iterations, 5 function evals)
+2017-12-31 10:26:41,776 - INFO - Optimized log likelihood is -53928.92.
+2017-12-31 10:26:41,776 - INFO - Writing log likelihood to phydms/hybrid_high_0_YNGKP_M0_loglikelihood.txt
+2017-12-31 10:26:41,789 - INFO - Model parameters after optimization:
+	kappa = 2.93976
+	omega = 0.0660668
+	phi0A = 0.334354
+	phi0C = 0.141902
+	phi0G = 0.280892
+	phi1A = 0.36735
+	phi1C = 0.179126
+	phi1G = 0.207667
+	phi2A = 0.340815
+	phi2C = 0.205955
+	phi2G = 0.206026
+2017-12-31 10:26:41,790 - INFO - Writing model parameters to phydms/hybrid_high_0_YNGKP_M0_modelparams.txt
+2017-12-31 10:26:41,794 - INFO - Writing the optimized tree to phydms/hybrid_high_0_YNGKP_M0_tree.newick
+
+2017-12-31 10:26:41,805 - INFO - Successful completion of phydms

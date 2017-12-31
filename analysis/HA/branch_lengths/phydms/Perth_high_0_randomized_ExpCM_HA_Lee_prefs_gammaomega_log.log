@@ -1,0 +1,94 @@
+2017-12-30 09:01:56,648 - INFO - Beginning execution of phydms in directory /fh/fast/bloom_j/computational_notebooks/skhilton/2017/divergence_timing_manuscript/analysis/HA/branch_lengths
+
+2017-12-30 09:01:56,649 - INFO - Progress is being logged to phydms/Perth_high_0_randomized_ExpCM_HA_Lee_prefs_gammaomega_log.log
+
+2017-12-30 09:01:56,649 - INFO - Version information:
+	Time and date: Sat Dec 30 09:01:53 2017
+	Platform: Linux-3.13.0-68-generic-x86_64-with-debian-jessie-sid
+	Python version: 3.6.0 |Continuum Analytics, Inc.| (default, Dec 23 2016, 12:22:00)  [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]
+	phydms version: 2.2.0
+	Bio version: 1.69
+	cython version: 0.25.2
+	numpy version: 1.13.3
+	scipy version: 0.19.0
+	matplotlib version: 2.1.0
+	natsort version: 5.0.2
+	sympy version: 1.0
+	six version: 1.11.0
+	pandas version: 0.21.0
+	pyvolve version: 0.8.4
+	statsmodels version: 0.8.0
+	weblogolib version: 3.5.0
+	PyPDF2 version: 1.26.0
+
+2017-12-30 09:01:56,649 - INFO - Parsed the following arguments:
+	alignment = ../data/subsample/HA_Perth_high_0.fasta
+	tree = phydms/Perth_high_0_RAxML_tree.newick
+	model = ('ExpCM', '../data/references/HA_Lee_prefs.csv')
+	outprefix = phydms/Perth_high_0_randomized_ExpCM_HA_Lee_prefs_gammaomega
+	brlen = optimize
+	gammaomega = True
+	gammabeta = False
+	omegabysite = False
+	omegabysite_fixsyn = False
+	diffprefsbysite = False
+	diffprefsprior = ('invquadratic', 150.0, 0.5)
+	fitphi = False
+	randprefs = True
+	avgprefs = False
+	divpressure = None
+	ncpus = 4
+	fitprefsmethod = 2
+	ncats = 4
+	minbrlen = 1e-06
+	minpref = 0.002
+	seed = 1
+	initparams = None
+	profile = False
+	opt_details = False
+	nograd = False
+
+2017-12-30 09:01:56,649 - INFO - Random number seed: 1
+
+2017-12-30 09:01:56,649 - INFO - Reading alignment from ../data/subsample/HA_Perth_high_0.fasta
+2017-12-30 09:01:59,654 - INFO - Read 87 aligned sequences from ../data/subsample/HA_Perth_high_0.fasta, each consisting of 565 codons.
+
+2017-12-30 09:01:59,681 - INFO - The model will be an ExpCM informed by site-specific amino-acid preferences in ../data/references/HA_Lee_prefs.csv
+2017-12-30 09:01:59,682 - INFO - Preferences will be randomized across sites.
+2017-12-30 09:02:10,459 - INFO - Successfully read site-specific amino-acid preferences for all 565 sites.
+
+2017-12-30 09:02:10,470 - INFO - Nucleotide frequency parameters phi will be set so stationary state matches alignment nucleotide frequencies of A = 0.338, C = 0.188, G = 0.235, T = 0.239
+
+2017-12-30 09:02:22,243 - INFO - Omega will be drawn from 4 gamma-distributed categories.
+
+2017-12-30 09:03:29,728 - INFO - Reading tree from phydms/Perth_high_0_RAxML_tree.newick
+2017-12-30 09:03:29,740 - INFO - Tree has 87 tips.
+2017-12-30 09:03:29,819 - INFO - Adjusted 1 branch lengths up to minbrlen 1e-06
+
+2017-12-30 09:03:29,823 - INFO - Initializing TreeLikelihood..
+2017-12-30 09:10:08,301 - INFO - TreeLikelihood initialized.
+2017-12-30 09:10:08,307 - INFO - Maximizing log likelihood (initially -60374.15).
+2017-12-30 09:10:08,308 - INFO - Branch lengths will be optimized individually.
+2017-12-30 18:59:28,368 - INFO - Maximization complete:
+	Step 1: optimized parameters, loglik went from -60374.15 to -53249.96 (21 iterations, 28 function evals)
+	Step 2: optimized branches, loglik went from -53249.96 to -53156.49 (207 iterations, 224 function evals)
+	Step 3: optimized parameters, loglik went from -53156.49 to -53144.45 (8 iterations, 12 function evals)
+	Step 4: optimized branches, loglik went from -53144.45 to -53143.58 (29 iterations, 35 function evals)
+	Step 5: optimized parameters, loglik went from -53143.58 to -53143.45 (3 iterations, 8 function evals)
+	Step 6: optimized branches, loglik went from -53143.45 to -53143.31 (12 iterations, 17 function evals)
+	Step 7: optimized parameters, loglik went from -53143.31 to -53143.25 (3 iterations, 5 function evals)
+	Step 8: optimized branches, loglik went from -53143.25 to -53143.25 (1 iterations, 5 function evals)
+2017-12-30 18:59:28,371 - INFO - Optimized log likelihood is -53143.25.
+2017-12-30 18:59:28,371 - INFO - Writing log likelihood to phydms/Perth_high_0_randomized_ExpCM_HA_Lee_prefs_gammaomega_loglikelihood.txt
+2017-12-30 18:59:28,379 - INFO - Model parameters after optimization:
+	alpha_omega = 0.636604
+	beta = 0.0108301
+	beta_omega = 7.10471
+	kappa = 3.64424
+	phiA = 0.347597
+	phiC = 0.175043
+	phiG = 0.231785
+2017-12-30 18:59:28,380 - INFO - Writing model parameters to phydms/Perth_high_0_randomized_ExpCM_HA_Lee_prefs_gammaomega_modelparams.txt
+2017-12-30 18:59:28,389 - INFO - Writing the optimized tree to phydms/Perth_high_0_randomized_ExpCM_HA_Lee_prefs_gammaomega_tree.newick
+
+2017-12-30 18:59:28,412 - INFO - Successful completion of phydms

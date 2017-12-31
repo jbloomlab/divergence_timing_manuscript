@@ -1,0 +1,89 @@
+2017-12-30 20:27:06,972 - INFO - Beginning execution of phydms in directory /fh/fast/bloom_j/computational_notebooks/skhilton/2017/divergence_timing_manuscript/analysis/HA/branch_lengths
+
+2017-12-30 20:27:06,972 - INFO - Progress is being logged to phydms/WSN_intermediate_0_randomized_ExpCM_HA_Doud_prefs_log.log
+
+2017-12-30 20:27:06,972 - INFO - Version information:
+	Time and date: Sat Dec 30 20:27:04 2017
+	Platform: Linux-3.13.0-68-generic-x86_64-with-debian-jessie-sid
+	Python version: 3.6.0 |Continuum Analytics, Inc.| (default, Dec 23 2016, 12:22:00)  [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]
+	phydms version: 2.2.0
+	Bio version: 1.69
+	cython version: 0.25.2
+	numpy version: 1.13.3
+	scipy version: 0.19.0
+	matplotlib version: 2.1.0
+	natsort version: 5.0.2
+	sympy version: 1.0
+	six version: 1.11.0
+	pandas version: 0.21.0
+	pyvolve version: 0.8.4
+	statsmodels version: 0.8.0
+	weblogolib version: 3.5.0
+	PyPDF2 version: 1.26.0
+
+2017-12-30 20:27:06,972 - INFO - Parsed the following arguments:
+	alignment = ../data/subsample/HA_WSN_intermediate_0.fasta
+	tree = phydms/WSN_intermediate_0_RAxML_tree.newick
+	model = ('ExpCM', '../data/references/HA_Doud_prefs.csv')
+	outprefix = phydms/WSN_intermediate_0_randomized_ExpCM_HA_Doud_prefs
+	brlen = optimize
+	gammaomega = False
+	gammabeta = False
+	omegabysite = False
+	omegabysite_fixsyn = False
+	diffprefsbysite = False
+	diffprefsprior = ('invquadratic', 150.0, 0.5)
+	fitphi = False
+	randprefs = True
+	avgprefs = False
+	divpressure = None
+	ncpus = 4
+	fitprefsmethod = 2
+	ncats = 4
+	minbrlen = 1e-06
+	minpref = 0.002
+	seed = 1
+	initparams = None
+	profile = False
+	opt_details = False
+	nograd = False
+
+2017-12-30 20:27:06,973 - INFO - Random number seed: 1
+
+2017-12-30 20:27:06,973 - INFO - Reading alignment from ../data/subsample/HA_WSN_intermediate_0.fasta
+2017-12-30 20:27:07,869 - INFO - Read 53 aligned sequences from ../data/subsample/HA_WSN_intermediate_0.fasta, each consisting of 564 codons.
+
+2017-12-30 20:27:07,870 - INFO - The model will be an ExpCM informed by site-specific amino-acid preferences in ../data/references/HA_Doud_prefs.csv
+2017-12-30 20:27:07,871 - INFO - Preferences will be randomized across sites.
+2017-12-30 20:27:12,614 - INFO - Successfully read site-specific amino-acid preferences for all 564 sites.
+
+2017-12-30 20:27:12,623 - INFO - Nucleotide frequency parameters phi will be set so stationary state matches alignment nucleotide frequencies of A = 0.340, C = 0.183, G = 0.235, T = 0.243
+
+2017-12-30 20:27:23,530 - INFO - Reading tree from phydms/WSN_intermediate_0_RAxML_tree.newick
+2017-12-30 20:27:23,537 - INFO - Tree has 53 tips.
+2017-12-30 20:27:23,554 - INFO - Adjusted 1 branch lengths up to minbrlen 1e-06
+
+2017-12-30 20:27:23,555 - INFO - Initializing TreeLikelihood..
+2017-12-30 20:28:39,876 - INFO - TreeLikelihood initialized.
+2017-12-30 20:28:39,877 - INFO - Maximizing log likelihood (initially -39060.84).
+2017-12-30 20:28:39,878 - INFO - Branch lengths will be optimized individually.
+2017-12-30 21:25:21,658 - INFO - Maximization complete:
+	Step 1: optimized parameters, loglik went from -39060.84 to -34276.33 (17 iterations, 28 function evals)
+	Step 2: optimized branches, loglik went from -34276.33 to -34268.27 (63 iterations, 72 function evals)
+	Step 3: optimized parameters, loglik went from -34268.27 to -34268.02 (2 iterations, 5 function evals)
+	Step 4: optimized branches, loglik went from -34268.02 to -34267.90 (16 iterations, 19 function evals)
+	Step 5: optimized parameters, loglik went from -34267.90 to -34267.83 (3 iterations, 7 function evals)
+	Step 6: optimized branches, loglik went from -34267.83 to -34267.83 (1 iterations, 5 function evals)
+2017-12-30 21:25:21,714 - INFO - Optimized log likelihood is -34267.83.
+2017-12-30 21:25:21,714 - INFO - Writing log likelihood to phydms/WSN_intermediate_0_randomized_ExpCM_HA_Doud_prefs_loglikelihood.txt
+2017-12-30 21:25:21,820 - INFO - Model parameters after optimization:
+	beta = 1.1e-05
+	kappa = 3.46847
+	omega = 0.0841149
+	phiA = 0.349868
+	phiC = 0.169643
+	phiG = 0.231546
+2017-12-30 21:25:21,820 - INFO - Writing model parameters to phydms/WSN_intermediate_0_randomized_ExpCM_HA_Doud_prefs_modelparams.txt
+2017-12-30 21:25:21,825 - INFO - Writing the optimized tree to phydms/WSN_intermediate_0_randomized_ExpCM_HA_Doud_prefs_tree.newick
+
+2017-12-30 21:25:21,838 - INFO - Successful completion of phydms
