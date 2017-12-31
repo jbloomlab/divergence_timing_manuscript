@@ -34,9 +34,11 @@ def main():
     lee = lee[lee["site"].isin(hybrid_numbers["Perth"].tolist())]
     assert len(doud) == len(lee)
 
-    # get rid of the sites column
-    doud = doud.drop("site", axis=1)
-    lee = lee.drop("site", axis=1)
+    # get rid of the sites column and reset the index
+    doud = doud.reset_index()
+    doud = doud.drop(["site", "index"], axis=1)
+    lee = lee.reset_index()
+    lee = lee.drop(["site", "index"], axis=1)
 
     # average the values
     average = average_df(doud, lee)
