@@ -15,6 +15,7 @@ import pandas as pd
 from phydmslib.constants import *
 import phydmslib.models
 import phydmslib.file_io
+import os
 
 
 ## Define the models
@@ -96,14 +97,14 @@ def f_calculation(x, pr, Mt, model_name):
     6.4
     """
     target_codons = scipy.where(CODON_TO_AA==x)[0] # codons which encode amino-acid `x`
-    if model_name == "YNGKP_M5": # need to take the average `f` over categories `k`
+    if model_name == "GY94 + Gr": # need to take the average `f` over categories `k`
         prx = [pr[k][target_codons] for k in range(len(pr))] # stationary state
         Mtxy = [Mt[k][target_codons][:,target_codons] for k in range(len(Mt))] # transition to syn. codons
         Mtxy = [scipy.sum(Mtxy[k], axis=1) for k in range(len(Mt))] # sum the transition to syn codons
         # multiply sum of transition to syn codons by stationary state and sum for each category k
         f_rtx = [(Mtxy[k] * prx[k]).sum() for k in range(len(Mt))]
         return sum(f_rtx)/len(Mt) # return the average `f` for the categories `k`
-    elif model_name in ["ExpCM", "YNGKP_M0", "YNGKP + wr"]:
+    elif model_name in ["ExpCM", "GY94", "GY94 + wr"]:
         prx = pr[target_codons] # stationary state
         Mtxy = Mt[target_codons][:,target_codons] # transition to syn codons
         Mtxy = scipy.sum(Mtxy, axis=1) # sum of transition to syn codons
@@ -122,9 +123,9 @@ def get_pr(r,model,model_name):
     It returns a (61,61) array for every model except `YNGKP_M5` which it returns
     [(61,61) for k in n.cats].
     """
-    if model_name == "YNGKP_M5":
+    if model_name == "GY94 + Gr":
         return [model.stationarystate(k)[r] for k in range(model.ncats)]
-    elif model_name in ["ExpCM", "YNGKP_M0", "YNGKP + wr"]:
+    elif model_name in ["ExpCM", "GY94", "GY94 + wr"]:
         return model.stationarystate[r]
     else:
         raise ValueError("Cannot handel model {0}".format(model_name))
@@ -139,34 +140,12 @@ def get_Mrt(r,t,model,model_name):
     It returns a (61,61) array for every model except `YNGKP_M5` which it returns
     [(61,61) for k in n.cats].
     """
-    if model_name == "YNGKP_M5":
+    if model_name == "GY94 + Gr":
         return [model.M(k,float(t/model.branchScale))[r] for k in range(model.ncats)]
-    elif model_name in ["ExpCM", "YNGKP_M0", "YNGKP + wr"]:
+    elif model_name in ["ExpCM", "GY94", "GY94 + wr"]:
         return model.M(float(t/model.branchScale))[r]
     else:
         raise ValueError("Cannot handel model {0}".format(model_name))
-# def calc_spielmandNr(model):
-#     """
-#     This function calculates the `spielman_dNr` value for each site in the `ExpCM`.
-#
-#     It returns a list of len model.nsites. l[r] gives the `spielman_dNr` for site `r`.
-#     """
-#     deltar = []
-#     for r in range(model.nsites):
-#         num = 0
-#         den = 0
-#         for i in range(N_CODON):
-#             j = scipy.intersect1d(scipy.where(CODON_SINGLEMUT[i]==True)[0],scipy.where(CODON_NONSYN[i]==True)[0])
-#             p_i = model.stationarystate[r][i]
-#             P_xy = model.Prxy[r][i][j].sum()
-#             Q_xy = model.Qxy[i][j].sum()
-#             num += (p_i * P_xy)
-#             den += (p_i * Q_xy)
-#         result = num/den
-#         deltar.append(result)
-#     df = pd.DataFrame({"site":[x for x in range(len(deltar))], "value":deltar})
-#     df.to_csv("speilman_dNr.csv", index=False)
-#     return deltar
 
 def main():
     """
@@ -180,41 +159,46 @@ def main():
     """
 
     ## Set up the parameter files
-    ExpCM_modelparams_fname = "ExpCM_HA_Doud_prefs_modelparams.txt"
-    YNGKP_M0_modelparams_fname = "YNGKP_M0_modelparams.txt"
-    YNGKP_M5_modelparams_fname = "YNGKP_M5_modelparams.txt"
-    prefs_fname = "HA_Doud_prefs.csv"
-
+    phydms_dir = "../HA/branch_lengths/phydms/"
+    prefs_dir = "../HA/data/references/"
+    ExpCM_modelparams_fname = "{0}WSN_low_0_ExpCM_HA_Doud_prefs_modelparams.txt".format(phydms_dir)
+    YNGKP_M0_modelparams_fname = "{0}WSN_low_0_YNGKP_M0_modelparams.txt".format(phydms_dir)
+    YNGKP_M5_modelparams_fname = "{0}WSN_low_0_YNGKP_M5_modelparams.txt".format(phydms_dir)
+    prefs_fname = "{0}HA_Doud_prefs.csv".format(prefs_dir)
+    if not os.path.isdir("outputs"):
+        os.makedirs("outputs")
     ## define the maximum amount of time
-    max_time = 50
+    max_time = 30
 
     ## setup up the final dataframe
     df = {"Model":[], "Time":[], "f":[], "Site":[]}
 
     ## Make the models
-    model_list = ["ExpCM", "YNGKP_M0", "YNGKP + wr", "YNGKP_M5"]
+    model_list = ["ExpCM", "GY94", "GY94 + wr", "GY94 + Gr"]
     models = {}
     if "ExpCM" in model_list:
         models["ExpCM"] = create_model_ExpCM(ExpCM_modelparams_fname, prefs_fname)
     else:
         raise ValueError("Must include `ExpCM`.")
-    if "YNGKP_M0" in model_list:
-        models["YNGKP_M0"] = create_model_YNGKP_M0(YNGKP_M0_modelparams_fname, models["ExpCM"].nsites)
-    if "YNGKP_M5" in model_list:
-        models["YNGKP_M5"] = create_model_YNGKP_M5(YNGKP_M5_modelparams_fname, models["ExpCM"].nsites)
-    if "YNGKP + wr" in model_list:
+    if "GY94" in model_list:
+        models["GY94"] = create_model_YNGKP_M0(YNGKP_M0_modelparams_fname, models["ExpCM"].nsites)
+    if "GY94 + Gr" in model_list:
+        models["GY94 + Gr"] = create_model_YNGKP_M5(YNGKP_M5_modelparams_fname, models["ExpCM"].nsites)
+    if "GY94 + wr" in model_list:
         ## calculate the spielman_wr values
         spielman_wr = models["ExpCM"].spielman_wr()
         wr = pd.DataFrame({"site":[x+1 for x in range(len(spielman_wr))], "wr":spielman_wr})
-        wr.to_csv("spielman_wr.csv", index=False)
+        wr.to_csv("outputs/spielman_wr.csv", index=False)
 
 
     ## Perform the calculations
+    # for r in [89, 50, 22, 489, 80]:
+    #     print(r)
     for r in range(models["ExpCM"].nsites):
         if r%25 == 0:
             print(r)
         for model_name in model_list:
-            if model_name != "YNGKP + wr":
+            if model_name != "GY94 + wr":
                 model = models[model_name]
                 _r = r # dummy site to accomadate `YNGKP + wr`
             else:
@@ -222,6 +206,7 @@ def main():
                 _r = 0
             pr = get_pr(_r,model,model_name)
             for t in range(max_time):
+            # for t in scipy.arange(0,max_time,0.25):
                 if t == 0:
                     f_rt = 1
                 else:
@@ -234,7 +219,7 @@ def main():
                 df["f"].append(f_rt)
                 df["Site"].append(r+1)
     df = pd.DataFrame(df)
-    df.to_csv("expected_identity_given_time_t.csv", index=False)
+    df.to_csv("outputs/expected_identity_given_time_t.csv", index=False)
     print("done.")
 
 if __name__ == '__main__':
