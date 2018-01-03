@@ -69,3 +69,27 @@
 2017-12-31 09:59:29,323 - INFO - TreeLikelihood initialized.
 2017-12-31 09:59:29,324 - INFO - Maximizing log likelihood (initially -59300.19).
 2017-12-31 09:59:29,324 - INFO - Branch lengths will be optimized individually.
+2017-12-31 16:16:23,786 - INFO - Maximization complete:
+	Step 1: optimized parameters, loglik went from -59300.19 to -52268.13 (18 iterations, 25 function evals)
+	Step 2: optimized branches, loglik went from -52268.13 to -52178.68 (152 iterations, 161 function evals)
+	Step 3: optimized parameters, loglik went from -52178.68 to -52167.32 (8 iterations, 12 function evals)
+	Step 4: optimized branches, loglik went from -52167.32 to -52165.62 (73 iterations, 80 function evals)
+	Step 5: optimized parameters, loglik went from -52165.62 to -52165.43 (4 iterations, 7 function evals)
+	Step 6: optimized branches, loglik went from -52165.43 to -52165.08 (28 iterations, 34 function evals)
+	Step 7: optimized parameters, loglik went from -52165.08 to -52165.05 (2 iterations, 5 function evals)
+	Step 8: optimized branches, loglik went from -52165.05 to -52165.02 (3 iterations, 7 function evals)
+	Step 9: optimized parameters, loglik went from -52165.02 to -52165.02 (1 iterations, 3 function evals)
+2017-12-31 16:16:23,830 - INFO - Optimized log likelihood is -52165.02.
+2017-12-31 16:16:23,831 - INFO - Writing log likelihood to phydms/hybrid_high_0_randomized_ExpCM_HA_average_prefs_gammaomega_loglikelihood.txt
+2017-12-31 16:16:23,854 - INFO - Model parameters after optimization:
+	alpha_omega = 0.620305
+	beta = 0.132712
+	beta_omega = 6.76585
+	kappa = 3.69012
+	phiA = 0.347232
+	phiC = 0.175799
+	phiG = 0.233353
+2017-12-31 16:16:23,854 - INFO - Writing model parameters to phydms/hybrid_high_0_randomized_ExpCM_HA_average_prefs_gammaomega_modelparams.txt
+2017-12-31 16:16:23,858 - INFO - Writing the optimized tree to phydms/hybrid_high_0_randomized_ExpCM_HA_average_prefs_gammaomega_tree.newick
+
+2017-12-31 16:16:23,871 - INFO - Successful completion of phydms

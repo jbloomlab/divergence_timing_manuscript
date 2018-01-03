@@ -1,0 +1,87 @@
+2018-01-02 18:57:46,341 - INFO - Beginning execution of phydms in directory /fh/fast/bloom_j/computational_notebooks/skhilton/2017/divergence_timing_manuscript/analysis/HA/branch_lengths
+
+2018-01-02 18:57:46,341 - INFO - Progress is being logged to bootstrap/WSN_low_0_1_ExpCM_WSN_low_0_1_prefs_log.log
+
+2018-01-02 18:57:46,341 - INFO - Version information:
+	Time and date: Tue Jan  2 18:57:45 2018
+	Platform: Linux-3.13.0-68-generic-x86_64-with-debian-jessie-sid
+	Python version: 3.6.0 |Continuum Analytics, Inc.| (default, Dec 23 2016, 12:22:00)  [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]
+	phydms version: 2.2.0
+	Bio version: 1.69
+	cython version: 0.25.2
+	numpy version: 1.13.3
+	scipy version: 0.19.0
+	matplotlib version: 2.1.0
+	natsort version: 5.0.2
+	sympy version: 1.0
+	six version: 1.11.0
+	pandas version: 0.21.0
+	pyvolve version: 0.8.4
+	statsmodels version: 0.8.0
+	weblogolib version: 3.5.0
+	PyPDF2 version: 1.26.0
+
+2018-01-02 18:57:46,342 - INFO - Parsed the following arguments:
+	alignment = bootstrap/WSN_low_0_1.fasta
+	tree = bootstrap/WSN_low_0_1_RAxML_tree.newick
+	model = ('ExpCM', 'bootstrap/WSN_low_0_1_prefs.csv')
+	outprefix = bootstrap/WSN_low_0_1_ExpCM_WSN_low_0_1_prefs
+	brlen = optimize
+	gammaomega = False
+	gammabeta = False
+	omegabysite = False
+	omegabysite_fixsyn = False
+	diffprefsbysite = False
+	diffprefsprior = ('invquadratic', 150.0, 0.5)
+	fitphi = False
+	randprefs = False
+	avgprefs = False
+	divpressure = None
+	ncpus = 4
+	fitprefsmethod = 2
+	ncats = 4
+	minbrlen = 1e-06
+	minpref = 0.002
+	seed = 1
+	initparams = None
+	profile = False
+	opt_details = False
+	nograd = False
+
+2018-01-02 18:57:46,342 - INFO - Random number seed: 1
+
+2018-01-02 18:57:46,342 - INFO - Reading alignment from bootstrap/WSN_low_0_1.fasta
+2018-01-02 18:57:46,553 - INFO - Read 28 aligned sequences from bootstrap/WSN_low_0_1.fasta, each consisting of 564 codons.
+
+2018-01-02 18:57:46,554 - INFO - The model will be an ExpCM informed by site-specific amino-acid preferences in bootstrap/WSN_low_0_1_prefs.csv
+2018-01-02 18:57:47,770 - INFO - Successfully read site-specific amino-acid preferences for all 564 sites.
+
+2018-01-02 18:57:47,770 - INFO - Nucleotide frequency parameters phi will be set so stationary state matches alignment nucleotide frequencies of A = 0.356, C = 0.187, G = 0.222, T = 0.235
+
+2018-01-02 18:57:49,449 - INFO - Reading tree from bootstrap/WSN_low_0_1_RAxML_tree.newick
+2018-01-02 18:57:49,452 - INFO - Tree has 28 tips.
+2018-01-02 18:57:49,456 - INFO - Adjusted 1 branch lengths up to minbrlen 1e-06
+
+2018-01-02 18:57:49,457 - INFO - Initializing TreeLikelihood..
+2018-01-02 18:58:07,920 - INFO - TreeLikelihood initialized.
+2018-01-02 18:58:07,921 - INFO - Maximizing log likelihood (initially -17899.59).
+2018-01-02 18:58:07,921 - INFO - Branch lengths will be optimized individually.
+2018-01-02 19:14:17,758 - INFO - Maximization complete:
+	Step 1: optimized parameters, loglik went from -17899.59 to -15694.48 (16 iterations, 23 function evals)
+	Step 2: optimized branches, loglik went from -15694.48 to -15676.78 (77 iterations, 84 function evals)
+	Step 3: optimized parameters, loglik went from -15676.78 to -15676.26 (6 iterations, 10 function evals)
+	Step 4: optimized branches, loglik went from -15676.26 to -15676.23 (6 iterations, 11 function evals)
+	Step 5: optimized parameters, loglik went from -15676.23 to -15676.23 (2 iterations, 5 function evals)
+2018-01-02 19:14:17,761 - INFO - Optimized log likelihood is -15676.23.
+2018-01-02 19:14:17,761 - INFO - Writing log likelihood to bootstrap/WSN_low_0_1_ExpCM_WSN_low_0_1_prefs_loglikelihood.txt
+2018-01-02 19:14:17,768 - INFO - Model parameters after optimization:
+	beta = 1.54123
+	kappa = 3.56386
+	omega = 0.207381
+	phiA = 0.396826
+	phiC = 0.178433
+	phiG = 0.218973
+2018-01-02 19:14:17,769 - INFO - Writing model parameters to bootstrap/WSN_low_0_1_ExpCM_WSN_low_0_1_prefs_modelparams.txt
+2018-01-02 19:14:17,774 - INFO - Writing the optimized tree to bootstrap/WSN_low_0_1_ExpCM_WSN_low_0_1_prefs_tree.newick
+
+2018-01-02 19:14:17,782 - INFO - Successful completion of phydms

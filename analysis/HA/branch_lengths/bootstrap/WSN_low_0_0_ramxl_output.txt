@@ -1,0 +1,81 @@
+
+RAxML can't, parse the alignment file as phylip file 
+it will now try to parse it as FASTA file
+
+
+
+Using BFGS method to optimize GTR rate parameters, to disable this specify "--no-bfgs" 
+
+
+This is the RAxML Master Pthread
+
+This is RAxML Worker Pthread Number: 1
+
+
+This is RAxML version 8.2.11 released by Alexandros Stamatakis on June 2017.
+
+With greatly appreciated code contributions by:
+Andre Aberer      (HITS)
+Simon Berger      (HITS)
+Alexey Kozlov     (HITS)
+Kassian Kobert    (HITS)
+David Dao         (KIT and HITS)
+Sarah Lutteropp   (KIT and HITS)
+Nick Pattengale   (Sandia)
+Wayne Pfeiffer    (SDSC)
+Akifumi S. Tanabe (NRIFS)
+Charlie Taylor    (UF)
+
+
+Alignment has 680 distinct alignment patterns
+
+Proportion of gaps and completely undetermined characters in this alignment: 0.51%
+
+RAxML rapid hill-climbing mode
+
+Using 1 distinct models/data partitions with joint branch length optimization
+
+
+Executing 1 inferences on the original alignment using 1 distinct randomized MP trees
+
+All free model parameters will be estimated by RAxML
+ML estimate of 25 per site rate categories
+
+Likelihood of final tree will be evaluated and optimized under GAMMA
+
+GAMMA Model parameters will be estimated up to an accuracy of 0.1000000000 Log Likelihood units
+
+Partition: 0
+Alignment Patterns: 680
+Name: No Name Provided
+DataType: DNA
+Substitution Matrix: GTR
+
+
+
+
+RAxML was called as follows:
+
+raxml -s bootstrap/WSN_low_0_0.fasta -n WSN_low_0_0 -m GTRCAT -p1 -T 2 
+
+
+Partition: 0 with name: No Name Provided
+Base frequencies: 0.347 0.177 0.241 0.235 
+
+Inference[0]: Time 2.962026 CAT-based likelihood -16644.533403, best rearrangement setting 5
+
+
+Conducting final model optimizations on all 1 trees under GAMMA-based models ....
+
+Inference[0] final GAMMA-based Likelihood: -18629.456066 tree written to file /fh/fast/bloom_j/computational_notebooks/skhilton/2017/divergence_timing_manuscript/analysis/HA/branch_lengths/RAxML_result.WSN_low_0_0
+
+
+Starting final GAMMA-based thorough Optimization on tree 0 likelihood -18629.456066 .... 
+
+Final GAMMA-based Score of best tree -18627.536592
+
+Program execution info written to /fh/fast/bloom_j/computational_notebooks/skhilton/2017/divergence_timing_manuscript/analysis/HA/branch_lengths/RAxML_info.WSN_low_0_0
+Best-scoring ML tree written to: /fh/fast/bloom_j/computational_notebooks/skhilton/2017/divergence_timing_manuscript/analysis/HA/branch_lengths/RAxML_bestTree.WSN_low_0_0
+
+Overall execution time: 5.997878 secs or 0.001666 hours or 0.000069 days
+

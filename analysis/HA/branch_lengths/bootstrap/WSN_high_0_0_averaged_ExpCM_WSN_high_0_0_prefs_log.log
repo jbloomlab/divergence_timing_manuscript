@@ -1,0 +1,91 @@
+2018-01-02 10:28:49,182 - INFO - Beginning execution of phydms in directory /fh/fast/bloom_j/computational_notebooks/skhilton/2017/divergence_timing_manuscript/analysis/HA/branch_lengths
+
+2018-01-02 10:28:49,183 - INFO - Progress is being logged to bootstrap/WSN_high_0_0_averaged_ExpCM_WSN_high_0_0_prefs_log.log
+
+2018-01-02 10:28:49,183 - INFO - Version information:
+	Time and date: Tue Jan  2 10:28:48 2018
+	Platform: Linux-3.13.0-68-generic-x86_64-with-debian-jessie-sid
+	Python version: 3.6.0 |Continuum Analytics, Inc.| (default, Dec 23 2016, 12:22:00)  [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]
+	phydms version: 2.2.0
+	Bio version: 1.69
+	cython version: 0.25.2
+	numpy version: 1.13.3
+	scipy version: 0.19.0
+	matplotlib version: 2.1.0
+	natsort version: 5.0.2
+	sympy version: 1.0
+	six version: 1.11.0
+	pandas version: 0.21.0
+	pyvolve version: 0.8.4
+	statsmodels version: 0.8.0
+	weblogolib version: 3.5.0
+	PyPDF2 version: 1.26.0
+
+2018-01-02 10:28:49,183 - INFO - Parsed the following arguments:
+	alignment = bootstrap/WSN_high_0_0.fasta
+	tree = bootstrap/WSN_high_0_0_RAxML_tree.newick
+	model = ('ExpCM', 'bootstrap/WSN_high_0_0_prefs.csv')
+	outprefix = bootstrap/WSN_high_0_0_averaged_ExpCM_WSN_high_0_0_prefs
+	brlen = optimize
+	gammaomega = False
+	gammabeta = False
+	omegabysite = False
+	omegabysite_fixsyn = False
+	diffprefsbysite = False
+	diffprefsprior = ('invquadratic', 150.0, 0.5)
+	fitphi = False
+	randprefs = False
+	avgprefs = True
+	divpressure = None
+	ncpus = 4
+	fitprefsmethod = 2
+	ncats = 4
+	minbrlen = 1e-06
+	minpref = 0.002
+	seed = 1
+	initparams = None
+	profile = False
+	opt_details = False
+	nograd = False
+
+2018-01-02 10:28:49,183 - INFO - Random number seed: 1
+
+2018-01-02 10:28:49,183 - INFO - Reading alignment from bootstrap/WSN_high_0_0.fasta
+2018-01-02 10:28:49,898 - INFO - Read 87 aligned sequences from bootstrap/WSN_high_0_0.fasta, each consisting of 564 codons.
+
+2018-01-02 10:28:49,899 - INFO - The model will be an ExpCM informed by site-specific amino-acid preferences in bootstrap/WSN_high_0_0_prefs.csv
+2018-01-02 10:28:49,899 - INFO - Preferences will be averaged across sites.
+2018-01-02 10:28:51,898 - INFO - Successfully read site-specific amino-acid preferences for all 564 sites.
+
+2018-01-02 10:28:51,901 - INFO - Nucleotide frequency parameters phi will be set so stationary state matches alignment nucleotide frequencies of A = 0.337, C = 0.187, G = 0.240, T = 0.235
+
+2018-01-02 10:28:57,839 - INFO - Reading tree from bootstrap/WSN_high_0_0_RAxML_tree.newick
+2018-01-02 10:28:57,857 - INFO - Tree has 87 tips.
+2018-01-02 10:28:57,990 - INFO - Adjusted 1 branch lengths up to minbrlen 1e-06
+
+2018-01-02 10:28:57,990 - INFO - Initializing TreeLikelihood..
+2018-01-02 10:30:02,749 - INFO - TreeLikelihood initialized.
+2018-01-02 10:30:02,750 - INFO - Maximizing log likelihood (initially -63066.08).
+2018-01-02 10:30:02,750 - INFO - Branch lengths will be optimized individually.
+2018-01-02 12:03:18,023 - INFO - Maximization complete:
+	Step 1: optimized parameters, loglik went from -63066.08 to -55713.53 (23 iterations, 32 function evals)
+	Step 2: optimized branches, loglik went from -55713.53 to -55679.77 (116 iterations, 125 function evals)
+	Step 3: optimized parameters, loglik went from -55679.77 to -55678.94 (4 iterations, 9 function evals)
+	Step 4: optimized branches, loglik went from -55678.94 to -55678.56 (15 iterations, 20 function evals)
+	Step 5: optimized parameters, loglik went from -55678.56 to -55678.42 (2 iterations, 6 function evals)
+	Step 6: optimized branches, loglik went from -55678.42 to -55678.34 (5 iterations, 10 function evals)
+	Step 7: optimized parameters, loglik went from -55678.34 to -55678.23 (4 iterations, 8 function evals)
+	Step 8: optimized branches, loglik went from -55678.23 to -55678.23 (1 iterations, 4 function evals)
+2018-01-02 12:03:18,063 - INFO - Optimized log likelihood is -55678.23.
+2018-01-02 12:03:18,063 - INFO - Writing log likelihood to bootstrap/WSN_high_0_0_averaged_ExpCM_WSN_high_0_0_prefs_loglikelihood.txt
+2018-01-02 12:03:18,072 - INFO - Model parameters after optimization:
+	beta = 0.700433
+	kappa = 3.27682
+	omega = 0.0826744
+	phiA = 0.350841
+	phiC = 0.177827
+	phiG = 0.241521
+2018-01-02 12:03:18,073 - INFO - Writing model parameters to bootstrap/WSN_high_0_0_averaged_ExpCM_WSN_high_0_0_prefs_modelparams.txt
+2018-01-02 12:03:18,077 - INFO - Writing the optimized tree to bootstrap/WSN_high_0_0_averaged_ExpCM_WSN_high_0_0_prefs_tree.newick
+
+2018-01-02 12:03:18,088 - INFO - Successful completion of phydms

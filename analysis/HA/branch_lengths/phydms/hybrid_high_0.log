@@ -81,3 +81,39 @@
 2017-12-31 10:56:21,718 - INFO - Found expected output file phydms/hybrid_high_0_averaged_ExpCM_HA_average_prefs_modelparams.txt
 2017-12-31 10:56:21,719 - INFO - Analysis successful for averaged_ExpCM_HA_average_prefs
 
+2017-12-31 12:10:45,063 - INFO - Analysis completed for ExpCM_HA_average_prefs
+2017-12-31 12:10:45,065 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_average_prefs_log.log
+2017-12-31 12:10:45,065 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_average_prefs_tree.newick
+2017-12-31 12:10:45,065 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_average_prefs_loglikelihood.txt
+2017-12-31 12:10:45,066 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_average_prefs_modelparams.txt
+2017-12-31 12:10:45,066 - INFO - Analysis successful for ExpCM_HA_average_prefs
+
+2017-12-31 12:58:53,885 - INFO - Analysis completed for YNGKP_M5
+2017-12-31 12:58:53,887 - INFO - Found expected output file phydms/hybrid_high_0_YNGKP_M5_log.log
+2017-12-31 12:58:53,887 - INFO - Found expected output file phydms/hybrid_high_0_YNGKP_M5_tree.newick
+2017-12-31 12:58:53,887 - INFO - Found expected output file phydms/hybrid_high_0_YNGKP_M5_loglikelihood.txt
+2017-12-31 12:58:53,888 - INFO - Found expected output file phydms/hybrid_high_0_YNGKP_M5_modelparams.txt
+2017-12-31 12:58:53,888 - INFO - Analysis successful for YNGKP_M5
+
+2017-12-31 14:14:13,330 - INFO - Analysis completed for averaged_ExpCM_HA_average_prefs_gammaomega
+2017-12-31 14:14:13,331 - INFO - Found expected output file phydms/hybrid_high_0_averaged_ExpCM_HA_average_prefs_gammaomega_log.log
+2017-12-31 14:14:13,331 - INFO - Found expected output file phydms/hybrid_high_0_averaged_ExpCM_HA_average_prefs_gammaomega_tree.newick
+2017-12-31 14:14:13,331 - INFO - Found expected output file phydms/hybrid_high_0_averaged_ExpCM_HA_average_prefs_gammaomega_loglikelihood.txt
+2017-12-31 14:14:13,331 - INFO - Found expected output file phydms/hybrid_high_0_averaged_ExpCM_HA_average_prefs_gammaomega_modelparams.txt
+2017-12-31 14:14:13,331 - INFO - Analysis successful for averaged_ExpCM_HA_average_prefs_gammaomega
+
+2017-12-31 16:16:25,870 - INFO - Analysis completed for randomized_ExpCM_HA_average_prefs_gammaomega
+2017-12-31 16:16:25,873 - INFO - Found expected output file phydms/hybrid_high_0_randomized_ExpCM_HA_average_prefs_gammaomega_log.log
+2017-12-31 16:16:25,873 - INFO - Found expected output file phydms/hybrid_high_0_randomized_ExpCM_HA_average_prefs_gammaomega_tree.newick
+2017-12-31 16:16:25,874 - INFO - Found expected output file phydms/hybrid_high_0_randomized_ExpCM_HA_average_prefs_gammaomega_loglikelihood.txt
+2017-12-31 16:16:25,874 - INFO - Found expected output file phydms/hybrid_high_0_randomized_ExpCM_HA_average_prefs_gammaomega_modelparams.txt
+2017-12-31 16:16:25,874 - INFO - Analysis successful for randomized_ExpCM_HA_average_prefs_gammaomega
+
+2017-12-31 16:23:48,300 - INFO - Analysis completed for ExpCM_HA_average_prefs_gammaomega
+2017-12-31 16:23:48,302 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_average_prefs_gammaomega_log.log
+2017-12-31 16:23:48,302 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_average_prefs_gammaomega_tree.newick
+2017-12-31 16:23:48,303 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_average_prefs_gammaomega_loglikelihood.txt
+2017-12-31 16:23:48,304 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_average_prefs_gammaomega_modelparams.txt
+2017-12-31 16:23:48,304 - INFO - Analysis successful for ExpCM_HA_average_prefs_gammaomega
+
+2017-12-31 16:23:49,347 - INFO - Successful completion of phydms_comprehensive

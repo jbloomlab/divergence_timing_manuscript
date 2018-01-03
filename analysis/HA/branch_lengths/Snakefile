@@ -5,7 +5,10 @@ SKH 20171212
 """
 import glob
 import os
-# from Bio import SeqIO
+from Bio import SeqIO
+import numpy as np
+import pandas as pd
+from pymodules.utils import *
 # import re
 # import random
 # import os
@@ -19,27 +22,33 @@ import os
 
 # Directories
 ALIGNMENT_DIR = "../data/subsample/"
-PREFERNCES_DIR = "../data/references/"
+PREFERENCES_DIR = "../data/references/"
 
 # Alignment IDs
-ALIGNMENT_IDS = ["_".join(os.path.basename(x).split(".")[0].split("_")[1:]) for x in glob.glob("{0}/*.fasta".format(ALIGNMENT_DIR))]
+ALIGNMENT_IDS = ["_".join(os.path.basename(x).split(".")[0].split("_")[1:])
+                 for x in glob.glob("{0}/*.fasta".format(ALIGNMENT_DIR))]
 SEEDS = [int(x.split("_")[-1]) for x in ALIGNMENT_IDS]
 LEVELS = ["high", "intermediate", "low"]
-# WSN_IDS = [x for x in ALIGNMENT_IDS if "WSN" in x]
-# PERTH_IDS = [x for x in ALIGNMENT_IDS if "Perth" in x]
-# HYBRID_IDS = [x for x in ALIGNMENT_IDS if "hybrid" in x]
-# assert (len(WSN_IDS) + len(PERTH_IDS) + len(HYBRID_IDS)) == len(ALIGNMENT_IDS)
-# print(WSN_IDS)
+
+# Bootstrap params
+REPS = range(2)
 
 # Rules -----------------------------------------------------------------------
 
 rule all:
     input:
-        expand("phydms/Perth_{level}_{seed}_modelcomparison.md", level=LEVELS, seed=SEEDS),
-        expand("phydms/WSN_{level}_{seed}_modelcomparison.md", level=LEVELS, seed=SEEDS),
-        expand("phydms/hybrid_high_{seed}_modelcomparison.md", seed=SEEDS)
+        expand("phydms/Perth_{level}_{seed}_modelcomparison.md",
+               level=LEVELS, seed=SEEDS),
+        expand("phydms/WSN_{level}_{seed}_modelcomparison.md",
+               level=LEVELS, seed=SEEDS),
+        expand("phydms/hybrid_high_{seed}_modelcomparison.md", seed=SEEDS),
+        expand("bootstrap/{alignment_id}_{rep}_modelcomparison.md",
+                alignment_id=ALIGNMENT_IDS, rep=REPS),
+        "outputs/branch_lengths.csv", 
+        "outputs/model_by_model.csv"
+        # "outputs/params.csv"
 
-## Run `phydms_comprehensive` for each of the preference sets (next 3 rules)
+# Run `phydms_comprehensive` for each of the preference sets (next 3 rules)
 rule run_phydms_Lee:
     """
     This rule runs `phydms_comprehensive` for the alignments aligned to Perth.
@@ -50,10 +59,11 @@ rule run_phydms_Lee:
     output:
         modelcomparison = "phydms/Perth_{level}_{seed}_modelcomparison.md"
     params:
-        prefs = "{0}HA_Lee_prefs.csv".format(PREFERNCES_DIR),
+        prefs = "{0}HA_Lee_prefs.csv".format(PREFERENCES_DIR),
         phydms_id = 'Perth_{level}_{seed}'
     shell:
-        'phydms_comprehensive phydms/{params.phydms_id} {input.alignment} {params.prefs} --raxml raxml --gammaomega --randprefs'
+        'phydms_comprehensive phydms/{params.phydms_id} {input.alignment} \
+                {params.prefs} --raxml raxml --gammaomega --randprefs'
 
 rule run_phydms_Doud:
     """
@@ -65,10 +75,11 @@ rule run_phydms_Doud:
     output:
         modelcomparison = "phydms/WSN_{level}_{seed}_modelcomparison.md"
     params:
-        prefs = "{0}HA_Doud_prefs.csv".format(PREFERNCES_DIR),
+        prefs = "{0}HA_Doud_prefs.csv".format(PREFERENCES_DIR),
         phydms_id = 'WSN_{level}_{seed}'
     shell:
-        'phydms_comprehensive phydms/{params.phydms_id} {input.alignment} {params.prefs} --raxml raxml --gammaomega --randprefs'
+        'phydms_comprehensive phydms/{params.phydms_id} {input.alignment}\
+                {params.prefs} --raxml raxml --gammaomega --randprefs'
 
 rule run_phydms_hybrid:
     """
@@ -81,7 +92,183 @@ rule run_phydms_hybrid:
     output:
         modelcomparison = "phydms/hybrid_high_{seed}_modelcomparison.md"
     params:
-        prefs = "{0}HA_average_prefs.csv".format(PREFERNCES_DIR),
+        prefs = "{0}HA_average_prefs.csv".format(PREFERENCES_DIR),
         phydms_id = 'hybrid_high_{seed}'
     shell:
-        'phydms_comprehensive phydms/{params.phydms_id} {input.alignment} {params.prefs} --raxml raxml --gammaomega --randprefs'
+        'phydms_comprehensive phydms/{params.phydms_id} {input.alignment} \
+                {params.prefs} --raxml raxml --gammaomega --randprefs'
+
+# Make the bootstrapped alignments
+
+rule create_bootstrap_alignment:
+    """
+    This rule creates a bootstrapped alignment by sampling (with replacement)
+    the columns of the alignment. The function also creates the matching
+    preference file.
+    """
+    message: "Creating the bootstrap alignments."
+    input:
+        alignment = ALIGNMENT_DIR + "HA_{alignment_id}.fasta"
+    output:
+        alignment = temp("bootstrap/{alignment_id}_{rep}.fasta"),
+        preferences = temp("bootstrap/{alignment_id}_{rep}_prefs.csv")
+    params:
+        seed = '{rep}',
+        alignment_id = '{alignment_id}'
+    run:
+        ref_pref = {"Perth":"{0}/HA_Lee_prefs.csv".format(PREFERENCES_DIR),
+                    "WSN":"{0}/HA_Doud_prefs.csv".format(PREFERENCES_DIR),
+                    "hybrid":"{0}/HA_average_prefs.csv".format(PREFERENCES_DIR)}
+        prefs = pd.read_csv(ref_pref[params.alignment_id.split("_")[0]])
+        sites = prefs["site"].tolist()
+        seed = int(params.seed)
+        repeat = True
+        while repeat:
+            final = {}
+            for s in SeqIO.parse(input.alignment, "fasta"):
+                seq = str(s.seq)
+                np.random.seed(seed)
+                codons = [seq[x:x+3] for x in range(0, len(seq), 3)]
+                print(len(codons))
+                sample = "".join(np.random.choice(codons, len(codons),
+                                 replace=True))
+                final[s.id] = sample
+            seqs = list(final.values())
+            if len(seqs) == len(set(seqs)):
+                repeat = False
+            else:
+                seed = (seed+500) * -1.5
+        np.random.seed(seed)
+        sites = np.random.choice(sites, len(sites), replace=True)
+        prefs = pd.concat([prefs[prefs["site"] == x] for x in sites])
+        prefs["site"] = [x for x in range(1, len(prefs)+1)]
+        prefs.to_csv(output.preferences, index=False)
+        with open(output.alignment, "w") as f:
+            for key in final.keys():
+                f.write(">{0}\n{1}\n".format(key, final[key]))
+        print(len(sites))
+        first = list(final.keys())[0]
+        print(len(final[first]))
+
+# Run `phydms` on the bootstrap alignments
+rule run_phydms_bootstrap:
+    """
+    This rule runs `phydms_comprehensive` for the boostrapped alignments.
+    """
+    message: "Running `phydms_comprehensive` w/ bootstrapped alignments."
+    input:
+        alignment = "bootstrap/{alignment_id}_{rep}.fasta",
+        prefs = "bootstrap/{alignment_id}_{rep}_prefs.csv"
+    output:
+        modelcomparison = "bootstrap/{alignment_id}_{rep}_modelcomparison.md"
+    params:
+        phydms_id = '{alignment_id}_{rep}'
+    shell:
+        'phydms_comprehensive bootstrap/{params.phydms_id} {input.alignment} \
+                {input.prefs} --raxml raxml --gammaomega --randprefs'
+
+# Make summary files
+rule make_parameters_summary:
+    """
+    This rule makes a summary file with each true and bootstrapped runs fit
+    parameter values.
+    """
+    message: "Summarizing parameter values"
+    input:
+        true_runs = expand("phydms/{alignment_id}_modelcomparison.md",
+                           alignment_id=ALIGNMENT_IDS),
+        bootstrap = expand("bootstrap/{alignment_id}_{rep}_modelcomparison.md",
+                           alignment_id=ALIGNMENT_IDS, rep=REPS)
+    output:
+        summary = "outputs/params.csv"
+    run:
+        final = []
+        final_column_order = ["model", "alignment_id", "alignment_ref",
+                              "div_level", "alignment_rep", "bootstrap_rep",
+                              "model_type", "parameter", "value"]
+        for f in input.true_runs:
+            model_prefix = "_".join(f.split("/")[-1].split("_")[:-1])
+            for model_file in glob.glob("phydms/{0}*_modelparams.txt"\
+                                        .format(model_prefix)):
+                temp = pd.read_csv(model_file, sep=" = ", engine="python", header=None)
+                temp.columns = ["parameter", "value"]
+                model_name, model_type = extract_model_name(model_file)
+                temp["alignment_id"] = [model_prefix for x in range(len(temp))]
+                temp["alignment_ref"] = [model_prefix.split("_")[0] for x in range(len(temp))]
+                temp["div_level"] = [model_prefix.split("_")[1] for x in range(len(temp))]
+                temp["alignment_rep"] = [model_prefix.split("_")[-1] for x in range(len(temp))]
+                temp["bootstrap_rep"] = ["N/A" for x in range(len(temp))]
+                temp["model"] = [model_name for x in range(len(temp))]
+                temp["model_type"] = [model_type for x in range(len(temp))]
+                final.append(temp)
+        final = pd.concat(final)
+        final = final[final_column_order]
+        final.to_csv(output.summary, index=False)
+
+rule calc_branch_lengths:
+     """
+     The purpose of this rule is to calculate all pairwise branches
+     for the bootstrap and pairwise alignments. 
+     """
+     message: "Calculate branch lengths"
+     input:
+        true_runs = expand("phydms/{alignment_id}_modelcomparison.md",
+                           alignment_id=ALIGNMENT_IDS),
+        bootstrap_runs = expand("bootstrap/{alignment_id}_{rep}_modelcomparison.md",
+                           alignment_id=ALIGNMENT_IDS, rep=REPS)
+     output:
+        summary = "outputs/branch_lengths.csv"
+     run:
+        final_cols = ["seq_id", "sequence1", "sequence2", "model", "distance", "alignment_id", "alignment_ref", "divergence_level", "bootstrap", "from_ref"]
+        final = []
+        for run in input.true_runs + input.bootstrap_runs:
+            bootstrap = run.split("/")[0]
+            assert bootstrap in ["bootstrap", "phydms"], "Invalid parse of phydms vs. bootstrap"
+            alignment_id = os.path.basename("_".join(run.split("_")[:-1]))
+            for tree_fname in glob.glob("{0}/{1}*.newick".format(bootstrap, alignment_id)):
+                model_name, control = extract_model_name(tree_fname)
+                if control == 0:
+                    df = calc_distances(tree_fname)
+                    df["model"] = [model_name for x in range(len(df))]
+                    df["alignment_id"] = [alignment_id for x in range(len(df))]
+                    df["alignment_ref"] = [alignment_id.split("_")[0] for x in range(len(df))]
+                    df["divergence_level"] = [alignment_id.split("_")[1] for x in range(len(df))]
+                    df["bootstrap"] = [bootstrap for x in range(len(df))]
+                    df["from_ref"] = ['WSN' if "Wilson-Smith" in x else 'Perth' if "Perth" in x else 'no' for x in df["seq_id"]]
+                    final.append(df)
+        final = pd.concat(final)
+        final = final[final_cols]
+        final.to_csv(output.summary, index=False)
+        
+rule make_model_by_model:
+    """
+    The purpose of this rule is to reformat the branch lengths summary file to make it easy for plotting. 
+    """
+    message: "Creating model by model" 
+    input: 
+        branch_lengths = "outputs/branch_lengths.csv"
+    output:
+        model_by_model = "outputs/model_by_model.csv"
+    run:
+        final = []
+        model_pairs = {
+                       "ExpCM":["GY94"], 
+                       "GY94_gammaomega":["GY94"], 
+                       "ExpCM_gammaomega":["ExpCM", "GY94_gammaomega"]
+                       }
+        df = pd.read_csv(input.branch_lengths)
+        for alignment, alignment_df in df.groupby(["alignment_id"]):
+            for model_1, model_1_df in alignment_df.groupby(["model"]):
+                if model_1 in list(model_pairs.keys()):
+                    first = model_1_df[["seq_id", "distance"]]
+                    for model_2, temp in alignment_df.groupby(["model"]):
+                        if model_2 in model_pairs[model_1]:
+                            model_pair = "{0}/{1}".format(model_1, model_2)
+                            temp["model_pair"] = [model_pair for x in range(len(temp))]
+                            temp = temp.rename(columns = {"distance":"distance2"})
+                            temp = temp.drop(['model'], axis=1)
+                            temp = temp.merge(first, on=['seq_id'])
+                            temp = temp.rename(columns = {"distance":"distance1"})
+                            final.append(temp)
+        final = pd.concat(final)
+        final.to_csv(output.model_by_model, index=False)

@@ -1,0 +1,94 @@
+2018-01-02 12:21:14,282 - INFO - Beginning execution of phydms in directory /fh/fast/bloom_j/computational_notebooks/skhilton/2017/divergence_timing_manuscript/analysis/HA/branch_lengths
+
+2018-01-02 12:21:14,283 - INFO - Progress is being logged to bootstrap/hybrid_high_0_0_averaged_ExpCM_hybrid_high_0_0_prefs_gammaomega_log.log
+
+2018-01-02 12:21:14,283 - INFO - Version information:
+	Time and date: Tue Jan  2 12:21:13 2018
+	Platform: Linux-3.13.0-68-generic-x86_64-with-debian-jessie-sid
+	Python version: 3.6.0 |Continuum Analytics, Inc.| (default, Dec 23 2016, 12:22:00)  [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]
+	phydms version: 2.2.0
+	Bio version: 1.69
+	cython version: 0.25.2
+	numpy version: 1.13.3
+	scipy version: 0.19.0
+	matplotlib version: 2.1.0
+	natsort version: 5.0.2
+	sympy version: 1.0
+	six version: 1.11.0
+	pandas version: 0.21.0
+	pyvolve version: 0.8.4
+	statsmodels version: 0.8.0
+	weblogolib version: 3.5.0
+	PyPDF2 version: 1.26.0
+
+2018-01-02 12:21:14,283 - INFO - Parsed the following arguments:
+	alignment = bootstrap/hybrid_high_0_0.fasta
+	tree = bootstrap/hybrid_high_0_0_RAxML_tree.newick
+	model = ('ExpCM', 'bootstrap/hybrid_high_0_0_prefs.csv')
+	outprefix = bootstrap/hybrid_high_0_0_averaged_ExpCM_hybrid_high_0_0_prefs_gammaomega
+	brlen = optimize
+	gammaomega = True
+	gammabeta = False
+	omegabysite = False
+	omegabysite_fixsyn = False
+	diffprefsbysite = False
+	diffprefsprior = ('invquadratic', 150.0, 0.5)
+	fitphi = False
+	randprefs = False
+	avgprefs = True
+	divpressure = None
+	ncpus = 4
+	fitprefsmethod = 2
+	ncats = 4
+	minbrlen = 1e-06
+	minpref = 0.002
+	seed = 1
+	initparams = None
+	profile = False
+	opt_details = False
+	nograd = False
+
+2018-01-02 12:21:14,283 - INFO - Random number seed: 1
+
+2018-01-02 12:21:14,283 - INFO - Reading alignment from bootstrap/hybrid_high_0_0.fasta
+2018-01-02 12:21:15,018 - INFO - Read 87 aligned sequences from bootstrap/hybrid_high_0_0.fasta, each consisting of 552 codons.
+
+2018-01-02 12:21:15,019 - INFO - The model will be an ExpCM informed by site-specific amino-acid preferences in bootstrap/hybrid_high_0_0_prefs.csv
+2018-01-02 12:21:15,019 - INFO - Preferences will be averaged across sites.
+2018-01-02 12:21:16,724 - INFO - Successfully read site-specific amino-acid preferences for all 552 sites.
+
+2018-01-02 12:21:16,726 - INFO - Nucleotide frequency parameters phi will be set so stationary state matches alignment nucleotide frequencies of A = 0.336, C = 0.197, G = 0.232, T = 0.235
+
+2018-01-02 12:21:21,194 - INFO - Omega will be drawn from 4 gamma-distributed categories.
+
+2018-01-02 12:21:37,272 - INFO - Reading tree from bootstrap/hybrid_high_0_0_RAxML_tree.newick
+2018-01-02 12:21:37,278 - INFO - Tree has 87 tips.
+2018-01-02 12:21:37,318 - INFO - Adjusted 1 branch lengths up to minbrlen 1e-06
+
+2018-01-02 12:21:37,318 - INFO - Initializing TreeLikelihood..
+2018-01-02 12:24:43,814 - INFO - TreeLikelihood initialized.
+2018-01-02 12:24:43,815 - INFO - Maximizing log likelihood (initially -59902.23).
+2018-01-02 12:24:43,815 - INFO - Branch lengths will be optimized individually.
+2018-01-02 19:22:49,957 - INFO - Maximization complete:
+	Step 1: optimized parameters, loglik went from -59902.23 to -52595.16 (22 iterations, 28 function evals)
+	Step 2: optimized branches, loglik went from -52595.16 to -52510.47 (163 iterations, 171 function evals)
+	Step 3: optimized parameters, loglik went from -52510.47 to -52500.32 (8 iterations, 12 function evals)
+	Step 4: optimized branches, loglik went from -52500.32 to -52499.06 (43 iterations, 49 function evals)
+	Step 5: optimized parameters, loglik went from -52499.06 to -52498.92 (4 iterations, 7 function evals)
+	Step 6: optimized branches, loglik went from -52498.92 to -52498.66 (27 iterations, 34 function evals)
+	Step 7: optimized parameters, loglik went from -52498.66 to -52498.63 (3 iterations, 5 function evals)
+	Step 8: optimized branches, loglik went from -52498.63 to -52498.63 (1 iterations, 5 function evals)
+2018-01-02 19:22:49,959 - INFO - Optimized log likelihood is -52498.63.
+2018-01-02 19:22:49,960 - INFO - Writing log likelihood to bootstrap/hybrid_high_0_0_averaged_ExpCM_hybrid_high_0_0_prefs_gammaomega_loglikelihood.txt
+2018-01-02 19:22:49,972 - INFO - Model parameters after optimization:
+	alpha_omega = 0.616126
+	beta = 1.48746
+	beta_omega = 6.51527
+	kappa = 3.61977
+	phiA = 0.35722
+	phiC = 0.185281
+	phiG = 0.238306
+2018-01-02 19:22:49,972 - INFO - Writing model parameters to bootstrap/hybrid_high_0_0_averaged_ExpCM_hybrid_high_0_0_prefs_gammaomega_modelparams.txt
+2018-01-02 19:22:49,978 - INFO - Writing the optimized tree to bootstrap/hybrid_high_0_0_averaged_ExpCM_hybrid_high_0_0_prefs_gammaomega_tree.newick
+
+2018-01-02 19:22:49,989 - INFO - Successful completion of phydms

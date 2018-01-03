@@ -69,3 +69,22 @@
 2017-12-31 09:59:27,051 - INFO - TreeLikelihood initialized.
 2017-12-31 09:59:27,052 - INFO - Maximizing log likelihood (initially -59471.57).
 2017-12-31 09:59:27,052 - INFO - Branch lengths will be optimized individually.
+2017-12-31 14:14:10,852 - INFO - Maximization complete:
+	Step 1: optimized parameters, loglik went from -59471.57 to -52194.77 (18 iterations, 23 function evals)
+	Step 2: optimized branches, loglik went from -52194.77 to -52100.74 (176 iterations, 189 function evals)
+	Step 3: optimized parameters, loglik went from -52100.74 to -52090.71 (8 iterations, 12 function evals)
+	Step 4: optimized branches, loglik went from -52090.71 to -52090.71 (1 iterations, 5 function evals)
+2017-12-31 14:14:10,894 - INFO - Optimized log likelihood is -52090.71.
+2017-12-31 14:14:10,895 - INFO - Writing log likelihood to phydms/hybrid_high_0_averaged_ExpCM_HA_average_prefs_gammaomega_loglikelihood.txt
+2017-12-31 14:14:10,912 - INFO - Model parameters after optimization:
+	alpha_omega = 0.620666
+	beta = 1.50696
+	beta_omega = 6.45186
+	kappa = 3.64264
+	phiA = 0.358134
+	phiC = 0.180305
+	phiG = 0.237718
+2017-12-31 14:14:10,913 - INFO - Writing model parameters to phydms/hybrid_high_0_averaged_ExpCM_HA_average_prefs_gammaomega_modelparams.txt
+2017-12-31 14:14:10,916 - INFO - Writing the optimized tree to phydms/hybrid_high_0_averaged_ExpCM_HA_average_prefs_gammaomega_tree.newick
+
+2017-12-31 14:14:10,930 - INFO - Successful completion of phydms

@@ -1,0 +1,94 @@
+2018-01-02 17:51:50,211 - INFO - Beginning execution of phydms in directory /fh/fast/bloom_j/computational_notebooks/skhilton/2017/divergence_timing_manuscript/analysis/HA/branch_lengths
+
+2018-01-02 17:51:50,211 - INFO - Progress is being logged to bootstrap/WSN_intermediate_0_1_randomized_ExpCM_WSN_intermediate_0_1_prefs_gammaomega_log.log
+
+2018-01-02 17:51:50,211 - INFO - Version information:
+	Time and date: Tue Jan  2 17:51:49 2018
+	Platform: Linux-3.13.0-68-generic-x86_64-with-debian-jessie-sid
+	Python version: 3.6.0 |Continuum Analytics, Inc.| (default, Dec 23 2016, 12:22:00)  [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]
+	phydms version: 2.2.0
+	Bio version: 1.69
+	cython version: 0.25.2
+	numpy version: 1.13.3
+	scipy version: 0.19.0
+	matplotlib version: 2.1.0
+	natsort version: 5.0.2
+	sympy version: 1.0
+	six version: 1.11.0
+	pandas version: 0.21.0
+	pyvolve version: 0.8.4
+	statsmodels version: 0.8.0
+	weblogolib version: 3.5.0
+	PyPDF2 version: 1.26.0
+
+2018-01-02 17:51:50,211 - INFO - Parsed the following arguments:
+	alignment = bootstrap/WSN_intermediate_0_1.fasta
+	tree = bootstrap/WSN_intermediate_0_1_RAxML_tree.newick
+	model = ('ExpCM', 'bootstrap/WSN_intermediate_0_1_prefs.csv')
+	outprefix = bootstrap/WSN_intermediate_0_1_randomized_ExpCM_WSN_intermediate_0_1_prefs_gammaomega
+	brlen = optimize
+	gammaomega = True
+	gammabeta = False
+	omegabysite = False
+	omegabysite_fixsyn = False
+	diffprefsbysite = False
+	diffprefsprior = ('invquadratic', 150.0, 0.5)
+	fitphi = False
+	randprefs = True
+	avgprefs = False
+	divpressure = None
+	ncpus = 4
+	fitprefsmethod = 2
+	ncats = 4
+	minbrlen = 1e-06
+	minpref = 0.002
+	seed = 1
+	initparams = None
+	profile = False
+	opt_details = False
+	nograd = False
+
+2018-01-02 17:51:50,211 - INFO - Random number seed: 1
+
+2018-01-02 17:51:50,211 - INFO - Reading alignment from bootstrap/WSN_intermediate_0_1.fasta
+2018-01-02 17:51:50,648 - INFO - Read 53 aligned sequences from bootstrap/WSN_intermediate_0_1.fasta, each consisting of 564 codons.
+
+2018-01-02 17:51:50,649 - INFO - The model will be an ExpCM informed by site-specific amino-acid preferences in bootstrap/WSN_intermediate_0_1_prefs.csv
+2018-01-02 17:51:50,649 - INFO - Preferences will be randomized across sites.
+2018-01-02 17:51:52,035 - INFO - Successfully read site-specific amino-acid preferences for all 564 sites.
+
+2018-01-02 17:51:52,036 - INFO - Nucleotide frequency parameters phi will be set so stationary state matches alignment nucleotide frequencies of A = 0.351, C = 0.186, G = 0.229, T = 0.235
+
+2018-01-02 17:51:56,192 - INFO - Omega will be drawn from 4 gamma-distributed categories.
+
+2018-01-02 17:52:08,206 - INFO - Reading tree from bootstrap/WSN_intermediate_0_1_RAxML_tree.newick
+2018-01-02 17:52:08,213 - INFO - Tree has 53 tips.
+2018-01-02 17:52:08,228 - INFO - Adjusted 1 branch lengths up to minbrlen 1e-06
+
+2018-01-02 17:52:08,228 - INFO - Initializing TreeLikelihood..
+2018-01-02 17:54:01,076 - INFO - TreeLikelihood initialized.
+2018-01-02 17:54:01,084 - INFO - Maximizing log likelihood (initially -37731.42).
+2018-01-02 17:54:01,085 - INFO - Branch lengths will be optimized individually.
+2018-01-02 20:51:37,884 - INFO - Maximization complete:
+	Step 1: optimized parameters, loglik went from -37731.42 to -33163.78 (20 iterations, 25 function evals)
+	Step 2: optimized branches, loglik went from -33163.78 to -33120.15 (96 iterations, 112 function evals)
+	Step 3: optimized parameters, loglik went from -33120.15 to -33114.59 (9 iterations, 14 function evals)
+	Step 4: optimized branches, loglik went from -33114.59 to -33113.68 (40 iterations, 50 function evals)
+	Step 5: optimized parameters, loglik went from -33113.68 to -33113.55 (3 iterations, 6 function evals)
+	Step 6: optimized branches, loglik went from -33113.55 to -33113.42 (4 iterations, 7 function evals)
+	Step 7: optimized parameters, loglik went from -33113.42 to -33113.40 (4 iterations, 6 function evals)
+	Step 8: optimized branches, loglik went from -33113.40 to -33113.40 (1 iterations, 5 function evals)
+2018-01-02 20:51:37,928 - INFO - Optimized log likelihood is -33113.40.
+2018-01-02 20:51:37,928 - INFO - Writing log likelihood to bootstrap/WSN_intermediate_0_1_randomized_ExpCM_WSN_intermediate_0_1_prefs_gammaomega_loglikelihood.txt
+2018-01-02 20:51:37,936 - INFO - Model parameters after optimization:
+	alpha_omega = 0.587265
+	beta = 0.0389678
+	beta_omega = 6.32512
+	kappa = 3.91307
+	phiA = 0.359805
+	phiC = 0.173184
+	phiG = 0.22607
+2018-01-02 20:51:37,936 - INFO - Writing model parameters to bootstrap/WSN_intermediate_0_1_randomized_ExpCM_WSN_intermediate_0_1_prefs_gammaomega_modelparams.txt
+2018-01-02 20:51:37,941 - INFO - Writing the optimized tree to bootstrap/WSN_intermediate_0_1_randomized_ExpCM_WSN_intermediate_0_1_prefs_gammaomega_tree.newick
+
+2018-01-02 20:51:37,955 - INFO - Successful completion of phydms

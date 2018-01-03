@@ -1,0 +1,117 @@
+2018-01-02 10:27:43,775 - INFO - Beginning execution of phydms_comprehensive in directory /fh/fast/bloom_j/computational_notebooks/skhilton/2017/divergence_timing_manuscript/analysis/HA/branch_lengths
+
+2018-01-02 10:27:43,776 - INFO - Progress is being logged to bootstrap/WSN_low_0_0.log
+
+2018-01-02 10:27:43,776 - INFO - Version information:
+	Time and date: Tue Jan  2 10:27:37 2018
+	Platform: Linux-3.13.0-68-generic-x86_64-with-debian-jessie-sid
+	Python version: 3.6.0 |Continuum Analytics, Inc.| (default, Dec 23 2016, 12:22:00)  [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]
+	phydms version: 2.2.0
+	Bio version: 1.69
+	cython version: 0.25.2
+	numpy version: 1.13.3
+	scipy version: 0.19.0
+	matplotlib version: 2.1.0
+	natsort version: 5.0.2
+	sympy version: 1.0
+	six version: 1.11.0
+	pandas version: 0.21.0
+	pyvolve version: 0.8.4
+	statsmodels version: 0.8.0
+	weblogolib version: 3.5.0
+	PyPDF2 version: 1.26.0
+
+2018-01-02 10:27:43,777 - INFO - Parsed the following command-line arguments:
+	outprefix = bootstrap/WSN_low_0_0_
+	alignment = bootstrap/WSN_low_0_0.fasta
+	prefsfiles = ['bootstrap/WSN_low_0_0_prefs.csv']
+	raxml = raxml
+	tree = None
+	ncpus = -1
+	brlen = optimize
+	omegabysite = False
+	diffprefsbysite = False
+	gammaomega = True
+	gammabeta = False
+	noavgprefs = False
+	randprefs = True
+
+2018-01-02 10:27:43,777 - INFO - Checking that the alignment bootstrap/WSN_low_0_0.fasta is valid...
+2018-01-02 10:27:44,040 - INFO - Valid alignment specifying 28 sequences of length 1692.
+
+2018-01-02 10:27:44,040 - INFO - Tree not specified.
+2018-01-02 10:27:44,274 - INFO - Inferring tree with RAxML using command raxml
+2018-01-02 10:27:50,312 - INFO - RAxML inferred tree is now named bootstrap/WSN_low_0_0_RAxML_tree.newick
+2018-01-02 10:27:50,334 - INFO - Starting analysis to optimize tree in bootstrap/WSN_low_0_0_RAxML_tree.newick using model YNGKP_M0. The command is: phydms bootstrap/WSN_low_0_0.fasta bootstrap/WSN_low_0_0_RAxML_tree.newick YNGKP_M0 bootstrap/WSN_low_0_0_YNGKP_M0 --brlen optimize --ncpus 1
+
+2018-01-02 10:27:50,335 - INFO - Starting analysis to optimize tree in bootstrap/WSN_low_0_0_RAxML_tree.newick using model YNGKP_M5. The command is: phydms bootstrap/WSN_low_0_0.fasta bootstrap/WSN_low_0_0_RAxML_tree.newick YNGKP_M5 bootstrap/WSN_low_0_0_YNGKP_M5 --brlen optimize --ncpus 1
+
+2018-01-02 10:27:50,335 - INFO - Starting analysis to optimize tree in bootstrap/WSN_low_0_0_RAxML_tree.newick using model ExpCM_WSN_low_0_0_prefs. The command is: phydms bootstrap/WSN_low_0_0.fasta bootstrap/WSN_low_0_0_RAxML_tree.newick ExpCM_bootstrap/WSN_low_0_0_prefs.csv bootstrap/WSN_low_0_0_ExpCM_WSN_low_0_0_prefs --brlen optimize --ncpus 4
+
+2018-01-02 10:27:50,335 - INFO - Starting analysis to optimize tree in bootstrap/WSN_low_0_0_RAxML_tree.newick using model ExpCM_WSN_low_0_0_prefs_gammaomega. The command is: phydms bootstrap/WSN_low_0_0.fasta bootstrap/WSN_low_0_0_RAxML_tree.newick ExpCM_bootstrap/WSN_low_0_0_prefs.csv bootstrap/WSN_low_0_0_ExpCM_WSN_low_0_0_prefs_gammaomega --brlen optimize --gammaomega --ncpus 4
+
+2018-01-02 10:27:50,336 - INFO - Starting analysis to optimize tree in bootstrap/WSN_low_0_0_RAxML_tree.newick using model averaged_ExpCM_WSN_low_0_0_prefs. The command is: phydms bootstrap/WSN_low_0_0.fasta bootstrap/WSN_low_0_0_RAxML_tree.newick ExpCM_bootstrap/WSN_low_0_0_prefs.csv bootstrap/WSN_low_0_0_averaged_ExpCM_WSN_low_0_0_prefs --brlen optimize --avgprefs --ncpus 4
+
+2018-01-02 10:27:50,336 - INFO - Starting analysis to optimize tree in bootstrap/WSN_low_0_0_RAxML_tree.newick using model averaged_ExpCM_WSN_low_0_0_prefs_gammaomega. The command is: phydms bootstrap/WSN_low_0_0.fasta bootstrap/WSN_low_0_0_RAxML_tree.newick ExpCM_bootstrap/WSN_low_0_0_prefs.csv bootstrap/WSN_low_0_0_averaged_ExpCM_WSN_low_0_0_prefs_gammaomega --brlen optimize --gammaomega --avgprefs --ncpus 4
+
+2018-01-02 10:27:50,336 - INFO - Starting analysis to optimize tree in bootstrap/WSN_low_0_0_RAxML_tree.newick using model randomized_ExpCM_WSN_low_0_0_prefs. The command is: phydms bootstrap/WSN_low_0_0.fasta bootstrap/WSN_low_0_0_RAxML_tree.newick ExpCM_bootstrap/WSN_low_0_0_prefs.csv bootstrap/WSN_low_0_0_randomized_ExpCM_WSN_low_0_0_prefs --brlen optimize --randprefs --ncpus 4
+
+2018-01-02 10:27:50,336 - INFO - Starting analysis to optimize tree in bootstrap/WSN_low_0_0_RAxML_tree.newick using model randomized_ExpCM_WSN_low_0_0_prefs_gammaomega. The command is: phydms bootstrap/WSN_low_0_0.fasta bootstrap/WSN_low_0_0_RAxML_tree.newick ExpCM_bootstrap/WSN_low_0_0_prefs.csv bootstrap/WSN_low_0_0_randomized_ExpCM_WSN_low_0_0_prefs_gammaomega --brlen optimize --gammaomega --randprefs --ncpus 4
+
+2018-01-02 10:33:45,940 - INFO - Analysis completed for YNGKP_M0
+2018-01-02 10:33:45,944 - INFO - Found expected output file bootstrap/WSN_low_0_0_YNGKP_M0_log.log
+2018-01-02 10:33:45,945 - INFO - Found expected output file bootstrap/WSN_low_0_0_YNGKP_M0_tree.newick
+2018-01-02 10:33:45,945 - INFO - Found expected output file bootstrap/WSN_low_0_0_YNGKP_M0_loglikelihood.txt
+2018-01-02 10:33:45,945 - INFO - Found expected output file bootstrap/WSN_low_0_0_YNGKP_M0_modelparams.txt
+2018-01-02 10:33:45,945 - INFO - Analysis successful for YNGKP_M0
+
+2018-01-02 10:52:13,760 - INFO - Analysis completed for randomized_ExpCM_WSN_low_0_0_prefs
+2018-01-02 10:52:13,776 - INFO - Found expected output file bootstrap/WSN_low_0_0_randomized_ExpCM_WSN_low_0_0_prefs_log.log
+2018-01-02 10:52:13,776 - INFO - Found expected output file bootstrap/WSN_low_0_0_randomized_ExpCM_WSN_low_0_0_prefs_tree.newick
+2018-01-02 10:52:13,776 - INFO - Found expected output file bootstrap/WSN_low_0_0_randomized_ExpCM_WSN_low_0_0_prefs_loglikelihood.txt
+2018-01-02 10:52:13,776 - INFO - Found expected output file bootstrap/WSN_low_0_0_randomized_ExpCM_WSN_low_0_0_prefs_modelparams.txt
+2018-01-02 10:52:13,776 - INFO - Analysis successful for randomized_ExpCM_WSN_low_0_0_prefs
+
+2018-01-02 10:57:15,234 - INFO - Analysis completed for ExpCM_WSN_low_0_0_prefs
+2018-01-02 10:57:15,236 - INFO - Found expected output file bootstrap/WSN_low_0_0_ExpCM_WSN_low_0_0_prefs_log.log
+2018-01-02 10:57:15,236 - INFO - Found expected output file bootstrap/WSN_low_0_0_ExpCM_WSN_low_0_0_prefs_tree.newick
+2018-01-02 10:57:15,236 - INFO - Found expected output file bootstrap/WSN_low_0_0_ExpCM_WSN_low_0_0_prefs_loglikelihood.txt
+2018-01-02 10:57:15,237 - INFO - Found expected output file bootstrap/WSN_low_0_0_ExpCM_WSN_low_0_0_prefs_modelparams.txt
+2018-01-02 10:57:15,237 - INFO - Analysis successful for ExpCM_WSN_low_0_0_prefs
+
+2018-01-02 10:59:42,440 - INFO - Analysis completed for YNGKP_M5
+2018-01-02 10:59:42,442 - INFO - Found expected output file bootstrap/WSN_low_0_0_YNGKP_M5_log.log
+2018-01-02 10:59:42,443 - INFO - Found expected output file bootstrap/WSN_low_0_0_YNGKP_M5_tree.newick
+2018-01-02 10:59:42,443 - INFO - Found expected output file bootstrap/WSN_low_0_0_YNGKP_M5_loglikelihood.txt
+2018-01-02 10:59:42,443 - INFO - Found expected output file bootstrap/WSN_low_0_0_YNGKP_M5_modelparams.txt
+2018-01-02 10:59:42,443 - INFO - Analysis successful for YNGKP_M5
+
+2018-01-02 11:02:54,684 - INFO - Analysis completed for averaged_ExpCM_WSN_low_0_0_prefs
+2018-01-02 11:02:54,686 - INFO - Found expected output file bootstrap/WSN_low_0_0_averaged_ExpCM_WSN_low_0_0_prefs_log.log
+2018-01-02 11:02:54,687 - INFO - Found expected output file bootstrap/WSN_low_0_0_averaged_ExpCM_WSN_low_0_0_prefs_tree.newick
+2018-01-02 11:02:54,687 - INFO - Found expected output file bootstrap/WSN_low_0_0_averaged_ExpCM_WSN_low_0_0_prefs_loglikelihood.txt
+2018-01-02 11:02:54,687 - INFO - Found expected output file bootstrap/WSN_low_0_0_averaged_ExpCM_WSN_low_0_0_prefs_modelparams.txt
+2018-01-02 11:02:54,687 - INFO - Analysis successful for averaged_ExpCM_WSN_low_0_0_prefs
+
+2018-01-02 11:48:08,681 - INFO - Analysis completed for averaged_ExpCM_WSN_low_0_0_prefs_gammaomega
+2018-01-02 11:48:08,683 - INFO - Found expected output file bootstrap/WSN_low_0_0_averaged_ExpCM_WSN_low_0_0_prefs_gammaomega_log.log
+2018-01-02 11:48:08,684 - INFO - Found expected output file bootstrap/WSN_low_0_0_averaged_ExpCM_WSN_low_0_0_prefs_gammaomega_tree.newick
+2018-01-02 11:48:08,684 - INFO - Found expected output file bootstrap/WSN_low_0_0_averaged_ExpCM_WSN_low_0_0_prefs_gammaomega_loglikelihood.txt
+2018-01-02 11:48:08,684 - INFO - Found expected output file bootstrap/WSN_low_0_0_averaged_ExpCM_WSN_low_0_0_prefs_gammaomega_modelparams.txt
+2018-01-02 11:48:08,684 - INFO - Analysis successful for averaged_ExpCM_WSN_low_0_0_prefs_gammaomega
+
+2018-01-02 12:02:43,566 - INFO - Analysis completed for randomized_ExpCM_WSN_low_0_0_prefs_gammaomega
+2018-01-02 12:02:43,569 - INFO - Found expected output file bootstrap/WSN_low_0_0_randomized_ExpCM_WSN_low_0_0_prefs_gammaomega_log.log
+2018-01-02 12:02:43,569 - INFO - Found expected output file bootstrap/WSN_low_0_0_randomized_ExpCM_WSN_low_0_0_prefs_gammaomega_tree.newick
+2018-01-02 12:02:43,569 - INFO - Found expected output file bootstrap/WSN_low_0_0_randomized_ExpCM_WSN_low_0_0_prefs_gammaomega_loglikelihood.txt
+2018-01-02 12:02:43,569 - INFO - Found expected output file bootstrap/WSN_low_0_0_randomized_ExpCM_WSN_low_0_0_prefs_gammaomega_modelparams.txt
+2018-01-02 12:02:43,569 - INFO - Analysis successful for randomized_ExpCM_WSN_low_0_0_prefs_gammaomega
+
+2018-01-02 12:19:28,542 - INFO - Analysis completed for ExpCM_WSN_low_0_0_prefs_gammaomega
+2018-01-02 12:19:28,545 - INFO - Found expected output file bootstrap/WSN_low_0_0_ExpCM_WSN_low_0_0_prefs_gammaomega_log.log
+2018-01-02 12:19:28,545 - INFO - Found expected output file bootstrap/WSN_low_0_0_ExpCM_WSN_low_0_0_prefs_gammaomega_tree.newick
+2018-01-02 12:19:28,545 - INFO - Found expected output file bootstrap/WSN_low_0_0_ExpCM_WSN_low_0_0_prefs_gammaomega_loglikelihood.txt
+2018-01-02 12:19:28,545 - INFO - Found expected output file bootstrap/WSN_low_0_0_ExpCM_WSN_low_0_0_prefs_gammaomega_modelparams.txt
+2018-01-02 12:19:28,545 - INFO - Analysis successful for ExpCM_WSN_low_0_0_prefs_gammaomega
+
+2018-01-02 12:19:29,579 - INFO - Successful completion of phydms_comprehensive
