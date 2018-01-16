@@ -14,7 +14,7 @@ import scipy
 from pymodules.utils import *
 from collections import Counter
 
-### Set up for translation and pairwise
+## Set up for translation and pairwise
 # codon to index, add codon `---`
 max_codon_index = (max(list(constants.CODON_TO_INDEX.values())))
 if "---" not in list(constants.CODON_TO_INDEX.keys()):
@@ -29,7 +29,7 @@ constants.CODON_TO_AA = scipy.append(constants.CODON_TO_AA, [[max_AA_index+1]])
 # Globals ---------------------------------------------------------------------
 
 # HA subtypes to include in the analysis
-NUMBERS = [x for x in range(1,19) if x not in [12,15,17,18]]
+NUMBERS = [x for x in range(1, 19) if x not in [12,15,17,18]]
 
 # reference sequence names and headers
 WSN_REF = "references/WSN_HA_reference.fasta"
@@ -48,7 +48,7 @@ WSN_LEVELS = [[1,2,5,6], [1,2,5,6,8,9,11,13,16]]
 PERTH_LEVELS = [[3,4,7,10,14], [3,4,7,8,9,10,11,13,14,16]]
 
 # Number of subsampled alignments
-SEEDS = range(2)
+SEEDS = range(1)
 # Rules -----------------------------------------------------------------------
 
 rule all:
@@ -56,7 +56,8 @@ rule all:
         expand("subsample/HA_{strain}_high_{seed}.fasta",strain=STRAINS,seed=SEEDS),
         expand("subsample/HA_WSN_{level}_{seed}.fasta",level=LEVELS,seed=SEEDS),
         expand("subsample/HA_Perth_{level}_{seed}.fasta",level=LEVELS,seed=SEEDS),
-        "subsample/divergence_distances.csv"
+        "subsample/divergence_distances.csv",
+        "subsample/seq_list_formatted.txt"
 
 
 ## Add in each reference sequence to each set of HA sequences (next 3 rules)
@@ -354,7 +355,7 @@ rule subsample_divergence_level_Perth:
         with open(output.fasta, "w") as output_handle:
             SeqIO.write(final, output_handle, "fasta")
 
-## Create final summary file (next 1 rule)
+## Create divergence summary file (next 1 rule)
 rule calculate_divergence:
     """
     This function calculates the divergence from each sequence in the "high"

@@ -7,3 +7,4 @@ bootstrap/*
 !bootstrap/*modelcomparison.md
 !bootstrap/*tree.newick
 outputs/
+pymodules/__pycache__/
