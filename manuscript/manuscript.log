@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  20 DEC 2017 12:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  15 JAN 2018 15:52
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -483,140 +483,128 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 
 {/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 124.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 125.
  [2
 
 ]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 168.
- [3]
-<figures/model_feature.pdf, id=73, 519.9425pt x 206.7725pt>
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 172.
+
+<figures/model_feature.pdf, id=57, 807.015pt x 644.4075pt>
 File: figures/model_feature.pdf Graphic file (type pdf)
 
 <use figures/model_feature.pdf>
-Package pdftex.def Info: figures/model_feature.pdf used on input line 182.
-(pdftex.def)             Requested size: 386.96024pt x 153.88635pt.
+Package pdftex.def Info: figures/model_feature.pdf used on input line 175.
+(pdftex.def)             Requested size: 386.96024pt x 308.9876pt.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 188.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 182.
+ [3] [4 <./figures/model_feature.pdf>]
+<figures/decay.pdf, id=125, 871.255pt x 646.415pt>
+File: figures/decay.pdf Graphic file (type pdf)
+ <use figures/decay.pdf>
+Package pdftex.def Info: figures/decay.pdf used on input line 210.
+(pdftex.def)             Requested size: 386.96024pt x 287.09648pt.
 
-<figures/decay2.pdf, id=74, 1284.8pt x 688.5725pt>
-File: figures/decay2.pdf Graphic file (type pdf)
- <use figures/decay2.pdf>
-Package pdftex.def Info: figures/decay2.pdf used on input line 192.
-(pdftex.def)             Requested size: 386.96024pt x 207.38235pt.
-
-[4 <./figures/model_feature.pdf>]
-<figures/simulations.pdf, id=112, 818.05624pt x 224.84pt>
+[5] [6 <./figures/decay.pdf>]
+<figures/simulations.pdf, id=199, 818.05624pt x 224.84pt>
 File: figures/simulations.pdf Graphic file (type pdf)
 
 <use figures/simulations.pdf>
-Package pdftex.def Info: figures/simulations.pdf used on input line 205.
+Package pdftex.def Info: figures/simulations.pdf used on input line 243.
 (pdftex.def)             Requested size: 386.96024pt x 106.35753pt.
 
 
-LaTeX Warning: Reference `tab:sim_params' on page 5 undefined on input line 213
+LaTeX Warning: Reference `tab:sim_params' on page 7 undefined on input line 251
 .
 
 
-LaTeX Warning: Reference `tab:sim_params' on page 5 undefined on input line 213
+LaTeX Warning: Reference `tab:sim_params' on page 7 undefined on input line 251
 .
 
-<figures/tree_doud.pdf, id=113, 546.04pt x 516.93124pt>
-File: figures/tree_doud.pdf Graphic file (type pdf)
-
-<use figures/tree_doud.pdf>
-Package pdftex.def Info: figures/tree_doud.pdf used on input line 219.
-(pdftex.def)             Requested size: 386.96024pt x 366.32962pt.
- [5 <./figures/decay2.pdf> <./figures/simulations.pdf>] <figures/tree_lee.pdf, 
-id=229, 546.04pt x 516.93124pt>
-File: figures/tree_lee.pdf Graphic file (type pdf)
-
-<use figures/tree_lee.pdf>
-Package pdftex.def Info: figures/tree_lee.pdf used on input line 228.
-(pdftex.def)             Requested size: 386.96024pt x 366.32962pt.
- [6 <./figures/tree_doud.pdf>]
-<figures/tree_average.pdf, id=266, 546.04pt x 549.05125pt>
-File: figures/tree_average.pdf Graphic file (type pdf)
-
-<use figures/tree_average.pdf>
-Package pdftex.def Info: figures/tree_average.pdf used on input line 237.
-(pdftex.def)             Requested size: 386.96024pt x 389.09187pt.
- [7 <./figures/tree_lee.pdf>]
-<figures/experiment_doud.pdf, id=304, 1162.3425pt x 1180.41pt>
-File: figures/experiment_doud.pdf Graphic file (type pdf)
-
-<use figures/experiment_doud.pdf>
-Package pdftex.def Info: figures/experiment_doud.pdf used on input line 249.
-(pdftex.def)             Requested size: 386.96024pt x 392.97672pt.
- [8 <./figures/tree_average.pdf>] [9 <./figures/experiment_doud.pdf>] [10] [11]
- [12]
-<figures/prefs_doud.pdf, id=463, 1091.07625pt x 294.09875pt>
+[7 <./figures/simulations.pdf>] [8] [9] [10] [11] [12]
+<figures/prefs_doud.pdf, id=318, 1091.07625pt x 294.09875pt>
 File: figures/prefs_doud.pdf Graphic file (type pdf)
 
 <use figures/prefs_doud.pdf>
-Package pdftex.def Info: figures/prefs_doud.pdf used on input line 341.
+Package pdftex.def Info: figures/prefs_doud.pdf used on input line 409.
 (pdftex.def)             Requested size: 386.96024pt x 104.30481pt.
 
-<figures/prefs_lee.pdf, id=470, 1091.07625pt x 294.09875pt>
+<figures/prefs_lee.pdf, id=325, 1091.07625pt x 294.09875pt>
 File: figures/prefs_lee.pdf Graphic file (type pdf)
 
 <use figures/prefs_lee.pdf>
-Package pdftex.def Info: figures/prefs_lee.pdf used on input line 348.
+Package pdftex.def Info: figures/prefs_lee.pdf used on input line 416.
 (pdftex.def)             Requested size: 386.96024pt x 104.30481pt.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 351.
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 419.
 
-<figures/prefs_average.pdf, id=473, 681.54625pt x 467.7475pt>
+<figures/prefs_average.pdf, id=328, 681.54625pt x 467.7475pt>
 File: figures/prefs_average.pdf Graphic file (type pdf)
 
 <use figures/prefs_average.pdf>
-Package pdftex.def Info: figures/prefs_average.pdf used on input line 355.
+Package pdftex.def Info: figures/prefs_average.pdf used on input line 423.
 (pdftex.def)             Requested size: 386.96024pt x 265.5768pt.
  [13 <./figures/prefs_doud.pdf> <./figures/prefs_lee.pdf>] <figures/experiment_
-lee.pdf, id=513, 1162.3425pt x 1180.41pt>
+lee.pdf, id=367, 1162.3425pt x 1180.41pt>
 File: figures/experiment_lee.pdf Graphic file (type pdf)
 
 <use figures/experiment_lee.pdf>
-Package pdftex.def Info: figures/experiment_lee.pdf used on input line 361.
+Package pdftex.def Info: figures/experiment_lee.pdf used on input line 429.
 (pdftex.def)             Requested size: 386.96024pt x 392.97672pt.
  [14 <./figures/prefs_average.pdf>]
-<figures/dms.pdf, id=546, 917.4275pt x 397.485pt>
-File: figures/dms.pdf Graphic file (type pdf)
- <use figures/dms.pdf>
-Package pdftex.def Info: figures/dms.pdf used on input line 375.
-(pdftex.def)             Requested size: 386.96024pt x 167.65218pt.
 
-[15 <./figures/experiment_lee.pdf>]
-
-LaTeX Warning: Reference `fig:simulation' on page 16 undefined on input line 38
-8.
+LaTeX Warning: Reference `fig:simulation' on page 15 undefined on input line 44
+4.
 
 
-LaTeX Warning: Reference `fig:simulation' on page 16 undefined on input line 38
-8.
+LaTeX Warning: Reference `fig:simulation' on page 15 undefined on input line 44
+4.
+
+<figures/tree_doud.pdf, id=403, 546.04pt x 516.93124pt>
+File: figures/tree_doud.pdf Graphic file (type pdf)
+
+<use figures/tree_doud.pdf>
+Package pdftex.def Info: figures/tree_doud.pdf used on input line 495.
+(pdftex.def)             Requested size: 386.96024pt x 366.32962pt.
+ [15 <./figures/experiment_lee.pdf>]
+Overfull \vbox (411.36972pt too high) has occurred while \output is active []
 
 
-LaTeX Warning: Reference `fig:decay' on page 16 undefined on input line 401.
+[16 <./figures/tree_doud.pdf>]
+<figures/tree_lee.pdf, id=506, 546.04pt x 509.905pt>
+File: figures/tree_lee.pdf Graphic file (type pdf)
+
+<use figures/tree_lee.pdf>
+Package pdftex.def Info: figures/tree_lee.pdf used on input line 504.
+(pdftex.def)             Requested size: 386.96024pt x 361.35039pt.
+
+<figures/tree_average.pdf, id=507, 546.04pt x 510.90875pt>
+File: figures/tree_average.pdf Graphic file (type pdf)
+
+<use figures/tree_average.pdf>
+Package pdftex.def Info: figures/tree_average.pdf used on input line 513.
+(pdftex.def)             Requested size: 386.96024pt x 362.06172pt.
+ [17 <./figures/tree_lee.pdf>]
+<figures/experiment_doud.pdf, id=542, 728.7225pt x 905.3825pt>
+File: figures/experiment_doud.pdf Graphic file (type pdf)
+
+<use figures/experiment_doud.pdf>
+Package pdftex.def Info: figures/experiment_doud.pdf used on input line 523.
+(pdftex.def)             Requested size: 386.96024pt x 480.76224pt.
+ [18 <./figures/tree_average.pdf>]
+Overfull \vbox (15.6544pt too high) has occurred while \output is active []
 
 
-LaTeX Warning: Reference `fig:decay' on page 16 undefined on input line 401.
-
-
-Package natbib Warning: Citation `Doud2016accurate' on page 16 undefined on inp
-ut line 405.
-
-[16 <./figures/dms.pdf>] (./manuscript.bbl [17
+[19 <./figures/experiment_doud.pdf>] (./manuscript.bbl [20
 
 ])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 542.
+ [21]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 542.
 
-Package natbib Warning: There were undefined citations.
-
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 420.
-[18]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 420.
- (./manuscript.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 420.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 420.
+(./manuscript.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 542.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 542.
 Package rerunfilecheck Info: File `manuscript.out' has not changed.
 (rerunfilecheck)             Checksum: 01A395D4F6B54BD4388D49A154087DF5;100.
 
@@ -625,13 +613,13 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 9081 strings out of 493089
- 136445 string characters out of 6134842
- 238972 words of memory out of 5000000
- 12302 multiletter control sequences out of 15000+600000
+ 9070 strings out of 493089
+ 136305 string characters out of 6134842
+ 239470 words of memory out of 5000000
+ 12295 multiletter control sequences out of 15000+600000
  29880 words of font info for 69 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 53i,11n,92p,1083b,454s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 53i,11n,92p,1085b,454s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/te
 xlive/2015/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/local
@@ -648,10 +636,10 @@ f-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2015/texmf-dist/fon
 ts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/
 urw/times/utmr8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/
 utmri8a.pfb>
-Output written on manuscript.pdf (18 pages, 3892491 bytes).
+Output written on manuscript.pdf (21 pages, 3543078 bytes).
 PDF statistics:
- 736 PDF objects out of 1000 (max. 8388607)
- 546 compressed objects within 6 object streams
- 83 named destinations out of 1000 (max. 500000)
- 69 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 717 PDF objects out of 1000 (max. 8388607)
+ 536 compressed objects within 6 object streams
+ 80 named destinations out of 1000 (max. 500000)
+ 64 words of extra memory for PDF output out of 10000 (max. 10000000)
 
