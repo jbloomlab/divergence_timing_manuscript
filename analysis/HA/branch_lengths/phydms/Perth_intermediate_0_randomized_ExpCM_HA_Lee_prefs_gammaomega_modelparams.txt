@@ -1,7 +1,0 @@
-alpha_omega = 0.617721
-beta = 0.0301649
-beta_omega = 7.86898
-kappa = 3.78887
-phiA = 0.345517
-phiC = 0.177522
-phiG = 0.232321
