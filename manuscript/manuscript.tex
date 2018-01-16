@@ -67,6 +67,7 @@
 \newcommand{\virus}{\textbf{virus}}
 
 \newcommand\skhcomment[1]{{\color{magenta}#1}}
+\newcommand\jdbcomment[1]{{\color{red}#1}}
 
 
 \usepackage{hyperref}
@@ -172,9 +173,10 @@ This supports the conclusion that modeling purifying selection, especially in a 
 \subsection*{Substitution models}
 
 \begin{figure}[H]
-\centerline{\includegraphics[width=0.85\textwidth]{figures/model_feature.pdf}}
+\centerline{\includegraphics[width=0.55\textwidth]{figures/model_feature.pdf}}
 \caption{\label{fig:model_feature}
 \textbf{Comparison of substitution model features.}
+\jdbcomment{This figure is too big. Maybe put the three panels side-by-side, increase the space between panels, and increase the font sizes. The logo stacks are kind of tall relative to their width.}
 Site-specific amino-acid profiles and $\Gamma$-distributed rate variation are both substitution model features which have been shown or theorized to lengthen branches. 
 The models YNGKP M0, YNGKP M5, ExpCM, and ExpCM+$\Gamma\omega$ represent all possible combinations of these two features. 
 Blue indicates presence and white indicates absence of a feature. 
@@ -206,8 +208,9 @@ Therefore, we can example the effect of one feature (stationary state or $\Gamma
 \subsection*{Effect of stationary state and rate variation on branch length estimation}
 
 \begin{figure}[H]
-\centerline{\includegraphics[width=0.85\textwidth]{figures/decay.pdf}}
+\centerline{\includegraphics[width=0.75\textwidth]{figures/decay.pdf}}
 \caption{\label{fig:decay}
+\jdbcomment{I still think text could be bigger. Logo stacks still show trimming, maybe a bit tall? The Model key could probably be to the right or left.}
 \textbf{Effect of stationary state and rate variation on long branch estimation.}
 The expected pairwise identity trajectories were calculated using \ref{eq:f} and models described in \ref{tab:wsn_low_params}.
 The trajectories of the YNKGP M0 (blue) and YNGKP M5 (green) do not vary from panel to panel because neither model is site-specific. 
@@ -241,6 +244,7 @@ The underestimation of long branches will be an issue for all models but especia
 \centerline{\includegraphics[width=0.85\textwidth]{figures/simulations}}
 \caption{\label{simulations}
 \textbf{Model performance under simulated, site-specific data.} 
+\jdbcomment{Fonts are small, and tick labels definitely too small. I would show averaged.}
 Alignments were simulated under an ExpCM (\ref{tab:sim_params}) along an HA tree and the branches were re-optimized by a model from the ExpCM or YNGKP family. 
 The randomized ExpCMs have amino-acid profiles shuffled among the sites 
 These randomized models are still site-specific but the relationship between the site and the experimental data is broken. 
@@ -274,6 +278,16 @@ We looked at the influenza virus surface protein hemagglutinin (HA).
 HA proteins cluster into tight phylogenetic groups with long branches in between them. 
 Furthermore, HAs are extremely diverse. 
 The HAs which commonly circulate in human viruses (H1 and H3) are only about 40\% identical on the amino acid level. 
+
+\begin{figure}[H]
+\centerline{\includegraphics[width=0.5\textwidth]{figures/tree_doud}}
+\caption{\label{fig:tree_doud}
+\textbf{Trees optimized with an ExpCM defined by H1 preferences lengthen branches from the focal H1 sequence compared to YNGKP models.} 
+\jdbcomment{Keep branch lengths in substitutions per site. Make a panel A show a prefs snippet, B H1 trees, C H3 trees, D H1+H3. Maybe increase very small font sizes a bit.}
+The branch lengths of a base topology inferred using the GTR-CAT model were optimized by \textbf{(A)} an ExpCM defined by H1 preferences, \textbf{(B)} an ExpCM+$\Gamma\omega$ defined by H1 preferences, \textbf{(C)} YNKGP M0, and \textbf{(D)} YNGKP M5.
+The branch lengths are normalized to the distance between A/South Carolina/1/1918 and A/Solomon Islands/3/2006 and colored to indicate the distance from the H1 focal sequence (black triangle).
+}
+\end{figure}
 
 We took a representative sample of HA from 14 of the 18 groups and optimized the branch lengths of the tree using the models described in \ref{fig:model_feature}. 
 First, we used an ExpCM defined by the site-specific amino-acid preferences measured by deep mutational scanning from \cite{doud2016accurate}. 
@@ -403,19 +417,19 @@ where $a$ is all amino acids, $p_{r,x}$ is the stationary state of the model at 
 
 \subsection*{Model Parameters for the simulations}
 
-\begin{figure}[H]
-\centerline{\includegraphics[width=0.85\textwidth]{figures/prefs_doud}}
-\caption{\label{fig:prefs_doud}
+\begin{suppfig}[H]
+\centerline{\includegraphics[width=\textwidth]{figures/prefs_doud}}
+\caption{\label{suppfig:prefs_doud}
 \textbf{H1 preferences measured by \cite{doud2016accurate} rescaled with the ExpCM stringency parameter optimized in \ref{fig:tree_doud}A  ($\beta = 1.21$)} 
 }
-\end{figure}
+\end{suppfig}
 
-\begin{figure}[H]
-\centerline{\includegraphics[width=0.85\textwidth]{figures/prefs_lee}}
-\caption{\label{fig:prefs_lee}
+\begin{suppfig}[H]
+\centerline{\includegraphics[width=\textwidth]{figures/prefs_lee}}
+\caption{\label{suppfig:prefs_lee}
 \textbf{H3 preferences measured by \textit{lee} rescaled with the ExpCM stringency parameter optimized in \ref{fig:tree_lee}A  ($\beta = 1.46$)} 
 }
-\end{figure}
+\end{suppfig}
 
 \begin{figure}[H]
 \centerline{\includegraphics[width=0.85\textwidth]{figures/prefs_average}}
@@ -489,14 +503,7 @@ Model parameters used in  Fig.~\ref{fig:decay}.}
 \end{table}
 
 
-\begin{figure}[H]
-\centerline{\includegraphics[width=0.85\textwidth]{figures/tree_doud}}
-\caption{\label{fig:tree_doud}
-\textbf{Trees optimized with an ExpCM defined by H1 preferences lengthen branches from the focal H1 sequence compared to YNGKP models.} 
-The branch lengths of a base topology inferred using the GTR-CAT model were optimized by \textbf{(A)} an ExpCM defined by H1 preferences, \textbf{(B)} an ExpCM+$\Gamma\omega$ defined by H1 preferences, \textbf{(C)} YNKGP M0, and \textbf{(D)} YNGKP M5.
-The branch lengths are normalized to the distance between A/South Carolina/1/1918 and A/Solomon Islands/3/2006 and colored to indicate the distance from the H1 focal sequence (black triangle).
-}
-\end{figure}
+
 
 \begin{figure}[H]
 \centerline{\includegraphics[width=0.85\textwidth]{figures/tree_lee}}
