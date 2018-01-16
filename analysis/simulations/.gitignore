@@ -2,4 +2,6 @@
 *.
 phydms/*
 !phydms/*.modelcomparison.md
-!phydms/*.tree.newick
+!phydms/*tree.newick
+pymodules/__pycache__/
+outputs/
