@@ -31,7 +31,7 @@ SEEDS = [int(x.split("_")[-1]) for x in ALIGNMENT_IDS]
 LEVELS = ["high", "intermediate", "low"]
 
 # Bootstrap params
-REPS = range(2)
+REPS = range(10)
 
 # Rules -----------------------------------------------------------------------
 
@@ -43,8 +43,8 @@ rule all:
                level=LEVELS, seed=SEEDS),
         expand("phydms/hybrid_high_{seed}_modelcomparison.md", seed=SEEDS),
         expand("bootstrap/{alignment_id}_{rep}_modelcomparison.md",
-                alignment_id=ALIGNMENT_IDS, rep=REPS),
-        "outputs/branch_lengths.csv", 
+               alignment_id=ALIGNMENT_IDS, rep=REPS),
+        "outputs/branch_lengths.csv",
         "outputs/model_by_model.csv"
         # "outputs/params.csv"
 
@@ -116,9 +116,10 @@ rule create_bootstrap_alignment:
         seed = '{rep}',
         alignment_id = '{alignment_id}'
     run:
-        ref_pref = {"Perth":"{0}/HA_Lee_prefs.csv".format(PREFERENCES_DIR),
-                    "WSN":"{0}/HA_Doud_prefs.csv".format(PREFERENCES_DIR),
-                    "hybrid":"{0}/HA_average_prefs.csv".format(PREFERENCES_DIR)}
+        ref_pref = {"Perth": "{0}/HA_Lee_prefs.csv".format(PREFERENCES_DIR),
+                    "WSN": "{0}/HA_Doud_prefs.csv".format(PREFERENCES_DIR),
+                    "hybrid": "{0}/HA_average_prefs.csv"
+                    .format(PREFERENCES_DIR)}
         prefs = pd.read_csv(ref_pref[params.alignment_id.split("_")[0]])
         sites = prefs["site"].tolist()
         seed = int(params.seed)
@@ -188,15 +189,19 @@ rule make_parameters_summary:
                               "model_type", "parameter", "value"]
         for f in input.true_runs:
             model_prefix = "_".join(f.split("/")[-1].split("_")[:-1])
-            for model_file in glob.glob("phydms/{0}*_modelparams.txt"\
+            for model_file in glob.glob("phydms/{0}*_modelparams.txt"
                                         .format(model_prefix)):
-                temp = pd.read_csv(model_file, sep=" = ", engine="python", header=None)
+                temp = pd.read_csv(model_file, sep=" = ", engine="python",
+                                   header=None)
                 temp.columns = ["parameter", "value"]
                 model_name, model_type = extract_model_name(model_file)
                 temp["alignment_id"] = [model_prefix for x in range(len(temp))]
-                temp["alignment_ref"] = [model_prefix.split("_")[0] for x in range(len(temp))]
-                temp["div_level"] = [model_prefix.split("_")[1] for x in range(len(temp))]
-                temp["alignment_rep"] = [model_prefix.split("_")[-1] for x in range(len(temp))]
+                temp["alignment_ref"] = [model_prefix.split("_")[0] for x in
+                                         range(len(temp))]
+                temp["div_level"] = [model_prefix.split("_")[1] for x in
+                                     range(len(temp))]
+                temp["alignment_rep"] = [model_prefix.split("_")[-1] for x in
+                                         range(len(temp))]
                 temp["bootstrap_rep"] = ["N/A" for x in range(len(temp))]
                 temp["model"] = [model_name for x in range(len(temp))]
                 temp["model_type"] = [model_type for x in range(len(temp))]
@@ -206,55 +211,65 @@ rule make_parameters_summary:
         final.to_csv(output.summary, index=False)
 
 rule calc_branch_lengths:
-     """
-     The purpose of this rule is to calculate all pairwise branches
-     for the bootstrap and pairwise alignments. 
-     """
-     message: "Calculate branch lengths"
-     input:
+    """
+    The purpose of this rule is to calculate all pairwise branches
+    for the bootstrap and pairwise alignments.
+    """
+    message: "Calculate branch lengths"
+    input:
         true_runs = expand("phydms/{alignment_id}_modelcomparison.md",
                            alignment_id=ALIGNMENT_IDS),
-        bootstrap_runs = expand("bootstrap/{alignment_id}_{rep}_modelcomparison.md",
-                           alignment_id=ALIGNMENT_IDS, rep=REPS)
-     output:
+        bootstrap_runs = expand("bootstrap/{alignment_id}_{rep}\
+                                _modelcomparison.md",
+                                alignment_id=ALIGNMENT_IDS, rep=REPS)
+    output:
         summary = "outputs/branch_lengths.csv"
-     run:
-        final_cols = ["seq_id", "sequence1", "sequence2", "model", "distance", "alignment_id", "alignment_ref", "divergence_level", "bootstrap", "from_ref"]
+    run:
+        final_cols = ["seq_id", "sequence1", "sequence2", "model", "distance",
+                      "alignment_id", "alignment_ref", "divergence_level",
+                      "bootstrap", "from_ref"]
         final = []
         for run in input.true_runs + input.bootstrap_runs:
             bootstrap = run.split("/")[0]
-            assert bootstrap in ["bootstrap", "phydms"], "Invalid parse of phydms vs. bootstrap"
+            assert bootstrap in ["bootstrap", "phydms"]
             alignment_id = os.path.basename("_".join(run.split("_")[:-1]))
-            for tree_fname in glob.glob("{0}/{1}*.newick".format(bootstrap, alignment_id)):
+            for tree_fname in \
+                    glob.glob("{0}/{1}*.newick".format(bootstrap,
+                                                       alignment_id)):
                 model_name, control = extract_model_name(tree_fname)
                 if control == 0:
                     df = calc_distances(tree_fname)
                     df["model"] = [model_name for x in range(len(df))]
                     df["alignment_id"] = [alignment_id for x in range(len(df))]
-                    df["alignment_ref"] = [alignment_id.split("_")[0] for x in range(len(df))]
-                    df["divergence_level"] = [alignment_id.split("_")[1] for x in range(len(df))]
+                    df["alignment_ref"] = [alignment_id.split("_")[0] for x in
+                                           range(len(df))]
+                    df["divergence_level"] = [alignment_id.split("_")[1]
+                                              for x in range(len(df))]
                     df["bootstrap"] = [bootstrap for x in range(len(df))]
-                    df["from_ref"] = ['WSN' if "Wilson-Smith" in x else 'Perth' if "Perth" in x else 'no' for x in df["seq_id"]]
+                    df["from_ref"] = ['WSN' if "Wilson-Smith" in x else 'Perth'
+                                      if "Perth" in x else 'no' for x
+                                      in df["seq_id"]]
                     final.append(df)
         final = pd.concat(final)
         final = final[final_cols]
         final.to_csv(output.summary, index=False)
-        
+
 rule make_model_by_model:
     """
-    The purpose of this rule is to reformat the branch lengths summary file to make it easy for plotting. 
+    The purpose of this rule is to reformat the branch lengths summary file
+    to make it easy for plotting.
     """
-    message: "Creating model by model" 
-    input: 
+    message: "Creating model by model"
+    input:
         branch_lengths = "outputs/branch_lengths.csv"
     output:
         model_by_model = "outputs/model_by_model.csv"
     run:
         final = []
         model_pairs = {
-                       "ExpCM":["GY94"], 
-                       "GY94_gammaomega":["GY94"], 
-                       "ExpCM_gammaomega":["ExpCM", "GY94_gammaomega"]
+                       "ExpCM": ["GY94"],
+                       "GY94_gammaomega": ["GY94"],
+                       "ExpCM_gammaomega": ["ExpCM", "GY94_gammaomega"]
                        }
         df = pd.read_csv(input.branch_lengths)
         for alignment, alignment_df in df.groupby(["alignment_id"]):
@@ -264,11 +279,14 @@ rule make_model_by_model:
                     for model_2, temp in alignment_df.groupby(["model"]):
                         if model_2 in model_pairs[model_1]:
                             model_pair = "{0}/{1}".format(model_1, model_2)
-                            temp["model_pair"] = [model_pair for x in range(len(temp))]
-                            temp = temp.rename(columns = {"distance":"distance2"})
+                            temp["model_pair"] = [model_pair for x in
+                                                  range(len(temp))]
+                            temp = temp.rename(columns={"distance":
+                                                        "distance2"})
                             temp = temp.drop(['model'], axis=1)
                             temp = temp.merge(first, on=['seq_id'])
-                            temp = temp.rename(columns = {"distance":"distance1"})
+                            temp = temp.rename(columns={"distance":
+                                                        "distance1"})
                             final.append(temp)
         final = pd.concat(final)
         final.to_csv(output.model_by_model, index=False)

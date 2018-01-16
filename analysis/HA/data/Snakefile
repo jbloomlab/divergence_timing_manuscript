@@ -14,7 +14,7 @@ import scipy
 from pymodules.utils import *
 from collections import Counter
 
-## Set up for translation and pairwise
+# Set up for translation and pairwise
 # codon to index, add codon `---`
 max_codon_index = (max(list(constants.CODON_TO_INDEX.values())))
 if "---" not in list(constants.CODON_TO_INDEX.keys()):
@@ -29,7 +29,7 @@ constants.CODON_TO_AA = scipy.append(constants.CODON_TO_AA, [[max_AA_index+1]])
 # Globals ---------------------------------------------------------------------
 
 # HA subtypes to include in the analysis
-NUMBERS = [x for x in range(1, 19) if x not in [12,15,17,18]]
+NUMBERS = [x for x in range(1, 19) if x not in [12, 15, 17, 18]]
 
 # reference sequence names and headers
 WSN_REF = "references/WSN_HA_reference.fasta"
@@ -44,8 +44,8 @@ STRAINS = ["WSN", "Perth", "hybrid"]
 
 # Divergence levels for the subsamples
 LEVELS = ["low", "intermediate"]
-WSN_LEVELS = [[1,2,5,6], [1,2,5,6,8,9,11,13,16]]
-PERTH_LEVELS = [[3,4,7,10,14], [3,4,7,8,9,10,11,13,14,16]]
+WSN_LEVELS = [[1, 2, 5, 6], [1, 2, 5, 6, 8, 9, 11, 13, 16]]
+PERTH_LEVELS = [[3, 4, 7, 10, 14], [3, 4, 7, 8, 9, 10, 11, 13, 14, 16]]
 
 # Number of subsampled alignments
 SEEDS = range(1)
@@ -53,18 +53,22 @@ SEEDS = range(1)
 
 rule all:
     input:
-        expand("subsample/HA_{strain}_high_{seed}.fasta",strain=STRAINS,seed=SEEDS),
-        expand("subsample/HA_WSN_{level}_{seed}.fasta",level=LEVELS,seed=SEEDS),
-        expand("subsample/HA_Perth_{level}_{seed}.fasta",level=LEVELS,seed=SEEDS),
+        expand("subsample/HA_{strain}_high_{seed}.fasta", strain=STRAINS,
+               seed=SEEDS),
+        expand("subsample/HA_WSN_{level}_{seed}.fasta", level=LEVELS,
+               seed=SEEDS),
+        expand("subsample/HA_Perth_{level}_{seed}.fasta", level=LEVELS,
+               seed=SEEDS),
         "subsample/divergence_distances.csv",
         "subsample/seq_list_formatted.txt"
 
 
-## Add in each reference sequence to each set of HA sequences (next 3 rules)
+# Add in each reference sequence to each set of HA sequences (next 3 rules)
 rule add_in_WSN:
     """
     `phydms_prepalignment` requires the DMS reference sequence to be present in
-    the `inseqs` file. This function adds in the WSN reference from the Doud DMS.
+    the `inseqs` file. This function adds in the WSN reference from the Doud
+    DMS.
     """
     message: "Add in WSN reference to the files"
     input:
@@ -77,7 +81,8 @@ rule add_in_WSN:
 rule add_in_Perth:
     """
     `phydms_prepalignment` requires the DMS reference sequence to be present in
-    the `inseqs` file. This function adds in the Perth reference from the Lee DMS.
+    the `inseqs` file. This function adds in the Perth reference from the Lee
+    DMS.
     """
     message: "Add in Perth reference to the files"
     input:
@@ -101,7 +106,7 @@ rule add_in_hybrid:
     shell:
         'cat {input.fasta} {HYBRID_REF} > {output.temp_file}'
 
-## Run `phydms_prepalignment` for each of the set of HA sequences (next 3 rules)
+# Run `phydms_prepalignment` for each of the set of HA sequences (next 3 rules)
 rule phydms_prepalignment_WSN:
     """
     `phydms_prepalignment` QC's the data and makes an alignment using `mafft`.
@@ -113,7 +118,8 @@ rule phydms_prepalignment_WSN:
         temp("HA_{number}_WSN_prep.pdf"),
         fasta = "HA_{number}_WSN_prep.fasta"
     shell:
-        'phydms_prepalignment {input.fasta} {output.fasta} {WSN_REF_HEADER} --minidentity 0.3'
+        'phydms_prepalignment {input.fasta} {output.fasta} {WSN_REF_HEADER} \
+                --minidentity 0.3'
 
 rule phydms_prepalignment_Perth:
     """
@@ -126,7 +132,8 @@ rule phydms_prepalignment_Perth:
         temp("HA_{number}_Perth_prep.pdf"),
         fasta = "HA_{number}_Perth_prep.fasta"
     shell:
-        'phydms_prepalignment {input.fasta} {output.fasta} {PERTH_REF_HEADER} --minidentity 0.3'
+        'phydms_prepalignment {input.fasta} {output.fasta} {PERTH_REF_HEADER} \
+                --minidentity 0.3'
 
 rule phydms_prepalignment_hybrid:
     """
@@ -139,9 +146,10 @@ rule phydms_prepalignment_hybrid:
         temp("HA_{number}_hybrid_prep.pdf"),
         fasta = "HA_{number}_hybrid_prep.fasta"
     shell:
-        'phydms_prepalignment {input.fasta} {output.fasta} {HYBRID_REF_HEADER} --minidentity 0.3'
+        'phydms_prepalignment {input.fasta} {output.fasta} {HYBRID_REF_HEADER}\
+                --minidentity 0.3'
 
-## Clean up the `phydms_prepalignment` files to remove DMS reference (next 3 rules)
+# Clean up the `phydms_prepalignment` files & remove DMS ref (next 3 rules)
 rule phydms_prepalignment_cleanup_WSN:
     """
     `phydms_prepalignment` does not automatically remove the DMS reference from
@@ -158,12 +166,12 @@ rule phydms_prepalignment_cleanup_WSN:
         number = "{number}"
     run:
         finalSeqs = []
-        for seq in SeqIO.parse(open(input.phydms_fasta),'fasta'):
+        for seq in SeqIO.parse(open(input.phydms_fasta), 'fasta'):
             if seq.id == WSN_REF_HEADER:
                 pass
             else:
                 HA = "HA_{0}".format(params.number)
-                seq.description = "{0}_{1}".format(seq.description,HA)
+                seq.description = "{0}_{1}".format(seq.description, HA)
                 seq.id = seq.description
                 finalSeqs.append(seq)
         with open(output.fasta, "w") as output_handle:
@@ -177,7 +185,7 @@ rule phydms_prepalignment_cleanup_Perth:
     the final alignment. This funtion removes the Perth reference and adds an
     ID to each sequence.
     """
-    message: "Cleaning up alignment files from `phydms_prepalignment` with Perth"
+    message: "Cleaning up alignment files from `phydms_prepalignment` w/ Perth"
     input:
         temp = "_temp_Perth_{number}.fasta",
         phydms_fasta = "HA_{number}_Perth_prep.fasta"
@@ -187,12 +195,12 @@ rule phydms_prepalignment_cleanup_Perth:
         number = "{number}"
     run:
         finalSeqs = []
-        for seq in SeqIO.parse(open(input.phydms_fasta),'fasta'):
+        for seq in SeqIO.parse(open(input.phydms_fasta), 'fasta'):
             if seq.id == PERTH_REF_HEADER:
                 pass
             else:
                 HA = "HA_{0}".format(params.number)
-                seq.description = "{0}_{1}".format(seq.description,HA)
+                seq.description = "{0}_{1}".format(seq.description, HA)
                 seq.id = seq.description
                 finalSeqs.append(seq)
         with open(output.fasta, "w") as output_handle:
@@ -206,7 +214,7 @@ rule phydms_prepalignment_cleanup_hybrid:
     the final alignment. This funtion removes the hybrid reference and adds an
     ID to each sequence.
     """
-    message: "Cleaning up alignment files from `phydms_prepalignment` with hybrid"
+    message: "Cleaning up alignment files from `phydms_prepalignment` w/hybrid"
     input:
         temp = "_temp_hybrid_{number}.fasta",
         phydms_fasta = "HA_{number}_hybrid_prep.fasta"
@@ -216,12 +224,12 @@ rule phydms_prepalignment_cleanup_hybrid:
         number = "{number}"
     run:
         finalSeqs = []
-        for seq in SeqIO.parse(open(input.phydms_fasta),'fasta'):
+        for seq in SeqIO.parse(open(input.phydms_fasta), 'fasta'):
             if seq.id == HYBRID_REF_HEADER:
                 pass
             else:
                 HA = "HA_{0}".format(params.number)
-                seq.description = "{0}_{1}".format(seq.description,HA)
+                seq.description = "{0}_{1}".format(seq.description, HA)
                 seq.id = seq.description
                 finalSeqs.append(seq)
         with open(output.fasta, "w") as output_handle:
@@ -229,7 +237,7 @@ rule phydms_prepalignment_cleanup_hybrid:
         os.remove(input.temp)
         os.remove(input.phydms_fasta)
 
-## Create a list of sequences shared between all three alignments (next 1 rule)
+# Create a list of sequences shared between all three alignments (next 1 rule)
 rule create_shared_seq_list:
     """
     This function creates a list of sequences which can be aligned to *all*
@@ -237,7 +245,8 @@ rule create_shared_seq_list:
     """
     message: "Create list of shared sequences"
     input:
-        fastas = expand("aligned/HA_{number}_{strain}_align.fasta", number=NUMBERS,strain=STRAINS)
+        fastas = expand("aligned/HA_{number}_{strain}_align.fasta",
+                        number=NUMBERS, strain=STRAINS)
     output:
         shared = "shared/shared_seqs.csv"
     run:
@@ -246,16 +255,16 @@ rule create_shared_seq_list:
             final.extend([x.id for x in SeqIO.parse(fasta, "fasta")])
         c = Counter(final)
         final = [x for x in c.keys() if c[x] == 3]
-        final = pd.DataFrame({"seq_id":final})
+        final = pd.DataFrame({"seq_id": final})
         final["HA_subtype"] = [x.split("_")[-1] for x in final["seq_id"]]
         final.to_csv(output.shared, index=False)
 
 # Create the alignments with only the shared sequences (next 1 rule)
 rule create_shared_seq_alignments:
     """
-    This function subsets the alignments so they only contain the shared sequences.
-    This means that the "random seed 1" for WSN will contain the same sequences
-    as the "random seed 1" for the Perth sequences.
+    This function subsets the alignments so they only contain the shared
+    sequences. This means that the "random seed 1" for WSN will contain the
+    same sequences as the "random seed 1" for the Perth sequences.
     """
     message: "Create alignments with shared sequences"
     input:
@@ -284,12 +293,14 @@ rule subsample:
     """
     message: "Subsampling shared sequence alignments"
     input:
-        fastas = expand("shared/HA_{number}_{strain}_shared.fasta",number=NUMBERS,strain=STRAINS),
+        fastas = expand("shared/HA_{number}_{strain}_shared.fasta",
+                        number=NUMBERS, strain=STRAINS),
         required = "references/required_seqs.csv"
     output:
         small_alignment = "subsample/HA_{strain}_high_{seed}.fasta"
     run:
-        strain = os.path.basename(output.small_alignment).split(".")[0].split("_")
+        strain = os.path.basename(output.small_alignment)\
+                                  .split(".")[0].split("_")
         seed = int(strain[-1])
         strain = strain[1]
         required = pd.read_csv(input.required)
@@ -297,17 +308,19 @@ rule subsample:
         final = []
 
         for number in NUMBERS:
-            required_seqs = required[required["HA_SUBTYPE"] == "H{0}".format(number)]["SEQ_ID"].tolist()
-            seqs = SeqIO.to_dict(SeqIO.parse("shared/HA_{0}_{1}_shared.fasta".format(number, strain), "fasta"))
+            required_seqs = required[required["HA_SUBTYPE"] == "H{0}"
+                                     .format(number)]["SEQ_ID"].tolist()
+            seqs = SeqIO.to_dict(SeqIO.parse("shared/HA_{0}_{1}_shared.fasta"
+                                 .format(number, strain), "fasta"))
             seq_names = [x for x in seqs.keys()]
-            seq_names.sort() # put seq names in ABC order
-            random.shuffle(seq_names) # shuffle the seq names
-            seq_names = createDateDictionary(seq_names) # parse out the years
+            seq_names.sort()  # put seq names in ABC order
+            random.shuffle(seq_names)  # shuffle the seq names
+            seq_names = createDateDictionary(seq_names)  # parse out the years
             years = list(seq_names.keys())
             years.sort()
-            seq_names = [seq_names[x][0] for x in years] # pick the first sequence for each year
-            random.shuffle(seq_names) # shuffle the sequences
-            seq_names = seq_names[0:5] # pick only 5
+            seq_names = [seq_names[x][0] for x in years]  # pick 1st seq/yr
+            random.shuffle(seq_names)  # shuffle the sequences
+            seq_names = seq_names[0:5]  # pick only 5
             seq_names.extend([x for x in required_seqs if x not in seq_names])
             final.extend([seqs[x] for x in seq_names])
         with open(output.small_alignment, "w") as output_handle:
@@ -330,7 +343,8 @@ rule subsample_divergence_level_WSN:
             level = WSN_LEVELS[0]
         else:
             level = WSN_LEVELS[1]
-        final = [x for x in SeqIO.parse(input.fasta, "fasta") if int(x.id.split("_")[-1]) in level]
+        final = [x for x in SeqIO.parse(input.fasta, "fasta") if
+                 int(x.id.split("_")[-1]) in level]
         with open(output.fasta, "w") as output_handle:
             SeqIO.write(final, output_handle, "fasta")
 
@@ -351,11 +365,12 @@ rule subsample_divergence_level_Perth:
             level = PERTH_LEVELS[0]
         else:
             level = PERTH_LEVELS[1]
-        final = [x for x in SeqIO.parse(input.fasta, "fasta") if int(x.id.split("_")[-1]) in level]
+        final = [x for x in SeqIO.parse(input.fasta, "fasta") if
+                 int(x.id.split("_")[-1]) in level]
         with open(output.fasta, "w") as output_handle:
             SeqIO.write(final, output_handle, "fasta")
 
-## Create divergence summary file (next 1 rule)
+# Create divergence summary file (next 1 rule)
 rule calculate_divergence:
     """
     This function calculates the divergence from each sequence in the "high"
@@ -363,11 +378,12 @@ rule calculate_divergence:
     """
     message: "Summarizing divergence distances"
     input:
-        fastas = expand("subsample/HA_{strain}_high_{seed}.fasta", strain=STRAINS, seed=SEEDS)
+        fastas = expand("subsample/HA_{strain}_high_{seed}.fasta",
+                        strain=STRAINS, seed=SEEDS)
     output:
         divergences = "subsample/divergence_distances.csv"
     run:
-        df = {"seq_id":[], "divergence":[], "reference":[], "seed":[]}
+        df = {"seq_id": [], "divergence": [], "reference": [], "seed": []}
         for fasta in input.fastas:
             if "hybrid" in fasta:
                 pass
@@ -385,7 +401,8 @@ rule calculate_divergence:
                 for seq in seqs.keys():
                     query_aa = translate_with_gaps(str(seqs[seq].seq))
                     assert len(query_aa) == len(ref_aa)
-                    divergence = [1 if query_aa[x] == ref_aa[x] else 0 for x in range(len(ref_aa))]
+                    divergence = [1 if query_aa[x] == ref_aa[x] else 0 for x in
+                                  range(len(ref_aa))]
                     divergence = 1 - (sum(divergence)/len(divergence))
                     df["seq_id"].append(seq)
                     df["divergence"].append(divergence)
