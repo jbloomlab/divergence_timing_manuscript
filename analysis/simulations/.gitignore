@@ -1,0 +1,5 @@
+!.gitignore
+*.
+phydms/*
+!phydms/*.modelcomparison.md
+!phydms/*.tree.newick
