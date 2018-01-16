@@ -1,2 +1,8 @@
 !.gitignore
 *.
+phydms/*
+!phydms/*.modelcomparison.md
+!phydms/*.tree.newick
+bootstrap/*
+!bootstrap/*modelcomparison.md
+!bootstrap/*tree.newick
