@@ -1,0 +1,1 @@
+phydms_comprehensive phydms/WSN_high_0_6 _WSN_high_0_6_simulatedalignment.fasta ../HA/data/references/HA_Doud_prefs.csv --raxml raxml --gammaomega --randprefs

@@ -1,0 +1,89 @@
+2018-01-14 19:20:39,034 - INFO - Beginning execution of phydms in directory /fh/fast/bloom_j/computational_notebooks/skhilton/2017/divergence_timing_manuscript/analysis/simulations
+
+2018-01-14 19:20:39,035 - INFO - Progress is being logged to phydms/WSN_high_0_7_YNGKP_M5_log.log
+
+2018-01-14 19:20:39,035 - INFO - Version information:
+	Time and date: Sun Jan 14 19:20:37 2018
+	Platform: Linux-3.13.0-68-generic-x86_64-with-debian-jessie-sid
+	Python version: 3.6.0 |Continuum Analytics, Inc.| (default, Dec 23 2016, 12:22:00)  [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]
+	phydms version: 2.2.0
+	Bio version: 1.69
+	cython version: 0.25.2
+	numpy version: 1.13.3
+	scipy version: 0.19.0
+	matplotlib version: 2.1.0
+	natsort version: 5.0.2
+	sympy version: 1.0
+	six version: 1.11.0
+	pandas version: 0.21.0
+	pyvolve version: 0.8.4
+	statsmodels version: 0.8.0
+	weblogolib version: 3.5.0
+	PyPDF2 version: 1.26.0
+
+2018-01-14 19:20:39,035 - INFO - Parsed the following arguments:
+	alignment = _WSN_high_0_7_simulatedalignment.fasta
+	tree = phydms/WSN_high_0_7_RAxML_tree.newick
+	model = YNGKP_M5
+	outprefix = phydms/WSN_high_0_7_YNGKP_M5
+	brlen = optimize
+	gammaomega = False
+	gammabeta = False
+	omegabysite = False
+	omegabysite_fixsyn = False
+	diffprefsbysite = False
+	diffprefsprior = ('invquadratic', 150.0, 0.5)
+	fitphi = False
+	randprefs = False
+	avgprefs = False
+	divpressure = None
+	ncpus = 1
+	fitprefsmethod = 2
+	ncats = 4
+	minbrlen = 1e-06
+	minpref = 0.002
+	seed = 1
+	initparams = None
+	profile = False
+	opt_details = False
+	nograd = False
+
+2018-01-14 19:20:39,035 - INFO - Random number seed: 1
+
+2018-01-14 19:20:39,035 - INFO - Reading alignment from _WSN_high_0_7_simulatedalignment.fasta
+2018-01-14 19:20:39,714 - INFO - Read 87 aligned sequences from _WSN_high_0_7_simulatedalignment.fasta, each consisting of 564 codons.
+
+2018-01-14 19:20:39,714 - INFO - Codon substitution model with be M5 version of YNGKP (Yang, Nielsen, Goldman, & Pederson. Genetics. 155:431-449).
+2018-01-14 19:20:39,764 - INFO - For this YNGKP_M5 model, omega will be drawn from 4 gamma-distributed categories.
+2018-01-14 19:20:39,778 - INFO - Reading tree from phydms/WSN_high_0_7_RAxML_tree.newick
+2018-01-14 19:20:40,532 - INFO - Tree has 87 tips.
+2018-01-14 19:20:40,563 - INFO - Adjusted 1 branch lengths up to minbrlen 1e-06
+
+2018-01-14 19:20:40,563 - INFO - Initializing TreeLikelihood..
+2018-01-14 19:21:21,053 - INFO - TreeLikelihood initialized.
+2018-01-14 19:21:21,054 - INFO - Maximizing log likelihood (initially -64986.23).
+2018-01-14 19:21:21,054 - INFO - Branch lengths will be optimized individually.
+2018-01-14 21:16:27,999 - INFO - Maximization complete:
+	Step 1: optimized parameters, loglik went from -64986.23 to -57916.00 (20 iterations, 27 function evals)
+	Step 2: optimized branches, loglik went from -57916.00 to -57868.41 (133 iterations, 141 function evals)
+	Step 3: optimized parameters, loglik went from -57868.41 to -57866.11 (6 iterations, 9 function evals)
+	Step 4: optimized branches, loglik went from -57866.11 to -57866.11 (1 iterations, 4 function evals)
+2018-01-14 21:16:28,045 - INFO - Optimized log likelihood is -57866.11.
+2018-01-14 21:16:28,045 - INFO - Writing log likelihood to phydms/WSN_high_0_7_YNGKP_M5_loglikelihood.txt
+2018-01-14 21:16:28,055 - INFO - Model parameters after optimization:
+	alpha_omega = 1.03992
+	beta_omega =     10
+	kappa = 2.88519
+	phi0A = 0.345072
+	phi0C = 0.176504
+	phi0G = 0.237529
+	phi1A = 0.349796
+	phi1C = 0.160555
+	phi1G = 0.209893
+	phi2A = 0.370076
+	phi2C = 0.184251
+	phi2G = 0.218892
+2018-01-14 21:16:28,055 - INFO - Writing model parameters to phydms/WSN_high_0_7_YNGKP_M5_modelparams.txt
+2018-01-14 21:16:28,062 - INFO - Writing the optimized tree to phydms/WSN_high_0_7_YNGKP_M5_tree.newick
+
+2018-01-14 21:16:28,073 - INFO - Successful completion of phydms

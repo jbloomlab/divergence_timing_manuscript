@@ -1,0 +1,91 @@
+2018-01-15 10:19:51,952 - INFO - Beginning execution of phydms in directory /fh/fast/bloom_j/computational_notebooks/skhilton/2017/divergence_timing_manuscript/analysis/simulations
+
+2018-01-15 10:19:51,952 - INFO - Progress is being logged to phydms/WSN_high_0_3_YNGKP_M5_log.log
+
+2018-01-15 10:19:51,952 - INFO - Version information:
+	Time and date: Mon Jan 15 10:19:49 2018
+	Platform: Linux-3.13.0-68-generic-x86_64-with-debian-jessie-sid
+	Python version: 3.6.0 |Continuum Analytics, Inc.| (default, Dec 23 2016, 12:22:00)  [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]
+	phydms version: 2.2.0
+	Bio version: 1.69
+	cython version: 0.25.2
+	numpy version: 1.13.3
+	scipy version: 0.19.0
+	matplotlib version: 2.1.0
+	natsort version: 5.0.2
+	sympy version: 1.0
+	six version: 1.11.0
+	pandas version: 0.21.0
+	pyvolve version: 0.8.4
+	statsmodels version: 0.8.0
+	weblogolib version: 3.5.0
+	PyPDF2 version: 1.26.0
+
+2018-01-15 10:19:51,953 - INFO - Parsed the following arguments:
+	alignment = _WSN_high_0_3_simulatedalignment.fasta
+	tree = phydms/WSN_high_0_3_RAxML_tree.newick
+	model = YNGKP_M5
+	outprefix = phydms/WSN_high_0_3_YNGKP_M5
+	brlen = optimize
+	gammaomega = False
+	gammabeta = False
+	omegabysite = False
+	omegabysite_fixsyn = False
+	diffprefsbysite = False
+	diffprefsprior = ('invquadratic', 150.0, 0.5)
+	fitphi = False
+	randprefs = False
+	avgprefs = False
+	divpressure = None
+	ncpus = 1
+	fitprefsmethod = 2
+	ncats = 4
+	minbrlen = 1e-06
+	minpref = 0.002
+	seed = 1
+	initparams = None
+	profile = False
+	opt_details = False
+	nograd = False
+
+2018-01-15 10:19:51,953 - INFO - Random number seed: 1
+
+2018-01-15 10:19:51,953 - INFO - Reading alignment from _WSN_high_0_3_simulatedalignment.fasta
+2018-01-15 10:19:52,674 - INFO - Read 87 aligned sequences from _WSN_high_0_3_simulatedalignment.fasta, each consisting of 564 codons.
+
+2018-01-15 10:19:52,675 - INFO - Codon substitution model with be M5 version of YNGKP (Yang, Nielsen, Goldman, & Pederson. Genetics. 155:431-449).
+2018-01-15 10:19:52,731 - INFO - For this YNGKP_M5 model, omega will be drawn from 4 gamma-distributed categories.
+2018-01-15 10:19:52,747 - INFO - Reading tree from phydms/WSN_high_0_3_RAxML_tree.newick
+2018-01-15 10:19:52,753 - INFO - Tree has 87 tips.
+2018-01-15 10:19:52,903 - INFO - Adjusted 1 branch lengths up to minbrlen 1e-06
+
+2018-01-15 10:19:52,907 - INFO - Initializing TreeLikelihood..
+2018-01-15 10:21:16,425 - INFO - TreeLikelihood initialized.
+2018-01-15 10:21:16,427 - INFO - Maximizing log likelihood (initially -65954.89).
+2018-01-15 10:21:16,427 - INFO - Branch lengths will be optimized individually.
+2018-01-15 12:36:28,177 - INFO - Maximization complete:
+	Step 1: optimized parameters, loglik went from -65954.89 to -58761.50 (20 iterations, 26 function evals)
+	Step 2: optimized branches, loglik went from -58761.50 to -58708.64 (105 iterations, 113 function evals)
+	Step 3: optimized parameters, loglik went from -58708.64 to -58706.35 (5 iterations, 8 function evals)
+	Step 4: optimized branches, loglik went from -58706.35 to -58706.28 (2 iterations, 5 function evals)
+	Step 5: optimized parameters, loglik went from -58706.28 to -58706.25 (2 iterations, 4 function evals)
+	Step 6: optimized branches, loglik went from -58706.25 to -58706.25 (1 iterations, 4 function evals)
+2018-01-15 12:36:28,178 - INFO - Optimized log likelihood is -58706.25.
+2018-01-15 12:36:28,178 - INFO - Writing log likelihood to phydms/WSN_high_0_3_YNGKP_M5_loglikelihood.txt
+2018-01-15 12:36:28,186 - INFO - Model parameters after optimization:
+	alpha_omega = 1.04232
+	beta_omega =     10
+	kappa = 2.96384
+	phi0A = 0.34934
+	phi0C = 0.150491
+	phi0G = 0.24823
+	phi1A = 0.357464
+	phi1C = 0.178297
+	phi1G = 0.208224
+	phi2A = 0.361765
+	phi2C = 0.190742
+	phi2G = 0.21114
+2018-01-15 12:36:28,187 - INFO - Writing model parameters to phydms/WSN_high_0_3_YNGKP_M5_modelparams.txt
+2018-01-15 12:36:28,191 - INFO - Writing the optimized tree to phydms/WSN_high_0_3_YNGKP_M5_tree.newick
+
+2018-01-15 12:36:28,202 - INFO - Successful completion of phydms

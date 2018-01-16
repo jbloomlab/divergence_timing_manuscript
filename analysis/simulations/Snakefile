@@ -1,0 +1,173 @@
+"""
+Pipeline for simulations with Mike's preferences.
+SKH 20171114
+"""
+# import glob
+from pymodules.utils import *
+import pandas as pd
+import os
+import Bio.Phylo
+from ete3 import Tree
+import itertools
+import glob
+import phydmslib.models
+import phydmslib.simulate
+from phydmslib.constants import *
+import tempfile
+import shutil
+from Bio import SeqIO
+
+
+# Globals ---------------------------------------------------------------------
+# Set-up trees
+TREE = "../HA/branch_lengths/phydms/WSN_high_0_ExpCM_HA_Doud_prefs_tree.newick"
+TREE_PREFIX = "WSN_high_0"
+# Set-up models
+PARAMS_FILE = "../HA/branch_lengths/phydms/WSN_low_0_ExpCM_HA_Doud_prefs_"\
+              "modelparams.txt"
+PREFS_FILE = "../HA/data/references/HA_Doud_prefs.csv"
+MODEL = createModel(PREFS_FILE, PARAMS_FILE)
+
+# Set-up simulations
+REPS = range(10)
+
+# Rules -----------------------------------------------------------------------
+
+rule all:
+    input:
+        "outputs/model_by_model_means.csv"
+
+rule simulate_alignment:
+    """
+    The purpose of this run is to simulate alignments under the ExpCM defined
+    by PARAMS_FILE and PREFS_FILE. The temporary directories are because
+    `pyvovle` makes some intermediate files without a way to give them a unique
+    identifier. I don't want them to be overwritten during the `snakemake`
+    parallelization.
+    """
+    message: "Simulating the alignments."
+    output:
+        fasta = "_{tree_prefix}_{rep}_simulatedalignment.fasta"
+    params:
+        prefix = "_{tree_prefix}_{rep}",
+        r = "{rep}",
+        tree = TREE
+    run:
+        dups = True
+        counter = 1
+        while dups:
+            cwd = os.getcwd()
+            tempDir = tempfile.mkdtemp()
+            os.chdir(tempDir)
+            seed = params.r
+            phydmslib.simulate.simulateAlignment(MODEL, cwd + "/" + TREE,
+                                                 params.prefix, seed*counter)
+            shutil.move(output.fasta, cwd + "/" + output.fasta)
+            os.chdir(cwd)
+            os.rmdir(tempDir)
+            # check to see if the simulate sequences are unique
+            seqs = [str(x.seq) for x in SeqIO.parse(output.fasta, "fasta")]
+            if len(seqs) == len(set(seqs)):
+                dups = False
+            else:
+                counter = counter * 1000
+
+rule run_phydms:
+    '''
+    This rule runs `phydms_comprehensive` for all of the simulated aligments
+    '''
+    message: "Running `phydms_comprehensive`"
+    input:
+        alignment = "_{tree_prefix}_{rep}_simulatedalignment.fasta"
+    output:
+        modelcomparison = "phydms/{tree_prefix}_{rep}_modelcomparison.md"
+    params:
+        phydms_id = 'phydms/{tree_prefix}_{rep}'
+    shell:
+        'phydms_comprehensive {params.phydms_id} {input.alignment} {PREFS_FILE}\
+         --raxml raxml --gammaomega --randprefs'
+
+rule calc_branch_lengths:
+    """
+    This rule calculates the raw branch lengths for each simulation run.
+    """
+    message: "Calculate branch lengths"
+    input:
+        runs = expand("phydms/{tree_prefix}_{rep}_modelcomparison.md",
+                      tree_prefix=TREE_PREFIX, rep=REPS),
+    output:
+        summary = "outputs/branch_lengths.csv"
+    run:
+        final_cols = ["seq_id", "sequence1", "sequence2", "model", "distance",
+                      "random_id"]
+        final = []
+        # simulation branch lengths
+        for run in input.runs:
+            prefix = os.path.basename("_".join(run.split("_")[:-1]))
+            random_id = os.path.basename("_".join(run.split("_")[-2]))
+            for t_fname in glob.glob("phydms/{0}*tree.newick".format(prefix)):
+                model_name, control = extract_model_name(t_fname)
+                df = calc_distances(t_fname)
+                df["model"] = [model_name for x in range(len(df))]
+                df["random_id"] = [random_id for x in range(len(df))]
+                final.append(df)
+        final = pd.concat(final)
+        final = final[final_cols]
+        final.to_csv(output.summary, index=False)
+
+rule make_model_by_model:
+    """
+    The purpose of this rule is to reformat the branch lengths so they are
+    easier to plot.
+    """
+    message: "Creating model by model"
+    input:
+        branch_lengths = "outputs/branch_lengths.csv"
+    output:
+        model_by_model = "outputs/model_by_model.csv"
+    run:
+        # calc true distances
+        true_bl = calc_distances(TREE)
+        true_bl = true_bl[["seq_id", "distance"]]
+        # merge with other models
+        final = []
+        targets = ["GY94", "GY94_gammaomega", "ExpCM", "ExpCM_gammaomega",
+                   "ExpCM_gammaomega_averaged", "ExpCM_averaged"]
+        df = pd.read_csv(input.branch_lengths)
+        for model, group in df.groupby(["model"]):
+            if model in targets:
+                model_pair = "true/{0}".format(model)
+                group["model_pair"] = [model_pair for x in range(len(group))]
+                group = group.rename(columns={"distance": "distance2"})
+                group = group.drop(['model'], axis=1)
+                group = group.merge(true_bl, on=['seq_id'])
+                group = group.rename(columns={"distance": "distance1"})
+                final.append(group)
+        final = pd.concat(final)
+        final.to_csv(output.model_by_model, index=False)
+
+rule calc_means:
+    """
+    The purpose of this rule is to make a dataframe with the model by model
+    format but with the means for each of the distances.
+    """
+    message: "Calculating the means"
+    input:
+        model_by_model = "outputs/model_by_model.csv"
+    output:
+        means = "outputs/model_by_model_means.csv"
+    run:
+        model_by_model = pd.read_csv(input.model_by_model)
+        means = {"seq_id": [], "model_pair": [], "distance1": [],
+                 "distance2": []}
+        for name, group in model_by_model.groupby(["seq_id", "model_pair"]):
+            assert len(group) == len(REPS)
+            d2 = group["distance2"].mean()
+            assert len(set(group["distance1"].tolist())) == 1
+            d1 = group["distance1"].iloc[0]
+            means["seq_id"].append(name[0])
+            means["model_pair"].append(name[1])
+            means["distance2"].append(d2)
+            means["distance1"].append(d1)
+        means = pd.DataFrame(means)
+        means.to_csv(output.means, index=False)

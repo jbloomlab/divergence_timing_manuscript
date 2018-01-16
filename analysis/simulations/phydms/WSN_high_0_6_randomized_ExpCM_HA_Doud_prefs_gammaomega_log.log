@@ -1,0 +1,90 @@
+2018-01-14 19:53:50,362 - INFO - Beginning execution of phydms in directory /fh/fast/bloom_j/computational_notebooks/skhilton/2017/divergence_timing_manuscript/analysis/simulations
+
+2018-01-14 19:53:50,362 - INFO - Progress is being logged to phydms/WSN_high_0_6_randomized_ExpCM_HA_Doud_prefs_gammaomega_log.log
+
+2018-01-14 19:53:50,362 - INFO - Version information:
+	Time and date: Sun Jan 14 19:53:48 2018
+	Platform: Linux-3.13.0-68-generic-x86_64-with-debian-jessie-sid
+	Python version: 3.6.0 |Continuum Analytics, Inc.| (default, Dec 23 2016, 12:22:00)  [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]
+	phydms version: 2.2.0
+	Bio version: 1.69
+	cython version: 0.25.2
+	numpy version: 1.13.3
+	scipy version: 0.19.0
+	matplotlib version: 2.1.0
+	natsort version: 5.0.2
+	sympy version: 1.0
+	six version: 1.11.0
+	pandas version: 0.21.0
+	pyvolve version: 0.8.4
+	statsmodels version: 0.8.0
+	weblogolib version: 3.5.0
+	PyPDF2 version: 1.26.0
+
+2018-01-14 19:53:50,362 - INFO - Parsed the following arguments:
+	alignment = _WSN_high_0_6_simulatedalignment.fasta
+	tree = phydms/WSN_high_0_6_RAxML_tree.newick
+	model = ('ExpCM', '../HA/data/references/HA_Doud_prefs.csv')
+	outprefix = phydms/WSN_high_0_6_randomized_ExpCM_HA_Doud_prefs_gammaomega
+	brlen = optimize
+	gammaomega = True
+	gammabeta = False
+	omegabysite = False
+	omegabysite_fixsyn = False
+	diffprefsbysite = False
+	diffprefsprior = ('invquadratic', 150.0, 0.5)
+	fitphi = False
+	randprefs = True
+	avgprefs = False
+	divpressure = None
+	ncpus = 4
+	fitprefsmethod = 2
+	ncats = 4
+	minbrlen = 1e-06
+	minpref = 0.002
+	seed = 1
+	initparams = None
+	profile = False
+	opt_details = False
+	nograd = False
+
+2018-01-14 19:53:50,362 - INFO - Random number seed: 1
+
+2018-01-14 19:53:50,362 - INFO - Reading alignment from _WSN_high_0_6_simulatedalignment.fasta
+2018-01-14 19:53:51,298 - INFO - Read 87 aligned sequences from _WSN_high_0_6_simulatedalignment.fasta, each consisting of 564 codons.
+
+2018-01-14 19:53:51,306 - INFO - The model will be an ExpCM informed by site-specific amino-acid preferences in ../HA/data/references/HA_Doud_prefs.csv
+2018-01-14 19:53:51,306 - INFO - Preferences will be randomized across sites.
+2018-01-14 19:53:55,032 - INFO - Successfully read site-specific amino-acid preferences for all 564 sites.
+
+2018-01-14 19:53:55,037 - INFO - Nucleotide frequency parameters phi will be set so stationary state matches alignment nucleotide frequencies of A = 0.342, C = 0.178, G = 0.235, T = 0.244
+
+2018-01-14 19:54:00,708 - INFO - Omega will be drawn from 4 gamma-distributed categories.
+
+2018-01-14 19:54:14,462 - INFO - Reading tree from phydms/WSN_high_0_6_RAxML_tree.newick
+2018-01-14 19:54:14,468 - INFO - Tree has 87 tips.
+2018-01-14 19:54:14,505 - INFO - Adjusted 1 branch lengths up to minbrlen 1e-06
+
+2018-01-14 19:54:14,506 - INFO - Initializing TreeLikelihood..
+2018-01-14 19:57:44,027 - INFO - TreeLikelihood initialized.
+2018-01-14 19:57:44,027 - INFO - Maximizing log likelihood (initially -64912.11).
+2018-01-14 19:57:44,027 - INFO - Branch lengths will be optimized individually.
+2018-01-14 23:36:51,486 - INFO - Maximization complete:
+	Step 1: optimized parameters, loglik went from -64912.11 to -57958.82 (23 iterations, 31 function evals)
+	Step 2: optimized branches, loglik went from -57958.82 to -57921.19 (94 iterations, 102 function evals)
+	Step 3: optimized parameters, loglik went from -57921.19 to -57919.70 (7 iterations, 10 function evals)
+	Step 4: optimized branches, loglik went from -57919.70 to -57919.70 (1 iterations, 4 function evals)
+2018-01-14 23:36:51,488 - INFO - Optimized log likelihood is -57919.70.
+2018-01-14 23:36:51,488 - INFO - Writing log likelihood to phydms/WSN_high_0_6_randomized_ExpCM_HA_Doud_prefs_gammaomega_loglikelihood.txt
+2018-01-14 23:36:51,497 - INFO - Model parameters after optimization:
+	alpha_omega = 1.14588
+	beta = 0.0468989
+	beta_omega =     10
+	kappa = 3.17984
+	phiA = 0.351735
+	phiC = 0.165825
+	phiG = 0.232585
+2018-01-14 23:36:51,497 - INFO - Writing model parameters to phydms/WSN_high_0_6_randomized_ExpCM_HA_Doud_prefs_gammaomega_modelparams.txt
+2018-01-14 23:36:51,502 - INFO - Writing the optimized tree to phydms/WSN_high_0_6_randomized_ExpCM_HA_Doud_prefs_gammaomega_tree.newick
+
+2018-01-14 23:36:51,516 - INFO - Successful completion of phydms
