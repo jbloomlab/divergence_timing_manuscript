@@ -6,3 +6,4 @@ phydms/*
 bootstrap/*
 !bootstrap/*modelcomparison.md
 !bootstrap/*tree.newick
+outputs/
