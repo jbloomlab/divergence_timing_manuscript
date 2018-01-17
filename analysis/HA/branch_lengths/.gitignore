@@ -5,6 +5,6 @@ phydms/*
 !phydms/*.tree.newick
 bootstrap/*
 !bootstrap/*modelcomparison.md
-!bootstrap/*tree.newick
+!bootstrap/*tree*.newick
 outputs/
 pymodules/__pycache__/
