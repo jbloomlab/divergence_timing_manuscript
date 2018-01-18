@@ -291,7 +291,28 @@ The branch lengths are normalized to the distance between A/South Carolina/1/191
 }
 \end{figure}
 
-\subsection{Competing effects of shifting preferences and long branches.}
+\skhcomment{Section Outline:}
+
+\begin{itemize}
+\item We tested the effect substitution model choice on branch length estimation using influenza HA sequences. 
+\begin{itemize}
+\item These sequences presumably evolve with site-specific frequencies but unlike the simulations we don't \textit{know} the model
+\item These sequences are from fairly diverged proteins. Some sequences share only 40\% identity on the amino acid level 
+\item HA has small, closely related subtypes with long branches between subtypes and groups. 
+\end{itemize}
+\item Both $\Gamma\omega$ and non-uniform stationary states result in an extension of branch lengths. 
+\begin{itemize}
+\item The addition of $\Gamma\omega$ extends branches independent of preferences. 
+\item The addition of preferences extends branches \textit{from the focal sequence} independent of $\Gamma\omega$. 
+\end{itemize}
+\item The ExpCM does not have a uniform effect across the whole tree. 
+\begin{itemize}
+\item This is not too surprising. DMS makes accurate measurements in a given genetic background. 
+\item You would expect epistatic effects over such a large divergence distance. ``Shifting preferences"
+\end{itemize}
+\end{itemize}
+
+\subsection*{Competing effects of shifting preferences and long branches.}
 
 \begin{figure}[H]
 \centerline{\includegraphics[width=0.85\textwidth]{figures/doud_compete}}
@@ -306,6 +327,22 @@ Black points represent branches from the focal H3 sequence and grey points repre
 The branch lengths are in average number of codon substitutions per site. 
 }
 \end{figure}
+
+
+\begin{itemize}
+\item We investigated the competing effects of shifting preferences and long branch estimation. That is, our preferences are most relevant to sequences they are close to but the effect of a non-uniform stationary is only observed on long branches. 
+\begin{itemize}
+\item We broke the large tree into small, sub trees with differing maximum divergence levels. 
+\item We estimated the branch lengths using the same models we used for empirical data above. 
+\end{itemize}
+\item The ``relevance" of the preferences is inversely correlated with sequence divergence. 
+\begin{itemize}
+\item We used the ExpCM stringency parameter as the measure of preference ``relevance". The larger the $\beta$ value the more ``relevant" the preferences. 
+\item As the maximum divergence of the tree increases the $\beta$ value decreases. 
+\end{itemize}
+\item All models estimate short branches relatively equally. 
+
+\end{itemize}
 
 \section*{Conclusion}
 
