@@ -37,16 +37,9 @@ REPS = range(10)
 
 rule all:
     input:
-        expand("phydms/Perth_{level}_{seed}_modelcomparison.md",
-               level=LEVELS, seed=SEEDS),
-        expand("phydms/WSN_{level}_{seed}_modelcomparison.md",
-               level=LEVELS, seed=SEEDS),
-        expand("phydms/hybrid_high_{seed}_modelcomparison.md", seed=SEEDS),
-        expand("bootstrap/{alignment_id}_{rep}_modelcomparison.md",
-               alignment_id=ALIGNMENT_IDS, rep=REPS),
         "outputs/branch_lengths.csv",
-        "outputs/model_by_model.csv"
-        # "outputs/params.csv"
+        "outputs/model_by_model.csv",
+        "outputs/params.csv"
 
 # Run `phydms_comprehensive` for each of the preference sets (next 3 rules)
 rule run_phydms_Lee:
@@ -169,47 +162,6 @@ rule run_phydms_bootstrap:
                 {input.prefs} --raxml raxml --gammaomega --randprefs'
 
 # Make summary files
-rule make_parameters_summary:
-    """
-    This rule makes a summary file with each true and bootstrapped runs fit
-    parameter values.
-    """
-    message: "Summarizing parameter values"
-    input:
-        true_runs = expand("phydms/{alignment_id}_modelcomparison.md",
-                           alignment_id=ALIGNMENT_IDS),
-        bootstrap = expand("bootstrap/{alignment_id}_{rep}_modelcomparison.md",
-                           alignment_id=ALIGNMENT_IDS, rep=REPS)
-    output:
-        summary = "outputs/params.csv"
-    run:
-        final = []
-        final_column_order = ["model", "alignment_id", "alignment_ref",
-                              "div_level", "alignment_rep", "bootstrap_rep",
-                              "model_type", "parameter", "value"]
-        for f in input.true_runs:
-            model_prefix = "_".join(f.split("/")[-1].split("_")[:-1])
-            for model_file in glob.glob("phydms/{0}*_modelparams.txt"
-                                        .format(model_prefix)):
-                temp = pd.read_csv(model_file, sep=" = ", engine="python",
-                                   header=None)
-                temp.columns = ["parameter", "value"]
-                model_name, model_type = extract_model_name(model_file)
-                temp["alignment_id"] = [model_prefix for x in range(len(temp))]
-                temp["alignment_ref"] = [model_prefix.split("_")[0] for x in
-                                         range(len(temp))]
-                temp["div_level"] = [model_prefix.split("_")[1] for x in
-                                     range(len(temp))]
-                temp["alignment_rep"] = [model_prefix.split("_")[-1] for x in
-                                         range(len(temp))]
-                temp["bootstrap_rep"] = ["N/A" for x in range(len(temp))]
-                temp["model"] = [model_name for x in range(len(temp))]
-                temp["model_type"] = [model_type for x in range(len(temp))]
-                final.append(temp)
-        final = pd.concat(final)
-        final = final[final_column_order]
-        final.to_csv(output.summary, index=False)
-
 rule calc_branch_lengths:
     """
     The purpose of this rule is to calculate all pairwise branches
@@ -219,9 +171,9 @@ rule calc_branch_lengths:
     input:
         true_runs = expand("phydms/{alignment_id}_modelcomparison.md",
                            alignment_id=ALIGNMENT_IDS),
-        bootstrap_runs = expand("bootstrap/{alignment_id}_{rep}\
-                                _modelcomparison.md",
-                                alignment_id=ALIGNMENT_IDS, rep=REPS)
+        # bootstrap_runs = expand("bootstrap/{alignment_id}_{rep}\
+        #                         _modelcomparison.md",
+        #                         alignment_id=ALIGNMENT_IDS, rep=REPS)
     output:
         summary = "outputs/branch_lengths.csv"
     run:
@@ -229,7 +181,8 @@ rule calc_branch_lengths:
                       "alignment_id", "alignment_ref", "divergence_level",
                       "bootstrap", "from_ref"]
         final = []
-        for run in input.true_runs + input.bootstrap_runs:
+        # for run in input.true_runs + input.bootstrap_runs:
+        for run in input.true_runs:
             bootstrap = run.split("/")[0]
             assert bootstrap in ["bootstrap", "phydms"]
             alignment_id = os.path.basename("_".join(run.split("_")[:-1]))
@@ -290,3 +243,38 @@ rule make_model_by_model:
                             final.append(temp)
         final = pd.concat(final)
         final.to_csv(output.model_by_model, index=False)
+
+rule summarize_betas:
+    """
+    The purpose of this rule is make a summary file for all of the fit
+    parameter values.
+    """
+    message: "Summarizing params"
+    input:
+        phydms_runs = expand("phydms/{alignment_id}_modelcomparison.md",
+                             alignment_id=ALIGNMENT_IDS)
+    output:
+        params = "outputs/params.csv"
+    run:
+        df = []
+        for run in input.phydms_runs:
+            alignment_id = os.path.basename("_".join(run.split("_")[:-1]))
+            print(alignment_id)
+            for model_param in glob.glob("phydms/{0}*modelparams.txt"
+                                         .format(alignment_id)):
+                if ("randomized" not in model_param) and ("averaged" not in
+                                                          model_param):
+                    model_name = extract_model_name(model_param)
+                    temp = pd.read_csv(model_param, sep=" = ", header=None,
+                                       engine="python")
+                    temp.columns = ["param", "value"]
+                    temp["model"] = [model_name for x in range(len(temp))]
+                    temp["alignment_id"] = [alignment_id for x in
+                                            range(len(temp))]
+                    temp["alignment_ref"] = [alignment_id.split("_")[0] for x
+                                             in range(len(temp))]
+                    temp["divergence_level"] = [alignment_id.split("_")[1]
+                                                for x in range(len(temp))]
+                    df.append(temp)
+        df = pd.concat(df)
+        df.to_csv(output.params, index=False)
