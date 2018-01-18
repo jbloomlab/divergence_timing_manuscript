@@ -259,7 +259,6 @@ rule summarize_betas:
         df = []
         for run in input.phydms_runs:
             alignment_id = os.path.basename("_".join(run.split("_")[:-1]))
-            print(alignment_id)
             for model_param in glob.glob("phydms/{0}*modelparams.txt"
                                          .format(alignment_id)):
                 if ("randomized" not in model_param) and ("averaged" not in
@@ -268,7 +267,7 @@ rule summarize_betas:
                     temp = pd.read_csv(model_param, sep=" = ", header=None,
                                        engine="python")
                     temp.columns = ["param", "value"]
-                    temp["model"] = [model_name for x in range(len(temp))]
+                    temp["model"] = [model_name[0] for x in range(len(temp))]
                     temp["alignment_id"] = [alignment_id for x in
                                             range(len(temp))]
                     temp["alignment_ref"] = [alignment_id.split("_")[0] for x
