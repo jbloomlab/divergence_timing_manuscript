@@ -184,26 +184,28 @@ from \ref{tab:wsn_low_params}
 }
 \end{figure}
 
-\skhcomment{opening sentence or two about modeling site-to-site rate variation and/or purifying selection}
+\skhcomment{Section Outline:}
 
-Codon substitution models commonly include a parameter ($\omega$) which describes the relative rate of non-synonymous to synonymous change to account for purifying selection or site-to-site rate variation more generally. 
-This parameter can be constrained to one value, representing a gene-wide average rate, or allowed to vary among sites following some statistical distribution, commonly a $\Gamma$-distribution (\ref{fig:model_feature}B). 
-By allowing $\omega$ to vary among the sites, this models acknowledges that some sites evolve faster or slower than others. 
-However, in practical implementation the distribution is discretized into some number of categories (commonly four) and $\omega$ takes on the mean of each category. 
 
-Another strategy to account for purifying selection and site-to-site rate variation is to use a model with a non-uniform stationary state (\ref{fig:model_feature}A). 
-In this framework, differences in rate between sites is modeled explicitly by site-specific amino-acid frequency parameters. 
-These parameters describe the ''preference" for a given amino acid at a given site. 
-According to this model, the rate of change at a "constrained" site, which prefers very few amino acids, is much slower than the rate of change at a tolerant site, which prefers many amino acids equally. 
+\begin{itemize}
+\item There are different strategies to account for purifying selection and site-to-site rate variation. 
+\begin{itemize}
+\item $\Gamma\omega$ rate variation 
+\begin{itemize}
+\item single parameter controlling relative rate of non-synonymous to synonymous substitutions can vary across sites following some statistical distribution (usually $\Gamma$)
+\item very common 
+\item practical implementation - discretized distribution with the mean of $K$ bins. 
+\end{itemize}
+\item stationary state
+\begin{itemize}
+\item Explicitly model each amino-acid frequency at each site in the protein 
+\item a more mechanistic description, no arbitrary statistical distribution 
+\item practical limitation - how do you estimate these parameters without overfitting the data? We use experimental measurements to define the parameters \textit{a priori}
+\end{itemize}
+\end{itemize}
+\item We can compare the effect of a model feature ($\Gamma\omega$ rate variation or non-uniform stationary state) while controlling the presence/absence of the other feature using models from the ExpCM and GY94 families. 
+\end{itemize}
 
-The challenge of a model with a non-uniform stationary state is that all 19 * L (sites in the protein) amino acid preference parameters have to be defined. 
-In this study, we chose to use non-uniform stationary state model called ExpCM which defines these parameters using the measurements from a high-throughput functional assay called Deep Mutational Scanning (DMS). 
-DMS measures the effect of every single amino acid change on some aspect of protein function. 
-We used two deep mutational scans of influenza virus surface protein hemagglutinin (HA) which measured the effect of mutations on viral growth. 
-
-The models we chose to use in this study represent all four combinations of these two features (\ref{fig:model_feature}C). 
-The GY94 model has a uniform stationary state while the ExpCM has a non-uniform stationary state and each model can be implemented with a $\Gamma$-distributed $\omega$. 
-Therefore, we can example the effect of one feature (stationary state or $\Gamma\omega$) while controlling for the presence of the other feature. 
 
 \subsection*{Effect of stationary state and rate variation on branch length estimation}
 
@@ -220,24 +222,24 @@ The deviation in trajectory of the YNGKP model with a site-specific $\omega$ val
 }
 \end{figure}
 
-To explore the effect of substitution model choice on branch length estimation, we first examined how the relationship between sequence divergence and time is described by different models. 
-While substitution models can only accurately estimate branch length when there is a clear transformation from sequence divergence to time (branch length), every model has a saturation point at which the temporal signal has effectively decayed. 
-This effect can been seen in the long, almost horizontal tails of \ref{fig:decay}, where the expectation of sequence divergence stays constant as time passes. 
+\skhcomment{Section Outline:}
 
-While this saturation phenomenon is inevitable, the amount of time it takes to reach the saturation point and the sequence divergence at the point are dependent on the specific features of the substitution model. 
-The addition of $\Gamma\omega$ to the GY94 model modulates the exact sequence divergence of the saturation point but the overall effect is minimal. 
-Furthermore, neither the GY94 nor the GY+$\Gamma\omega$ are site-specific and consequently the saturation points for each model are exactly same for every site. 
-In comparison, the saturation point of the ExpCM differs from site to site. 
-The ExpCM saturation point is very similar to the saturation point for the GY94 model at sites with a relatively high tolerance for mutations (\ref{fig:decay} sites 90 and 51). 
-But the constrained sites show saturation points with much higher expected sequence conservation (\ref{fig:decay} sites 413, 300, and 262) and/or a longer period of time until the saturation point is reached (\ref{fig:decay} sites 413 and 300). 
 
-Finally, we can see that the difference between the ExpCM and the GY94 is due to the non-uniform stationary state and not just because the ExpCM "takes advantage" of more information (the DMS). 
-We can infer a site-specific dN/dS values from the ExpCM \cite{spielman2015relationship} and apply them to the GY94 model, thereby incorporating information from the DMS into a uniform stationary state model. 
-This model takes a longer time to reach the saturation point but does the saturation point does have the same sequence divergence as the GY94 model. 
-The underestimation of long branches will be an issue for all models but especially models with uniform stationary states, even if great care is taken to model rate variation. 
-
-\skhcomment{be more clear about how this plot shows branch lengths }
-
+\begin{itemize}
+\item Substitution models are only useful for inferring branch lengths when they can accurately transform sequence divergence to time (branch length)
+\item There is a saturation point in every substitution model where the temporal signal is lost (long tails in figure). 
+\begin{itemize}
+\item In the long tails the expected sequence divergence remains constant as time increases. 
+\item The lost of temporal signal will affect long branches specifically.
+\end{itemize}
+\item Different model features (\ref{fig:model_feature}) can affect \textit{how long} it takes to reach the saturation point and the \textit{sequence divergence} at the saturation point 
+\begin{itemize}
+\item Adding $\Gamma\omega$ rate variation affects the ``path" to the saturation point but affects the sequence divergence at the saturation point minimally. Importantly, the saturation point is identically for every site in the protein. \skhcomment{These $\Gamma\omega$ parameters might not the best to show the effect of $\Gamma\omega$ on long branch estimation.} 
+\item Adding a non-uniform stationary state creates a unique saturation point for each site in the protein. Sites which can tolerate many mutations have saturation points which are quite similar to the GY94 saturation point. However, constrained sites show a dramatic difference. 
+\item This difference cannot be recapitulated by more complex modeling of the $\omega$ parameter. We can transform the GY94 model into a completely site-specific value by inferring a unique $\omega$ value from the ExpCM for each site in the protein. This model shows a substantial difference but does not recover the full effect of the ExpCM. 
+\end{itemize}
+\item No matter how ``well" you model site-to-site rate variation, you will underestimate \textit{very} long branches with a uniform stationary state. 
+\end{itemize}
 
 \subsection*{Failure to account for site-specificity leads to branch length underestimation.}
 
@@ -254,31 +256,7 @@ The grey, dashed line is the reference line $y=x$, depicting the behavior of a m
 }
 \end{figure}
 
-Next, we explored how accurately these models infer branch length when site-specificity is assumed, as expected in natural sequences.  
-We simulated sequences under an ExpCM defined by the amino-acid preferences measured by \cite{doud2016accurate} along an influenza tree. 
-We then re-inferred the branch lengths using the models described in \ref{fig:model_feature}. 
-
-The two models with uniform stationary states, GY94 and GY94+$\Gamma\omega$, both underestimate long branches (> ~5 codon substitutions per site). 
-The degree of underestimation becomes more pronounced as the branch length increases, as shown by the curve of the correlation. 
-The addition of $\Gamma\omega$ rate variation does not mitigate the effect as both models show roughly the same degree of underestimation. 
-
-Conversely, the ExpCM and ExpCM+$\Gamma\omega$ both avoid the underestimation bias, even at the longest branch lengths measured. 
-As the branch length increases, the variance of the branch length estimation also increases (grey points). 
-But, unlike the GY94 and the GY94+$\Gamma\omega$, the variance is unbiased in regards to under- or overestimation of the true branch length. 
-
-Finally, the randomized control ExpCM and ExpCM+$\Gamma\omega$ show that the importance is truly in site-\textit{specificity}. 
-If the preferences are randomized along sites in the protein, the model exhibits the same degree of underestimation as the GY94 and GY+$\Gamma\omega$ models. 
-This underscores the point that the non-uniform stationary state models are site-specific and that mismatches are just as much of a problem as not accounting for these differences at all. 
-
-Overall, the simulations show that if site-specificity is true, the addition of $\Gamma\omega$ will still have problems at extremely long branches. 
-
 \subsection*{empirical Data}
-
-Next we compared the branch lengths inferred by the different models on empirical data. 
-We looked at the influenza virus surface protein hemagglutinin (HA). 
-HA proteins cluster into tight phylogenetic groups with long branches in between them. 
-Furthermore, HAs are extremely diverse. 
-The HAs which commonly circulate in human viruses (H1 and H3) are only about 40\% identical on the amino acid level. 
 
 \begin{figure}[H]
 \centerline{\includegraphics[width=0.90\textwidth]{figures/empirical_trees}}
@@ -300,41 +278,7 @@ The branch lengths are normalized to the distance between A/South Carolina/1/191
 }
 \end{figure}
 
-We took a representative sample of HA from 14 of the 18 groups and optimized the branch lengths of the tree using the models described in \ref{fig:model_feature}. 
-First, we used an ExpCM defined by the site-specific amino-acid preferences measured by deep mutational scanning from \cite{doud2016accurate}. 
-These amino-acid preferences were measured in the genetic background of the H1 strain A/Wilson-Smith/1993. 
-We designate this strain (and more broadly the H1 subtype) as the focal sequence of the model. 
-
-\ref{fig:tree_doud} shows the results. 
-Comparing GY94 to GY94+$\Gamma\omega$ or ExpCM to ExpCM+$\Gamma\omega$ shows the addition of $\Gamma\omega$ causes branch length extension independent of the presence of preferences. 
-In addition, comparing comparing GY94 to ExpCM or GY94+$\Gamma\omega$ to ExpCM+$\Gamma\omega$ shows that the addition of preferences causes branch length extension from the \textit{focal} sequence independent of the presence of $\Gamma\omega$. 
-Together this suggests that site-specificity of the model is important because branch lengths are shorter in the absence of preferences. 
-However, the preferences used here to define the ExpCM are clearly not equally relevant across all parts of the tree. 
-Specifically, they are most relevant near the strain that they were measured in. 
-This not at all unexpected because epistasis, where the effect of a mutation at one site is dependent on the identity of another site is well documented. 
-It would surprising if epistasis \textit{was not} a factor at these large divergences across the HA tree. 
-
-This becomes even more apparent when the performance of the ExpCM defined by H1 preferences is compared to the ExpCM with H3 preferences. 
-Namely, the exact same pattern is observed. 
-There is extension across the whole tree when $\Gamma\omega$ is added to the model, independent of whether or not preferences are included in the model, and there is an extension of branch lengths from the focal sequence when preferences are added, independent of whether or not $\Gamma\omega$ is included in the model. 
-Finally, we defined an ExpCM with the average of the H1 and H3 preferences, which can be seen as a rough proxy for the model sampling both preference sets. 
-In this model, there is an extension in branch length from \textit{both} focal sequences. 
-
-These three sets of trees imply that site-specificity is important and not constant. 
-This observation is not surprising. 
-Epistasis, where the effect of a mutation at a site is dependent on the identity of another site in the protein, is well documented. 
-It is not all together surprising that there are epistatic interactions between H1 and H3 due to the large sequence divergence between the two strains. 
-In contrast, the deep mutational scanning preferences are measured in a single genetic background and therefore only measure the effect of mutations in one, specific genetic context.  
-The difference between the trees using the H1 preferences and the H3 preferences is most likely that the preferences "shifted" due to the genetic context. 
-The model with the average preferences could be seen as a proxy for a model which is able to sample both preference sets. 
-
 \subsection{Competing effects of shifting preferences and long branches.}
-We explored these competing effects of shifting preferences and long branches by comparing the effects of the model across trees which vary in overall divergence levels. 
-We used the $\beta$ parameter of the ExpCM model as a proxy for the degree to which the preferences have shifted. 
-In each run of the model, the parameter $\beta$ is fit and effectively rescales the preferences. 
-When $\beta = 1$, we infer that selection in nature and selection in the lab prefers the same amino acids and with the same level of stringency. 
-When $\beta > 1$, we infer that selection in nature prefers the same amino acids as selection in lab but with much higher stringency and when $\beta < 1$ we infer that selection in lab and selection in nature prefer different amino acids or at a \textit{much} lower stringency. 
-An alternative way of saying this is that the value of $\beta$ and the perceived "relevance" of the preferences are inversely correlated. 
 
 \begin{figure}[H]
 \centerline{\includegraphics[width=0.85\textwidth]{figures/doud_compete}}
@@ -350,20 +294,6 @@ The branch lengths are in average number of codon substitutions per site.
 }
 \end{figure}
 
-For each preference set, we took a subset the full HA tree shown in \ref{fig:tree_doud} or \ref{fig:tree_lee} to create a tree with either low divergence from the focal sequence (low) or intermediate divergence from the focal sequence (intermediate) and estimated the branch lengths on these trees using the same models as above. 
-As we hypothesized above, as the overall divergence of the tree increases the $\beta$ value decreases. 
-That is as the tree begins to include more and more sequences which are highly diverged from the focal sequence, the less relevant the preferences appear to be overall. 
-As divergence increases the relevance of the preferences decreases. 
-
-On the other hand, the effect of having a site-specific stationary state is more apparent when there are long branches on the tree.
-There is no real bias in estimation in any of the models for the low or intermediate trees. 
-This is not surprising as \ref{fig:decay} shows that the differences in these models really only matters at the long branches. 
-The underestimation is only apparent for the "high divergence" alignment (aka the full tree). 
-Here it becomes clear that you have these competing effects. 
-It is most important to have the site-specificity at these long branches but it is also where the site-specific preferences are the least relevant. 
-
-
-For set of preferences, 
 \section*{Conclusion}
 
 \begin{enumerate}
