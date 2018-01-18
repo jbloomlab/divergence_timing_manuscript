@@ -66,7 +66,7 @@
 \newcommand{\DNA}{\textbf{DNA}}
 \newcommand{\virus}{\textbf{virus}}
 
-\newcommand\skhcomment[1]{{\color{magenta}#1}}
+\newcommand\skhcomment[1]{{\color{cyan}#1}}
 \newcommand\jdbcomment[1]{{\color{red}#1}}
 
 
@@ -173,7 +173,7 @@ This supports the conclusion that modeling purifying selection, especially in a 
 \subsection*{Substitution models}
 
 \begin{figure}[H]
-\centerline{\includegraphics[width=0.55\textwidth]{figures/model_feature.pdf}}
+\centerline{\includegraphics[width=0.90\textwidth]{figures/model_feature.pdf}}
 \caption{\label{fig:model_feature}
 \textbf{Comparison of substitution model features.}
 \jdbcomment{This figure is too big. Maybe put the three panels side-by-side, increase the space between panels, and increase the font sizes. The logo stacks are kind of tall relative to their width.}
@@ -208,9 +208,10 @@ Therefore, we can example the effect of one feature (stationary state or $\Gamma
 \subsection*{Effect of stationary state and rate variation on branch length estimation}
 
 \begin{figure}[H]
-\centerline{\includegraphics[width=0.75\textwidth]{figures/decay.pdf}}
+\centerline{\includegraphics[width=0.90\textwidth]{figures/decay.pdf}}
 \caption{\label{fig:decay}
-\jdbcomment{I still think text could be bigger. Logo stacks still show trimming, maybe a bit tall? The Model key could probably be to the right or left.}
+\jdbcomment{I still think text could be bigger.}
+\skhcomment{Should I remove the second from the left site?}
 \textbf{Effect of stationary state and rate variation on long branch estimation.}
 The expected pairwise identity trajectories were calculated using \ref{eq:f} and models described in \ref{tab:wsn_low_params}.
 The trajectories of the YNKGP M0 (blue) and YNGKP M5 (green) do not vary from panel to panel because neither model is site-specific. 
@@ -280,8 +281,18 @@ Furthermore, HAs are extremely diverse.
 The HAs which commonly circulate in human viruses (H1 and H3) are only about 40\% identical on the amino acid level. 
 
 \begin{figure}[H]
-\centerline{\includegraphics[width=0.5\textwidth]{figures/tree_doud}}
-\caption{\label{fig:tree_doud}
+\centerline{\includegraphics[width=0.90\textwidth]{figures/empirical_trees}}
+\caption{\label{fig:empirical_trees}
+\textbf{Trees optimized with an ExpCM defined by H1 preferences lengthen branches from the focal H1 sequence compared to YNGKP models.} 
+\jdbcomment{Keep branch lengths in substitutions per site. Make a panel A show a prefs snippet, B H1 trees, C H3 trees, D H1+H3. Maybe increase very small font sizes a bit.}
+The branch lengths of a base topology inferred using the GTR-CAT model were optimized by \textbf{(A)} an ExpCM defined by H1 preferences, \textbf{(B)} an ExpCM+$\Gamma\omega$ defined by H1 preferences, \textbf{(C)} YNKGP M0, and \textbf{(D)} YNGKP M5.
+The branch lengths are normalized to the distance between A/South Carolina/1/1918 and A/Solomon Islands/3/2006 and colored to indicate the distance from the H1 focal sequence (black triangle).
+}
+\end{figure}
+
+\begin{figure}[H]
+\centerline{\includegraphics[width=0.70\textwidth]{figures/empirical_trees_2}}
+\caption{\label{fig:empirical_trees2}
 \textbf{Trees optimized with an ExpCM defined by H1 preferences lengthen branches from the focal H1 sequence compared to YNGKP models.} 
 \jdbcomment{Keep branch lengths in substitutions per site. Make a panel A show a prefs snippet, B H1 trees, C H3 trees, D H1+H3. Maybe increase very small font sizes a bit.}
 The branch lengths of a base topology inferred using the GTR-CAT model were optimized by \textbf{(A)} an ExpCM defined by H1 preferences, \textbf{(B)} an ExpCM+$\Gamma\omega$ defined by H1 preferences, \textbf{(C)} YNKGP M0, and \textbf{(D)} YNGKP M5.
@@ -324,6 +335,20 @@ In each run of the model, the parameter $\beta$ is fit and effectively rescales 
 When $\beta = 1$, we infer that selection in nature and selection in the lab prefers the same amino acids and with the same level of stringency. 
 When $\beta > 1$, we infer that selection in nature prefers the same amino acids as selection in lab but with much higher stringency and when $\beta < 1$ we infer that selection in lab and selection in nature prefer different amino acids or at a \textit{much} lower stringency. 
 An alternative way of saying this is that the value of $\beta$ and the perceived "relevance" of the preferences are inversely correlated. 
+
+\begin{figure}[H]
+\centerline{\includegraphics[width=0.85\textwidth]{figures/doud_compete}}
+\caption{\label{fig:doud_compete}
+\textbf{The ExpCM defined by H1 preferences lengthen longer branches on the HA tree.} 
+\textbf{(A)} An HA alignment was subsampled to create three smaller alignments with varying degrees of divergence from the focal H3 sequence, referred to as "low", "intermediate", and "high". 
+\textbf{(B)} The phylogenetic tree of the "high" alignment. 
+The colors denote the alignment and the black circle denotes the focal H3 sequence. 
+\textbf{(C)} The value of the ExpCM and ExpCM+$\Gamma\omega$ stringency parameter $\beta$ decreases as the divergence from the focal H3 sequence increases. 
+\textbf{(D)} Comparisons of branch lengths optimized by the four substitution models for the varying degrees of divergence. 
+Black points represent branches from the focal H3 sequence and grey points represent all other branches.  
+The branch lengths are in average number of codon substitutions per site. 
+}
+\end{figure}
 
 For each preference set, we took a subset the full HA tree shown in \ref{fig:tree_doud} or \ref{fig:tree_lee} to create a tree with either low divergence from the focal sequence (low) or intermediate divergence from the focal sequence (intermediate) and estimated the branch lengths on these trees using the same models as above. 
 As we hypothesized above, as the overall divergence of the tree increases the $\beta$ value decreases. 
@@ -420,36 +445,24 @@ where $a$ is all amino acids, $p_{r,x}$ is the stationary state of the model at 
 \begin{suppfig}[H]
 \centerline{\includegraphics[width=\textwidth]{figures/prefs_doud}}
 \caption{\label{suppfig:prefs_doud}
-\textbf{H1 preferences measured by \cite{doud2016accurate} rescaled with the ExpCM stringency parameter optimized in \ref{fig:tree_doud}A  ($\beta = 1.21$)} 
+\textbf{H1 preferences measured by \cite{doud2016accurate} rescaled with the ExpCM stringency parameter optimized in \ref{fig:tree_doud}A  ($\beta = 1.54$)} 
 }
 \end{suppfig}
 
 \begin{suppfig}[H]
 \centerline{\includegraphics[width=\textwidth]{figures/prefs_lee}}
 \caption{\label{suppfig:prefs_lee}
-\textbf{H3 preferences measured by \textit{lee} rescaled with the ExpCM stringency parameter optimized in \ref{fig:tree_lee}A  ($\beta = 1.46$)} 
+\textbf{H3 preferences measured by \textit{lee} rescaled with the ExpCM stringency parameter optimized in \ref{fig:tree_lee}A  ($\beta = 1.76$)} 
 }
 \end{suppfig}
 
 \begin{figure}[H]
-\centerline{\includegraphics[width=0.85\textwidth]{figures/prefs_average}}
+\centerline{\includegraphics[width=\textwidth]{figures/prefs_average}}
 \caption{\label{fig:prefs_average}
-\textbf{The average of the H1 preferences measured by \cite{doud2016accurate} and the H3 preferences measured by \textit{Lee} rescaled with the ExpCM stringency parameter optimized in \ref{fig:tree_average}A  ($\beta = 1.82$)}}
+\textbf{The average of the H1 preferences measured by \cite{doud2016accurate} and the H3 preferences measured by \textit{Lee} rescaled with the ExpCM stringency parameter optimized in \ref{fig:tree_average}A  ($\beta = 1.77$)}}
 \end{figure}
 
-\begin{figure}[H]
-\centerline{\includegraphics[width=0.85\textwidth]{figures/experiment_lee}}
-\caption{\label{fig:experiment_lee}
-\textbf{The ExpCM defined by H1 preferences lengthen longer branches on the HA tree.} 
-\textbf{(A)} An HA alignment was subsampled to create three smaller alignments with varying degrees of divergence from the focal H3 sequence, referred to as "low", "intermediate", and "high". 
-\textbf{(B)} The phylogenetic tree of the "high" alignment. 
-The colors denote the alignment and the black circle denotes the focal H3 sequence. 
-\textbf{(C)} The value of the ExpCM and ExpCM+$\Gamma\omega$ stringency parameter $\beta$ decreases as the divergence from the focal H3 sequence increases. 
-\textbf{(D)} Comparisons of branch lengths optimized by the four substitution models for the varying degrees of divergence. 
-Black points represent branches from the focal H3 sequence and grey points represent all other branches.  
-The branch lengths are in average number of codon substitutions per site. 
-}
-\end{figure}
+
 
 \begin{table}[t!]
 \caption{\label{tab:simulation_params}
@@ -473,70 +486,27 @@ Model parameters used in  Fig.~\ref{fig:decay}.}
           ExpCM & $\beta=1.54196$\\
            & $\kappa=3.47184$\\
            & $\omega=0.219225$\\ 
-           & $\phi_A$=0.386529\\ 
-           & $\phi_C$=0.17187\\
-           & $\phi_T$=0.230319\\
-           & $\pi_{r, A\left(X\right)}$:Doud\\
           YNGKP M0 & $\kappa=2.9984$\\
           & $\omega=0.09076$\\
-          & $\phi_{1A}=0.326007$\\
-          & $\phi_{1C}=0.136307$\\ 
-          &$\phi_{1G}=0.278377$\\
-          &$\phi_{2A}=0.382017$\\ 
-          &$\phi_{2C}=0.179763$\\ 
-          &$\phi_{2G}=0.194067$\\
-          &$\phi_{3A}=0.354364$\\
-          &$\phi_{3C}=0.190112$\\
-          &$\phi_{3G}=0.214605$\\
           YNGKP M5 & $\kappa=2.9984$\\
           & $\omega=0.09076$\\
-          & $\phi_{1A}=0.326007$\\
-          & $\phi_{1C}=0.136307$\\ 
-          &$\phi_{1G}=0.278377$\\
-          &$\phi_{2A}=0.382017$\\ 
-          &$\phi_{2C}=0.179763$\\ 
-          &$\phi_{2G}=0.194067$\\
-          &$\phi_{3A}=0.354364$\\
-          &$\phi_{3C}=0.190112$\\
-          &$\phi_{3G}=0.214605$\\
       \end{tabular}
 \end{table}
 
-
-
-
 \begin{figure}[H]
-\centerline{\includegraphics[width=0.85\textwidth]{figures/tree_lee}}
-\caption{\label{fig:tree_lee}
-\textbf{Trees optimized with an ExpCM defined by H3 preferences lengthen branches from the focal H3 sequence compared to YNGKP models.} 
-The branch lengths of a base topology inferred using the GTR-CAT model were optimized by \textbf{(A)} an ExpCM defined by H3 preferences, \textbf{(B)} an ExpCM+$\Gamma\omega$ defined by H3 preferences, \textbf{(C)} YNKGP M0, and \textbf{(D)} YNGKP M5.
-The branch lengths are normalized to the distance between A/South Carolina/1/1918 and A/Solomon Islands/3/2006 and colored to indicate the distance from the H3 focal sequence (black circle).
-}
-\end{figure}
-
-\begin{figure}[H]
-\centerline{\includegraphics[width=0.85\textwidth]{figures/tree_average}}
-\caption{\label{fig:tree_average}
-\textbf{Trees optimized with an ExpCM defined by the average of H1 and H3 preferences lengthen branches from both the focal H3 sequence and the focal H1 sequence compared to YNGKP models.} 
-The branch lengths of a base topology inferred using the GTR-CAT model were optimized by \textbf{(A)} an ExpCM defined by the average preferences, \textbf{(B)} an ExpCM+$\Gamma\omega$ defined by the average preferences, \textbf{(C)} YNKGP M0, and \textbf{(D)} YNGKP M5.
-The branch lengths are normalized to the distance between A/South Carolina/1/1918 and A/Solomon Islands/3/2006.
-The black triangle indicates the H1 focal sequence and the black circle indicates the focal sequence.
-}
-\end{figure}
-
-\begin{figure}[H]
-\centerline{\includegraphics[width=0.85\textwidth]{figures/experiment_doud}}
-\caption{\label{fig:experiment_doud}
+\centerline{\includegraphics[width=0.85\textwidth]{figures/lee_competing}}
+\caption{\label{fig:lee_compete}
 \textbf{The ExpCM defined by H1 preferences lengthen longer branches on the HA tree.} 
-\textbf{(A)} An HA alignment was subsampled to create three smaller alignments with varying degrees of divergence from the focal H1 sequence, referred to as "low", "intermediate", and "high". 
-\textbf{(B)} A phylogenetic tree of the "high" alignment was constructed using the GTR-CAT model. 
+\textbf{(A)} An HA alignment was subsampled to create three smaller alignments with varying degrees of divergence from the focal H3 sequence, referred to as "low", "intermediate", and "high". 
+\textbf{(B)} The phylogenetic tree of the "high" alignment. 
 The colors denote the alignment and the black circle denotes the focal H3 sequence. 
-\textbf{(C)} The value of the ExpCM and ExpCM+$\Gamma\omega$ stringency parameter $\beta$ decreases as the divergence from the focal H1 sequence increases. 
+\textbf{(C)} The value of the ExpCM and ExpCM+$\Gamma\omega$ stringency parameter $\beta$ decreases as the divergence from the focal H3 sequence increases. 
 \textbf{(D)} Comparisons of branch lengths optimized by the four substitution models for the varying degrees of divergence. 
 Black points represent branches from the focal H3 sequence and grey points represent all other branches.  
 The branch lengths are in average number of codon substitutions per site. 
 }
 \end{figure}
+
 
 \clearpage 
 \bibliographystyle{mbe}
