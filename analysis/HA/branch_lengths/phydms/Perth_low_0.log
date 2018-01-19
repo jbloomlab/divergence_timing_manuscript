@@ -1,15 +1,15 @@
-2017-12-31 01:45:45,372 - INFO - Beginning execution of phydms_comprehensive in directory /fh/fast/bloom_j/computational_notebooks/skhilton/2017/divergence_timing_manuscript/analysis/HA/branch_lengths
+2018-01-18 18:54:38,631 - INFO - Beginning execution of phydms_comprehensive in directory /fh/fast/bloom_j/computational_notebooks/skhilton/2017/divergence_timing_manuscript/analysis/HA/branch_lengths
 
-2017-12-31 01:45:45,373 - INFO - Progress is being logged to phydms/Perth_low_0.log
+2018-01-18 18:54:38,631 - INFO - Progress is being logged to phydms/Perth_low_0.log
 
-2017-12-31 01:45:45,373 - INFO - Version information:
-	Time and date: Sun Dec 31 01:45:43 2017
+2018-01-18 18:54:38,631 - INFO - Version information:
+	Time and date: Thu Jan 18 18:54:32 2018
 	Platform: Linux-3.13.0-68-generic-x86_64-with-debian-jessie-sid
 	Python version: 3.6.0 |Continuum Analytics, Inc.| (default, Dec 23 2016, 12:22:00)  [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]
 	phydms version: 2.2.0
 	Bio version: 1.69
 	cython version: 0.25.2
-	numpy version: 1.13.3
+	numpy version: 1.14.0
 	scipy version: 0.19.0
 	matplotlib version: 2.1.0
 	natsort version: 5.0.2
@@ -21,7 +21,7 @@
 	weblogolib version: 3.5.0
 	PyPDF2 version: 1.26.0
 
-2017-12-31 01:45:45,373 - INFO - Parsed the following command-line arguments:
+2018-01-18 18:54:38,632 - INFO - Parsed the following command-line arguments:
 	outprefix = phydms/Perth_low_0_
 	alignment = ../data/subsample/HA_Perth_low_0.fasta
 	prefsfiles = ['../data/references/HA_Lee_prefs.csv']
@@ -36,82 +36,84 @@
 	noavgprefs = False
 	randprefs = True
 
-2017-12-31 01:45:45,373 - INFO - Checking that the alignment ../data/subsample/HA_Perth_low_0.fasta is valid...
-2017-12-31 01:45:45,714 - INFO - Valid alignment specifying 34 sequences of length 1695.
+2018-01-18 18:54:38,632 - INFO - Checking that the alignment ../data/subsample/HA_Perth_low_0.fasta is valid...
+2018-01-18 18:54:38,824 - INFO - Valid alignment specifying 24 sequences of length 1695.
 
-2017-12-31 01:45:45,714 - INFO - Tree not specified.
-2017-12-31 01:45:45,726 - INFO - Inferring tree with RAxML using command raxml
-2017-12-31 01:45:59,284 - INFO - RAxML inferred tree is now named phydms/Perth_low_0_RAxML_tree.newick
-2017-12-31 01:45:59,311 - INFO - Starting analysis to optimize tree in phydms/Perth_low_0_RAxML_tree.newick using model YNGKP_M0. The command is: phydms ../data/subsample/HA_Perth_low_0.fasta phydms/Perth_low_0_RAxML_tree.newick YNGKP_M0 phydms/Perth_low_0_YNGKP_M0 --brlen optimize --ncpus 1
+2018-01-18 18:54:38,824 - INFO - Tree not specified.
+2018-01-18 18:54:38,871 - INFO - Inferring tree with RAxML using command raxml
+2018-01-18 18:54:43,702 - INFO - RAxML inferred tree is now named phydms/Perth_low_0_RAxML_tree.newick
+2018-01-18 18:54:44,310 - INFO - Removed the following existing files that have names that match the names of output files that will be created: phydms/Perth_low_0_YNGKP_M0_tree.newick, phydms/Perth_low_0_YNGKP_M0_modelparams.txt, phydms/Perth_low_0_YNGKP_M5_tree.newick, phydms/Perth_low_0_YNGKP_M5_modelparams.txt, phydms/Perth_low_0_ExpCM_HA_Lee_prefs_tree.newick, phydms/Perth_low_0_ExpCM_HA_Lee_prefs_modelparams.txt, phydms/Perth_low_0_ExpCM_HA_Lee_prefs_gammaomega_tree.newick, phydms/Perth_low_0_ExpCM_HA_Lee_prefs_gammaomega_modelparams.txt, phydms/Perth_low_0_averaged_ExpCM_HA_Lee_prefs_tree.newick, phydms/Perth_low_0_averaged_ExpCM_HA_Lee_prefs_modelparams.txt, phydms/Perth_low_0_averaged_ExpCM_HA_Lee_prefs_gammaomega_tree.newick, phydms/Perth_low_0_averaged_ExpCM_HA_Lee_prefs_gammaomega_modelparams.txt, phydms/Perth_low_0_randomized_ExpCM_HA_Lee_prefs_tree.newick, phydms/Perth_low_0_randomized_ExpCM_HA_Lee_prefs_modelparams.txt, phydms/Perth_low_0_randomized_ExpCM_HA_Lee_prefs_gammaomega_tree.newick, phydms/Perth_low_0_randomized_ExpCM_HA_Lee_prefs_gammaomega_modelparams.txt
 
-2017-12-31 01:45:59,311 - INFO - Starting analysis to optimize tree in phydms/Perth_low_0_RAxML_tree.newick using model YNGKP_M5. The command is: phydms ../data/subsample/HA_Perth_low_0.fasta phydms/Perth_low_0_RAxML_tree.newick YNGKP_M5 phydms/Perth_low_0_YNGKP_M5 --brlen optimize --ncpus 1
+2018-01-18 18:54:44,310 - INFO - Starting analysis to optimize tree in phydms/Perth_low_0_RAxML_tree.newick using model YNGKP_M0. The command is: phydms ../data/subsample/HA_Perth_low_0.fasta phydms/Perth_low_0_RAxML_tree.newick YNGKP_M0 phydms/Perth_low_0_YNGKP_M0 --brlen optimize --ncpus 1
 
-2017-12-31 01:45:59,311 - INFO - Starting analysis to optimize tree in phydms/Perth_low_0_RAxML_tree.newick using model ExpCM_HA_Lee_prefs. The command is: phydms ../data/subsample/HA_Perth_low_0.fasta phydms/Perth_low_0_RAxML_tree.newick ExpCM_../data/references/HA_Lee_prefs.csv phydms/Perth_low_0_ExpCM_HA_Lee_prefs --brlen optimize --ncpus 4
+2018-01-18 18:54:44,310 - INFO - Starting analysis to optimize tree in phydms/Perth_low_0_RAxML_tree.newick using model YNGKP_M5. The command is: phydms ../data/subsample/HA_Perth_low_0.fasta phydms/Perth_low_0_RAxML_tree.newick YNGKP_M5 phydms/Perth_low_0_YNGKP_M5 --brlen optimize --ncpus 1
 
-2017-12-31 01:45:59,311 - INFO - Starting analysis to optimize tree in phydms/Perth_low_0_RAxML_tree.newick using model ExpCM_HA_Lee_prefs_gammaomega. The command is: phydms ../data/subsample/HA_Perth_low_0.fasta phydms/Perth_low_0_RAxML_tree.newick ExpCM_../data/references/HA_Lee_prefs.csv phydms/Perth_low_0_ExpCM_HA_Lee_prefs_gammaomega --brlen optimize --gammaomega --ncpus 4
+2018-01-18 18:54:44,311 - INFO - Starting analysis to optimize tree in phydms/Perth_low_0_RAxML_tree.newick using model ExpCM_HA_Lee_prefs. The command is: phydms ../data/subsample/HA_Perth_low_0.fasta phydms/Perth_low_0_RAxML_tree.newick ExpCM_../data/references/HA_Lee_prefs.csv phydms/Perth_low_0_ExpCM_HA_Lee_prefs --brlen optimize --ncpus 4
 
-2017-12-31 01:45:59,312 - INFO - Starting analysis to optimize tree in phydms/Perth_low_0_RAxML_tree.newick using model averaged_ExpCM_HA_Lee_prefs. The command is: phydms ../data/subsample/HA_Perth_low_0.fasta phydms/Perth_low_0_RAxML_tree.newick ExpCM_../data/references/HA_Lee_prefs.csv phydms/Perth_low_0_averaged_ExpCM_HA_Lee_prefs --brlen optimize --avgprefs --ncpus 4
+2018-01-18 18:54:44,311 - INFO - Starting analysis to optimize tree in phydms/Perth_low_0_RAxML_tree.newick using model ExpCM_HA_Lee_prefs_gammaomega. The command is: phydms ../data/subsample/HA_Perth_low_0.fasta phydms/Perth_low_0_RAxML_tree.newick ExpCM_../data/references/HA_Lee_prefs.csv phydms/Perth_low_0_ExpCM_HA_Lee_prefs_gammaomega --brlen optimize --gammaomega --ncpus 4
 
-2017-12-31 01:45:59,312 - INFO - Starting analysis to optimize tree in phydms/Perth_low_0_RAxML_tree.newick using model averaged_ExpCM_HA_Lee_prefs_gammaomega. The command is: phydms ../data/subsample/HA_Perth_low_0.fasta phydms/Perth_low_0_RAxML_tree.newick ExpCM_../data/references/HA_Lee_prefs.csv phydms/Perth_low_0_averaged_ExpCM_HA_Lee_prefs_gammaomega --brlen optimize --gammaomega --avgprefs --ncpus 4
+2018-01-18 18:54:44,311 - INFO - Starting analysis to optimize tree in phydms/Perth_low_0_RAxML_tree.newick using model averaged_ExpCM_HA_Lee_prefs. The command is: phydms ../data/subsample/HA_Perth_low_0.fasta phydms/Perth_low_0_RAxML_tree.newick ExpCM_../data/references/HA_Lee_prefs.csv phydms/Perth_low_0_averaged_ExpCM_HA_Lee_prefs --brlen optimize --avgprefs --ncpus 4
 
-2017-12-31 01:45:59,312 - INFO - Starting analysis to optimize tree in phydms/Perth_low_0_RAxML_tree.newick using model randomized_ExpCM_HA_Lee_prefs. The command is: phydms ../data/subsample/HA_Perth_low_0.fasta phydms/Perth_low_0_RAxML_tree.newick ExpCM_../data/references/HA_Lee_prefs.csv phydms/Perth_low_0_randomized_ExpCM_HA_Lee_prefs --brlen optimize --randprefs --ncpus 4
+2018-01-18 18:54:44,311 - INFO - Starting analysis to optimize tree in phydms/Perth_low_0_RAxML_tree.newick using model averaged_ExpCM_HA_Lee_prefs_gammaomega. The command is: phydms ../data/subsample/HA_Perth_low_0.fasta phydms/Perth_low_0_RAxML_tree.newick ExpCM_../data/references/HA_Lee_prefs.csv phydms/Perth_low_0_averaged_ExpCM_HA_Lee_prefs_gammaomega --brlen optimize --gammaomega --avgprefs --ncpus 4
 
-2017-12-31 01:45:59,312 - INFO - Starting analysis to optimize tree in phydms/Perth_low_0_RAxML_tree.newick using model randomized_ExpCM_HA_Lee_prefs_gammaomega. The command is: phydms ../data/subsample/HA_Perth_low_0.fasta phydms/Perth_low_0_RAxML_tree.newick ExpCM_../data/references/HA_Lee_prefs.csv phydms/Perth_low_0_randomized_ExpCM_HA_Lee_prefs_gammaomega --brlen optimize --gammaomega --randprefs --ncpus 4
+2018-01-18 18:54:44,311 - INFO - Starting analysis to optimize tree in phydms/Perth_low_0_RAxML_tree.newick using model randomized_ExpCM_HA_Lee_prefs. The command is: phydms ../data/subsample/HA_Perth_low_0.fasta phydms/Perth_low_0_RAxML_tree.newick ExpCM_../data/references/HA_Lee_prefs.csv phydms/Perth_low_0_randomized_ExpCM_HA_Lee_prefs --brlen optimize --randprefs --ncpus 4
 
-2017-12-31 01:54:55,027 - INFO - Analysis completed for YNGKP_M0
-2017-12-31 01:54:55,028 - INFO - Found expected output file phydms/Perth_low_0_YNGKP_M0_log.log
-2017-12-31 01:54:55,028 - INFO - Found expected output file phydms/Perth_low_0_YNGKP_M0_tree.newick
-2017-12-31 01:54:55,029 - INFO - Found expected output file phydms/Perth_low_0_YNGKP_M0_loglikelihood.txt
-2017-12-31 01:54:55,029 - INFO - Found expected output file phydms/Perth_low_0_YNGKP_M0_modelparams.txt
-2017-12-31 01:54:55,029 - INFO - Analysis successful for YNGKP_M0
+2018-01-18 18:54:44,311 - INFO - Starting analysis to optimize tree in phydms/Perth_low_0_RAxML_tree.newick using model randomized_ExpCM_HA_Lee_prefs_gammaomega. The command is: phydms ../data/subsample/HA_Perth_low_0.fasta phydms/Perth_low_0_RAxML_tree.newick ExpCM_../data/references/HA_Lee_prefs.csv phydms/Perth_low_0_randomized_ExpCM_HA_Lee_prefs_gammaomega --brlen optimize --gammaomega --randprefs --ncpus 4
 
-2017-12-31 02:10:46,217 - INFO - Analysis completed for averaged_ExpCM_HA_Lee_prefs
-2017-12-31 02:10:46,220 - INFO - Found expected output file phydms/Perth_low_0_averaged_ExpCM_HA_Lee_prefs_log.log
-2017-12-31 02:10:46,221 - INFO - Found expected output file phydms/Perth_low_0_averaged_ExpCM_HA_Lee_prefs_tree.newick
-2017-12-31 02:10:46,222 - INFO - Found expected output file phydms/Perth_low_0_averaged_ExpCM_HA_Lee_prefs_loglikelihood.txt
-2017-12-31 02:10:46,222 - INFO - Found expected output file phydms/Perth_low_0_averaged_ExpCM_HA_Lee_prefs_modelparams.txt
-2017-12-31 02:10:46,222 - INFO - Analysis successful for averaged_ExpCM_HA_Lee_prefs
+2018-01-18 18:59:12,702 - INFO - Analysis completed for YNGKP_M0
+2018-01-18 18:59:12,704 - INFO - Found expected output file phydms/Perth_low_0_YNGKP_M0_log.log
+2018-01-18 18:59:12,704 - INFO - Found expected output file phydms/Perth_low_0_YNGKP_M0_tree.newick
+2018-01-18 18:59:12,704 - INFO - Found expected output file phydms/Perth_low_0_YNGKP_M0_loglikelihood.txt
+2018-01-18 18:59:12,704 - INFO - Found expected output file phydms/Perth_low_0_YNGKP_M0_modelparams.txt
+2018-01-18 18:59:12,704 - INFO - Analysis successful for YNGKP_M0
 
-2017-12-31 02:13:44,426 - INFO - Analysis completed for randomized_ExpCM_HA_Lee_prefs
-2017-12-31 02:13:44,429 - INFO - Found expected output file phydms/Perth_low_0_randomized_ExpCM_HA_Lee_prefs_log.log
-2017-12-31 02:13:44,429 - INFO - Found expected output file phydms/Perth_low_0_randomized_ExpCM_HA_Lee_prefs_tree.newick
-2017-12-31 02:13:44,430 - INFO - Found expected output file phydms/Perth_low_0_randomized_ExpCM_HA_Lee_prefs_loglikelihood.txt
-2017-12-31 02:13:44,430 - INFO - Found expected output file phydms/Perth_low_0_randomized_ExpCM_HA_Lee_prefs_modelparams.txt
-2017-12-31 02:13:44,430 - INFO - Analysis successful for randomized_ExpCM_HA_Lee_prefs
+2018-01-18 19:11:55,791 - INFO - Analysis completed for averaged_ExpCM_HA_Lee_prefs
+2018-01-18 19:11:55,792 - INFO - Found expected output file phydms/Perth_low_0_averaged_ExpCM_HA_Lee_prefs_log.log
+2018-01-18 19:11:55,792 - INFO - Found expected output file phydms/Perth_low_0_averaged_ExpCM_HA_Lee_prefs_tree.newick
+2018-01-18 19:11:55,792 - INFO - Found expected output file phydms/Perth_low_0_averaged_ExpCM_HA_Lee_prefs_loglikelihood.txt
+2018-01-18 19:11:55,792 - INFO - Found expected output file phydms/Perth_low_0_averaged_ExpCM_HA_Lee_prefs_modelparams.txt
+2018-01-18 19:11:55,792 - INFO - Analysis successful for averaged_ExpCM_HA_Lee_prefs
 
-2017-12-31 02:28:33,396 - INFO - Analysis completed for ExpCM_HA_Lee_prefs
-2017-12-31 02:28:33,398 - INFO - Found expected output file phydms/Perth_low_0_ExpCM_HA_Lee_prefs_log.log
-2017-12-31 02:28:33,398 - INFO - Found expected output file phydms/Perth_low_0_ExpCM_HA_Lee_prefs_tree.newick
-2017-12-31 02:28:33,398 - INFO - Found expected output file phydms/Perth_low_0_ExpCM_HA_Lee_prefs_loglikelihood.txt
-2017-12-31 02:28:33,399 - INFO - Found expected output file phydms/Perth_low_0_ExpCM_HA_Lee_prefs_modelparams.txt
-2017-12-31 02:28:33,399 - INFO - Analysis successful for ExpCM_HA_Lee_prefs
+2018-01-18 19:12:04,804 - INFO - Analysis completed for randomized_ExpCM_HA_Lee_prefs
+2018-01-18 19:12:04,805 - INFO - Found expected output file phydms/Perth_low_0_randomized_ExpCM_HA_Lee_prefs_log.log
+2018-01-18 19:12:04,805 - INFO - Found expected output file phydms/Perth_low_0_randomized_ExpCM_HA_Lee_prefs_tree.newick
+2018-01-18 19:12:04,805 - INFO - Found expected output file phydms/Perth_low_0_randomized_ExpCM_HA_Lee_prefs_loglikelihood.txt
+2018-01-18 19:12:04,805 - INFO - Found expected output file phydms/Perth_low_0_randomized_ExpCM_HA_Lee_prefs_modelparams.txt
+2018-01-18 19:12:04,805 - INFO - Analysis successful for randomized_ExpCM_HA_Lee_prefs
 
-2017-12-31 03:17:02,361 - INFO - Analysis completed for YNGKP_M5
-2017-12-31 03:17:02,364 - INFO - Found expected output file phydms/Perth_low_0_YNGKP_M5_log.log
-2017-12-31 03:17:02,364 - INFO - Found expected output file phydms/Perth_low_0_YNGKP_M5_tree.newick
-2017-12-31 03:17:02,364 - INFO - Found expected output file phydms/Perth_low_0_YNGKP_M5_loglikelihood.txt
-2017-12-31 03:17:02,365 - INFO - Found expected output file phydms/Perth_low_0_YNGKP_M5_modelparams.txt
-2017-12-31 03:17:02,365 - INFO - Analysis successful for YNGKP_M5
+2018-01-18 19:15:52,066 - INFO - Analysis completed for ExpCM_HA_Lee_prefs
+2018-01-18 19:15:52,068 - INFO - Found expected output file phydms/Perth_low_0_ExpCM_HA_Lee_prefs_log.log
+2018-01-18 19:15:52,068 - INFO - Found expected output file phydms/Perth_low_0_ExpCM_HA_Lee_prefs_tree.newick
+2018-01-18 19:15:52,069 - INFO - Found expected output file phydms/Perth_low_0_ExpCM_HA_Lee_prefs_loglikelihood.txt
+2018-01-18 19:15:52,069 - INFO - Found expected output file phydms/Perth_low_0_ExpCM_HA_Lee_prefs_modelparams.txt
+2018-01-18 19:15:52,069 - INFO - Analysis successful for ExpCM_HA_Lee_prefs
 
-2017-12-31 03:41:04,863 - INFO - Analysis completed for randomized_ExpCM_HA_Lee_prefs_gammaomega
-2017-12-31 03:41:04,866 - INFO - Found expected output file phydms/Perth_low_0_randomized_ExpCM_HA_Lee_prefs_gammaomega_log.log
-2017-12-31 03:41:04,866 - INFO - Found expected output file phydms/Perth_low_0_randomized_ExpCM_HA_Lee_prefs_gammaomega_tree.newick
-2017-12-31 03:41:04,866 - INFO - Found expected output file phydms/Perth_low_0_randomized_ExpCM_HA_Lee_prefs_gammaomega_loglikelihood.txt
-2017-12-31 03:41:04,866 - INFO - Found expected output file phydms/Perth_low_0_randomized_ExpCM_HA_Lee_prefs_gammaomega_modelparams.txt
-2017-12-31 03:41:04,867 - INFO - Analysis successful for randomized_ExpCM_HA_Lee_prefs_gammaomega
+2018-01-18 19:25:05,762 - INFO - Analysis completed for YNGKP_M5
+2018-01-18 19:25:05,764 - INFO - Found expected output file phydms/Perth_low_0_YNGKP_M5_log.log
+2018-01-18 19:25:05,764 - INFO - Found expected output file phydms/Perth_low_0_YNGKP_M5_tree.newick
+2018-01-18 19:25:05,764 - INFO - Found expected output file phydms/Perth_low_0_YNGKP_M5_loglikelihood.txt
+2018-01-18 19:25:05,765 - INFO - Found expected output file phydms/Perth_low_0_YNGKP_M5_modelparams.txt
+2018-01-18 19:25:05,765 - INFO - Analysis successful for YNGKP_M5
 
-2017-12-31 05:01:03,693 - INFO - Analysis completed for averaged_ExpCM_HA_Lee_prefs_gammaomega
-2017-12-31 05:01:03,696 - INFO - Found expected output file phydms/Perth_low_0_averaged_ExpCM_HA_Lee_prefs_gammaomega_log.log
-2017-12-31 05:01:03,696 - INFO - Found expected output file phydms/Perth_low_0_averaged_ExpCM_HA_Lee_prefs_gammaomega_tree.newick
-2017-12-31 05:01:03,697 - INFO - Found expected output file phydms/Perth_low_0_averaged_ExpCM_HA_Lee_prefs_gammaomega_loglikelihood.txt
-2017-12-31 05:01:03,697 - INFO - Found expected output file phydms/Perth_low_0_averaged_ExpCM_HA_Lee_prefs_gammaomega_modelparams.txt
-2017-12-31 05:01:03,697 - INFO - Analysis successful for averaged_ExpCM_HA_Lee_prefs_gammaomega
+2018-01-18 20:04:28,481 - INFO - Analysis completed for averaged_ExpCM_HA_Lee_prefs_gammaomega
+2018-01-18 20:04:28,484 - INFO - Found expected output file phydms/Perth_low_0_averaged_ExpCM_HA_Lee_prefs_gammaomega_log.log
+2018-01-18 20:04:28,484 - INFO - Found expected output file phydms/Perth_low_0_averaged_ExpCM_HA_Lee_prefs_gammaomega_tree.newick
+2018-01-18 20:04:28,484 - INFO - Found expected output file phydms/Perth_low_0_averaged_ExpCM_HA_Lee_prefs_gammaomega_loglikelihood.txt
+2018-01-18 20:04:28,484 - INFO - Found expected output file phydms/Perth_low_0_averaged_ExpCM_HA_Lee_prefs_gammaomega_modelparams.txt
+2018-01-18 20:04:28,484 - INFO - Analysis successful for averaged_ExpCM_HA_Lee_prefs_gammaomega
 
-2017-12-31 06:06:06,523 - INFO - Analysis completed for ExpCM_HA_Lee_prefs_gammaomega
-2017-12-31 06:06:06,527 - INFO - Found expected output file phydms/Perth_low_0_ExpCM_HA_Lee_prefs_gammaomega_log.log
-2017-12-31 06:06:06,527 - INFO - Found expected output file phydms/Perth_low_0_ExpCM_HA_Lee_prefs_gammaomega_tree.newick
-2017-12-31 06:06:06,528 - INFO - Found expected output file phydms/Perth_low_0_ExpCM_HA_Lee_prefs_gammaomega_loglikelihood.txt
-2017-12-31 06:06:06,528 - INFO - Found expected output file phydms/Perth_low_0_ExpCM_HA_Lee_prefs_gammaomega_modelparams.txt
-2017-12-31 06:06:06,528 - INFO - Analysis successful for ExpCM_HA_Lee_prefs_gammaomega
+2018-01-18 20:13:23,101 - INFO - Analysis completed for randomized_ExpCM_HA_Lee_prefs_gammaomega
+2018-01-18 20:13:23,102 - INFO - Found expected output file phydms/Perth_low_0_randomized_ExpCM_HA_Lee_prefs_gammaomega_log.log
+2018-01-18 20:13:23,102 - INFO - Found expected output file phydms/Perth_low_0_randomized_ExpCM_HA_Lee_prefs_gammaomega_tree.newick
+2018-01-18 20:13:23,103 - INFO - Found expected output file phydms/Perth_low_0_randomized_ExpCM_HA_Lee_prefs_gammaomega_loglikelihood.txt
+2018-01-18 20:13:23,103 - INFO - Found expected output file phydms/Perth_low_0_randomized_ExpCM_HA_Lee_prefs_gammaomega_modelparams.txt
+2018-01-18 20:13:23,103 - INFO - Analysis successful for randomized_ExpCM_HA_Lee_prefs_gammaomega
 
-2017-12-31 06:06:07,568 - INFO - Successful completion of phydms_comprehensive
+2018-01-18 20:24:37,877 - INFO - Analysis completed for ExpCM_HA_Lee_prefs_gammaomega
+2018-01-18 20:24:37,879 - INFO - Found expected output file phydms/Perth_low_0_ExpCM_HA_Lee_prefs_gammaomega_log.log
+2018-01-18 20:24:37,879 - INFO - Found expected output file phydms/Perth_low_0_ExpCM_HA_Lee_prefs_gammaomega_tree.newick
+2018-01-18 20:24:37,879 - INFO - Found expected output file phydms/Perth_low_0_ExpCM_HA_Lee_prefs_gammaomega_loglikelihood.txt
+2018-01-18 20:24:37,879 - INFO - Found expected output file phydms/Perth_low_0_ExpCM_HA_Lee_prefs_gammaomega_modelparams.txt
+2018-01-18 20:24:37,879 - INFO - Analysis successful for ExpCM_HA_Lee_prefs_gammaomega
+
+2018-01-18 20:24:38,909 - INFO - Successful completion of phydms_comprehensive
