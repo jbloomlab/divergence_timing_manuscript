@@ -45,7 +45,7 @@ STRAINS = ["WSN", "Perth", "hybrid"]
 # Divergence levels for the subsamples
 LEVELS = ["low", "intermediate"]
 WSN_LEVELS = [[1, 2, 5, 6], [1, 2, 5, 6, 8, 9, 11, 13, 16]]
-PERTH_LEVELS = [[3, 4, 7, 10, 14], [3, 4, 7, 8, 9, 10, 11, 13, 14, 16]]
+PERTH_LEVELS = [[3, 4, 14], [3, 4, 14, 10, 7]]
 
 # Number of subsampled alignments
 SEEDS = range(1)
@@ -59,9 +59,7 @@ rule all:
                seed=SEEDS),
         expand("subsample/HA_Perth_{level}_{seed}.fasta", level=LEVELS,
                seed=SEEDS),
-        "subsample/divergence_distances.csv",
-        "subsample/seq_list_formatted.txt"
-
+        "subsample/divergence_distances.csv"
 
 # Add in each reference sequence to each set of HA sequences (next 3 rules)
 rule add_in_WSN:
