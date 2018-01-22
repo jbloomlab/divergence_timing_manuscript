@@ -107,17 +107,16 @@
 
 
 \begin{abstract}
-\textit{$\leq$ 250 words}   
+\textit{$\leq$ 250 words, currently 164}   
 
-Molecular dating techniques is often used to estimate the divergence time of many viruses. 
-However, these estimates are substantially younger than estimates from methods which do not rely on viral phylogenies. 
+Molecular dating techniques are often used to estimate the origin date of modern, circulating viruses. 
+These estimates are often substantially younger than estimates from methods which do not rely on viral phylogenies. 
 This discrepancy is thought to be caused in part by inadequate modeling of purifying selection leading to branch length underestimation. 
-Here, we show that substitution models informed by empirical measurements of mutational model constraint better than traditional models and extend branch lengths. 
+Here, we show that substitution models informed by empirical measurements of mutational tolerance model constraint better than traditional models and extend branch lengths. 
 We used models informed by deep mutational scanning experiments performed in two, highly diverged influenza virus hemagglutinin homologs to optimize the branch lengths of a phylogenetic tree. 
 For each experimentally informed model, we observed extension in branch length from the experiment's focal sequence. 
 This extension in branch length due to explicit modeling of site-specific purifying selection is observed in the presence and absence of standard methods for modeling site-to-site variation. 
 Overall, this study underscores the importance of modeling purifying selection when estimating branch lengths and, by extension, divergence dates. 
-\skhcomment{from JDB: also shows a way to actually do this in addition to showing importance.}
 
 \end{abstract}
 
@@ -223,17 +222,17 @@ The deviation in trajectory of the YNGKP model with a site-specific $\omega$ val
 
 
 \begin{itemize}
-\item Substitution models are only useful for inferring branch lengths when they can accurately transform sequence divergence to time (branch length)
-\item There is a saturation point in every substitution model where the temporal signal is lost (long tails in figure). 
+\item Substitution models are only useful for inferring branch lengths when they can accurately transform sequence divergence to time (branch lengths)
+\item Every substitution model has a saturation point where this temporal signal is lost.  
 \begin{itemize}
 \item In the long tails the expected sequence divergence remains constant as time increases. 
-\item The lost of temporal signal will affect long branches specifically.
+\item The saturation point will affect long branches more than short branches.
 \end{itemize}
 \item Different model features (\ref{fig:model_feature}) can affect \textit{how long} it takes to reach the saturation point and the \textit{sequence divergence} at the saturation point 
 \begin{itemize}
-\item Adding $\Gamma\omega$ rate variation affects the ``path" to the saturation point but affects the sequence divergence at the saturation point minimally. Importantly, the saturation point is identically for every site in the protein. \skhcomment{These $\Gamma\omega$ parameters might not the best to show the effect of $\Gamma\omega$ on long branch estimation.} 
-\item Adding a non-uniform stationary state creates a unique saturation point for each site in the protein. Sites which can tolerate many mutations have saturation points which are quite similar to the GY94 saturation point. However, constrained sites show a dramatic difference. 
-\item This difference cannot be recapitulated by more complex modeling of the $\omega$ parameter. We can transform the GY94 model into a completely site-specific value by inferring a unique $\omega$ value from the ExpCM for each site in the protein. This model shows a substantial difference but does not recover the full effect of the ExpCM. 
+\item Adding $\Gamma\omega$ rate variation affects the ``path" to the saturation point but affects the sequence divergence at the saturation point minimally. Importantly, the saturation point is identically for every site in the protein. (green and blue)
+\item Adding a non-uniform stationary state creates a unique saturation point for each site in the protein (red). Sites which can tolerate many mutations have saturation points which are quite similar to the GY94 saturation point. Constrained sites show a dramatic difference. At a constrained site, ExpCM will estimate a longer branch than the GY94 model because the overall sequence divergence at the site is expected to be small. 
+\item This difference cannot be recapitulated by more complex modeling of the $\omega$ parameter. We can transform the GY94 model into a  site-specific model by inferring a unique $\omega$ value from the ExpCM for each site in the protein. This model (yellow) takes longer to reach the saturation point than the GY94 model but ultimately has the same divergence level at the saturation point. 
 \end{itemize}
 \item No matter how ``well" you model site-to-site rate variation, you will underestimate \textit{very} long branches with a uniform stationary state. 
 \end{itemize}
@@ -259,9 +258,9 @@ The grey, dashed line is the reference line $y=x$, depicting the behavior of a m
 \item To test the effect of substitution model on data with site-specific amino acid frequencies, we simulated sequences under an ExpCM and re-inferred the branch lengths using different substitution models.
 \item Uniform stationary state models underestimate long branches
 \begin{itemize}
-\item GY94 and GY94 + $\Gamma\omega$ both underestimate long branches 
-\item The \textit{averaged} ExpCMs also underestimate long branches. These control models have uniform stationary states but still derive some information from the experiments. 
-\item Non-uniform stationary state models accurately estimate long branches
+\item Both the GY94 and the GY94+$\Gamma\omega$ underestimate long branches. The $\Gamma\omega$ rate variation scheme is not enough to prevent this underestimation at every long branches. 
+\item Another uniform stationary state model, the averaged ExpCM, also underestimates long branches. This model derives some information from the experiments but lacks site-specificity. 
+\item Non-uniform stationary state models accurately estimate long branches (both the ExpCM and ExpCM+$\Gamma\omega$
 \end{itemize}
 \item If sequences have site-specific amino acid frequencies then non-uniform stationary state models, even with $\Gamma\omega$, will underestimate long branches.
 \end{itemize}
@@ -284,19 +283,19 @@ The branch lengths are normalized to the distance between A/South Carolina/1/191
 \begin{itemize}
 \item We tested the effect substitution model choice on branch length estimation using influenza HA sequences. 
 \begin{itemize}
-\item These sequences presumably evolve with site-specific frequencies but unlike the simulations we don't \textit{know} the model
+\item These sequences presumably evolve with site-specific frequencies but unlike the simulations we do not \textit{know} the model
 \item These sequences are from fairly diverged proteins. Some sequences share only 40\% identity on the amino acid level 
-\item HA has small, closely related subtypes with long branches between subtypes and groups. 
+\item The HA tree has closely related subtypes with long branches between subtypes.
 \end{itemize}
 \item Both $\Gamma\omega$ and non-uniform stationary states result in an extension of branch lengths. 
 \begin{itemize}
 \item The addition of $\Gamma\omega$ extends branches independent of preferences. 
 \item The addition of preferences extends branches \textit{from the focal sequence} independent of $\Gamma\omega$. 
 \end{itemize}
-\item The ExpCM does not have a uniform effect across the whole tree. 
+\item The extension of branch length from the focal sequence shows that the ExpCM does not have equal "relevance" across the whole tree. 
 \begin{itemize}
-\item This is not too surprising. DMS makes accurate measurements in a given genetic background. 
-\item You would expect epistatic effects over such a large divergence distance. ``Shifting preferences"
+\item This result is not entirely surprising. DMS measure the effects of single amino-acid changes in the context of a single genetic background. 
+\item It is expected that there would be epistatic changes across such a highly diverged phylogenetic tree. ``Shifting preferences".
 \end{itemize}
 \end{itemize}
 
@@ -316,21 +315,23 @@ The branch lengths are in average number of codon substitutions per site.
 }
 \end{figure}
 
+\skhcomment{Section Outline:}
 
 \begin{itemize}
-\item We investigated the competing effects of shifting preferences and long branch estimation. That is, our preferences are most relevant to sequences they are close to but the effect of a non-uniform stationary is only observed on long branches. 
+\item We investigated the competing effects of ``shifting preferences" and long branches by comparing ExpCMs with different "relevances"
+\item We use the fit stringency parameter $\beta$ as a measure of relevance. 
 \begin{itemize}
-\item We broke the large tree into small, sub trees with differing maximum divergence levels. 
-\item We estimated the branch lengths using the same models we used for empirical data above. 
+\item The stringency parameter rescales the preferences. A stringency parameter with a value greater than one indicates that selection in nature prefers the same amino acids as selection in lab but with greater strength. 
+\item There is an inverse relationship between the stringency parameter and overall sequence divergence. As the overall divergence of the tree increases, the stringency parameter decreases. 
 \end{itemize}
-\item The ``relevance" of the preferences is inversely correlated with sequence divergence. 
+\item \skhcomment{hypothetical data} There is also a positive relationship between the stringency parameter and branch lengths 
 \begin{itemize}
-\item We used the ExpCM stringency parameter as the measure of preference ``relevance". The larger the $\beta$ value the more ``relevant" the preferences. 
-\item As the maximum divergence of the tree increases the $\beta$ value decreases. 
+\item We optimized the same tree with ExpCMs with different stringency parameters. 
+\item The ExpCMs with higher stringency values estimate longer branches than the ExpCMs with lower stringency values. 
 \end{itemize}
-\item All models estimate short branches relatively equally. 
+\end{itemize}
 
-\end{itemize}
+\subsection*{texttt{phylobayes}}
 
 \section*{Conclusion}
 
