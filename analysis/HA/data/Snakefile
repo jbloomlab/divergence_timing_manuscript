@@ -43,7 +43,7 @@ HYBRID_REF_HEADER = "WSN_hybrid_nt"
 STRAINS = ["hybrid"]
 
 # Divergence levels for the subsamples
-LEVEL_NAMES = ["lowH1", "intermediateH1", "lowH3", "H3intermediateH3"]
+LEVEL_NAMES = ["lowH1", "intermediateH1", "lowH3", "intermediateH3"]
 LEVELS = [[1, 2, 5, 6], [1, 2, 5, 6, 8, 9, 11, 13, 16],
           [3, 4, 14], [3, 4, 14, 10, 7]]
 assert len(LEVEL_NAMES) == len(set(LEVEL_NAMES))
