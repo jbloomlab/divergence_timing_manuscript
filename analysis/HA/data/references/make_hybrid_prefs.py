@@ -32,7 +32,11 @@ def main():
     # subset to only the shared sites
     doud = doud[doud["site"].isin(hybrid_numbers["WSN"].tolist())]
     lee = lee[lee["site"].isin(hybrid_numbers["Perth"].tolist())]
+    doud["site"] = [x+1 for x in range(len(doud))]
+    lee["site"] = [x+1 for x in range(len(lee))]
     assert len(doud) == len(lee)
+    doud.to_csv("HA_hybridDoud_prefs.csv", index=False)
+    lee.to_csv("HA_hybridLee_prefs.csv", index=False)
 
     # get rid of the sites column and reset the index
     doud = doud.reset_index()
