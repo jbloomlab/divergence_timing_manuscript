@@ -66,8 +66,8 @@
 \newcommand{\DNA}{\textbf{DNA}}
 \newcommand{\virus}{\textbf{virus}}
 
-\newcommand\skhcomment[1]{{\color{cyan}#1}}
-\newcommand\jdbcomment[1]{{\color{red}#1}}
+\newcommand\skhcomment[1]{{\color{cyan}[#1]}}
+\newcommand\jdbcomment[1]{{\color{red}[#1]}}
 
 
 \usepackage{hyperref}
@@ -79,10 +79,10 @@
 \usepackage{array}
 \newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
 
-\title{Experimentally Informed Site-Specific Substitution Models Substantially Deepen Viral Divergence Estimates} 
+\title{Experimentally informed site-specific substitution models deepen phylogenetic estimates of the divergence of viral lineages} 
 
 \author
-{Sarah K. Hilton$^{1,2}$  and Jesse D. Bloom$^{1,2,}$\\
+{Sarah K. Hilton$^{1,2}$  and Jesse D. Bloom$^{1,2}$\\
 \\
 \normalsize{$^1$Division of Basic Sciences and Computational Biology Program,}\\
 \normalsize{Fred Hutchinson Cancer Research Center, Seattle, WA 98109, USA}\\
@@ -107,17 +107,16 @@
 
 
 \begin{abstract}
-\textit{$\leq$ 250 words, currently 164}   
-
-Molecular dating techniques are often used to estimate the origin date of modern, circulating viruses. 
-These estimates are often substantially younger than estimates from methods which do not rely on viral phylogenies. 
-This discrepancy is thought to be caused in part by inadequate modeling of purifying selection leading to branch length underestimation. 
-Here, we show that substitution models informed by empirical measurements of mutational tolerance model constraint better than traditional models and extend branch lengths. 
-We used models informed by deep mutational scanning experiments performed in two, highly diverged influenza virus hemagglutinin homologs to optimize the branch lengths of a phylogenetic tree. 
-For each experimentally informed model, we observed extension in branch length from the experiment's focal sequence. 
-This extension in branch length due to explicit modeling of site-specific purifying selection is observed in the presence and absence of standard methods for modeling site-to-site variation. 
-Overall, this study underscores the importance of modeling purifying selection when estimating branch lengths and, by extension, divergence dates. 
-
+\noindent \skhcomment{$\leq$ 250 words, currently 164}   
+Molecular phylogenetics is often used to estimate the time since the divergence of modern gene sequences.
+Such phylogenetic techniques often estimate substantially shallower divergence times than other methods.
+For instance, in the case of viruses there is independent evidence that molecular phylogenetics can underestimate deep divergence times.  
+This discrepancy is thought to be caused in part by inadequate models of purifying selection leading to branch-length underestimation.
+Here we show that substitution models informed by experimental measurements of site-specific purifying selection lengthen the branches on phylogenies of influenza virus hemagglutinin.
+This deepening of branch lengths is due to better modeling how site-specific amino-acid preferences affect the stationary state of the substitution models, and is independent of the branch-length-extension due to modeling site-to-site variation in substitution rate.
+We show that the deepening of branch lengths from experimentally informed site-specific substitution models is similar to that achieved by other approaches that allow the stationary state to vary across sites.
+However, the improvements from these site-specific models are limited by the inherent tension between the enhanced accuracy of accounting for site-specific amino-acid preferences and the fact that these preferences shift over long evolutionary times.
+Overall, our work underscores the importance of modeling how site-specific purifying selection affects the stationary state as well as the substitution rate when estimating deep divergence times. 
 \end{abstract}
 
 \clearpage
