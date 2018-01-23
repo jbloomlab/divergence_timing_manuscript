@@ -1,15 +1,15 @@
-2017-12-31 09:54:41,373 - INFO - Beginning execution of phydms_comprehensive in directory /fh/fast/bloom_j/computational_notebooks/skhilton/2017/divergence_timing_manuscript/analysis/HA/branch_lengths
+2018-01-22 09:08:44,054 - INFO - Beginning execution of phydms_comprehensive in directory /fh/fast/bloom_j/computational_notebooks/skhilton/2017/divergence_timing_manuscript/analysis/HA/branch_lengths
 
-2017-12-31 09:54:41,373 - INFO - Progress is being logged to phydms/hybrid_high_0.log
+2018-01-22 09:08:44,055 - INFO - Progress is being logged to phydms/hybrid_high_0.log
 
-2017-12-31 09:54:41,374 - INFO - Version information:
-	Time and date: Sun Dec 31 09:54:38 2017
+2018-01-22 09:08:44,055 - INFO - Version information:
+	Time and date: Mon Jan 22 09:08:40 2018
 	Platform: Linux-3.13.0-68-generic-x86_64-with-debian-jessie-sid
 	Python version: 3.6.0 |Continuum Analytics, Inc.| (default, Dec 23 2016, 12:22:00)  [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]
 	phydms version: 2.2.0
 	Bio version: 1.69
 	cython version: 0.25.2
-	numpy version: 1.13.3
+	numpy version: 1.14.0
 	scipy version: 0.19.0
 	matplotlib version: 2.1.0
 	natsort version: 5.0.2
@@ -21,10 +21,10 @@
 	weblogolib version: 3.5.0
 	PyPDF2 version: 1.26.0
 
-2017-12-31 09:54:41,374 - INFO - Parsed the following command-line arguments:
+2018-01-22 09:08:44,055 - INFO - Parsed the following command-line arguments:
 	outprefix = phydms/hybrid_high_0_
 	alignment = ../data/subsample/HA_hybrid_high_0.fasta
-	prefsfiles = ['../data/references/HA_average_prefs.csv']
+	prefsfiles = ['../data/references/HA_average_prefs.csv', '../data/references/HA_hybridDoud_prefs.csv', '../data/references/HA_hybridLee_prefs.csv']
 	raxml = raxml
 	tree = None
 	ncpus = -1
@@ -36,84 +36,192 @@
 	noavgprefs = False
 	randprefs = True
 
-2017-12-31 09:54:41,374 - INFO - Checking that the alignment ../data/subsample/HA_hybrid_high_0.fasta is valid...
-2017-12-31 09:54:42,022 - INFO - Valid alignment specifying 87 sequences of length 1656.
+2018-01-22 09:08:44,055 - INFO - Checking that the alignment ../data/subsample/HA_hybrid_high_0.fasta is valid...
+2018-01-22 09:08:44,762 - INFO - Valid alignment specifying 87 sequences of length 1656.
 
-2017-12-31 09:54:42,022 - INFO - Tree not specified.
-2017-12-31 09:54:42,134 - INFO - Inferring tree with RAxML using command raxml
-2017-12-31 09:56:04,943 - INFO - RAxML inferred tree is now named phydms/hybrid_high_0_RAxML_tree.newick
-2017-12-31 09:56:05,036 - INFO - Removed the following existing files that have names that match the names of output files that will be created: phydms/hybrid_high_0_YNGKP_M0_log.log, phydms/hybrid_high_0_YNGKP_M0_tree.newick, phydms/hybrid_high_0_YNGKP_M0_loglikelihood.txt, phydms/hybrid_high_0_YNGKP_M0_modelparams.txt, phydms/hybrid_high_0_YNGKP_M5_log.log, phydms/hybrid_high_0_YNGKP_M5_tree.newick, phydms/hybrid_high_0_YNGKP_M5_loglikelihood.txt, phydms/hybrid_high_0_YNGKP_M5_modelparams.txt, phydms/hybrid_high_0_ExpCM_HA_average_prefs_log.log, phydms/hybrid_high_0_ExpCM_HA_average_prefs_gammaomega_log.log, phydms/hybrid_high_0_averaged_ExpCM_HA_average_prefs_log.log, phydms/hybrid_high_0_averaged_ExpCM_HA_average_prefs_gammaomega_log.log, phydms/hybrid_high_0_randomized_ExpCM_HA_average_prefs_log.log, phydms/hybrid_high_0_randomized_ExpCM_HA_average_prefs_gammaomega_log.log
+2018-01-22 09:08:44,762 - INFO - Tree not specified.
+2018-01-22 09:08:44,794 - INFO - Inferring tree with RAxML using command raxml
+2018-01-22 09:10:06,158 - INFO - RAxML inferred tree is now named phydms/hybrid_high_0_RAxML_tree.newick
+2018-01-22 09:10:07,942 - INFO - Removed the following existing files that have names that match the names of output files that will be created: phydms/hybrid_high_0_YNGKP_M0_log.log, phydms/hybrid_high_0_YNGKP_M0_tree.newick, phydms/hybrid_high_0_YNGKP_M0_loglikelihood.txt, phydms/hybrid_high_0_YNGKP_M0_modelparams.txt, phydms/hybrid_high_0_YNGKP_M5_log.log, phydms/hybrid_high_0_YNGKP_M5_tree.newick, phydms/hybrid_high_0_YNGKP_M5_loglikelihood.txt, phydms/hybrid_high_0_YNGKP_M5_modelparams.txt, phydms/hybrid_high_0_ExpCM_HA_average_prefs_log.log, phydms/hybrid_high_0_ExpCM_HA_average_prefs_tree.newick, phydms/hybrid_high_0_ExpCM_HA_average_prefs_loglikelihood.txt, phydms/hybrid_high_0_ExpCM_HA_average_prefs_modelparams.txt, phydms/hybrid_high_0_ExpCM_HA_average_prefs_gammaomega_log.log, phydms/hybrid_high_0_averaged_ExpCM_HA_average_prefs_log.log, phydms/hybrid_high_0_averaged_ExpCM_HA_average_prefs_tree.newick, phydms/hybrid_high_0_averaged_ExpCM_HA_average_prefs_loglikelihood.txt, phydms/hybrid_high_0_averaged_ExpCM_HA_average_prefs_modelparams.txt, phydms/hybrid_high_0_averaged_ExpCM_HA_average_prefs_gammaomega_log.log, phydms/hybrid_high_0_randomized_ExpCM_HA_average_prefs_log.log, phydms/hybrid_high_0_randomized_ExpCM_HA_average_prefs_tree.newick, phydms/hybrid_high_0_randomized_ExpCM_HA_average_prefs_loglikelihood.txt, phydms/hybrid_high_0_randomized_ExpCM_HA_average_prefs_modelparams.txt, phydms/hybrid_high_0_randomized_ExpCM_HA_average_prefs_gammaomega_log.log, phydms/hybrid_high_0_ExpCM_HA_hybridDoud_prefs_log.log, phydms/hybrid_high_0_ExpCM_HA_hybridDoud_prefs_tree.newick, phydms/hybrid_high_0_ExpCM_HA_hybridDoud_prefs_loglikelihood.txt, phydms/hybrid_high_0_ExpCM_HA_hybridDoud_prefs_modelparams.txt, phydms/hybrid_high_0_ExpCM_HA_hybridDoud_prefs_gammaomega_log.log, phydms/hybrid_high_0_averaged_ExpCM_HA_hybridDoud_prefs_log.log, phydms/hybrid_high_0_averaged_ExpCM_HA_hybridDoud_prefs_tree.newick, phydms/hybrid_high_0_averaged_ExpCM_HA_hybridDoud_prefs_loglikelihood.txt, phydms/hybrid_high_0_averaged_ExpCM_HA_hybridDoud_prefs_modelparams.txt, phydms/hybrid_high_0_averaged_ExpCM_HA_hybridDoud_prefs_gammaomega_log.log, phydms/hybrid_high_0_randomized_ExpCM_HA_hybridDoud_prefs_log.log, phydms/hybrid_high_0_randomized_ExpCM_HA_hybridDoud_prefs_tree.newick, phydms/hybrid_high_0_randomized_ExpCM_HA_hybridDoud_prefs_loglikelihood.txt, phydms/hybrid_high_0_randomized_ExpCM_HA_hybridDoud_prefs_modelparams.txt, phydms/hybrid_high_0_randomized_ExpCM_HA_hybridDoud_prefs_gammaomega_log.log, phydms/hybrid_high_0_ExpCM_HA_hybridLee_prefs_log.log, phydms/hybrid_high_0_ExpCM_HA_hybridLee_prefs_tree.newick, phydms/hybrid_high_0_ExpCM_HA_hybridLee_prefs_loglikelihood.txt, phydms/hybrid_high_0_ExpCM_HA_hybridLee_prefs_modelparams.txt, phydms/hybrid_high_0_ExpCM_HA_hybridLee_prefs_gammaomega_log.log, phydms/hybrid_high_0_averaged_ExpCM_HA_hybridLee_prefs_log.log, phydms/hybrid_high_0_averaged_ExpCM_HA_hybridLee_prefs_tree.newick, phydms/hybrid_high_0_averaged_ExpCM_HA_hybridLee_prefs_loglikelihood.txt, phydms/hybrid_high_0_averaged_ExpCM_HA_hybridLee_prefs_modelparams.txt, phydms/hybrid_high_0_averaged_ExpCM_HA_hybridLee_prefs_gammaomega_log.log, phydms/hybrid_high_0_randomized_ExpCM_HA_hybridLee_prefs_log.log, phydms/hybrid_high_0_randomized_ExpCM_HA_hybridLee_prefs_tree.newick, phydms/hybrid_high_0_randomized_ExpCM_HA_hybridLee_prefs_loglikelihood.txt, phydms/hybrid_high_0_randomized_ExpCM_HA_hybridLee_prefs_modelparams.txt, phydms/hybrid_high_0_randomized_ExpCM_HA_hybridLee_prefs_gammaomega_log.log
 
-2017-12-31 09:56:05,037 - INFO - Starting analysis to optimize tree in phydms/hybrid_high_0_RAxML_tree.newick using model YNGKP_M0. The command is: phydms ../data/subsample/HA_hybrid_high_0.fasta phydms/hybrid_high_0_RAxML_tree.newick YNGKP_M0 phydms/hybrid_high_0_YNGKP_M0 --brlen optimize --ncpus 1
+2018-01-22 09:10:07,943 - INFO - Starting analysis to optimize tree in phydms/hybrid_high_0_RAxML_tree.newick using model YNGKP_M0. The command is: phydms ../data/subsample/HA_hybrid_high_0.fasta phydms/hybrid_high_0_RAxML_tree.newick YNGKP_M0 phydms/hybrid_high_0_YNGKP_M0 --brlen optimize --ncpus 1
 
-2017-12-31 09:56:05,037 - INFO - Starting analysis to optimize tree in phydms/hybrid_high_0_RAxML_tree.newick using model YNGKP_M5. The command is: phydms ../data/subsample/HA_hybrid_high_0.fasta phydms/hybrid_high_0_RAxML_tree.newick YNGKP_M5 phydms/hybrid_high_0_YNGKP_M5 --brlen optimize --ncpus 1
+2018-01-22 09:10:07,943 - INFO - Starting analysis to optimize tree in phydms/hybrid_high_0_RAxML_tree.newick using model YNGKP_M5. The command is: phydms ../data/subsample/HA_hybrid_high_0.fasta phydms/hybrid_high_0_RAxML_tree.newick YNGKP_M5 phydms/hybrid_high_0_YNGKP_M5 --brlen optimize --ncpus 1
 
-2017-12-31 09:56:05,037 - INFO - Starting analysis to optimize tree in phydms/hybrid_high_0_RAxML_tree.newick using model ExpCM_HA_average_prefs. The command is: phydms ../data/subsample/HA_hybrid_high_0.fasta phydms/hybrid_high_0_RAxML_tree.newick ExpCM_../data/references/HA_average_prefs.csv phydms/hybrid_high_0_ExpCM_HA_average_prefs --brlen optimize --ncpus 4
+2018-01-22 09:10:07,943 - INFO - Starting analysis to optimize tree in phydms/hybrid_high_0_RAxML_tree.newick using model ExpCM_HA_average_prefs. The command is: phydms ../data/subsample/HA_hybrid_high_0.fasta phydms/hybrid_high_0_RAxML_tree.newick ExpCM_../data/references/HA_average_prefs.csv phydms/hybrid_high_0_ExpCM_HA_average_prefs --brlen optimize --ncpus 1
 
-2017-12-31 09:56:05,038 - INFO - Starting analysis to optimize tree in phydms/hybrid_high_0_RAxML_tree.newick using model ExpCM_HA_average_prefs_gammaomega. The command is: phydms ../data/subsample/HA_hybrid_high_0.fasta phydms/hybrid_high_0_RAxML_tree.newick ExpCM_../data/references/HA_average_prefs.csv phydms/hybrid_high_0_ExpCM_HA_average_prefs_gammaomega --brlen optimize --gammaomega --ncpus 4
+2018-01-22 09:10:07,944 - INFO - Starting analysis to optimize tree in phydms/hybrid_high_0_RAxML_tree.newick using model ExpCM_HA_average_prefs_gammaomega. The command is: phydms ../data/subsample/HA_hybrid_high_0.fasta phydms/hybrid_high_0_RAxML_tree.newick ExpCM_../data/references/HA_average_prefs.csv phydms/hybrid_high_0_ExpCM_HA_average_prefs_gammaomega --brlen optimize --gammaomega --ncpus 1
 
-2017-12-31 09:56:05,038 - INFO - Starting analysis to optimize tree in phydms/hybrid_high_0_RAxML_tree.newick using model averaged_ExpCM_HA_average_prefs. The command is: phydms ../data/subsample/HA_hybrid_high_0.fasta phydms/hybrid_high_0_RAxML_tree.newick ExpCM_../data/references/HA_average_prefs.csv phydms/hybrid_high_0_averaged_ExpCM_HA_average_prefs --brlen optimize --avgprefs --ncpus 4
+2018-01-22 09:10:07,944 - INFO - Starting analysis to optimize tree in phydms/hybrid_high_0_RAxML_tree.newick using model averaged_ExpCM_HA_average_prefs. The command is: phydms ../data/subsample/HA_hybrid_high_0.fasta phydms/hybrid_high_0_RAxML_tree.newick ExpCM_../data/references/HA_average_prefs.csv phydms/hybrid_high_0_averaged_ExpCM_HA_average_prefs --brlen optimize --avgprefs --ncpus 1
 
-2017-12-31 09:56:05,038 - INFO - Starting analysis to optimize tree in phydms/hybrid_high_0_RAxML_tree.newick using model averaged_ExpCM_HA_average_prefs_gammaomega. The command is: phydms ../data/subsample/HA_hybrid_high_0.fasta phydms/hybrid_high_0_RAxML_tree.newick ExpCM_../data/references/HA_average_prefs.csv phydms/hybrid_high_0_averaged_ExpCM_HA_average_prefs_gammaomega --brlen optimize --gammaomega --avgprefs --ncpus 4
+2018-01-22 09:10:07,944 - INFO - Starting analysis to optimize tree in phydms/hybrid_high_0_RAxML_tree.newick using model averaged_ExpCM_HA_average_prefs_gammaomega. The command is: phydms ../data/subsample/HA_hybrid_high_0.fasta phydms/hybrid_high_0_RAxML_tree.newick ExpCM_../data/references/HA_average_prefs.csv phydms/hybrid_high_0_averaged_ExpCM_HA_average_prefs_gammaomega --brlen optimize --gammaomega --avgprefs --ncpus 1
 
-2017-12-31 09:56:05,038 - INFO - Starting analysis to optimize tree in phydms/hybrid_high_0_RAxML_tree.newick using model randomized_ExpCM_HA_average_prefs. The command is: phydms ../data/subsample/HA_hybrid_high_0.fasta phydms/hybrid_high_0_RAxML_tree.newick ExpCM_../data/references/HA_average_prefs.csv phydms/hybrid_high_0_randomized_ExpCM_HA_average_prefs --brlen optimize --randprefs --ncpus 4
+2018-01-22 09:10:07,944 - INFO - Starting analysis to optimize tree in phydms/hybrid_high_0_RAxML_tree.newick using model randomized_ExpCM_HA_average_prefs. The command is: phydms ../data/subsample/HA_hybrid_high_0.fasta phydms/hybrid_high_0_RAxML_tree.newick ExpCM_../data/references/HA_average_prefs.csv phydms/hybrid_high_0_randomized_ExpCM_HA_average_prefs --brlen optimize --randprefs --ncpus 1
 
-2017-12-31 09:56:05,038 - INFO - Starting analysis to optimize tree in phydms/hybrid_high_0_RAxML_tree.newick using model randomized_ExpCM_HA_average_prefs_gammaomega. The command is: phydms ../data/subsample/HA_hybrid_high_0.fasta phydms/hybrid_high_0_RAxML_tree.newick ExpCM_../data/references/HA_average_prefs.csv phydms/hybrid_high_0_randomized_ExpCM_HA_average_prefs_gammaomega --brlen optimize --gammaomega --randprefs --ncpus 4
+2018-01-22 09:10:07,944 - INFO - Starting analysis to optimize tree in phydms/hybrid_high_0_RAxML_tree.newick using model randomized_ExpCM_HA_average_prefs_gammaomega. The command is: phydms ../data/subsample/HA_hybrid_high_0.fasta phydms/hybrid_high_0_RAxML_tree.newick ExpCM_../data/references/HA_average_prefs.csv phydms/hybrid_high_0_randomized_ExpCM_HA_average_prefs_gammaomega --brlen optimize --gammaomega --randprefs --ncpus 1
 
-2017-12-31 10:26:42,942 - INFO - Analysis completed for YNGKP_M0
-2017-12-31 10:26:42,946 - INFO - Found expected output file phydms/hybrid_high_0_YNGKP_M0_log.log
-2017-12-31 10:26:42,947 - INFO - Found expected output file phydms/hybrid_high_0_YNGKP_M0_tree.newick
-2017-12-31 10:26:42,947 - INFO - Found expected output file phydms/hybrid_high_0_YNGKP_M0_loglikelihood.txt
-2017-12-31 10:26:42,947 - INFO - Found expected output file phydms/hybrid_high_0_YNGKP_M0_modelparams.txt
-2017-12-31 10:26:42,948 - INFO - Analysis successful for YNGKP_M0
+2018-01-22 09:10:07,945 - INFO - Starting analysis to optimize tree in phydms/hybrid_high_0_RAxML_tree.newick using model ExpCM_HA_hybridDoud_prefs. The command is: phydms ../data/subsample/HA_hybrid_high_0.fasta phydms/hybrid_high_0_RAxML_tree.newick ExpCM_../data/references/HA_hybridDoud_prefs.csv phydms/hybrid_high_0_ExpCM_HA_hybridDoud_prefs --brlen optimize --ncpus 1
 
-2017-12-31 10:54:02,581 - INFO - Analysis completed for randomized_ExpCM_HA_average_prefs
-2017-12-31 10:54:02,582 - INFO - Found expected output file phydms/hybrid_high_0_randomized_ExpCM_HA_average_prefs_log.log
-2017-12-31 10:54:02,583 - INFO - Found expected output file phydms/hybrid_high_0_randomized_ExpCM_HA_average_prefs_tree.newick
-2017-12-31 10:54:02,583 - INFO - Found expected output file phydms/hybrid_high_0_randomized_ExpCM_HA_average_prefs_loglikelihood.txt
-2017-12-31 10:54:02,583 - INFO - Found expected output file phydms/hybrid_high_0_randomized_ExpCM_HA_average_prefs_modelparams.txt
-2017-12-31 10:54:02,583 - INFO - Analysis successful for randomized_ExpCM_HA_average_prefs
+2018-01-22 09:10:07,945 - INFO - Starting analysis to optimize tree in phydms/hybrid_high_0_RAxML_tree.newick using model ExpCM_HA_hybridDoud_prefs_gammaomega. The command is: phydms ../data/subsample/HA_hybrid_high_0.fasta phydms/hybrid_high_0_RAxML_tree.newick ExpCM_../data/references/HA_hybridDoud_prefs.csv phydms/hybrid_high_0_ExpCM_HA_hybridDoud_prefs_gammaomega --brlen optimize --gammaomega --ncpus 1
 
-2017-12-31 10:56:21,716 - INFO - Analysis completed for averaged_ExpCM_HA_average_prefs
-2017-12-31 10:56:21,718 - INFO - Found expected output file phydms/hybrid_high_0_averaged_ExpCM_HA_average_prefs_log.log
-2017-12-31 10:56:21,718 - INFO - Found expected output file phydms/hybrid_high_0_averaged_ExpCM_HA_average_prefs_tree.newick
-2017-12-31 10:56:21,718 - INFO - Found expected output file phydms/hybrid_high_0_averaged_ExpCM_HA_average_prefs_loglikelihood.txt
-2017-12-31 10:56:21,718 - INFO - Found expected output file phydms/hybrid_high_0_averaged_ExpCM_HA_average_prefs_modelparams.txt
-2017-12-31 10:56:21,719 - INFO - Analysis successful for averaged_ExpCM_HA_average_prefs
+2018-01-22 09:10:07,945 - INFO - Starting analysis to optimize tree in phydms/hybrid_high_0_RAxML_tree.newick using model averaged_ExpCM_HA_hybridDoud_prefs. The command is: phydms ../data/subsample/HA_hybrid_high_0.fasta phydms/hybrid_high_0_RAxML_tree.newick ExpCM_../data/references/HA_hybridDoud_prefs.csv phydms/hybrid_high_0_averaged_ExpCM_HA_hybridDoud_prefs --brlen optimize --avgprefs --ncpus 1
 
-2017-12-31 12:10:45,063 - INFO - Analysis completed for ExpCM_HA_average_prefs
-2017-12-31 12:10:45,065 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_average_prefs_log.log
-2017-12-31 12:10:45,065 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_average_prefs_tree.newick
-2017-12-31 12:10:45,065 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_average_prefs_loglikelihood.txt
-2017-12-31 12:10:45,066 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_average_prefs_modelparams.txt
-2017-12-31 12:10:45,066 - INFO - Analysis successful for ExpCM_HA_average_prefs
+2018-01-22 09:10:07,945 - INFO - Starting analysis to optimize tree in phydms/hybrid_high_0_RAxML_tree.newick using model averaged_ExpCM_HA_hybridDoud_prefs_gammaomega. The command is: phydms ../data/subsample/HA_hybrid_high_0.fasta phydms/hybrid_high_0_RAxML_tree.newick ExpCM_../data/references/HA_hybridDoud_prefs.csv phydms/hybrid_high_0_averaged_ExpCM_HA_hybridDoud_prefs_gammaomega --brlen optimize --gammaomega --avgprefs --ncpus 1
 
-2017-12-31 12:58:53,885 - INFO - Analysis completed for YNGKP_M5
-2017-12-31 12:58:53,887 - INFO - Found expected output file phydms/hybrid_high_0_YNGKP_M5_log.log
-2017-12-31 12:58:53,887 - INFO - Found expected output file phydms/hybrid_high_0_YNGKP_M5_tree.newick
-2017-12-31 12:58:53,887 - INFO - Found expected output file phydms/hybrid_high_0_YNGKP_M5_loglikelihood.txt
-2017-12-31 12:58:53,888 - INFO - Found expected output file phydms/hybrid_high_0_YNGKP_M5_modelparams.txt
-2017-12-31 12:58:53,888 - INFO - Analysis successful for YNGKP_M5
+2018-01-22 09:10:07,945 - INFO - Starting analysis to optimize tree in phydms/hybrid_high_0_RAxML_tree.newick using model randomized_ExpCM_HA_hybridDoud_prefs. The command is: phydms ../data/subsample/HA_hybrid_high_0.fasta phydms/hybrid_high_0_RAxML_tree.newick ExpCM_../data/references/HA_hybridDoud_prefs.csv phydms/hybrid_high_0_randomized_ExpCM_HA_hybridDoud_prefs --brlen optimize --randprefs --ncpus 1
 
-2017-12-31 14:14:13,330 - INFO - Analysis completed for averaged_ExpCM_HA_average_prefs_gammaomega
-2017-12-31 14:14:13,331 - INFO - Found expected output file phydms/hybrid_high_0_averaged_ExpCM_HA_average_prefs_gammaomega_log.log
-2017-12-31 14:14:13,331 - INFO - Found expected output file phydms/hybrid_high_0_averaged_ExpCM_HA_average_prefs_gammaomega_tree.newick
-2017-12-31 14:14:13,331 - INFO - Found expected output file phydms/hybrid_high_0_averaged_ExpCM_HA_average_prefs_gammaomega_loglikelihood.txt
-2017-12-31 14:14:13,331 - INFO - Found expected output file phydms/hybrid_high_0_averaged_ExpCM_HA_average_prefs_gammaomega_modelparams.txt
-2017-12-31 14:14:13,331 - INFO - Analysis successful for averaged_ExpCM_HA_average_prefs_gammaomega
+2018-01-22 09:10:07,946 - INFO - Starting analysis to optimize tree in phydms/hybrid_high_0_RAxML_tree.newick using model randomized_ExpCM_HA_hybridDoud_prefs_gammaomega. The command is: phydms ../data/subsample/HA_hybrid_high_0.fasta phydms/hybrid_high_0_RAxML_tree.newick ExpCM_../data/references/HA_hybridDoud_prefs.csv phydms/hybrid_high_0_randomized_ExpCM_HA_hybridDoud_prefs_gammaomega --brlen optimize --gammaomega --randprefs --ncpus 1
 
-2017-12-31 16:16:25,870 - INFO - Analysis completed for randomized_ExpCM_HA_average_prefs_gammaomega
-2017-12-31 16:16:25,873 - INFO - Found expected output file phydms/hybrid_high_0_randomized_ExpCM_HA_average_prefs_gammaomega_log.log
-2017-12-31 16:16:25,873 - INFO - Found expected output file phydms/hybrid_high_0_randomized_ExpCM_HA_average_prefs_gammaomega_tree.newick
-2017-12-31 16:16:25,874 - INFO - Found expected output file phydms/hybrid_high_0_randomized_ExpCM_HA_average_prefs_gammaomega_loglikelihood.txt
-2017-12-31 16:16:25,874 - INFO - Found expected output file phydms/hybrid_high_0_randomized_ExpCM_HA_average_prefs_gammaomega_modelparams.txt
-2017-12-31 16:16:25,874 - INFO - Analysis successful for randomized_ExpCM_HA_average_prefs_gammaomega
+2018-01-22 09:10:07,946 - INFO - Starting analysis to optimize tree in phydms/hybrid_high_0_RAxML_tree.newick using model ExpCM_HA_hybridLee_prefs. The command is: phydms ../data/subsample/HA_hybrid_high_0.fasta phydms/hybrid_high_0_RAxML_tree.newick ExpCM_../data/references/HA_hybridLee_prefs.csv phydms/hybrid_high_0_ExpCM_HA_hybridLee_prefs --brlen optimize --ncpus 1
 
-2017-12-31 16:23:48,300 - INFO - Analysis completed for ExpCM_HA_average_prefs_gammaomega
-2017-12-31 16:23:48,302 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_average_prefs_gammaomega_log.log
-2017-12-31 16:23:48,302 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_average_prefs_gammaomega_tree.newick
-2017-12-31 16:23:48,303 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_average_prefs_gammaomega_loglikelihood.txt
-2017-12-31 16:23:48,304 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_average_prefs_gammaomega_modelparams.txt
-2017-12-31 16:23:48,304 - INFO - Analysis successful for ExpCM_HA_average_prefs_gammaomega
+2018-01-22 09:10:07,946 - INFO - Starting analysis to optimize tree in phydms/hybrid_high_0_RAxML_tree.newick using model ExpCM_HA_hybridLee_prefs_gammaomega. The command is: phydms ../data/subsample/HA_hybrid_high_0.fasta phydms/hybrid_high_0_RAxML_tree.newick ExpCM_../data/references/HA_hybridLee_prefs.csv phydms/hybrid_high_0_ExpCM_HA_hybridLee_prefs_gammaomega --brlen optimize --gammaomega --ncpus 1
 
-2017-12-31 16:23:49,347 - INFO - Successful completion of phydms_comprehensive
+2018-01-22 09:10:07,946 - INFO - Starting analysis to optimize tree in phydms/hybrid_high_0_RAxML_tree.newick using model averaged_ExpCM_HA_hybridLee_prefs. The command is: phydms ../data/subsample/HA_hybrid_high_0.fasta phydms/hybrid_high_0_RAxML_tree.newick ExpCM_../data/references/HA_hybridLee_prefs.csv phydms/hybrid_high_0_averaged_ExpCM_HA_hybridLee_prefs --brlen optimize --avgprefs --ncpus 1
+
+2018-01-22 09:10:07,946 - INFO - Starting analysis to optimize tree in phydms/hybrid_high_0_RAxML_tree.newick using model averaged_ExpCM_HA_hybridLee_prefs_gammaomega. The command is: phydms ../data/subsample/HA_hybrid_high_0.fasta phydms/hybrid_high_0_RAxML_tree.newick ExpCM_../data/references/HA_hybridLee_prefs.csv phydms/hybrid_high_0_averaged_ExpCM_HA_hybridLee_prefs_gammaomega --brlen optimize --gammaomega --avgprefs --ncpus 1
+
+2018-01-22 09:10:07,946 - INFO - Starting analysis to optimize tree in phydms/hybrid_high_0_RAxML_tree.newick using model randomized_ExpCM_HA_hybridLee_prefs. The command is: phydms ../data/subsample/HA_hybrid_high_0.fasta phydms/hybrid_high_0_RAxML_tree.newick ExpCM_../data/references/HA_hybridLee_prefs.csv phydms/hybrid_high_0_randomized_ExpCM_HA_hybridLee_prefs --brlen optimize --randprefs --ncpus 1
+
+2018-01-22 09:10:07,947 - INFO - Starting analysis to optimize tree in phydms/hybrid_high_0_RAxML_tree.newick using model randomized_ExpCM_HA_hybridLee_prefs_gammaomega. The command is: phydms ../data/subsample/HA_hybrid_high_0.fasta phydms/hybrid_high_0_RAxML_tree.newick ExpCM_../data/references/HA_hybridLee_prefs.csv phydms/hybrid_high_0_randomized_ExpCM_HA_hybridLee_prefs_gammaomega --brlen optimize --gammaomega --randprefs --ncpus 1
+
+2018-01-22 10:09:37,093 - INFO - Analysis completed for YNGKP_M0
+2018-01-22 10:09:37,095 - INFO - Found expected output file phydms/hybrid_high_0_YNGKP_M0_log.log
+2018-01-22 10:09:37,095 - INFO - Found expected output file phydms/hybrid_high_0_YNGKP_M0_tree.newick
+2018-01-22 10:09:37,095 - INFO - Found expected output file phydms/hybrid_high_0_YNGKP_M0_loglikelihood.txt
+2018-01-22 10:09:37,095 - INFO - Found expected output file phydms/hybrid_high_0_YNGKP_M0_modelparams.txt
+2018-01-22 10:09:37,095 - INFO - Analysis successful for YNGKP_M0
+
+2018-01-22 11:08:56,979 - INFO - Analysis completed for averaged_ExpCM_HA_hybridDoud_prefs
+2018-01-22 11:08:56,980 - INFO - Found expected output file phydms/hybrid_high_0_averaged_ExpCM_HA_hybridDoud_prefs_log.log
+2018-01-22 11:08:56,980 - INFO - Found expected output file phydms/hybrid_high_0_averaged_ExpCM_HA_hybridDoud_prefs_tree.newick
+2018-01-22 11:08:56,980 - INFO - Found expected output file phydms/hybrid_high_0_averaged_ExpCM_HA_hybridDoud_prefs_loglikelihood.txt
+2018-01-22 11:08:56,980 - INFO - Found expected output file phydms/hybrid_high_0_averaged_ExpCM_HA_hybridDoud_prefs_modelparams.txt
+2018-01-22 11:08:56,980 - INFO - Analysis successful for averaged_ExpCM_HA_hybridDoud_prefs
+
+2018-01-22 11:31:18,996 - INFO - Analysis completed for ExpCM_HA_hybridDoud_prefs
+2018-01-22 11:31:18,998 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_hybridDoud_prefs_log.log
+2018-01-22 11:31:18,998 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_hybridDoud_prefs_tree.newick
+2018-01-22 11:31:18,998 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_hybridDoud_prefs_loglikelihood.txt
+2018-01-22 11:31:18,998 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_hybridDoud_prefs_modelparams.txt
+2018-01-22 11:31:18,998 - INFO - Analysis successful for ExpCM_HA_hybridDoud_prefs
+
+2018-01-22 11:49:47,701 - INFO - Analysis completed for randomized_ExpCM_HA_average_prefs
+2018-01-22 11:49:47,703 - INFO - Found expected output file phydms/hybrid_high_0_randomized_ExpCM_HA_average_prefs_log.log
+2018-01-22 11:49:47,703 - INFO - Found expected output file phydms/hybrid_high_0_randomized_ExpCM_HA_average_prefs_tree.newick
+2018-01-22 11:49:47,703 - INFO - Found expected output file phydms/hybrid_high_0_randomized_ExpCM_HA_average_prefs_loglikelihood.txt
+2018-01-22 11:49:47,703 - INFO - Found expected output file phydms/hybrid_high_0_randomized_ExpCM_HA_average_prefs_modelparams.txt
+2018-01-22 11:49:47,703 - INFO - Analysis successful for randomized_ExpCM_HA_average_prefs
+
+2018-01-22 11:50:15,731 - INFO - Analysis completed for averaged_ExpCM_HA_average_prefs
+2018-01-22 11:50:15,733 - INFO - Found expected output file phydms/hybrid_high_0_averaged_ExpCM_HA_average_prefs_log.log
+2018-01-22 11:50:15,733 - INFO - Found expected output file phydms/hybrid_high_0_averaged_ExpCM_HA_average_prefs_tree.newick
+2018-01-22 11:50:15,733 - INFO - Found expected output file phydms/hybrid_high_0_averaged_ExpCM_HA_average_prefs_loglikelihood.txt
+2018-01-22 11:50:15,733 - INFO - Found expected output file phydms/hybrid_high_0_averaged_ExpCM_HA_average_prefs_modelparams.txt
+2018-01-22 11:50:15,733 - INFO - Analysis successful for averaged_ExpCM_HA_average_prefs
+
+2018-01-22 11:51:55,940 - INFO - Analysis completed for randomized_ExpCM_HA_hybridDoud_prefs
+2018-01-22 11:51:55,948 - INFO - Found expected output file phydms/hybrid_high_0_randomized_ExpCM_HA_hybridDoud_prefs_log.log
+2018-01-22 11:51:55,948 - INFO - Found expected output file phydms/hybrid_high_0_randomized_ExpCM_HA_hybridDoud_prefs_tree.newick
+2018-01-22 11:51:55,948 - INFO - Found expected output file phydms/hybrid_high_0_randomized_ExpCM_HA_hybridDoud_prefs_loglikelihood.txt
+2018-01-22 11:51:55,949 - INFO - Found expected output file phydms/hybrid_high_0_randomized_ExpCM_HA_hybridDoud_prefs_modelparams.txt
+2018-01-22 11:51:55,949 - INFO - Analysis successful for randomized_ExpCM_HA_hybridDoud_prefs
+
+2018-01-22 12:01:01,751 - INFO - Analysis completed for averaged_ExpCM_HA_hybridLee_prefs
+2018-01-22 12:01:01,755 - INFO - Found expected output file phydms/hybrid_high_0_averaged_ExpCM_HA_hybridLee_prefs_log.log
+2018-01-22 12:01:01,756 - INFO - Found expected output file phydms/hybrid_high_0_averaged_ExpCM_HA_hybridLee_prefs_tree.newick
+2018-01-22 12:01:01,756 - INFO - Found expected output file phydms/hybrid_high_0_averaged_ExpCM_HA_hybridLee_prefs_loglikelihood.txt
+2018-01-22 12:01:01,756 - INFO - Found expected output file phydms/hybrid_high_0_averaged_ExpCM_HA_hybridLee_prefs_modelparams.txt
+2018-01-22 12:01:01,756 - INFO - Analysis successful for averaged_ExpCM_HA_hybridLee_prefs
+
+2018-01-22 12:08:57,422 - INFO - Analysis completed for ExpCM_HA_hybridLee_prefs
+2018-01-22 12:08:57,424 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_hybridLee_prefs_log.log
+2018-01-22 12:08:57,424 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_hybridLee_prefs_tree.newick
+2018-01-22 12:08:57,424 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_hybridLee_prefs_loglikelihood.txt
+2018-01-22 12:08:57,424 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_hybridLee_prefs_modelparams.txt
+2018-01-22 12:08:57,425 - INFO - Analysis successful for ExpCM_HA_hybridLee_prefs
+
+2018-01-22 12:11:40,657 - INFO - Analysis completed for randomized_ExpCM_HA_hybridLee_prefs
+2018-01-22 12:11:40,659 - INFO - Found expected output file phydms/hybrid_high_0_randomized_ExpCM_HA_hybridLee_prefs_log.log
+2018-01-22 12:11:40,659 - INFO - Found expected output file phydms/hybrid_high_0_randomized_ExpCM_HA_hybridLee_prefs_tree.newick
+2018-01-22 12:11:40,660 - INFO - Found expected output file phydms/hybrid_high_0_randomized_ExpCM_HA_hybridLee_prefs_loglikelihood.txt
+2018-01-22 12:11:40,660 - INFO - Found expected output file phydms/hybrid_high_0_randomized_ExpCM_HA_hybridLee_prefs_modelparams.txt
+2018-01-22 12:11:40,660 - INFO - Analysis successful for randomized_ExpCM_HA_hybridLee_prefs
+
+2018-01-22 12:29:45,993 - INFO - Analysis completed for ExpCM_HA_average_prefs
+2018-01-22 12:29:45,994 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_average_prefs_log.log
+2018-01-22 12:29:45,995 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_average_prefs_tree.newick
+2018-01-22 12:29:45,995 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_average_prefs_loglikelihood.txt
+2018-01-22 12:29:45,995 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_average_prefs_modelparams.txt
+2018-01-22 12:29:45,995 - INFO - Analysis successful for ExpCM_HA_average_prefs
+
+2018-01-22 13:49:38,768 - INFO - Analysis completed for YNGKP_M5
+2018-01-22 13:49:38,769 - INFO - Found expected output file phydms/hybrid_high_0_YNGKP_M5_log.log
+2018-01-22 13:49:38,770 - INFO - Found expected output file phydms/hybrid_high_0_YNGKP_M5_tree.newick
+2018-01-22 13:49:38,770 - INFO - Found expected output file phydms/hybrid_high_0_YNGKP_M5_loglikelihood.txt
+2018-01-22 13:49:38,770 - INFO - Found expected output file phydms/hybrid_high_0_YNGKP_M5_modelparams.txt
+2018-01-22 13:49:38,770 - INFO - Analysis successful for YNGKP_M5
+
+2018-01-22 16:55:18,370 - INFO - Analysis completed for averaged_ExpCM_HA_hybridDoud_prefs_gammaomega
+2018-01-22 16:55:18,373 - INFO - Found expected output file phydms/hybrid_high_0_averaged_ExpCM_HA_hybridDoud_prefs_gammaomega_log.log
+2018-01-22 16:55:18,374 - INFO - Found expected output file phydms/hybrid_high_0_averaged_ExpCM_HA_hybridDoud_prefs_gammaomega_tree.newick
+2018-01-22 16:55:18,374 - INFO - Found expected output file phydms/hybrid_high_0_averaged_ExpCM_HA_hybridDoud_prefs_gammaomega_loglikelihood.txt
+2018-01-22 16:55:18,375 - INFO - Found expected output file phydms/hybrid_high_0_averaged_ExpCM_HA_hybridDoud_prefs_gammaomega_modelparams.txt
+2018-01-22 16:55:18,375 - INFO - Analysis successful for averaged_ExpCM_HA_hybridDoud_prefs_gammaomega
+
+2018-01-22 19:08:49,840 - INFO - Analysis completed for randomized_ExpCM_HA_average_prefs_gammaomega
+2018-01-22 19:08:49,842 - INFO - Found expected output file phydms/hybrid_high_0_randomized_ExpCM_HA_average_prefs_gammaomega_log.log
+2018-01-22 19:08:49,843 - INFO - Found expected output file phydms/hybrid_high_0_randomized_ExpCM_HA_average_prefs_gammaomega_tree.newick
+2018-01-22 19:08:49,843 - INFO - Found expected output file phydms/hybrid_high_0_randomized_ExpCM_HA_average_prefs_gammaomega_loglikelihood.txt
+2018-01-22 19:08:49,844 - INFO - Found expected output file phydms/hybrid_high_0_randomized_ExpCM_HA_average_prefs_gammaomega_modelparams.txt
+2018-01-22 19:08:49,845 - INFO - Analysis successful for randomized_ExpCM_HA_average_prefs_gammaomega
+
+2018-01-22 19:10:11,940 - INFO - Analysis completed for randomized_ExpCM_HA_hybridLee_prefs_gammaomega
+2018-01-22 19:10:11,942 - INFO - Found expected output file phydms/hybrid_high_0_randomized_ExpCM_HA_hybridLee_prefs_gammaomega_log.log
+2018-01-22 19:10:11,942 - INFO - Found expected output file phydms/hybrid_high_0_randomized_ExpCM_HA_hybridLee_prefs_gammaomega_tree.newick
+2018-01-22 19:10:11,943 - INFO - Found expected output file phydms/hybrid_high_0_randomized_ExpCM_HA_hybridLee_prefs_gammaomega_loglikelihood.txt
+2018-01-22 19:10:11,943 - INFO - Found expected output file phydms/hybrid_high_0_randomized_ExpCM_HA_hybridLee_prefs_gammaomega_modelparams.txt
+2018-01-22 19:10:11,943 - INFO - Analysis successful for randomized_ExpCM_HA_hybridLee_prefs_gammaomega
+
+2018-01-22 19:39:54,319 - INFO - Analysis completed for randomized_ExpCM_HA_hybridDoud_prefs_gammaomega
+2018-01-22 19:39:54,322 - INFO - Found expected output file phydms/hybrid_high_0_randomized_ExpCM_HA_hybridDoud_prefs_gammaomega_log.log
+2018-01-22 19:39:54,323 - INFO - Found expected output file phydms/hybrid_high_0_randomized_ExpCM_HA_hybridDoud_prefs_gammaomega_tree.newick
+2018-01-22 19:39:54,323 - INFO - Found expected output file phydms/hybrid_high_0_randomized_ExpCM_HA_hybridDoud_prefs_gammaomega_loglikelihood.txt
+2018-01-22 19:39:54,324 - INFO - Found expected output file phydms/hybrid_high_0_randomized_ExpCM_HA_hybridDoud_prefs_gammaomega_modelparams.txt
+2018-01-22 19:39:54,324 - INFO - Analysis successful for randomized_ExpCM_HA_hybridDoud_prefs_gammaomega
+
+2018-01-22 19:56:27,535 - INFO - Analysis completed for averaged_ExpCM_HA_average_prefs_gammaomega
+2018-01-22 19:56:27,537 - INFO - Found expected output file phydms/hybrid_high_0_averaged_ExpCM_HA_average_prefs_gammaomega_log.log
+2018-01-22 19:56:27,538 - INFO - Found expected output file phydms/hybrid_high_0_averaged_ExpCM_HA_average_prefs_gammaomega_tree.newick
+2018-01-22 19:56:27,538 - INFO - Found expected output file phydms/hybrid_high_0_averaged_ExpCM_HA_average_prefs_gammaomega_loglikelihood.txt
+2018-01-22 19:56:27,539 - INFO - Found expected output file phydms/hybrid_high_0_averaged_ExpCM_HA_average_prefs_gammaomega_modelparams.txt
+2018-01-22 19:56:27,539 - INFO - Analysis successful for averaged_ExpCM_HA_average_prefs_gammaomega
+
+2018-01-22 20:00:53,842 - INFO - Analysis completed for averaged_ExpCM_HA_hybridLee_prefs_gammaomega
+2018-01-22 20:00:53,844 - INFO - Found expected output file phydms/hybrid_high_0_averaged_ExpCM_HA_hybridLee_prefs_gammaomega_log.log
+2018-01-22 20:00:53,845 - INFO - Found expected output file phydms/hybrid_high_0_averaged_ExpCM_HA_hybridLee_prefs_gammaomega_tree.newick
+2018-01-22 20:00:53,846 - INFO - Found expected output file phydms/hybrid_high_0_averaged_ExpCM_HA_hybridLee_prefs_gammaomega_loglikelihood.txt
+2018-01-22 20:00:53,846 - INFO - Found expected output file phydms/hybrid_high_0_averaged_ExpCM_HA_hybridLee_prefs_gammaomega_modelparams.txt
+2018-01-22 20:00:53,846 - INFO - Analysis successful for averaged_ExpCM_HA_hybridLee_prefs_gammaomega
+
+2018-01-22 21:36:53,574 - INFO - Analysis completed for ExpCM_HA_hybridDoud_prefs_gammaomega
+2018-01-22 21:36:53,577 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_hybridDoud_prefs_gammaomega_log.log
+2018-01-22 21:36:53,578 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_hybridDoud_prefs_gammaomega_tree.newick
+2018-01-22 21:36:53,578 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_hybridDoud_prefs_gammaomega_loglikelihood.txt
+2018-01-22 21:36:53,579 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_hybridDoud_prefs_gammaomega_modelparams.txt
+2018-01-22 21:36:53,579 - INFO - Analysis successful for ExpCM_HA_hybridDoud_prefs_gammaomega
+
+2018-01-22 21:58:00,043 - INFO - Analysis completed for ExpCM_HA_average_prefs_gammaomega
+2018-01-22 21:58:00,048 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_average_prefs_gammaomega_log.log
+2018-01-22 21:58:00,049 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_average_prefs_gammaomega_tree.newick
+2018-01-22 21:58:00,049 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_average_prefs_gammaomega_loglikelihood.txt
+2018-01-22 21:58:00,049 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_average_prefs_gammaomega_modelparams.txt
+2018-01-22 21:58:00,049 - INFO - Analysis successful for ExpCM_HA_average_prefs_gammaomega
+
+2018-01-22 23:13:23,245 - INFO - Analysis completed for ExpCM_HA_hybridLee_prefs_gammaomega
+2018-01-22 23:13:23,248 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_hybridLee_prefs_gammaomega_log.log
+2018-01-22 23:13:23,249 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_hybridLee_prefs_gammaomega_tree.newick
+2018-01-22 23:13:23,249 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_hybridLee_prefs_gammaomega_loglikelihood.txt
+2018-01-22 23:13:23,250 - INFO - Found expected output file phydms/hybrid_high_0_ExpCM_HA_hybridLee_prefs_gammaomega_modelparams.txt
+2018-01-22 23:13:23,250 - INFO - Analysis successful for ExpCM_HA_hybridLee_prefs_gammaomega
+
+2018-01-22 23:13:24,727 - INFO - Successful completion of phydms_comprehensive
