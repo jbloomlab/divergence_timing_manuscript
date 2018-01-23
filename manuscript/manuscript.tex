@@ -185,6 +185,7 @@ from \ref{tab:wsn_low_params}
 
 
 \begin{itemize}
+\item It is well known that different protein sites evolve under constraints
 \item There are different strategies to account for purifying selection and site-to-site rate variation. 
 \begin{itemize}
 \item $\Gamma\omega$ rate variation 
@@ -199,8 +200,9 @@ from \ref{tab:wsn_low_params}
 \item a more mechanistic description, no arbitrary statistical distribution 
 \item practical limitation - how do you estimate these parameters without overfitting the data? We use experimental measurements to define the parameters \textit{a priori}
 \end{itemize}
+\item Differences in stationary state are manifested in rate differences (e.g., Spielman work), but the resulting differences in rate don't fully capture the site-specific stationary state
+\item These are not mutually exclusive, you can imagine why there would be both
 \end{itemize}
-\item We can compare the effect of a model feature ($\Gamma\omega$ rate variation or non-uniform stationary state) while controlling the presence/absence of the other feature using models from the ExpCM and GY94 families. 
 \end{itemize}
 
 
@@ -221,16 +223,16 @@ The deviation in trajectory of the YNGKP model with a site-specific $\omega$ val
 
 
 \begin{itemize}
-\item Substitution models are only useful for inferring branch lengths when they can accurately transform sequence divergence to time (branch lengths)
-\item Every substitution model has a saturation point where this temporal signal is lost.  
+\item Along a single branch, a substitution model transforms sequence divergence to branch lengths, which under a molecular clock is assumed proportional time
+\item Every substitution model has a stationary state, which is the expected sequence divergence at very long time.  
 \begin{itemize}
 \item In the long tails the expected sequence divergence remains constant as time increases. 
 \item The saturation point will affect long branches more than short branches.
 \end{itemize}
-\item Different model features (\ref{fig:model_feature}) can affect \textit{how long} it takes to reach the saturation point and the \textit{sequence divergence} at the saturation point 
+\item Some model features (\ref{fig:model_feature}) affect \textit{how long} it takes to reach the stationary state, whereas others affect the stationary state itself: 
 \begin{itemize}
-\item Adding $\Gamma\omega$ rate variation affects the ``path" to the saturation point but affects the sequence divergence at the saturation point minimally. Importantly, the saturation point is identically for every site in the protein. (green and blue)
-\item Adding a non-uniform stationary state creates a unique saturation point for each site in the protein (red). Sites which can tolerate many mutations have saturation points which are quite similar to the GY94 saturation point. Constrained sites show a dramatic difference. At a constrained site, ExpCM will estimate a longer branch than the GY94 model because the overall sequence divergence at the site is expected to be small. 
+\item Adding $\Gamma\omega$ rate variation affects the ``path" to the stationary state but not the stationary state itself. Importantly, the stationary state is identically for every site in the protein if there isn't site-specific amino-acid preferences. (green and blue)
+\item Adding a non-uniform stationary state creates a unique stationary state for each site in the protein (red). Sites which can tolerate many mutations have saturation points which are quite similar to the GY94 saturation point. Constrained sites show a dramatic difference. At a constrained site, ExpCM will estimate a longer branch than the GY94 model because the overall sequence divergence at the site is expected to be small. 
 \item This difference cannot be recapitulated by more complex modeling of the $\omega$ parameter. We can transform the GY94 model into a  site-specific model by inferring a unique $\omega$ value from the ExpCM for each site in the protein. This model (yellow) takes longer to reach the saturation point than the GY94 model but ultimately has the same divergence level at the saturation point. 
 \end{itemize}
 \item No matter how ``well" you model site-to-site rate variation, you will underestimate \textit{very} long branches with a uniform stationary state. 
