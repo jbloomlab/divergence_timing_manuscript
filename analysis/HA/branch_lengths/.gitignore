@@ -2,7 +2,7 @@
 *.
 phydms/*
 !phydms/*.modelcomparison.md
-!phydms/*.tree.newick
+!phydms/*tree.newick
 !phydms/*modelparams.txt
 bootstrap/*
 !bootstrap/*modelcomparison.md
