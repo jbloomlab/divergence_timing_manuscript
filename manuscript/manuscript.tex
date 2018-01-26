@@ -66,8 +66,8 @@
 \newcommand{\DNA}{\textbf{DNA}}
 \newcommand{\virus}{\textbf{virus}}
 
-\newcommand\skhcomment[1]{{\color{cyan}#1}}
-\newcommand\jdbcomment[1]{{\color{red}#1}}
+\newcommand\skhcomment[1]{{\color{cyan}[#1]}}
+\newcommand\jdbcomment[1]{{\color{red}[#1]}}
 
 
 \usepackage{hyperref}
@@ -79,10 +79,10 @@
 \usepackage{array}
 \newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
 
-\title{Experimentally Informed Site-Specific Substitution Models Substantially Deepen Viral Divergence Estimates} 
+\title{Experimentally informed site-specific substitution models deepen phylogenetic estimates of the divergence of viral lineages} 
 
 \author
-{Sarah K. Hilton$^{1,2}$  and Jesse D. Bloom$^{1,2,}$\\
+{Sarah K. Hilton$^{1,2}$  and Jesse D. Bloom$^{1,2}$\\
 \\
 \normalsize{$^1$Division of Basic Sciences and Computational Biology Program,}\\
 \normalsize{Fred Hutchinson Cancer Research Center, Seattle, WA 98109, USA}\\
@@ -107,17 +107,16 @@
 
 
 \begin{abstract}
-\textit{$\leq$ 250 words, currently 164}   
-
-Molecular dating techniques are often used to estimate the origin date of modern, circulating viruses. 
-These estimates are often substantially younger than estimates from methods which do not rely on viral phylogenies. 
-This discrepancy is thought to be caused in part by inadequate modeling of purifying selection leading to branch length underestimation. 
-Here, we show that substitution models informed by empirical measurements of mutational tolerance model constraint better than traditional models and extend branch lengths. 
-We used models informed by deep mutational scanning experiments performed in two, highly diverged influenza virus hemagglutinin homologs to optimize the branch lengths of a phylogenetic tree. 
-For each experimentally informed model, we observed extension in branch length from the experiment's focal sequence. 
-This extension in branch length due to explicit modeling of site-specific purifying selection is observed in the presence and absence of standard methods for modeling site-to-site variation. 
-Overall, this study underscores the importance of modeling purifying selection when estimating branch lengths and, by extension, divergence dates. 
-
+\noindent \skhcomment{$\leq$ 250 words, currently 164}   
+Molecular phylogenetics is often used to estimate the time since the divergence of modern gene sequences.
+Such phylogenetic techniques often estimate substantially shallower divergence times than other methods.
+For instance, in the case of viruses there is independent evidence that molecular phylogenetics can underestimate deep divergence times.  
+This discrepancy is thought to be caused in part by inadequate models of purifying selection leading to branch-length underestimation.
+Here we show that substitution models informed by experimental measurements of site-specific purifying selection lengthen the branches on phylogenies of influenza virus hemagglutinin.
+This deepening of branch lengths is due to better modeling how site-specific amino-acid preferences affect the stationary state of the substitution models, and is independent of the branch-length-extension due to modeling site-to-site variation in substitution rate.
+We show that the deepening of branch lengths from experimentally informed site-specific substitution models is similar to that achieved by other approaches that allow the stationary state to vary across sites.
+However, the improvements from these site-specific models are limited by the inherent tension between the enhanced accuracy of accounting for site-specific amino-acid preferences and the fact that these preferences shift over long evolutionary times.
+Overall, our work underscores the importance of modeling how site-specific purifying selection affects the stationary state as well as the substitution rate when estimating deep divergence times. 
 \end{abstract}
 
 \clearpage
@@ -186,6 +185,7 @@ from \ref{tab:wsn_low_params}
 
 
 \begin{itemize}
+\item It is well known that different protein sites evolve under constraints
 \item There are different strategies to account for purifying selection and site-to-site rate variation. 
 \begin{itemize}
 \item $\Gamma\omega$ rate variation 
@@ -200,8 +200,9 @@ from \ref{tab:wsn_low_params}
 \item a more mechanistic description, no arbitrary statistical distribution 
 \item practical limitation - how do you estimate these parameters without overfitting the data? We use experimental measurements to define the parameters \textit{a priori}
 \end{itemize}
+\item Differences in stationary state are manifested in rate differences (e.g., Spielman work), but the resulting differences in rate don't fully capture the site-specific stationary state
+\item These are not mutually exclusive, you can imagine why there would be both
 \end{itemize}
-\item We can compare the effect of a model feature ($\Gamma\omega$ rate variation or non-uniform stationary state) while controlling the presence/absence of the other feature using models from the ExpCM and GY94 families. 
 \end{itemize}
 
 
@@ -222,16 +223,16 @@ The deviation in trajectory of the YNGKP model with a site-specific $\omega$ val
 
 
 \begin{itemize}
-\item Substitution models are only useful for inferring branch lengths when they can accurately transform sequence divergence to time (branch lengths)
-\item Every substitution model has a saturation point where this temporal signal is lost.  
+\item Along a single branch, a substitution model transforms sequence divergence to branch lengths, which under a molecular clock is assumed proportional time
+\item Every substitution model has a stationary state, which is the expected sequence divergence at very long time.  
 \begin{itemize}
 \item In the long tails the expected sequence divergence remains constant as time increases. 
 \item The saturation point will affect long branches more than short branches.
 \end{itemize}
-\item Different model features (\ref{fig:model_feature}) can affect \textit{how long} it takes to reach the saturation point and the \textit{sequence divergence} at the saturation point 
+\item Some model features (\ref{fig:model_feature}) affect \textit{how long} it takes to reach the stationary state, whereas others affect the stationary state itself: 
 \begin{itemize}
-\item Adding $\Gamma\omega$ rate variation affects the ``path" to the saturation point but affects the sequence divergence at the saturation point minimally. Importantly, the saturation point is identically for every site in the protein. (green and blue)
-\item Adding a non-uniform stationary state creates a unique saturation point for each site in the protein (red). Sites which can tolerate many mutations have saturation points which are quite similar to the GY94 saturation point. Constrained sites show a dramatic difference. At a constrained site, ExpCM will estimate a longer branch than the GY94 model because the overall sequence divergence at the site is expected to be small. 
+\item Adding $\Gamma\omega$ rate variation affects the ``path" to the stationary state but not the stationary state itself. Importantly, the stationary state is identically for every site in the protein if there isn't site-specific amino-acid preferences. (green and blue)
+\item Adding a non-uniform stationary state creates a unique stationary state for each site in the protein (red). Sites which can tolerate many mutations have saturation points which are quite similar to the GY94 saturation point. Constrained sites show a dramatic difference. At a constrained site, ExpCM will estimate a longer branch than the GY94 model because the overall sequence divergence at the site is expected to be small. 
 \item This difference cannot be recapitulated by more complex modeling of the $\omega$ parameter. We can transform the GY94 model into a  site-specific model by inferring a unique $\omega$ value from the ExpCM for each site in the protein. This model (yellow) takes longer to reach the saturation point than the GY94 model but ultimately has the same divergence level at the saturation point. 
 \end{itemize}
 \item No matter how ``well" you model site-to-site rate variation, you will underestimate \textit{very} long branches with a uniform stationary state. 
