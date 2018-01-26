@@ -1,0 +1,114 @@
+"""
+Pipeline for `phylobayes` analysis.
+SKH 20180117
+"""
+import glob
+import Bio.SeqIO
+import pandas as pd
+
+# Globals ---------------------------------------------------------------------
+# Directories
+ALIGNMENT_DIR = "../HA/data/subsample/"
+PHYDMS_DIR = "../HA/branch_lengths/phydms/"
+
+# Alignment IDs
+ALIGNMENT_IDS = ["_".join(os.path.basename(x).split(".")[0].split("_")[1:])
+                 for x in glob.glob("{0}/*.fasta".format(ALIGNMENT_DIR))]
+SEEDS = [int(x.split("_")[-1]) for x in ALIGNMENT_IDS]
+LEVELS = ["high", "intermediate", "low"]
+
+# `phylobayes` params
+N_STEPS = 5000
+BURNIN = int(N_STEPS * 0.1)
+
+# Rules -----------------------------------------------------------------------
+
+rule all:
+    input:
+        expand("_done_{alignment_id}.txt", alignment_id=ALIGNMENT_IDS)
+
+rule create_phylip_files:
+    """
+    This rule converts the fasta files from `HA/branch_lengths` into a
+    `phylip` and changes the naming in the `newick` tree. The rule also
+    outputs a map for old<->new name conversion
+    """
+    message: "Creating phylip file"
+    input:
+        alignment = ALIGNMENT_DIR + "HA_{alignment_id}.fasta",
+        tree = PHYDMS_DIR + "{alignment_id}_RAxML_tree.newick"
+    output:
+        alignment = "_{alignment_id}_rename.phylip",
+        tree = "_{alignment_id}_rename.newick",
+        map = "_map_{alignment_id}.csv"
+    run:
+        df = {}
+        final_seqs = []
+        counter = 0
+        for seq in Bio.SeqIO.parse(input.alignment, "fasta"):
+            new_name = "SEQ_{0}".format(counter)
+            df[seq.id] = new_name
+            seq.id = new_name
+            final_seqs.append(seq)
+            counter += 1
+        Bio.SeqIO.write(final_seqs, open(output.alignment, 'w'), 'phylip')
+
+        # now rename the tree
+        with open(input.tree, "r") as f:
+            tree = f.read()
+        for old_name in df.keys():
+            tree = tree.replace(old_name, df[old_name])
+        with open(output.tree, "w") as f:
+            f.write(tree)
+
+        # output map
+        new_df = {"old_name": [], "new_name": []}
+        for key in df.keys():
+            new_df["old_name"].append(key)
+            new_df["new_name"].append(df[key])
+        new_df = pd.DataFrame(new_df)
+        new_df.to_csv(output.map, index=False)
+
+rule create_sbatch:
+    """
+    This rule creates an sbatch file to run `phylobayes`.
+    """
+    message: "Creating sbatch file"
+    input:
+        alignment = "_{alignment_id}_rename.phylip",
+        tree = "_{alignment_id}_rename.newick",
+    output:
+        sbatch = "_{alignment_id}.sbatch"
+    params:
+        alignment_id = "_{alignment_id}"
+    run:
+        t = ("#!/bin/bash\n"
+             "#SBATCH\n"
+             "#SBATCH -o {0}.out\n"
+             "#SBATCH -e {0}.err\n"
+             "#SBATCH -p campus\n"
+             "#SBATCH -n 16\n"
+             "#SBATCH -t 5-00:00:00\n\n"
+             "module load OpenMPI/1.8.4-GCC-4.9.2\n\n"
+             "mpirun /home/mrg/Work/phylobayes/pbmpi/data/pb_mpi -x 1 {1}"
+             " -mutsel -d {3} -T {4} -dp {0}\n"
+             "/home/mrg/Work/phylobayes/pbmpi/data/readpb_mpi -x {2} {0}\n"
+             "/home/mrg/Work/phylobayes/pbmpi/data/bpcomp -x {2} 5 {0}\n"
+             "touch _done{0}.txt"
+             .format(params.alignment_id, N_STEPS, BURNIN, input.alignment,
+                     input.tree)
+             )
+        with open(output.sbatch, "w") as f:
+            f.write(t)
+
+rule run_sbatch:
+    """
+    This rule submits the sbatch files
+    """
+    message: "Running sbatch"
+    input:
+        sbatch = "_{alignment_id}.sbatch"
+    output:
+        monitor = "_done_{alignment_id}.txt"
+    shell:
+        "sbatch {input.sbatch}"
