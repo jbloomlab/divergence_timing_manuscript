@@ -97,7 +97,7 @@ def create_model_YNGKP_wr(param, spielman_wr):
                    range(N_NT)]
     e_pw = scipy.array(e_pw)
     return phydmslib.models.YNGKP_M0(e_pw, 1, kappa=params["kappa"],
-                                     omega=spielman_wr,
+                                     omega=spielman_wr * params["omega"],
                                      mu=0.3, freeparams=['mu'])
 
 
@@ -190,13 +190,13 @@ def main():
     # Set up the parameter files
     phydms_dir = "../HA/branch_lengths/phydms/"
     prefs_dir = "../HA/data/references/"
-    ExpCM_modelparams_fname = ("{0}WSN_low_0_ExpCM_HA_Doud_prefs_modelparams"
+    ExpCM_modelparams_fname = ("{0}hybrid_lowH1_0_ExpCM_HA_hybridDoud_prefs_modelparams"
                                ".txt".format(phydms_dir))
-    YNGKP_M0_modelparams_fname = ("{0}WSN_low_0_YNGKP_M0_modelparams"
+    YNGKP_M0_modelparams_fname = ("{0}hybrid_lowH1_0_YNGKP_M0_modelparams"
                                   ".txt".format(phydms_dir))
-    YNGKP_M5_modelparams_fname = ("{0}WSN_low_0_YNGKP_M5_modelparams"
+    YNGKP_M5_modelparams_fname = ("{0}hybrid_lowH1_0_YNGKP_M5_modelparams"
                                   ".txt".format(phydms_dir))
-    prefs_fname = "{0}HA_Doud_prefs.csv".format(prefs_dir)
+    prefs_fname = "{0}HA_hybridDoud_prefs.csv".format(prefs_dir)
     if not os.path.isdir("outputs"):
         os.makedirs("outputs")
     # define the maximum amount of time
