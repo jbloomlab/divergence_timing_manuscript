@@ -28,7 +28,7 @@ PREFERENCES_DIR = "../data/references/"
 ALIGNMENT_IDS = ["_".join(os.path.basename(x).split(".")[0].split("_")[1:])
                  for x in glob.glob("{0}/*.fasta".format(ALIGNMENT_DIR))]
 SEEDS = [int(x.split("_")[-1]) for x in ALIGNMENT_IDS]
-LEVELS = ["high", "intermediate", "low"]
+LEVELS = [x.split("_")[1] for x in ALIGNMENT_IDS]
 
 # Bootstrap params
 REPS = range(10)
@@ -37,9 +37,11 @@ REPS = range(10)
 
 rule all:
     input:
-        "outputs/branch_lengths.csv",
-        "outputs/model_by_model.csv",
-        "outputs/params.csv"
+        expand("phydms/hybrid_{level}_{seed}_modelcomparison.md",level=LEVELS,
+            seed=SEEDS)
+        # "outputs/branch_lengths.csv",
+        # "outputs/model_by_model.csv",
+        # "outputs/params.csv"
 
 # Run `phydms_comprehensive` for each of the preference sets (next 3 rules)
 rule run_phydms_Lee:
@@ -81,12 +83,14 @@ rule run_phydms_hybrid:
     """
     message: "Running `phydms_comprehensive` with average preferences."
     input:
-        alignment = ALIGNMENT_DIR + "HA_hybrid_high_{seed}.fasta"
+        alignment = ALIGNMENT_DIR + "HA_hybrid_{level}_{seed}.fasta"
     output:
-        modelcomparison = "phydms/hybrid_high_{seed}_modelcomparison.md"
+        modelcomparison = "phydms/hybrid_{level}_{seed}_modelcomparison.md"
     params:
-        prefs = "{0}HA_average_prefs.csv".format(PREFERENCES_DIR),
-        phydms_id = 'hybrid_high_{seed}'
+        prefs = " ".join(["{0}HA_average_prefs.csv".format(PREFERENCES_DIR),
+                "{0}HA_hybridDoud_prefs.csv".format(PREFERENCES_DIR),
+                "{0}HA_hybridLee_prefs.csv".format(PREFERENCES_DIR)]),
+        phydms_id = 'hybrid_{level}_{seed}'
     shell:
         'phydms_comprehensive phydms/{params.phydms_id} {input.alignment} \
                 {params.prefs} --raxml raxml --gammaomega --randprefs'

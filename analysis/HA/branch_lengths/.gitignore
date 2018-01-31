@@ -1,7 +1,7 @@
 !.gitignore
 *.
 phydms/*
-!phydms/*.modelcomparison.md
+!phydms/*_modelcomparison.md
 !phydms/*tree.newick
 !phydms/*modelparams.txt
 bootstrap/*
