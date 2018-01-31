@@ -38,7 +38,8 @@ REPS = range(10)
 rule all:
     input:
         expand("phydms/hybrid_{level}_{seed}_modelcomparison.md",level=LEVELS,
-            seed=SEEDS)
+            seed=SEEDS),
+        "outputs/branch_lengths.csv"
         # "outputs/branch_lengths.csv",
         # "outputs/model_by_model.csv",
         # "outputs/params.csv"
@@ -183,7 +184,7 @@ rule calc_branch_lengths:
     run:
         final_cols = ["seq_id", "sequence1", "sequence2", "model", "distance",
                       "alignment_id", "alignment_ref", "divergence_level",
-                      "bootstrap", "from_ref"]
+                      "bootstrap", "from_ref", "pref_set"]
         final = []
         # for run in input.true_runs + input.bootstrap_runs:
         for run in input.true_runs:
@@ -194,6 +195,17 @@ rule calc_branch_lengths:
                     glob.glob("{0}/{1}*.newick".format(bootstrap,
                                                        alignment_id)):
                 model_name, control = extract_model_name(tree_fname)
+                if model_name in ["ExpCM", "ExpCM_gammaomega"]:
+                    if "ExpCM_HA_hybridDoud_prefs" in tree_fname:
+                        pref_set = "Doud"
+                    elif "ExpCM_HA_hybridLee_prefs" in tree_fname:
+                        pref_set = "Lee"
+                    elif "ExpCM_HA_average_prefs" in tree_fname:
+                        pref_set = "average"
+                    else:
+                        raise ValueError("Couldn't parse pref set: {0}".format(tree_fname))
+                else:
+                    pref_set = "NA"
                 if control == 0:
                     df = calc_distances(tree_fname)
                     df["model"] = [model_name for x in range(len(df))]
@@ -206,6 +218,7 @@ rule calc_branch_lengths:
                     df["from_ref"] = ['WSN' if "Wilson-Smith" in x else 'Perth'
                                       if "Perth" in x else 'no' for x
                                       in df["seq_id"]]
+                    df["pref_set"] = [pref_set for x in range(len(df))]
                     final.append(df)
         final = pd.concat(final)
         final = final[final_cols]
