@@ -29,3 +29,4 @@
 *.sitesynsubsel
 *.err
 *pymodules/__pycache__
+*outputs/
