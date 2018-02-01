@@ -211,7 +211,6 @@ rule norm_branch_lengths:
         norm = "outputs/branch_lengths_norm.csv"
     run:
         bl = pd.read_csv(input.branch_lengths)
-        print(set(bl["alignment_id"].tolist()))
         final = []
         for name, group in bl.groupby(["alignment_id"]):
             if TARGET in group["seq_id"].tolist():
