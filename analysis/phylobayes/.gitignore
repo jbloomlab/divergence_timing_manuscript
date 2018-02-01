@@ -28,3 +28,4 @@
 *.ppvsubsel
 *.sitesynsubsel
 *.err
+*pymodules/__pycache__
