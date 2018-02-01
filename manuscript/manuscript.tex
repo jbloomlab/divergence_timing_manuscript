@@ -107,7 +107,7 @@
 
 
 \begin{abstract}
-\noindent \skhcomment{$\leq$ 250 words, currently 164}   
+\noindent \skhcomment{$\leq$ 250 words, currently 217}   
 Molecular phylogenetics is often used to estimate the time since the divergence of modern gene sequences.
 Such phylogenetic techniques often estimate substantially shallower divergence times than other methods.
 For instance, in the case of viruses there is independent evidence that molecular phylogenetics can underestimate deep divergence times.  
@@ -174,37 +174,35 @@ This supports the conclusion that modeling purifying selection, especially in a 
 \centerline{\includegraphics[width=0.90\textwidth]{figures/model_feature.pdf}}
 \caption{\label{fig:model_feature}
 \textbf{Comparison of substitution model features.}
-Site-specific amino-acid profiles and $\Gamma$-distributed rate variation are both substitution model features which have been shown or theorized to lengthen branches. 
-The models YNGKP M0, YNGKP M5, ExpCM, and ExpCM+$\Gamma\omega$ represent all possible combinations of these two features. 
-Blue indicates presence and white indicates absence of a feature. 
-from \ref{tab:wsn_low_params}
+(A) Substitution model stationary states can either be identical at every site in the protein or allow to vary from site to site. 
+(B) The relative rate of non-synonymous change, $\omega$, can be defined as one, gene-wide average or allowed to vary following some statistical distribution. 
+To ensure computational tractability, $\omega$ takes on the mean value of $K$ bins ($K=4$ shown). 
+(C) Substitution models can both, one, or neither of these features. 
+We used models from the GY94 and the ExpCM families. 
 }
 \end{figure}
 
-\skhcomment{Section Outline:}
+It is well known that protein sites evolve under different pressures. 
+Some sites appear to tolerate many amino acids while other sites appear to tolerate only a select few. 
+Therefore, it is important to use substitution models which are able to describe this purifying selection, and the resulting site-to-site rate variation, when modeling protein evolution. 
 
+The standard strategy to account for purifying selection is to allow the rate of non-synonymous change to vary among sites following some statistical distribution. 
+This variation is commonly implemented by allowing the rate parameter, $\omega$, to follow a $\Gamma$-distribution ($\Gamma\omega$).
+In order to achieve computational tractability, the distribution is discretized into $K$ bins and $\omega$ is assigned to the mean of each bin and the site likelihood is the average likelihood given each of the $\omega$ values. 
+Under this model, some sites would have a higher rate of non-synonymous change than others but this rate would be agnostic to the amino-acid identities themselves. 
+All non-synonymous changes would be treated as equally. 
 
-\begin{itemize}
-\item It is well known that different protein sites evolve under constraints
-\item There are different strategies to account for purifying selection and site-to-site rate variation. 
-\begin{itemize}
-\item $\Gamma\omega$ rate variation 
-\begin{itemize}
-\item single parameter controlling relative rate of non-synonymous to synonymous substitutions can vary across sites following some statistical distribution (usually $\Gamma$)
-\item very common 
-\item practical implementation - discretized distribution with the mean of $K$ bins. 
-\end{itemize}
-\item stationary state
-\begin{itemize}
-\item Explicitly model each amino-acid frequency at each site in the protein 
-\item a more mechanistic description, no arbitrary statistical distribution 
-\item practical limitation - how do you estimate these parameters without overfitting the data? We use experimental measurements to define the parameters \textit{a priori}
-\end{itemize}
-\item Differences in stationary state are manifested in rate differences (e.g., Spielman work), but the resulting differences in rate don't fully capture the site-specific stationary state
-\item These are not mutually exclusive, you can imagine why there would be both
-\end{itemize}
-\end{itemize}
+Another strategy to account for purifying selection is to define a substitution model with a site-specific stationary state. 
+Such models describe the evolution at each site uniquely and independently of the other sites. 
+For example, models from the Halpern-Bruno mutation-selection family explicitly describe the frequency of each amino acid at each site. 
+However, these more mechanistic models, without an arbitrary statistical distribution, come at a cost in the form of an increased number of parameters. 
+When using a mutation-selection model is crucial to invoke a strategy to avoiding overfitting the data. 
+We chose to define the amino-acid frequency parameters \textit{a priori} using measurements from a high-throughput functional assay called deep mutational scanning, Experimentally Informed Codon Models (ExpCMs).
 
+These two strategies, $\Gamma\omega$ rate variation and non-uniform stationary states, are not truly distinct. 
+Differences in stationary state manifest as differences in non-synonymous rates across sites \citep{spielman2015relationship}. 
+Moreover, these two strategies are not mutually exclusive. 
+Technically, substitution models can have a non-uniform stationary state and $\Gamma\omega$ rate variation and biologically, these models can account for both strong purifying and strong positive selection. 
 
 \subsection*{Effect of stationary state and rate variation on branch length estimation}
 
@@ -212,31 +210,29 @@ from \ref{tab:wsn_low_params}
 \centerline{\includegraphics[width=0.90\textwidth]{figures/decay.pdf}}
 \caption{\label{fig:decay}
 \textbf{Effect of stationary state and rate variation on long branch estimation.}
-The expected pairwise identity trajectories were calculated using \ref{eq:f} and models described in \ref{tab:wsn_low_params}.
-The trajectories of the YNKGP M0 (blue) and YNGKP M5 (green) do not vary from panel to panel because neither model is site-specific. 
-The deviation in trajectory of the ExpCM (red) from the YNGKP M0 (blue) increases from left to right as the mutational constraint of the amino-acid profile increases (logoplots, above). 
-The deviation in trajectory of the YNGKP model with a site-specific $\omega$ value inferred from the ExpCM (yellow, \ref{eq:w_r}) is also positively correlated with the constraint of the site-specific amino-acid profiles but the effect size is smaller. 
+The expected pairwise amino-acid identity for five sites in influenza hemagglutinin (HA) for four different substitution models. 
+The logoplots show the HA amino-acid preferences from a deep mutational scan performed by \cite{doud2016accurate}. 
+The implied dN/dS value was calculated from the ExpCM following \cite{spielman2015relationship}.
 }
 \end{figure}
 
-\skhcomment{Section Outline:}
+Along a single branch, a substitution model transforms sequence divergence to branch length, which under a molecular clock assumption is proportional to time. 
+However, every substitution model has a stationary state, the expected sequence divergence given a very long time, at which the relationship between sequence divergence and time is lost. 
+The stationary state is represented by the long ``tails" in \ref{fig:decay}, where the expected sequence divergence remains constant as time increases. 
 
+A substitution model's stationary state is defined by the parameters in the model and can vary from model to model. 
+Some model features affect how long it takes a model to reach its stationary state, whereas other features affect the stationary state itself. 
+Adding $\Gamma\omega$ rate variation affects the ``path" to the stationary state but does not affect the stationary state itself. 
+In addition, while $\Gamma\omega$ accounts for site-to-site rate variation, the resulting stationary state is identical at each site in the protein. 
+Under these models with uniform stationary states, a mutationally constrained site and a site which tolerates many mutations will have the sequence divergence given a very long time. 
+Models with non-uniform stationary states, by definition, acknowledge that differences in sites will persist even at a very long period of time. 
+The difference in branch length estimation will be most dramatic at constrained sites in the protein. 
+At a constrained site, the ExpCM will estimate a longer branch than the GY94 model because the overall sequence divergence at that site is expected to be small.
 
-\begin{itemize}
-\item Along a single branch, a substitution model transforms sequence divergence to branch lengths, which under a molecular clock is assumed proportional time
-\item Every substitution model has a stationary state, which is the expected sequence divergence at very long time.  
-\begin{itemize}
-\item In the long tails the expected sequence divergence remains constant as time increases. 
-\item The saturation point will affect long branches more than short branches.
-\end{itemize}
-\item Some model features (\ref{fig:model_feature}) affect \textit{how long} it takes to reach the stationary state, whereas others affect the stationary state itself: 
-\begin{itemize}
-\item Adding $\Gamma\omega$ rate variation affects the ``path" to the stationary state but not the stationary state itself. Importantly, the stationary state is identically for every site in the protein if there isn't site-specific amino-acid preferences. (green and blue)
-\item Adding a non-uniform stationary state creates a unique stationary state for each site in the protein (red). Sites which can tolerate many mutations have saturation points which are quite similar to the GY94 saturation point. Constrained sites show a dramatic difference. At a constrained site, ExpCM will estimate a longer branch than the GY94 model because the overall sequence divergence at the site is expected to be small. 
-\item This difference cannot be recapitulated by more complex modeling of the $\omega$ parameter. We can transform the GY94 model into a  site-specific model by inferring a unique $\omega$ value from the ExpCM for each site in the protein. This model (yellow) takes longer to reach the saturation point than the GY94 model but ultimately has the same divergence level at the saturation point. 
-\end{itemize}
-\item No matter how ``well" you model site-to-site rate variation, you will underestimate \textit{very} long branches with a uniform stationary state. 
-\end{itemize}
+This difference in branch length estimation cannot be recapitulated by more complex modeling of the $\omega$ parameter. 
+We transformed the GY94 model into a site-specific model by inferring a unique $\omega$ value from the ExpCM, following the work of \cite{spielman2015relationship}, for each site in the protein. 
+This model takes longer to reach stationary state than the GY94 model ultimately has the same divergence level at stationary state. 
+As this model shows, no matter how ``well" a model accounts for site-to-site rate variation, it will underestimate long branches with a uniform stationary state model.  
 
 \subsection*{Failure to account for site-specificity leads to branch length underestimation.}
 
@@ -269,7 +265,7 @@ The grey, dashed line is the reference line $y=x$, depicting the behavior of a m
 \subsection*{empirical Data}
 
 \begin{figure}[H]
-\centerline{\includegraphics[width=0.9\textwidth]{figures/empirical_trees}}
+\centerline{\includegraphics[width=0.9\textwidth]{figures/empirical_trees.pdf}}
 \caption{\label{fig:empirical_trees}
 \textbf{Trees optimized with an ExpCM defined by H1 preferences lengthen branches from the focal H1 sequence compared to YNGKP models.} 
 \jdbcomment{Keep branch lengths in substitutions per site. Make a panel A show a prefs snippet, B H1 trees, C H3 trees, D H1+H3. Maybe increase very small font sizes a bit.}
@@ -278,6 +274,22 @@ The branch lengths are normalized to the distance between A/South Carolina/1/191
 }
 \end{figure}
 
+\begin{table}[t!]
+\caption{\label{tab:empirical_data}
+Model comparison for Fig.~\ref{fig:empirical_trees}.}
+     \begin{tabular}{ccccc}
+        \hline
+          Model & $\Delta$AIC & Log Likelihood & Parameters\\ \hline
+       	ExpCM + $\Gamma\omega$ (average) & 0.00 & -48751.16 & $\omega$ = (0.19,  0.50,  0.90,  1.86), $\beta=1.70$, $\kappa=3.73$\\
+	ExpCM (average) & 949.70 & -49227.01 & $\beta=1.78$, $\kappa=3.40$, $\omega=0.15$\\
+	ExpCM + $\Gamma\omega$ (H1) & 1306.44 & -49404.38  & $\omega$ = (0.13 ,  0.44,  0.91,  2.16), $\beta=1.12$, $\kappa=3.64$\\
+	ExpCM + $\Gamma\omega$ (H3) & 1737.40 & -49619.86 & $\omega$ = (0.09,  0.33,  0.72,  1.77), $\beta=1.28$, $\kappa=3.71$\\
+	ExpCM (H1) & 2555.58 & -50029.95 & $\beta=1.22$, $\kappa=3.24$, $\omega=0.13$\\
+	ExpCM (H3) & 3196.50 & -50350.41 & $\beta=1.45$, $\kappa=3.38$, $\omega=0.12$\\
+	GY94 + $\Gamma\omega$ & 4719.34 & -51105.83 & $\omega$ = (0.00,  0.03,  0.08,  0.26), $\kappa=3.18$\\
+	GY94 & 7624.64 & -52559.48  & $\kappa=2.89$, $\omega=0.07$\\
+      \end{tabular}
+\end{table}
 
 \skhcomment{Section Outline:}
 
@@ -332,7 +344,14 @@ The branch lengths are in average number of codon substitutions per site.
 \end{itemize}
 \end{itemize}
 
-\subsection*{texttt{phylobayes}}
+\subsection*{\texttt{phylobayes}}
+
+\begin{figure}[H]
+\centerline{\includegraphics[width=0.5\textwidth]{figures/phylobayes.pdf}}
+\caption{\label{fig:phylobayes}
+\textbf{Comparison of ExpCM and phylobayes}
+}
+\end{figure}
 
 \section*{Conclusion}
 
