@@ -5,6 +5,12 @@ SKH 20180117
 import glob
 import Bio.SeqIO
 import pandas as pd
+from phydmslib import constants
+import pandas as pd
+import numpy as np
+from pymodules.utils import *
+import dms_tools2.plot
+
 
 # Globals ---------------------------------------------------------------------
 # Directories
@@ -25,7 +31,17 @@ BURNIN = int(N_STEPS * 0.1)
 
 rule all:
     input:
-        expand("_done_{alignment_id}.txt", alignment_id=ALIGNMENT_IDS)
+        expand("outputs/{aligment_id}_prefs.csv", aligment_id=ALIGNMENT_IDS),
+        "outputs/branch_lengths.csv",
+        "outputs/norm_branch_lengths.csv",
+        "outputs/all_branch_lengths.csv",
+        "outputs/old_norm_branch_lengths.csv",
+        "outputs/all_branch_lengths_norm.csv",
+        "outputs/model_by_model.csv",
+        "outputs/model_by_model_norm.csv",
+        "outputs/corr.pdf",
+        "outputs/HA_hybridDoud_prefs_rescale.csv",
+        "outputs/corr_rescale.pdf"
 
 rule create_phylip_files:
     """
@@ -112,3 +128,351 @@ rule run_sbatch:
         monitor = "_done_{alignment_id}.txt"
     shell:
         "sbatch {input.sbatch}"
+
+rule create_prefs:
+    """
+    This rule creates `phydms` formatted "preference" files from the
+    `phylobayes` outputs
+    """
+    message: "Creating prefs"
+    input:
+        aap = "_{aligment_id}.aap"
+    output:
+        prefs = "outputs/{aligment_id}_prefs.csv"
+    run:
+        aas = list(constants.AA_TO_INDEX.keys())
+        aas.sort() #ABC order
+        df = pd.read_csv(input.aap, sep="\t", skiprows=1, header=None)
+        df=df.dropna(axis=1,how='all') # sometimes is an all NA col
+        df.columns = aas
+        assert np.allclose(df.sum(axis=1), pd.Series([1 for x in range(len(df))])), "Rows do not sum to 1"
+        df["site"] = [x+1 for x in range(len(df))]
+        final_cols = ["site"] + aas
+        df = df[final_cols]
+        df.to_csv(output.prefs, index=False)
+
+# Make summary files
+rule calc_branch_lengths:
+    """
+    The purpose of this rule is to calculate all pairwise branches
+    for the bootstrap and pairwise alignments.
+    """
+    message: "Calculate branch lengths"
+    input:
+        true_runs = expand("_{alignment_id}.con.tre", alignment_id=ALIGNMENT_IDS),
+        maps = expand("_map_{alignment_id}.csv", alignment_id=ALIGNMENT_IDS)
+    output:
+        summary = "outputs/branch_lengths.csv"
+    run:
+        final_cols = ["seq_id", "sequence1", "sequence2", "model", "distance",
+                      "alignment_id", "alignment_ref", "divergence_level",
+                      "from_ref"]
+        final = []
+        # for run in input.true_runs + input.bootstrap_runs:
+        for run in input.true_runs:
+            bootstrap = run.split("/")[0]
+            alignment_id = "_".join(os.path.basename(run).split(".")[0].split("_")[1:])
+            m = pd.read_csv("_map_{0}.csv".format(alignment_id))
+            m =dict(zip(m['new_name'], m['old_name']))
+            model_name = "pb"
+            df = calc_distances(run)
+            df["model"] = [model_name for x in range(len(df))]
+            df["alignment_id"] = [alignment_id for x in range(len(df))]
+            df["alignment_ref"] = [alignment_id.split("_")[0] for x in
+                                   range(len(df))]
+            df["divergence_level"] = [alignment_id.split("_")[1]
+                                      for x in range(len(df))]
+            df["from_ref"] = ['WSN' if "Wilson-Smith" in x else 'Perth'
+                              if "Perth" in x else 'no' for x
+                              in df["seq_id"]]
+            # fix the naming
+            df["sequence1"] = [m[x] for x in df["sequence1"]]
+            df["sequence2"] = [m[x] for x in df["sequence2"]]
+            final_seq_ids = []
+            for index, row in df.iterrows():
+                temp = [row["sequence1"], row["sequence2"]]
+                temp.sort()
+                final_seq_ids.append("{0}_{1}".format(temp[0], temp[1]))
+            df["seq_id"] = final_seq_ids
+            final.append(df)
+        final = pd.concat(final)
+        final = final[final_cols]
+        final.to_csv(output.summary, index=False)
+
+rule norm_branch_lengths:
+    """
+    The purpose of this rule is to normalize all of the branch lengths
+    """
+    message: "Norm branch lengths"
+    input:
+        branch_lengths = "outputs/branch_lengths.csv"
+    output:
+        norm = "outputs/norm_branch_lengths.csv"
+    params:
+        target1 = "cds_AAD17229_A/South_Carolina/1/1918_1918//_HA_HA_1",
+        target2 = "cds_ABU50586_A/Solomon_Islands/3/2006_2006/08/21_HA_HA_1"
+    run:
+        target = [params.target1, params.target2]
+        target.sort()
+        target = "{0}_{1}".format(target[0], target[1])
+        bl = pd.read_csv(input.branch_lengths)
+        final = []
+        for name, group in bl.groupby(["alignment_id"]):
+            if "H3" not in name:
+                norm_distance = group[group["seq_id"] == target]["distance"].iloc[0]
+                group["distance"] = [x/norm_distance for x in group["distance"]]
+                final.append(group)
+        final = pd.concat(final)
+        final.to_csv(output.norm, index=False)
+
+rule norm_branch_lengths_old:
+    """
+    The purpose of this rule is to normalize all of the branch lengths
+    """
+    message: "Norm branch lengths (old)"
+    input:
+        branch_lengths = "../HA/branch_lengths/outputs/branch_lengths.csv"
+    output:
+        norm = "outputs/old_norm_branch_lengths.csv"
+    params:
+        target1 = "cds_AAD17229_A/South_Carolina/1/1918_1918//_HA_HA_1",
+        target2 = "cds_ABU50586_A/Solomon_Islands/3/2006_2006/08/21_HA_HA_1"
+    run:
+        target = [params.target1, params.target2]
+        target.sort()
+        target = "{0}_{1}".format(target[0], target[1])
+        bl = pd.read_csv(input.branch_lengths)
+        final = []
+        for name, group in bl.groupby(["alignment_id", "model", "pref_set"]):
+            if "H3" not in name[0]:
+                norm_distance = group[group["seq_id"] == target]["distance"]
+                print(name)
+                print(group[group["seq_id"] == target])
+                assert len(norm_distance) == 1
+                norm_distance = norm_distance.iloc[0]
+                group["distance"] = [x/norm_distance for x in group["distance"]]
+                final.append(group)
+        final = pd.concat(final)
+        final.to_csv(output.norm, index=False)
+
+rule add_in_old_data:
+    """
+    The purpose of this rule is to add in the old data from the ExpCMs
+    """
+    message: "Adding in old data"
+    input:
+        old = "../HA/branch_lengths/outputs/branch_lengths.csv",
+        new = "outputs/branch_lengths.csv"
+    output:
+        branch_lengths = "outputs/all_branch_lengths.csv"
+    run:
+        old = pd.read_csv(input.old)
+        old = old.drop('bootstrap', axis=1)
+        old = old[old["model"].isin(["ExpCM", "ExpCM_gammaomega"])]
+        final_model = []
+        for index, row in old.iterrows():
+            final_model.append("{0}_{1}".format(row["model"], row["pref_set"]))
+        old["model"] = final_model
+        new = pd.read_csv(input.new)
+        new = pd.concat([old, new])
+        new.to_csv(output.branch_lengths, index=False)
+
+rule add_in_old_data_norm:
+    """
+    The purpose of this rule is to add in the old data from the ExpCMs
+    """
+    message: "Adding in old data (norm)"
+    input:
+        old = "outputs/old_norm_branch_lengths.csv",
+        new = "outputs/norm_branch_lengths.csv"
+    output:
+        branch_lengths = "outputs/all_branch_lengths_norm.csv"
+    run:
+        old = pd.read_csv(input.old)
+        old = old.drop('bootstrap', axis=1)
+        old = old[old["model"].isin(["ExpCM", "ExpCM_gammaomega"])]
+        final_model = []
+        for index, row in old.iterrows():
+            final_model.append("{0}_{1}".format(row["model"], row["pref_set"]))
+        old["model"] = final_model
+        new = pd.read_csv(input.new)
+        new = pd.concat([old, new])
+        new.to_csv(output.branch_lengths, index=False)
+
+rule make_model_by_model:
+    """
+    The purpose of this rule is to reformat the branch lengths summary file
+    to make it easy for plotting.
+    """
+    message: "Creating model by model"
+    input:
+        branch_lengths = "outputs/all_branch_lengths.csv"
+    output:
+        model_by_model = "outputs/model_by_model.csv"
+    run:
+        final = []
+        model_pairs = {
+                       "pb": ["ExpCM_average", "ExpCM_gammaomega_average"],
+                       }
+        df = pd.read_csv(input.branch_lengths)
+        for alignment, alignment_df in df.groupby(["alignment_id"]):
+            for model_1, model_1_df in alignment_df.groupby(["model"]):
+                if model_1 in list(model_pairs.keys()):
+                    first = model_1_df[["seq_id", "distance"]]
+                    for model_2, temp in alignment_df.groupby(["model"]):
+                        if model_2 in model_pairs[model_1]:
+                            model_pair = "{0}/{1}".format(model_1, model_2)
+                            temp["model_pair"] = [model_pair for x in
+                                                  range(len(temp))]
+                            temp = temp.rename(columns={"distance":
+                                                        "distance2"})
+                            temp = temp.drop(['model'], axis=1)
+                            temp = temp.merge(first, on=['seq_id'])
+                            temp = temp.rename(columns={"distance":
+                                                        "distance1"})
+                            final.append(temp)
+        final = pd.concat(final)
+        final.to_csv(output.model_by_model, index=False)
+
+rule make_model_by_model_norm:
+    """
+    The purpose of this rule is to reformat the branch lengths summary file
+    to make it easy for plotting.
+    """
+    message: "Creating model by model (norm)"
+    input:
+        branch_lengths = "outputs/all_branch_lengths_norm.csv"
+    output:
+        model_by_model = "outputs/model_by_model_norm.csv"
+    run:
+        final = []
+        model_pairs = {
+                       "pb": ["ExpCM_average", "ExpCM_gammaomega_average", "ExpCM_Doud", "ExpCM_gammaomega_Doud", "ExpCM_Lee", "ExpCM_gammaomega_Lee"],
+                       }
+        df = pd.read_csv(input.branch_lengths)
+        for alignment, alignment_df in df.groupby(["alignment_id"]):
+            for model_1, model_1_df in alignment_df.groupby(["model"]):
+                if model_1 in list(model_pairs.keys()):
+                    first = model_1_df[["seq_id", "distance"]]
+                    for model_2, temp in alignment_df.groupby(["model"]):
+                        if model_2 in model_pairs[model_1]:
+                            model_pair = "{0}/{1}".format(model_1, model_2)
+                            temp["model_pair"] = [model_pair for x in
+                                                  range(len(temp))]
+                            temp = temp.rename(columns={"distance":
+                                                        "distance2"})
+                            temp = temp.drop(['model'], axis=1)
+                            temp = temp.merge(first, on=['seq_id'])
+                            temp = temp.rename(columns={"distance":
+                                                        "distance1"})
+                            final.append(temp)
+        final = pd.concat(final)
+        final.to_csv(output.model_by_model, index=False)
+
+rule make_corr_plot:
+    """
+    The purpose of this rule is to make the correlation plot between DMS/pb and
+    between DMS/pb.
+    """
+    message: "Make corr plots"
+    input:
+        dms_prefs = ["../HA/data/references/HA_hybridDoud_prefs.csv", "../HA/data/references/HA_hybridLee_prefs.csv", "../HA/data/references/HA_average_prefs.csv"],
+        pb_prefs = ["outputs/hybrid_high_0_prefs.csv", "outputs/hybrid_lowH1_0_prefs.csv", "outputs/hybrid_lowH3_0_prefs.csv"]
+    output:
+        corr = "outputs/corr.pdf"
+    run:
+        prefs_names = ['pb high', 'pb low_H1', 'pb low_H3',
+                       'DMS Doud', 'DMS Lee', 'DMS average']
+
+        allHAprefs = input.pb_prefs + input.dms_prefs
+        print(prefs_names)
+        print(allHAprefs)
+
+        # how to color scatter plots depending on which homologs
+        # this will break for different numbers of homologs
+        colors = (['rebeccapurple'] * 3 + ['gray'] * 6 + ['saddlebrown'] +
+                  ['gray'] * 3 + ['saddlebrown'] * 2)
+
+        dms_tools2.plot.plotCorrMatrix(prefs_names,
+                                       allHAprefs,
+                                       output.corr,
+                                       'prefs',
+                                       trim_unshared=True,
+                                       colors=colors)
+
+rule rescale_prefs:
+    """
+    The purpose of this script is to rescale the DMS prefs.
+
+    Doud/Lee will be rescaled with the $\beta$ from the low divergence
+    alignments and the average will be rescaled with the beta from the high
+    divergence alignment.
+    """
+    message: "Rescale prefs"
+    input:
+        doud = "../HA/data/references/HA_hybridDoud_prefs.csv",
+        lee = "../HA/data/references/HA_hybridLee_prefs.csv",
+        avg = "../HA/data/references/HA_average_prefs.csv"
+    output:
+        doud = "outputs/HA_hybridDoud_prefs_rescale.csv",
+        lee = "outputs/HA_hybridLee_prefs_rescale.csv",
+        avg = "outputs/HA_average_prefs_rescale.csv"
+    params:
+        doud = "1.56",
+        lee = "2.08",
+        avg = "1.78"
+    run:
+        df = pd.read_csv(input.doud)
+        df = df.drop('site', axis=1)
+        df = df ** float(params.doud)
+        df = df.div(df.sum(axis=1), axis=0)
+        assert np.allclose(df.sum(axis=1), pd.Series([1 for x in range(len(df))])), "Rows do not sum to 1"
+        df["site"] = [x+1 for x in range(len(df))]
+        df.to_csv(output.doud, index=False)
+
+        df = pd.read_csv(input.lee)
+        df = df.drop('site', axis=1)
+        df = df ** float(params.lee)
+        df = df.div(df.sum(axis=1), axis=0)
+        assert np.allclose(df.sum(axis=1), pd.Series([1 for x in range(len(df))])), "Rows do not sum to 1"
+        df["site"] = [x+1 for x in range(len(df))]
+        df.to_csv(output.lee, index=False)
+
+        df = pd.read_csv(input.avg)
+        df = df.drop('site', axis=1)
+        df = df ** float(params.avg)
+        df = df.div(df.sum(axis=1), axis=0)
+        assert np.allclose(df.sum(axis=1), pd.Series([1 for x in range(len(df))])), "Rows do not sum to 1"
+        df["site"] = [x+1 for x in range(len(df))]
+        df.to_csv(output.avg, index=False)
+
+rule make_corr_plot_rescale:
+    """
+    The purpose of this rule is to make the correlation plot between DMS/pb and
+    between DMS/pb.
+    """
+    message: "Make corr plots"
+    input:
+        dms_prefs = ["outputs/HA_hybridDoud_prefs_rescale.csv", "outputs/HA_hybridLee_prefs_rescale.csv", "outputs/HA_average_prefs_rescale.csv"],
+        pb_prefs = ["outputs/hybrid_high_0_prefs.csv", "outputs/hybrid_lowH1_0_prefs.csv", "outputs/hybrid_lowH3_0_prefs.csv"]
+    output:
+        corr = "outputs/corr_rescale.pdf"
+    run:
+        prefs_names = ['pb high', 'pb low_H1', 'pb low_H3',
+                       'DMS Doud', 'DMS Lee', 'DMS average']
+
+        allHAprefs = input.pb_prefs + input.dms_prefs
+        print(prefs_names)
+        print(allHAprefs)
+
+        # how to color scatter plots depending on which homologs
+        # this will break for different numbers of homologs
+        colors = (['rebeccapurple'] * 3 + ['gray'] * 6 + ['saddlebrown'] +
+                  ['gray'] * 3 + ['saddlebrown'] * 2)
+
+        dms_tools2.plot.plotCorrMatrix(prefs_names,
+                                       allHAprefs,
+                                       output.corr,
+                                       'prefs',
+                                       trim_unshared=True,
+                                       colors=colors)
