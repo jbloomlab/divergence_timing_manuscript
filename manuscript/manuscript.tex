@@ -139,7 +139,7 @@ Failing to account for these site-specific constraints will lead to branch lengt
 \skhcomment{you will have mutational saturation no matter what - this is a separate, addressable issue?}
 \skhcomment{talk about the high mutation rate in viruses?}
 
-Substitution models that incorportate site-to-site rate variation have been developed to decrease the bias in long branch estimation. 
+Substitution models that incorporate site-to-site rate variation have been developed to decrease the bias in long branch estimation. 
 The most common strategy is to allow a single rate-controlling parameter to vary according to some statistical distribution, such as a $\Gamma$-distributed $\omega$ (~dN/dS) \citep{yang2000codon}. 
 This flexibility in the value of $\omega$ accounts for the site-to-site rate variation by allow some sites to have a higher dN/dS value than others. 
 While this modification is simple and only requires the addition of one extra parameter, it does not describe site-specificity in its stationary state. 
@@ -240,7 +240,6 @@ As this model shows, no matter how ``well" a model accounts for site-to-site rat
 \centerline{\includegraphics[width=0.85\textwidth]{figures/simulations}}
 \caption{\label{simulations}
 \textbf{Model performance under simulated, site-specific data.} 
-\jdbcomment{Fonts are small, and tick labels definitely too small. I would show averaged.}
 Alignments were simulated under an ExpCM (\ref{tab:sim_params}) along an HA tree and the branches were re-optimized by a model from the ExpCM or YNGKP family. 
 The randomized ExpCMs have amino-acid profiles shuffled among the sites 
 These randomized models are still site-specific but the relationship between the site and the experimental data is broken. 
@@ -249,18 +248,20 @@ The grey, dashed line is the reference line $y=x$, depicting the behavior of a m
 }
 \end{figure}
 
-\skhcomment{Section Outline:}
+First, we wanted to test the effect of substitution models on branch length estimation given sequences with site-specific amino-acid frequencies. 
+To this end, we simulated sequences under and ExpCM and re-inferred the branch lengths using the different substitution models described in \ref{fig:model_feature}C. 
+This allowed us to test whether or not a model with a uniform stationary state could accurately estimate branch lengths and, if not, whether or not the addition of $\Gamma\omega$ could prevent branch length underestimation. 
 
-\begin{itemize}
-\item To test the effect of substitution model on data with site-specific amino acid frequencies, we simulated sequences under an ExpCM and re-inferred the branch lengths using different substitution models.
-\item Uniform stationary state models underestimate long branches
-\begin{itemize}
-\item Both the GY94 and the GY94+$\Gamma\omega$ underestimate long branches. The $\Gamma\omega$ rate variation scheme is not enough to prevent this underestimation at every long branches. 
-\item Another uniform stationary state model, the averaged ExpCM, also underestimates long branches. This model derives some information from the experiments but lacks site-specificity. 
-\item Non-uniform stationary state models accurately estimate long branches (both the ExpCM and ExpCM+$\Gamma\omega$
-\end{itemize}
-\item If sequences have site-specific amino acid frequencies then non-uniform stationary state models, even with $\Gamma\omega$, will underestimate long branches.
-\end{itemize}
+As expected, the ExpCM and ExpCM+$\Gamma\omega$ estimated the branch lengths of the simulated sequences accurately. 
+As the branch lengths increase, the variance in the estimation of an given branch increases between the simulations but this error is not biased towards over- or underestimation.
+
+The models with a uniform stationary state consistently underestimate the long branches. 
+This underestimation is seen with both the GY94 and the GY94+$\Gamma\omega$, indicating that accounting for rate variation via the rate parameter cannot prevent branch length underestimation at these long branches. 
+The ExpCM can also be transformed into a uniform stationary state model by setting the amino-acid at every site to the average value for that amino acid across all sites. 
+In contrast to the GY94 models, this average control does not have preference for amino acid and does extract some information from the experiments, but like the GY94 models the stationary state is uniform across sites. 
+These models performed similarly to the GY94 and GY94+$\Gamma\omega$ and underestimate long branches. 
+
+These simulations show that when the sequences have site-specific amino-acid frequencies, models with uniform stationary states cannot accurately estimate branch lengths and, will in fact, underestimate long branches. 	
 
 \subsection*{empirical Data}
 
