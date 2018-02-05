@@ -281,8 +281,8 @@ Model comparison for Fig.~\ref{fig:empirical_trees}.}
      \begin{tabular}{ccccc}
         \hline
           Model & $\Delta$AIC & Log Likelihood & Parameters\\ \hline
-       	ExpCM + $\Gamma\omega$ (average) & 0.00 & -48751.16 & $\omega$ = (0.19,  0.50,  0.90,  1.86), $\beta=1.70$, $\kappa=3.73$\\
-	ExpCM (average) & 949.70 & -49227.01 & $\beta=1.78$, $\kappa=3.40$, $\omega=0.15$\\
+       	ExpCM + $\Gamma\omega$ (H1+H3 average) & 0.00 & -48751.16 & $\omega$ = (0.19,  0.50,  0.90,  1.86), $\beta=1.70$, $\kappa=3.73$\\
+	ExpCM (H1+H3 average) & 949.70 & -49227.01 & $\beta=1.78$, $\kappa=3.40$, $\omega=0.15$\\
 	ExpCM + $\Gamma\omega$ (H1) & 1306.44 & -49404.38  & $\omega$ = (0.13 ,  0.44,  0.91,  2.16), $\beta=1.12$, $\kappa=3.64$\\
 	ExpCM + $\Gamma\omega$ (H3) & 1737.40 & -49619.86 & $\omega$ = (0.09,  0.33,  0.72,  1.77), $\beta=1.28$, $\kappa=3.71$\\
 	ExpCM (H1) & 2555.58 & -50029.95 & $\beta=1.22$, $\kappa=3.24$, $\omega=0.13$\\
@@ -351,6 +351,7 @@ The branch lengths are in average number of codon substitutions per site.
 \centerline{\includegraphics[width=0.5\textwidth]{figures/phylobayes.pdf}}
 \caption{\label{fig:phylobayes}
 \textbf{Comparison of ExpCM and phylobayes}
+\skhcomment{y=x line too faint?}
 }
 \end{figure}
 
@@ -448,13 +449,13 @@ where $a$ is all amino acids, $p_{r,x}$ is the stationary state of the model at 
 }
 \end{suppfig}
 
-\begin{figure}[H]
+\begin{suppfig}[H]
 \centerline{\includegraphics[width=\textwidth]{figures/prefs_average}}
 \caption{\label{fig:prefs_average}
 \textbf{The average of the H1 preferences measured by \cite{doud2016accurate} and the H3 preferences measured by \textit{Lee} rescaled with the ExpCM stringency parameter optimized in \ref{fig:tree_average}A  ($\beta = 1.77$)}}
 \skhcomment{I need to change the $\beta$ value when the new \texttt{phydms} results finish running.}
-\end{figure}
-
+\end{suppfig}
+ 
 
 
 \begin{table}[t!]
