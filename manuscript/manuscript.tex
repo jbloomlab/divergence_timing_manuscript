@@ -284,18 +284,18 @@ These simulations show that when the sequences have site-specific amino-acid fre
 
 \begin{table}[t!]
 \caption{\label{tab:empirical_data}
-Model comparison for Fig.~\ref{fig:empirical_trees}.}
-     \begin{tabular}{ccccc}
+Model comparison for Fig.~\ref{fig:empirical_trees}.\skhcomment{GY94+$\Gamma\omega$ has one $\omega$ of 0 because of rounding.}} 
+     \begin{tabular}{cccccccccc}
         \hline
-          Model & $\Delta$AIC & Log Likelihood & Parameters\\ \hline
-       	ExpCM + $\Gamma\omega$ (H1+H3 average) & 0.00 & -48751.16 & $\omega$ = (0.19,  0.50,  0.90,  1.86), $\beta=1.70$, $\kappa=3.73$\\
-	ExpCM (H1+H3 average) & 949.70 & -49227.01 & $\beta=1.78$, $\kappa=3.40$, $\omega=0.15$\\
-	ExpCM + $\Gamma\omega$ (H1) & 1306.44 & -49404.38  & $\omega$ = (0.13 ,  0.44,  0.91,  2.16), $\beta=1.12$, $\kappa=3.64$\\
-	ExpCM + $\Gamma\omega$ (H3) & 1737.40 & -49619.86 & $\omega$ = (0.09,  0.33,  0.72,  1.77), $\beta=1.28$, $\kappa=3.71$\\
-	ExpCM (H1) & 2555.58 & -50029.95 & $\beta=1.22$, $\kappa=3.24$, $\omega=0.13$\\
-	ExpCM (H3) & 3196.50 & -50350.41 & $\beta=1.45$, $\kappa=3.38$, $\omega=0.12$\\
-	GY94 + $\Gamma\omega$ & 4719.34 & -51105.83 & $\omega$ = (0.00,  0.03,  0.08,  0.26), $\kappa=3.18$\\
-	GY94 & 7624.64 & -52559.48  & $\kappa=2.89$, $\omega=0.07$\\
+         Model & {\shortstack{Stationary\\ State}} & $\Gamma\omega$ & $\Delta$AIC & {\shortstack{Log\\ Likelihood}} & {\shortstack{$\omega$\\ (implied dN/dS)}} & {\shortstack{stringency\\ parameter}}\\ \hline
+       	ExpCM + $\Gamma\omega$ (H1+H3 avg) & yes & yes & 0 & -487510 & 0.19,  0.50,  0.90,  1.86 &  1.70, \\
+	ExpCM (H1+H3 avg) & yes & no &  950 & -492270 & 0.15 & 1.78\\
+	ExpCM + $\Gamma\omega$ (H1) & yes & yes & 13060 & -494040  & 0.13 ,  0.44,  0.91,  2.16 & 1.12\\
+	ExpCM + $\Gamma\omega$ (H3) & yes & yes & 17370 & -49620 & 0.09,  0.33,  0.72,  1.77 & 1.28\\
+	ExpCM (H1) & yes & no & 2556 & -50030 &  0.13 & 1.22\\
+	ExpCM (H3) & yes & no &  3197 & -50350 & 0.12 & 1.45\\
+	GY94 + $\Gamma\omega$ & no & yes & 4719 & -51106 & 0.00,  0.03,  0.08,  0.26 & N/A \\
+	GY94 & no & no & 7625 & -52560  & 0.07 & N/A\\
       \end{tabular}
 \end{table}
 
