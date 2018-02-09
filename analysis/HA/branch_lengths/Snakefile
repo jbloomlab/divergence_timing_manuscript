@@ -39,10 +39,9 @@ rule all:
     input:
         expand("phydms/hybrid_{level}_{seed}_modelcomparison.md",level=LEVELS,
             seed=SEEDS),
-        "outputs/branch_lengths.csv"
-        # "outputs/branch_lengths.csv",
-        # "outputs/model_by_model.csv",
-        # "outputs/params.csv"
+        "outputs/branch_lengths.csv",
+        "outputs/model_by_model.csv",
+        "outputs/params.csv"
 
 # Run `phydms_comprehensive` for each of the preference sets (next 3 rules)
 rule run_phydms_Lee:
@@ -184,7 +183,7 @@ rule calc_branch_lengths:
     run:
         final_cols = ["seq_id", "sequence1", "sequence2", "model", "distance",
                       "alignment_id", "alignment_ref", "divergence_level",
-                      "bootstrap", "from_ref", "pref_set"]
+                       "from_ref", "pref_set"]
         final = []
         # for run in input.true_runs + input.bootstrap_runs:
         for run in input.true_runs:
@@ -214,7 +213,7 @@ rule calc_branch_lengths:
                                            range(len(df))]
                     df["divergence_level"] = [alignment_id.split("_")[1]
                                               for x in range(len(df))]
-                    df["bootstrap"] = [bootstrap for x in range(len(df))]
+                    # df["bootstrap"] = [bootstrap for x in range(len(df))]
                     df["from_ref"] = ['WSN' if "Wilson-Smith" in x else 'Perth'
                                       if "Perth" in x else 'no' for x
                                       in df["seq_id"]]
@@ -237,20 +236,34 @@ rule make_model_by_model:
     run:
         final = []
         model_pairs = {
-                       "ExpCM": ["GY94"],
-                       "GY94_gammaomega": ["GY94"],
-                       "ExpCM_gammaomega": ["ExpCM", "GY94_gammaomega"]
+                       ("ExpCM", "average"): [("GY94", 0)],
+                       ("GY94_gammaomega", "average"): [("GY94", 0)],
+                       ("ExpCM_gammaomega", "average"): [("ExpCM", "average"), ("GY94_gammaomega", "average")],
+                       ("ExpCM", "Doud"): [("GY94", 0)],
+                       ("GY94_gammaomega", "Doud"): [("GY94", 0)],
+                       ("ExpCM_gammaomega", "Doud"): [("ExpCM", "Doud"), ("GY94_gammaomega", 0)],
+                                          ("ExpCM", "Lee"): [("GY94", 0)],
+                                          ("GY94_gammaomega", "Lee"): [("GY94", 0)],
+                                          ("ExpCM_gammaomega", "Lee"): [("ExpCM", "Lee"), ("GY94_gammaomega", 0)]
                        }
         df = pd.read_csv(input.branch_lengths)
+        df = df.fillna(0)
         for alignment, alignment_df in df.groupby(["alignment_id"]):
-            for model_1, model_1_df in alignment_df.groupby(["model"]):
+            for model_1, model_1_df in alignment_df.groupby(["model", "pref_set"]):
                 if model_1 in list(model_pairs.keys()):
                     first = model_1_df[["seq_id", "distance"]]
-                    for model_2, temp in alignment_df.groupby(["model"]):
+                    for model_2, temp in alignment_df.groupby(["model", "pref_set"]):
                         if model_2 in model_pairs[model_1]:
-                            model_pair = "{0}/{1}".format(model_1, model_2)
+                            long_name = "{0}_{1}/{2}_{3}".format(model_1[0],
+                                                                 model_1[1],
+                                                                 model_2[0],
+                                                                 model_2[1])
+                            model_pair = "{0}/{1}".format(model_1[0],
+                                                          model_2[0])
                             temp["model_pair"] = [model_pair for x in
                                                   range(len(temp))]
+                            temp["model_pair_long"] = [long_name for x in
+                                                       range(len(temp))]
                             temp = temp.rename(columns={"distance":
                                                         "distance2"})
                             temp = temp.drop(['model'], axis=1)
@@ -281,10 +294,12 @@ rule summarize_betas:
                 if ("randomized" not in model_param) and ("averaged" not in
                                                           model_param):
                     model_name = extract_model_name(model_param)
+                    pref_name = extract_pref_name(model_param)
                     temp = pd.read_csv(model_param, sep=" = ", header=None,
                                        engine="python")
                     temp.columns = ["param", "value"]
                     temp["model"] = [model_name[0] for x in range(len(temp))]
+                    temp["pref_set"] = [pref_name for x in range(len(temp))]
                     temp["alignment_id"] = [alignment_id for x in
                                             range(len(temp))]
                     temp["alignment_ref"] = [alignment_id.split("_")[0] for x

@@ -93,3 +93,25 @@ def calc_distances(treePath):
         df["distance"].append(t.get_distance(seqs[0], seqs[1]))
     df = pd.DataFrame(df)
     return df
+
+def extract_pref_name(model_string):
+    """
+    This function takes a tree output file from phydms and extracts the name
+    preference set.
+    input:
+        `str`, tree file name
+    output:
+        `str`, pref name
+    """
+    if "HA_average_prefs" in model_string:
+        return "average"
+    elif "Doud" in model_string:
+        assert ("HA_Doud_prefs" in model_string) or ("HA_hybridDoud_prefs" in model_string), "Unexpected pref set {0}".format(model_string)
+        return "Doud"
+    elif "Lee" in model_string:
+        assert ("HA_Lee_prefs" in model_string) or ("HA_hybridLee_prefs" in model_string), "Unexpected pref set {0}".format(model_string)
+        return "Lee"
+    elif "YNGKP" in model_string:
+        return "N/A"
+    else:
+        raise ValueError("Cannot parse model string {0}".format(model_string))
