@@ -223,39 +223,23 @@ The implied dN/dS value was calculated from the ExpCM following \cite{spielman20
 }
 \end{figure}
 
-Given a single branch, a substitution model transforms sequence divergence into branch length. 
-Under the molecular clock assumption, this branch length is proportional to time. 
+Given a single branch, a substitution model transforms sequence divergence into branch length, which is proportional to time under a molecular clock assumption. 
 However, every substitution model has a stationary state, defining the expected sequence composition after a long evolutionary time. 
-This stationary state can be used to calculate the expected amino-acid divergence a very long amount of time has elapsed. 
-(Rate only affects how fast asymptotic divergence approached, whereas). 
-In \ref{fig:decay}, the stationary state is represented by the ``long" tails where the expected sequence divergence remains constant as time increases. 
-
-This is a fundamental feature. 
-The stationary state is principle eigenvector of substitution matrix. 
-Rate variation only multiples by a number, and stationary state of a stochastic matrix is invariant to multiplication. 
-
-Along a single branch, a substitution model transforms sequence divergence into branch length. 
-Under the molecular clock assumption, this branch length is proportional to time.  
-However, every substitution model has a stationary state, defining the expected sequence divergence given a very long time, at which this relationship between sequence divergence and time is lost. 
 In \ref{fig:decay}, the stationary state is represented by the long ``tails" where the expected sequence divergence remains constant as time increases. 
 
-\skhcomment{shorten the following sections}
-The specific parametrization scheme of a model will control features of its stationary state. 
-Comparing GY94 to GY94+$\Gamma\omega$ will change how long it takes for the model to reach the stationary state but it does not change the expected sequence divergence at the stationary state. 
-Furthermore, the GY94 and GY94+$\Gamma\omega$ stationary state is exactly the same at each site in the protein. 
-Site-specific stationary states modulate both the amount of time to reach and the overall divergence level at the stationary state. 
-These differences arise from whether or not the site is modeled as constrained or mutationally tolerant.  
-The stationary state is important to branch length estimation because differences in expected divergence will lead to differences in branch length estimation and branch lengths cannot be estimated with any accuracy when two sequences have reached the divergence level of the stationary state. 
+By definition, the expected sequence composition varies from site to site for the site-specific stationary state models (\ref{fig:decay} ExpCM, red) but is constant across sites for the uniform stationary state models (\ref{fig:decay} GY94, blue).
+The biggest difference in stationary state between the models is at constrained sites, such as site 305 in \ref{fig:decay}. 
+At such a site, the ExpCM would estimate a much longer branch than the GY94 given the observed divergence of a set of sequences. 
 
-The difference in branch length estimation between uniform and site-specific stationary state models will be most dramatic at constrained sites. 
-Most uniform stationary state models define roughly equal frequency of each amino acid, in essence they assume that each site is mutationally tolerant. 
-If the sequence divergence at constrained site is quite small, a site-uniform model will expect a small amount of time to have passed, a short branch, and a site-specific model will expect that a large amount of time has passed, long branch. 
-At a mutationally tolerant site, both models will estimate roughly the same branch length for any given divergence. 
+Rate variation, as modeled by $\Gamma\omega$, affect the rate at which stationary state is approached by not the sequence composition at stationary state itself. 
+Stationary state is a fundamental feature of stochastic matrices and is invariant to multiplicative terms, such as $\omega$. 
+In \ref{fig:decay}, GY94+$\Gamma\omega$ (green) takes longer to reach the stationary state than GY94 (blue) but stationary state for each model is identical. 
 
-This difference in branch length estimation cannot be recapitulated by more complex modeling of the $\omega$ parameter. 
-We transformed the GY94 model into a site-specific model by inferring a unique $\omega$ value from the ExpCM for each site in the protein, following the work of \cite{spielman2015relationship}. 
-This model takes longer to reach stationary state than the GY94 model but, ultimately, has the same divergence level at stationary state. 
-As this model shows, no matter how ``well" a model accounts for site-to-site rate variation, it will underestimate long branches with a uniform stationary state model.  
+This means even complex modeling of the $\omega$ to account for purifying selection will not affect the expectation at evolutionary equilibrium. 
+We inferred a site-specific $\omega$ value from the ExpCM \citep{spielman2015relationship} and applied these values to the GY94 model, GY94+$\Gamma\omega$ (\ref{fig:decay} yellow). 
+At constrained sites, this model takes even longer to reach stationary state than the GY94+$\Gamma\omega$ but the eventual stationary state is identical to both the GY94 and GY94+$\Gamma\omega$ stationary state. 
+
+No matter how ``well" a model accounts for site-to-site rate variation, it will underestimate long branches with a uniform stationary state. 
 
 \subsection*{Failure to account for site-specificity leads to branch length underestimation.}
 
@@ -271,9 +255,14 @@ The grey, dashed line is the reference line $y=x$, depicting the behavior of a m
 }
 \end{figure}
 
-To test the effect of substitution models on branch length estimation given sequences with site-specific amino-acid frequencies we simulated sequences under an ExpCM and re-inferred the branch lengths using the different substitution models described in \ref{fig:model_feature}C.
-As expected, the ExpCM and ExpCM+$\Gamma\omega$ estimated the branch lengths of the simulated sequences accurately. 
-The variance in the estimation of an given branch increases between the simulations increased as branch length increased but this error is not biased towards over- or underestimation.
+Next, we wanted to test the effect of substitution model stationary state on branch length estimation given sequences with site-specific amino-acid frequencies. 
+We simulated sequences under an ExpCM and re-inferred the branch lengths using different substitution models described in \ref{fig:model_feature}C.
+
+The ExpCM and the ExpCM+$\Gamma\omega$ estimated the branch lengths of the simulated sequences accurately. 
+This accuracy is expected as this was the model the sequences were simulated under. 
+The variance in the estimation of a given branch increases between the simulations increased as branch length increased. 
+However, this error is not biased towards over- or underestimation. 
+
 The models with a uniform stationary state consistently underestimate the long branches. 
 This underestimation is seen with both the GY94 and the GY94+$\Gamma\omega$, indicating that accounting for rate variation via the rate parameter cannot prevent branch length underestimation at these long branches. 
 The ExpCM can also be transformed into a uniform stationary state model by setting the amino-acid at every site to the average value for that amino acid across all sites. 
@@ -308,27 +297,38 @@ Model comparison for Fig.~\ref{fig:empirical_trees}.\skhcomment{GY94+$\Gamma\ome
       \end{tabular}
 \end{table}
 
-\skhcomment{Section Outline:}
+Next, we tested the effect of substitution model on branch length estimation using influenza HA sequences. 
+Like the simulated sequences, we assume the influenza HA sequences have site-specific frequencies but unlike the simulations we do not know the underlying model. 
 
-\begin{itemize}
-\item We tested the effect substitution model choice on branch length estimation using influenza HA sequences. 
-\begin{itemize}
-\item These sequences presumably evolve with site-specific frequencies but unlike the simulations we do not \textit{know} the model
-\item These sequences are from fairly diverged proteins. Some sequences share only 40\% identity on the amino acid level 
-\item The HA tree has closely related subtypes with long branches between subtypes. This is good because we are looking for the effect on long branches. 
-\end{itemize}
-\item Both $\Gamma\omega$ and non-uniform stationary states result in an extension of branch lengths. 
-\begin{itemize}
-\item The addition of $\Gamma\omega$ extends branches independent of preferences. 
-\item The addition of preferences extends branches \textit{from the focal sequence} independent of $\Gamma\omega$. 
-\end{itemize}
-\item The extension of branch length from the focal sequence shows that the ExpCM does not have equal "relevance" across the whole tree. 
-\begin{itemize}
-\item This result is not entirely surprising. DMS measure the effects of single amino-acid changes in the context of a single genetic background. 
-\item It is expected that there would be epistatic changes across such a highly diverged phylogenetic tree. ``Shifting preferences".
-\item "Sampling" from both preference sets via preference averaging extends the branch length from both focal sequences.
-\end{itemize}
-\end{itemize}
+Influenza HA proteins are group into two groups, based on phylogenetic and antigenic properties. 
+Each HA subtype within the larger groups contains closely related sequences and is connected to the other HA subtype by long branches. 
+The most diverged homologs on this tree are upwards of 60\% diverged on the amino acid level. 
+Consequently, the HA tree is a good model to look at long branch estimation as the there are numerous long branches spread more or less ``evenly" across the entire tree. 
+
+We built an HA tree sequences from 14 of the 18 subtype groups, excluding subtype groups with very few sequences. 
+Then we optimized the branch lengths on the tree using models from the GY94 and ExpCM families. 
+We compared ExpCMs defined by two different deep mutational scans measured in two different genetic background. 
+One deep mutational scan was measured in an H1 background and the other was measured in an H3 background. 
+The two focal sequences of these deep mutational scan are only 42\% identical. 
+Comparison of these two models allowed us to examine the effect of ExpCM focal sequence on the branch length estimation. 
+Additionally, because the models we used represent all possible combinations of $\Gamma\omega$ rate variation and site-specific stationary state, we were able to examine the effect of each of these features while controlling for the presence of the other. 
+
+The addition of $\Gamma\omega$ rate variation or site-specific stationary state increased the branch lengths estimated. 
+The addition of site-specific stationary state and $\Gamma\omega$ rate variation each increased branch length compared to the model without the feature. 
+The longest branches were estimated with the ExpCM+$\Gamma\omega$, which included both features. 
+
+However, the branch length extension for the ExpCM was not uniform across the entire tree. 
+The longest branch length extension is on branches near the focal sequence of the deep mutational scan. 
+The greatest difference between the GY94 and the ExpCM (H1 preferences) is on branches near the H1 clade (black circle) while the greatest difference between the GY94 and the ExpCM (H3 preferences) is on the branches near the H3 clade (black triangle). 
+This indicates that the stationary state described by the DMS preferences is much more accurate near the focal sequence of the scan. 
+
+This result is not entirely surprising. 
+DMS measures the effect of single amino-acid changes in the context of a single genetic background. 
+However, it is expected that there would be epistatic changes and interactions with such highly diverged homologs. 
+That is, the effect of an amino acid change at one site in the protein might be affected by the amino acid identity at another site in the protein. 
+This would cause the preferences, and consequently the stationary state, to ``shift" across the tree and would explain why there is some locality to our ExpCMs. 
+To test the effect of ``sampling" multiple preference sets, inferred the branch lengths using an ExpCM defined by the average of the H1 and H3 preferences. 
+This model estimated longer branches from both the H1 and H3 clades compared to the GY94 model, indicating that there are these shifts across the entire tree. 
 
 \subsection*{Competing effects of shifting preferences and long branches.}
 
