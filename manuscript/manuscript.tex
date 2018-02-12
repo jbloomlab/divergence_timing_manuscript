@@ -346,34 +346,31 @@ The branch lengths are in average number of codon substitutions per site.
 }
 \end{figure}
 
-\skhcomment{Section Outline:}
+We further investigated the effect of ``shifting" preferences by comparing behavior of ExpCM across trees with increasing overall divergence from the focal sequence of the deep mutational scans. 
+Based on our results with the large HA trees, we expected the preferences to be more "relevant" on trees which have a low overall sequence divergence from the DMS focal sequence. 
 
-\begin{itemize}
-\item We investigated the competing effects of ``shifting preferences" and long branches by comparing ExpCMs with trees of increasing overall divergence from the focal sequence. 
-\item We use the fit stringency parameter $\beta$ as a measure of relevance. 
-\begin{itemize}
-\item The stringency parameter rescales the preferences. A stringency parameter with a value greater than one indicates that selection in nature prefers the same amino acids as selection in lab but with greater strength. 
-\item There is an inverse relationship between the stringency parameter and overall sequence divergence. As the overall divergence of the tree increases, the stringency parameter decreases. 
-\end{itemize}
-\item \skhcomment{hypothetical data} There is also a positive relationship between the stringency parameter and branch lengths 
-\begin{itemize}
-\item We optimized the same tree with ExpCMs with different stringency parameters. 
-\item The ExpCMs with higher stringency values estimate longer branches than the ExpCMs with lower stringency values. 
-\end{itemize}
-\end{itemize}
+We use the value of the ExpCM stringency parameter to measure the ``relevance" of a given DMS preference set and tree. 
+A stringency parameter with a value greater than one indicates that selection in nature prefers the same amino acids as selection in lab but with greater strength, or that the preferences are ``relevant" to evolution in nature. 
+Conversely, when the stringency parameter is fit to a value close to zero, the preferences are not ``relevant" and de-emphasize the measurements from the lab so that the preferences are flat. 
+Using the ExpCM (H1 preferences), we observe an inverse relationship between overall divergence and the stringency. 
+As the tree includes more and more sequences which are further from the focal sequence, the relevance of the preferences declines. 
+This indicates that the preferences truly are most relevant on trees with sequences closely related to the focal sequence (short branches). 
+
+While the preferences are most relevant for the trees with short branches, due to the low divergence from the focal sequence, the effect of site-specific stationary states on branch length estimation is most important on long branches. 
+On the low divergence tree, with the most ``relevant" preferences, roughly the same branch length estimated by the GY94+$\Gamma\omega$  and the ExpCM+$\Gamma\omega$. 
+In fact, it is not until the high divergence tree that a true effect is seen, in the branches from the focal sequences. 
+The effect from site-specific substitution models doesn't really have an effect until the branch lengths are a particular length. 
+
+This leads to a regime with competing effects. 
+As the branch lengths increase, the ``importance" of having a site-specific stationary state increases. 
+At the same time, the ``relevance" of an given site-specific stationary decreases as the divergence increases. 
+Current models which have one stationary state across the entire tree, site-specific or not, will not be able to address this tension. 
 
 \subsection*{\texttt{phylobayes}}
 
-\skhcomment{Section Outline}
-
-\begin{itemize}
-\item \texttt{phylobayes} implements the mutation-selection model in a bayesian framework as a way to avoid overfitting. 
-\item \texttt{phylobayes} and ExpCM (H1+H3 average) estimate branches of roughly equal length 
-\begin{itemize}
-\item the ExpCM estimate longer branches from the focal sequences 
-\item \texttt{phylobayes} estimates longer branches from the non-focal sequences 
-\end{itemize}
-\end{itemize}
+Finally, we compared the branch lengths estimated by ExpCM to branch lengths estimated by another site-specific stationary state model. 
+We inferred the branch lengths on the ``high" divergence tree using the mutation-selection model implement in \texttt{phylobayes}. 
+Unlike the ExpCM, this mutation-selection model in \texttt{phylobayes} 
 
 \begin{figure}[H]
 \centerline{\includegraphics[width=0.5\textwidth]{figures/phylobayes.pdf}}
