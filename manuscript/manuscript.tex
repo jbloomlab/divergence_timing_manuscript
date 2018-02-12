@@ -245,7 +245,7 @@ No matter how ``well" a model accounts for site-to-site rate variation, it will 
 
 \begin{figure}[H]
 \centerline{\includegraphics[width=0.85\textwidth]{figures/simulations}}
-\caption{\label{simulations}
+\caption{\label{fig:simulations}
 \textbf{Model performance under simulated, site-specific data.} 
 Alignments were simulated under an ExpCM along an HA tree and the branches were re-optimized by a model from the ExpCM or YNGKP family. 
 The averaged ExpCMs amino-acid frequencies defined by the average preference of that amino acid across all sites in the protein. 
@@ -255,21 +255,20 @@ The grey, dashed line is the reference line $y=x$, depicting the behavior of a m
 }
 \end{figure}
 
-Next, we wanted to test the effect of substitution model stationary state on branch length estimation given sequences with site-specific amino-acid frequencies. 
-We simulated sequences under an ExpCM and re-inferred the branch lengths using different substitution models described in \ref{fig:model_feature}C.
+Next, we wanted to test the effect of substitution model on branch length estimation given sequences with site-specific amino-acid frequencies. 
+To this end, we simulated sequences under an ExpCM and re-inferred the branch lengths using the models  in \ref{fig:model_feature}C. 
 
-The ExpCM and the ExpCM+$\Gamma\omega$ estimated the branch lengths of the simulated sequences accurately. 
-This accuracy is expected as this was the model the sequences were simulated under. 
-The variance in the estimation of a given branch increases between the simulations increased as branch length increased. 
-However, this error is not biased towards over- or underestimation. 
+Models with uniform stationary state underestimated the branch lengths of the simulated sequences. 
+This underestimation is most pronounced on the long branches, with the GY94 estimating branches which are only $\sim \frac{2}{3}$ of the true branch length (\ref{fig:simulations}).
+Accounting for the site-to-site rate variation by $\Gamma\omega$ does not prevent this underestimation as the GY94+$\Gamma\omega$ estimates roughly the same branch length as the GY94. 
+We also estimated branch lengths using an average ExpCM. 
+These models have a uniform stationary state defined by the average preference of amino acid across all sites. 
+Even these models, which share some information with the model used to simulate the sequences, underestimate the long branches. 
 
-The models with a uniform stationary state consistently underestimate the long branches. 
-This underestimation is seen with both the GY94 and the GY94+$\Gamma\omega$, indicating that accounting for rate variation via the rate parameter cannot prevent branch length underestimation at these long branches. 
-The ExpCM can also be transformed into a uniform stationary state model by setting the amino-acid at every site to the average value for that amino acid across all sites. 
-In contrast to the GY94 models, this average control does not have preference for amino acid and does extract some information from the experiments, but like the GY94 models the stationary state is uniform across sites. 
-These models performed similarly to the GY94 and GY94+$\Gamma\omega$ and underestimated long branches. 
-
-These simulations show that when the sequences have site-specific amino-acid frequencies, models with uniform stationary states cannot accurately estimate branch lengths and, will in fact, underestimate long branches. 	
+As expected neither the ExpCM nor the ExpCM+$\Gamma\omega$ underestimate the long branches. 
+However, the variance between simulations increases as the branch length increases, though this error is not biased towards over- or underestimation. 
+This increase in error despite a perfect model match simply underscores the difficulty of estimating extremely long branches. 
+Despite this universal difficulty, it is clear that models with uniform stationary states will always drastically underestimate the long branch lengths. 
 
 \subsection*{empirical Data}
 
@@ -370,7 +369,14 @@ Current models which have one stationary state across the entire tree, site-spec
 
 Finally, we compared the branch lengths estimated by ExpCM to branch lengths estimated by another site-specific stationary state model. 
 We inferred the branch lengths on the ``high" divergence tree using the mutation-selection model implement in \texttt{phylobayes}. 
-Unlike the ExpCM, this mutation-selection model in \texttt{phylobayes} 
+The amino-acid composition parameters of the mutation-selection model are estimated in a Bayesian framework in \texttt{phylobayes}, rather than defined \textit{a priori} as in the ExpCM. 
+
+Both site-specific stationary state models estimate approximately equivalent branch lengths. 
+For a given branch, the two estimates are not exactly the same but each model estimate roughly the same number of branches as longer and to a very similar effect size. 
+However, the locality of the ExpCM can still be seen. 
+Branch lengths from the focal sequences are enriched in the branches which lengths are estimated to be longer by the ExpCM model. 
+That is, the preferences are still more accurate directly around the focal sequence than the amino-acid composition parameters estimated by \texttt{phylobayes} across the entire tree. 
+Altogether, this shows that site-specific models, even those which define the stationary state by different strategies, estimate longer branch lengths than uniform stationary state models but that epistasis plays a non-trivial role in how accurate a single stationary state can be. 
 
 \begin{figure}[H]
 \centerline{\includegraphics[width=0.5\textwidth]{figures/phylobayes.pdf}}
