@@ -224,7 +224,8 @@ The implied dN/dS value was calculated from the ExpCM following \cite{spielman20
 \end{figure}
 
 Given a single branch, a substitution model transforms sequence divergence into branch length, which is proportional to time under a molecular clock assumption. 
-However, every substitution model has a stationary state, defining the expected sequence composition after a long evolutionary time. 
+All phylogenetic substitution models \skhcomment{all?} are stochastic matrices and, as such, reach stationary state. 
+Stationary state describes the expected sequence composition after a very long evolutionary time and this stationary state sequence composition is independent to time. 
 In \ref{fig:decay}, the stationary state is represented by the long ``tails" where the expected sequence divergence remains constant as time increases. 
 
 By definition, the expected sequence composition varies from site to site for the site-specific stationary state models (\ref{fig:decay} ExpCM, red) but is constant across sites for the uniform stationary state models (\ref{fig:decay} GY94, blue).
@@ -342,38 +343,41 @@ The branch lengths are in average number of codon substitutions per site.
 }
 \end{figure}
 
-We further investigated the effect of ``shifting" preferences by comparing behavior of ExpCM across trees with increasing overall divergence from the focal sequence of the deep mutational scans. 
-Based on our results with the large HA trees, we expected the preferences to be more "relevant" on trees which have a low overall sequence divergence from the DMS focal sequence. 
+We looked closer at the effect of shifting preferences on branch length estimation. 
+We examined the behavior of the ExpCM on trees with varying levels of overall sequence divergence from the ExpCM focal sequence. 
+For each tree, we asked ``does the site-specific stationary state model estimate longer branches than the uniform stationary state model?" and ``is the preference set defining the ExpCM relevant?"
 
-We use the value of the ExpCM stringency parameter to measure the ``relevance" of a given DMS preference set and tree. 
-A stringency parameter with a value greater than one indicates that selection in nature prefers the same amino acids as selection in lab but with greater strength, or that the preferences are ``relevant" to evolution in nature. 
-Conversely, when the stringency parameter is fit to a value close to zero, the preferences are not ``relevant" and de-emphasize the measurements from the lab so that the preferences are flat. 
-Using the ExpCM (H1 preferences), we observe an inverse relationship between overall divergence and the stringency. 
-As the tree includes more and more sequences which are further from the focal sequence, the relevance of the preferences declines. 
-This indicates that the preferences truly are most relevant on trees with sequences closely related to the focal sequence (short branches). 
+The effect of site-specific stationary state on branch length estimation is seen most strongly on long branches. 
+As the full HA tree represents ``high" divergence from the DMS focal sequence, we took subsets the tree to create trees with either ``intermediate" or ``low" divergence from the DMS focal sequence. 
+The majority of the branch length estimates are very similar between the GY94+$\Gamma\omega$ and the ExpCM+$\Gamma\omega$ for the ``low" and ``intermediate" alignments. 
+Only when the tree has a high overall divergence from the DMS focal sequence, and therefore the longest branches, is there a difference between the two models. 
+This result is not unsurprising. 
+One of the original motivations for the ``mutation-selection" models was the effect the model would have on long branches specifically. 
 
-While the preferences are most relevant for the trees with short branches, due to the low divergence from the focal sequence, the effect of site-specific stationary states on branch length estimation is most important on long branches. 
-On the low divergence tree, with the most ``relevant" preferences, roughly the same branch length estimated by the GY94+$\Gamma\omega$  and the ExpCM+$\Gamma\omega$. 
-In fact, it is not until the high divergence tree that a true effect is seen, in the branches from the focal sequences. 
-The effect from site-specific substitution models doesn't really have an effect until the branch lengths are a particular length. 
+We wanted to determine the accuracy or relevance of the ExpCM on these subtrees. 
+Due to the local branch length extension in \ref{fig:empirical_trees}, we expect that the preferences are most accurate on the low divergence tree. We use the ExpCM stringency parameters as a proxy for accuracy of the preference set. 
+The stringency parameter rescales the raw preferences from the deep mutational scan. 
+Large stringency parameter values ($>1$) indicate that selection in nature prefers the same amino acids as selection in lab but with a higher stringency.
+Or that the preferences measured in lab are relevant for describing the evolution of that protein. 
+The stringency parameter for ExpCM(H1 prefs) has the highest value for the low divergence alignment and declines as the overall divergence increases. 
+The ExpCM(H3 prefs) show the same pattern. 
+The inverse relationship between stringency parameter and divergence supports the hypothesis that epistatic interactions degrade the ExpCM stationary state as defined by DMS preferences. 
+\skhcomment{All epistatic? Could there just be a change?}
 
-This leads to a regime with competing effects. 
-As the branch lengths increase, the ``importance" of having a site-specific stationary state increases. 
-At the same time, the ``relevance" of an given site-specific stationary decreases as the divergence increases. 
 Current models which have one stationary state across the entire tree, site-specific or not, will not be able to address this tension. 
 
 \subsection*{\texttt{phylobayes}}
 
-Finally, we compared the branch lengths estimated by ExpCM to branch lengths estimated by another site-specific stationary state model. 
-We inferred the branch lengths on the ``high" divergence tree using the mutation-selection model implement in \texttt{phylobayes}. 
-The amino-acid composition parameters of the mutation-selection model are estimated in a Bayesian framework in \texttt{phylobayes}, rather than defined \textit{a priori} as in the ExpCM. 
+Finally, we compared the branch lengths estimated between two different models with site-specific stationary states. 
+We compared the branch lengths estimated by ExpCM+$\Gamma\omega$ (avg) with the branch lengths estimated by the mutation-selection model implemented in \texttt{phylobayes}. 
+The \texttt{phylobayes} mutation-selection model estimates the amino-acid preferences which define the stationary state in a Bayesian framework rather than defining them from the DMS \textit{a priori}. 
+Branch length estimates are very similar between the ExpCM+$\Gamma\omega$ (avg) and the \texttt{phylobayes} mutation-selection model. 
+The equivalence between the two models shows the general importance of site-specific stationary states. 
+The local accuracy of the DMS preferences and the ExpCM can still be seen. 
+The branch length estimates from either focal sequence (H1 and H3) are longer by the ExpCM than by the \texttt{phylobayes} mutation-selection model. 
+This indicates that the DMS preferences are still more accurate for the local branches around the focal sequence than the global preferences estimated by \texttt{phylobayes}. 
 
-Both site-specific stationary state models estimate approximately equivalent branch lengths. 
-For a given branch, the two estimates are not exactly the same but each model estimate roughly the same number of branches as longer and to a very similar effect size. 
-However, the locality of the ExpCM can still be seen. 
-Branch lengths from the focal sequences are enriched in the branches which lengths are estimated to be longer by the ExpCM model. 
-That is, the preferences are still more accurate directly around the focal sequence than the amino-acid composition parameters estimated by \texttt{phylobayes} across the entire tree. 
-Altogether, this shows that site-specific models, even those which define the stationary state by different strategies, estimate longer branch lengths than uniform stationary state models but that epistasis plays a non-trivial role in how accurate a single stationary state can be. 
+\skhcomment{What is the average difference in branch length between the two models?}
 
 \begin{figure}[H]
 \centerline{\includegraphics[width=0.5\textwidth]{figures/phylobayes.pdf}}
