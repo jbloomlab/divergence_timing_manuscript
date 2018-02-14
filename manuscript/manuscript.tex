@@ -175,12 +175,15 @@ This supports the conclusion that modeling purifying selection, especially in a 
 \begin{figure}[H]
 \centerline{\includegraphics[width=0.90\textwidth]{figures/model_feature.pdf}}
 \caption{\label{fig:model_feature}
-\textbf{Different ways of modeling site-to-site variation in purifying selection.}
-(A) The relative rate of non-synonymous change, $\omega$, can be defined as one, gene-wide average or allowed to vary following some statistical distribution.
-In order to achieve computational tractability, the distribution is discretized into $K$ bins and $\omega$ is set to the mean of each bin. 
-A $\Gamma$ distribution with $K=4$ bins is shown here. 
-(B) Substitution model stationary states can either be identical at every site in the protein or allow to vary from site to site. 
+\textbf{Different ways of modeling the site-to-site rate variation of purifying selection.}
+(A) The implied dN/dS parameter, $\omega$, can be defined as one gene-wide average (orange triangle) or allowed to vary following some statistical distribution (blue circles). 
+In order to achieve computational tractability, the distribution is discretized into $K$ bins and $\omega$ takes on the mean of each bin. 
+A $\Gamma$ distribution with $K=4$ bins is shown here.
+(B) A substitution model stationary state defines the expected sequence composition after a very long evolutionary time. 
+Depending on how the model is parametrized, this expected sequence composition cab be uniform or variable across sites. 
+Each column is a site in the protein and the height of each letter is the expected proportion of that amino acid at stationary state. 
 (C) Substitution models can both, one, or neither of these features and we use models from the GY94 and ExpCM families to represent all possible combinations. 
+Green indicates presence of a feature and white indicates absence. 
 }
 \end{figure}
 
