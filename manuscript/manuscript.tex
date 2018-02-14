@@ -259,20 +259,22 @@ The grey, dashed line is the reference line $y=x$, representing the behavior of 
 }
 \end{figure}
 
-Next, we wanted to test the effect of substitution model on branch length estimation given sequences with site-specific amino-acid frequencies. 
-To this end, we simulated sequences under an ExpCM and re-inferred the branch lengths using the models  in \ref{fig:model_feature}C. 
+Next, we tested the effect of stationary state and $\Gamma\omega$ rate variation on branch length estimation given sequences with site-specific amino-acid frequencies. 
+We simulated sequences under an ExpCM, re-estimated the branch lengths using the models in \ref{fig:model_feature}C, and compared these estimates to the actual branch lengths.
 
-Models with uniform stationary state underestimated the branch lengths of the simulated sequences. 
-This underestimation is most pronounced on the long branches, with the GY94 estimating branches which are only $\sim \frac{2}{3}$ of the true branch length (\ref{fig:simulations}).
-Accounting for the site-to-site rate variation by $\Gamma\omega$ does not prevent this underestimation as the GY94+$\Gamma\omega$ estimates roughly the same branch length as the GY94. 
-We also estimated branch lengths using an average ExpCM. 
-These models have a uniform stationary state defined by the average preference of amino acid across all sites. 
-Even these models, which share some information with the model used to simulate the sequences, underestimate the long branches. 
+The models with a uniform stationary state underestimated the branch lengths of the simulated sequences, especially the lengths of long branches. 
+The GY94 model estimated branches lengths which are only about 60\% of the true branch length for the longest branches. 
+Accounting for site-to-site rate variation by $\Gamma\omega$ did not prevent the underestimation of long branches, as the GY94+$\Gamma\omega$ inferred approximately the same branch lengths as the GY94 model.
+We also estimated branch lengths using averaged ExpCMs.
+The averaged ExpCMs have a uniform stationary state defined by the average DMS preference for a given amino acid across all sites from the deep mutational scan. 
+Even these models, which share information with the model used to simulate the sequences, underestimated the long branches. 
+The inability of these uniform stationary state models to specifically describe purifying selection on a site by site basis clearly hinder their ability to accurately estimate long branch lengths. 
 
-As expected neither the ExpCM nor the ExpCM+$\Gamma\omega$ underestimate the long branches. 
-However, the variance between simulations increases as the branch length increases, though this error is not biased towards over- or underestimation. 
-This increase in error despite a perfect model match simply underscores the difficulty of estimating extremely long branches. 
-Despite this universal difficulty, it is clear that models with uniform stationary states will always drastically underestimate the long branch lengths. 
+Neither the ExpCM nor the ExpCM+$\Gamma\omega$ underestimated the long branches. 
+This is an unsurprising result, as the sequences were simulated under an ExpCM. 
+However, while not biased towards over- or underestimation, the variance between simulations increased as the branch length increased. 
+The increase in error, even with a perfect model match, underscores the difficulty of estimating extremely long branches. 
+Despite this universal difficulty, it is clear from the GY94 and averaged ExpCM results that models with a uniform stationary state will always drastically underestimate long branches. 
 
 \subsection*{empirical Data}
 
