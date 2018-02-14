@@ -235,7 +235,6 @@ rule add_in_old_data:
         norm = "outputs/branch_lengths_norm_all.csv"
     run:
         expcm = pd.read_csv(input.expcm)
-        expcm = expcm.drop("bootstrap", axis=1)
         final = []
         for n, group in expcm.groupby(["alignment_id", "model", "pref_set"]):
             if TARGET in group["seq_id"].tolist():
