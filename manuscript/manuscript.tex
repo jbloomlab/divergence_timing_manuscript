@@ -218,11 +218,11 @@ Therefore, we will use models from the GY94 (uniform stationary state) and ExpCM
 \begin{figure}[H]
 \centerline{\includegraphics[width=0.90\textwidth]{figures/decay.pdf}}
 \caption{\label{fig:decay}
-\textbf{Effect of stationary state and rate variation on long branch estimation.}
-The expected pairwise amino-acid identity for five sites in influenza hemagglutinin (HA) for four different substitution models calculated using \ref{eq:f}. 
-The logoplots show the HA amino-acid preferences from a deep mutational scan performed by \cite{doud2016accurate}. 
-The implied dN/dS value was calculated from the ExpCM following \cite{spielman2015relationship} (\ref{eq:w_r}).
-\skhcomment{ Maybe change long branch length to expected asymptotic sequence divergence.}
+\textbf{Effect of stationary state and $\Gamma\omega$ rate variation on expected asymptotic sequence divergence.}
+For each model, the expected amino-acid identity given some branch length is calculated using \ref{eq:f}. 
+The deep mutational scanning amino-acid preferences from \cite{doud2016accurate} defining the ExpCM (red) are shown as logoplots. 
+The implied dN/dS ($\omega_r$) for the GY94+$\omega_r$ (yellow) is calculated from the ExpCM using \ref{eq:w_r}. 
+\skhcomment{I use `implied dN/dS' to refer to two different concepts in the results.}
 }
 \end{figure}
 
@@ -252,11 +252,10 @@ This means that no matter how ``well" a model accounts for site-to-site rate var
 \centerline{\includegraphics[width=0.85\textwidth]{figures/simulations}}
 \caption{\label{fig:simulations}
 \textbf{Model performance under simulated, site-specific data.} 
-Alignments were simulated under an ExpCM along an HA tree and the branches were re-optimized by a model from the ExpCM or YNGKP family. 
-The averaged ExpCMs amino-acid frequencies defined by the average preference of that amino acid across all sites in the protein. 
-While these models extract information from the deep mutational scanning experiment, they are not site-specific. 
-Grey points represent the length of one branch and the black points are the mean branch lengths over ten simulations. 
-The grey, dashed line is the reference line $y=x$, depicting the behavior of a model which is an unbiased estimator of the simulated branch length. 
+Alignments were simulated under an ExpCM and branch lengths were re-estimated using models from the ExpCM and GY94 families. 
+The averaged ExpCMs have a uniform stationary state defined by the average preference for each amino acid across all sites in the protein. 
+The length of one branch in one simulation is shown in grey and the average branch length of one branch across ten simulations is shown in black. 
+The grey, dashed line is the reference line $y=x$, representing the behavior of an unbiased estimator. 
 }
 \end{figure}
 
