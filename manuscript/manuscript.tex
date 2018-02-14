@@ -224,23 +224,24 @@ The implied dN/dS value was calculated from the ExpCM following \cite{spielman20
 \end{figure}
 
 Given a single branch, a substitution model transforms sequence divergence into branch length, which is proportional to time under a molecular clock assumption. 
-All phylogenetic substitution models \skhcomment{all?} are stochastic matrices and, as such, reach stationary state. 
-Stationary state describes the expected sequence composition after a very long evolutionary time and this stationary state sequence composition is independent to time. 
-In \ref{fig:decay}, the stationary state is represented by the long ``tails" where the expected sequence divergence remains constant as time increases. 
+However, a complicating factor in this estimation procedure is the stationary state of the model. 
+Stationary state, as the principle eigenvector of a stochastic matrix, is a fundamental feature of any substitution model. 
+It describes the expected sequence composition after a very long evolutionary time. 
+Additionally, the stationary state does not change under application of the transition matrix, which means this sequence composition remains constant as time increases. 
+The invariance of the stationary state is represented by the long ``tails" in \ref{fig:decay}. 
+The exact sequence composition of stationary state is unique given the parametrization of the model. 
 
-By definition, the expected sequence composition varies from site to site for the site-specific stationary state models (\ref{fig:decay} ExpCM, red) but is constant across sites for the uniform stationary state models (\ref{fig:decay} GY94, blue).
-The biggest difference in stationary state between the models is at constrained sites, such as site 305 in \ref{fig:decay}. 
-At such a site, the ExpCM would estimate a much longer branch than the GY94 given the observed divergence of a set of sequences. 
+We visualized the effect of stationary state on branch length estimation by examining the expected amino-acid identity of a set of sequences given some branch length for site-specific and uniform stationary state models. 
+By definition, the expected identity given a very long time varies from site to site for the site-specific stationary state models (\ref{fig:decay}, ExpCM, red) but is constant across sites for the uniform stationary state models (\ref{fig:decay}, GY94, blue). 
+Due to the assumed equivalence of amino-acid preferences in the GY94 model, the biggest difference in stationary state between the ExpCM and the GY94 is seen at constrained sites, such as site 305 in \ref{fig:decay}. 
+The ExpCM would estimate a much longer branch than the GY94 model given some observed divergence at such a site. 
 
-Rate variation, as modeled by $\Gamma\omega$, affect the rate at which stationary state is approached by not the sequence composition at stationary state itself. 
-Stationary state is a fundamental feature of stochastic matrices and is invariant to multiplicative terms, such as $\omega$. 
-In \ref{fig:decay}, GY94+$\Gamma\omega$ (green) takes longer to reach the stationary state than GY94 (blue) but stationary state for each model is identical. 
-
-This means even complex modeling of the $\omega$ to account for purifying selection will not affect the expectation at evolutionary equilibrium. 
-We inferred a site-specific $\omega$ value from the ExpCM \citep{spielman2015relationship} and applied these values to the GY94 model, GY94+$\Gamma\omega$ (\ref{fig:decay} yellow). 
-At constrained sites, this model takes even longer to reach stationary state than the GY94+$\Gamma\omega$ but the eventual stationary state is identical to both the GY94 and GY94+$\Gamma\omega$ stationary state. 
-
-No matter how ``well" a model accounts for site-to-site rate variation, it will underestimate long branches with a uniform stationary state. 
+Modeling site-to-site rate variation by $\Gamma\omega$ affects the rate at which stationary state is approached but not the sequence composition at stationary state itself. 
+For example, in \ref{fig:decay}, GY94+$\Gamma\omega$ (green) takes longer to reach the stationary state than GY94 (blue) but stationary state for each model is identical. 
+Because the stationary state is invariant to multiplicative terms, increasingly complex modeling of $\omega$ will never fully recapitulate the difference in expected sequence composition between the ExpCM and the GY94 at constrained sites. 
+We inferred an $\omega$ value from the ExpCM for each site \citep{spielman2015relationship} and applied this values to the GY94 model (\ref{fig:decay} yellow)
+These site-specific values drastically decreased the amount of time it takes to reach stationary state at the constrained sites but still does not affect the stationary state. 
+This means that no matter how ``well" a model accounts for site-to-site rate variation, it will underestimate long branches with a uniform stationary state. 
 
 \subsection*{Failure to account for site-specificity leads to branch length underestimation.}
 
