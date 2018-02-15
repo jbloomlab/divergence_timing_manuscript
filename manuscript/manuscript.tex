@@ -281,7 +281,11 @@ Despite this universal difficulty, it is clear from the GY94 and averaged ExpCM 
 \begin{figure}[H]
 \centerline{\includegraphics[width=0.8\textwidth]{figures/empirical_trees.pdf}}
 \caption{\label{fig:empirical_trees}
-\textbf{Trees optimized with an ExpCM defined by H1 preferences lengthen branches from the focal H1 sequence compared to GY94 models.} ).
+\textbf{Effect of site-specific stationary state and $\Gamma\omega$ rate variation on HA branch length estimation.} 
+The HA tree is optimized by models from the ExpCM and GY94 families. 
+The amino-acid preferences defining the model (ExpCM) or implied by the model (GY94) are shown as logoplots. 
+The amino-acid preferences measured by the deep mutational scans defining the ExpCMs were measured in either an H1 background, an H3 background, or were the average measurements from the H1 and H3 scans. 
+The circle denotes the H1 clade and the triangle denotes the H3 clade. 
 }
 \end{figure}
 
@@ -307,35 +311,33 @@ Each ExpCM has a stringency parameter $>1$.
       \end{tabular}
 \end{table}
 
-Next, we want to examine the effect of substitution model on branch length estimation for actual protein coding sequences. 
-We assume protein coding sequences have site-specific amino-acid preferences, like the simulations, but unlike the simulations, we do not know the underlying model.
+Next, we wanted to examine the effect of substitution model on branch length estimation for actual protein coding sequences. 
+We assume protein coding sequences have site-specific amino-acid preferences, but unlike the simulations, we do not know the underlying model.
+We used sequences from the influenza virus surface protein hemagglutinin (HA). 
+The HA tree structure makes it a useful model for studying long branch estimation; HA is conserved within any given subtype but the subtypes themselves are separated by long branches. 
+The most diverged subtypes on the HA tree are only about 40\% identical on the amino acid level. 
+We used an HA tree with 87 sequences from 14 of the 18 subtypes, excluding subtypes with very few sequences. 
 
-To this end, we used sequences from the influenza virus surface protein hemagglutinin (HA). 
-HA is a good model for long branch estimation because the 18 HA subtypes are all separated by long branches. 
-Furthermore, HA homologs are incredibly diverse and the most diverged homologs on the tree are only 42\% identical on the amino-acid level. 
-We used a tree with 87 sequences from 14 of the 18 subtypes, excluding subtypes with very few sequences. 
+We estimated the branch lengths on this HA tree using the models in \ref{fig:model_feature}C. 
+We used two different ExpCMs defined by different deep mutational scanning experiments from different HA homologs. 
+One scan measured the site-specific amino-acid preferences in an H1 background (\ref{fig:empirical_trees}, circle) and the other measured the preferences in an H3 background (\ref{fig:empirical_trees}, triangle). 
+These two deep mutational scans sample the breadth of HA diversity as their respective focal sequences are only $\sim42\%$ identical on the amino acid level. 
+By comparing these two ExpCMs, we can examine the effect of the experiment's focal sequence on branch length estimation, along with the effect of site-specific stationary state and $\Gamma\omega$ rate variation.
 
-We optimized the branch lengths on the HA tree using the models in \ref{fig:model_feature}C. 
-We used two different ExpCMs defined by DMS preference sets measured independently in two different HA genetic backgrounds. 
-One DMS set was measured in an H1 background (\ref{fig:empirical_trees}, black circle) and the other DMS preference set was measured in an H3 background (\ref{fig:empirical_trees}, black triangle). 
-The two focal sequences of the DMS are only 42\% identical on the amino-acid level. 
-By comparing the two ExpCMs, we can examine the effect of the ExpCM focal sequence on branch length estimation. 
-Additionally, because the models we use represent all possible combinations of $\Gamma\omega$ rate variation and site-specific stationary state, we were able to examine the effect of each of these features while controlling for the presence of the other. 
+Models with either site-specific stationary state or $\Gamma\omega$ rate variation estimated longer branches than models without (\ref{fig:empirical_trees}). 
+Furthermore, we can isolate the effect of each method to account for purifying selection from the other. 
+For example, the increase in branch length estimated by GY94+$\Gamma\omega$ compared to GY94 and by ExpCM+$\Gamma\omega$ compared to ExpCM shows that $\Gamma\omega$ rate variation increases branch length in the presence and absence of a site-specific stationary state. 
+We also see an increase in branch length with the addition of a site-specific stationary state in the presence and absence of $\Gamma\omega$ rate variation (\ref{fig:empirical_trees}, GY94 vs. ExpCM and GY94+$\Gamma\omega$ vs. ExpCM+$\Gamma\omega$). 
+The model with both methods, ExpCM+$\Gamma\omega$, estimated the longest branches of all the models. 
+However, the branch length extension from any of the ExpCM compared to any of the GY94 models was not uniform across the entire tree. 
+The branches with the largest difference in branch length are near the focal sequence of the deep mutational scans (\ref{fig:empirical_trees}, circle for H1 and triangle for H3)
+This local effect of the ExpCM indicates that the stationary state described by the deep mutational scanning preferences is most accurate near the focal sequences of the scan. 
 
-Both site-specific stationary states and $\Gamma\omega$ rate variation increase branch length estimates (\ref{fig:empirical_trees}). 
-The addition of either site-specific stationary state or $\Gamma\omega$ rate variation leads to an increase but the longest branches were estimated with the ExpCM+$\Gamma\omega$, which includes both. 
-
-However, the branch length extension for the ExpCM compared to the GY94 (or ExpCM+$\Gamma\omega$ compared to the GY94+$\Gamma\omega$) was not uniform across the entire tree. 
-The branches with the largest difference in branch length are near the focal sequence of the deep mutational scans (\ref{fig:empirical_trees}, circle for H1 and triangle for H3). 
-This local effect of the ExpCM indicates that the stationary state described by the DMS preferences is most accurate near the focal sequences of the scan. 
-
-This result is not entirely surprising. 
-It is expected that protein homologs as diverged as HA would be affected by epistatic interactions, when the effect of a mutation at one site is dependent on the amino-acid identity at another site. 
-One of the strengths of deep mutational scanning is the ability to accurately measure the effect of a single amino-acid mutation. 
-However, these measurements are in the context of a single genetic background and are therefore completely blind to the effect of epistatic interactions. 
-Epistatic interactions would cause the DMS measurements to be different in different genetic backgrounds, resulting in ``shifting" preferences across the tree, and would explain the strong local effect we see with the ExpCM. 
-When we average the H1 and H3 preferences, or balanced sampling the two different preference sets, we see estimation of longer branches from both the H1 and H3 clades compared to the GY94 model.  
-This is further evidence of shifts across the tree. 
+The local effect of the ExpCM is not entirely surprising. 
+Proteins are affected by epistatic interactions, where the effect of a mutation at one site is dependent on the amino-acid identity at another site. 
+While one of the strengths of deep mutational scanning is the ability to accurately measure the effect of all single amino-acid mutations, these measurements are done in the context of a single genetic background and do not take into account epistatic interactions. 
+Consequently, the stationary state defined by these preferences is most accurate for only a subset of the tree.
+An ExpCM with a more general stationary state, defined by the average of the H1 and H3 preferences, lengthen the preferences from both the H1 and H3 clades (\ref{fig:empirical_trees}). 
 
 \subsection*{Competing effects of shifting preferences and long branches.}
 
