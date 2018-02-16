@@ -229,26 +229,39 @@ This $\omega$ parameter can be drawn from a distribution just like as for GY94-s
 We will denote ExpCM's that also include a distribution over $\omega$ as ExpCM+$\Gamma\omega$.
 \ref{fig:model_feature}C shows the full spectrum of models that incorporate all combinations of gamma-distributed $\omega$ and site-specific stationary states.
 
-\subsection*{Effect of stationary state and rate variation on branch length estimation}
+\subsection*{Effect of stationary state and rate variation on branch-length estimation}
 
-\begin{figure}[H]
+\begin{figure}
 \centerline{\includegraphics[width=0.90\textwidth]{figures/decay.pdf}}
 \caption{\label{fig:decay}
-\textbf{Effect of stationary state and $\Gamma\omega$ rate variation on expected asymptotic sequence divergence.}
-For each model, the expected amino-acid identity given some branch length is calculated using \ref{eq:f}. 
-The deep mutational scanning amino-acid preferences from \cite{doud2016accurate} defining the ExpCM (red) are shown as logoplots. 
-The implied dN/dS ($\omega_r$) for the GY94+$\omega_r$ (yellow) is calculated from the ExpCM using \ref{eq:w_r}. 
-\skhcomment{I use `implied dN/dS' to refer to two different concepts in the results.}
+\textbf{Effect of stationary state and $\Gamma\omega$ rate variation on predicted asymptotic sequence divergence.}
+The logo plots at top show the amino-acid preferences for some sites in an H1 influenza hemagglutinin protein as measured by \citet{doud2016accurate}.
+The graphs show the expected amino-acid identity at that site for two sequences separated by a branch of the indicated length (\ref{eq:f}).
+For the GY94 model, the graphs are identical for all sites since this models does not have site-specific parameters; the same is true for GY94+$\Gamma\omega$.
+The graphs do differ among sites if we use the amino-acid preferences to calculate a different $\omega_r$ value for each site $r$ in a GY94 framework~\citep[\ref{eq:w_r};][]{spielman2015relationship}.
+However, all GY94 models including the one with site-specific $\omega_r$ values all approach the same asymptote since they all have the same stationary state.
+But the ExpCM has different asymptotes for different sites since it accounts for how amino-acid preferences lead to site-specific stationary states.
 }
 \end{figure}
 
-Given a single branch, a substitution model transforms sequence divergence into branch length, which is proportional to time under a molecular clock assumption. 
-However, a complicating factor in this estimation procedure is the stationary state of the model. 
-Stationary state, as the principle eigenvector of a stochastic matrix, is a fundamental feature of any substitution model. 
-It describes the expected sequence composition after a very long evolutionary time. 
-Additionally, the stationary state does not change under application of the transition matrix, which means this sequence composition remains constant as time increases. 
-The invariance of the stationary state is represented by the long ``tails" in \ref{fig:decay}. 
-The exact sequence composition of stationary state is unique given the parametrization of the model. 
+Given a single branch, a substitution model transforms sequence identity into branch length.
+Under a molecular-clock assumption, this branch length is proportional to time.
+The transformation from sequence identity to branch length is trivial and insensitive to the choice of substitution model when the sequence identity is high.
+For instance, in the case when where there has only been one substitution, then the sequence identity will simply be $\frac{L - 1}{L}$ for a gene of $L$ sites, and even a simple exponential model~\citep{zuckerkandl1965} will correctly infer the short branch length of $1/L$ substitutions per site.
+However, as more substitutions accumulate then it becomes progressively more likely for multiple changes to occur at the same site.
+In this regime, the accuracy of the substitution model becomes critical for transforming the sequence identity into branch length.
+Any time-homogenous substitution model predicts that after a very large number of substitutions, two related sequences will approach some asymptotic sequence identity.
+For instance, if all 20 amino acids are equally likely in the stationary state, then this asymptotic sequence identity will be 0.05.
+If the substitution model underestimates the asymptotic sequence divergence then it will also underestimate long branch lengths, since it will predict that long branches lead to more divergence lead than is actually the case.
+
+\ref{fig:decay} shows how different substitution models predict sequence identity to decrease as a function of branch length for model parameters fit to a phylogeny of an H1 influenza hemagglutinin (HA).
+The GY94 and GY94+$\Gamma\omega$ models each predict the same behavior for all sites, since they do not have any site-specific parameters.
+Both of these models predict an asymptotic sequence divergence of \jdbcomment{?}, which is slightly higher than 0.05 since some of the 20 amino acids are favored by the models due to more redundant codons and biases towards certain nucleotides.
+Intuitively, this asymptotic sequence identity seems low, since like many proteins HA has a highly conserved structure and function which imposes constraints that cause some sites to only sample a small subset of the 20 amino acids among all known HA homologs.
+
+\jdbcomment{Then talk about we have a sense of these constraints from the DMS, and if we use them to put an $\omega_r$ it changes rate of approach of asymptote but not asymptote.
+Then ExpCM with different asymptotes.
+Then point about stationary state.}
 
 We visualized the effect of stationary state on branch length estimation by examining the expected amino-acid identity of a set of sequences given some branch length for site-specific and uniform stationary state models. 
 By definition, the expected identity given a very long time varies from site to site for the site-specific stationary state models (\ref{fig:decay}, ExpCM, red) but is constant across sites for the uniform stationary state models (\ref{fig:decay}, GY94, blue). 
@@ -261,6 +274,15 @@ Because the stationary state is invariant to multiplicative terms, increasingly 
 We inferred an $\omega$ value from the ExpCM for each site \citep{spielman2015relationship} and applied this values to the GY94 model (\ref{fig:decay} yellow)
 These site-specific values drastically decreased the amount of time it takes to reach stationary state at the constrained sites but still does not affect the stationary state. 
 This means that no matter how ``well" a model accounts for site-to-site rate variation, it will underestimate long branches with a uniform stationary state. 
+
+
+
+However, a complicating factor in this estimation procedure is the stationary state of the model. 
+Stationary state, as the principle eigenvector of a stochastic matrix, is a fundamental feature of any substitution model. 
+It describes the expected sequence composition after a very long evolutionary time. 
+Additionally, the stationary state does not change under application of the transition matrix, which means this sequence composition remains constant as time increases. 
+The invariance of the stationary state is represented by the long ``tails" in \ref{fig:decay}. 
+The exact sequence composition of stationary state is unique given the parametrization of the model. 
 
 \subsection*{Failure to account for site-specificity leads to branch length underestimation.}
 
