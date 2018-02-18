@@ -27,8 +27,8 @@
 % The following parameters seem to provide a reasonable page setup.
 
 \topmargin 0.0cm
-%\oddsidemargin 2cm
-%\textwidth 16cm 
+\oddsidemargin 1cm
+\textwidth 15cm 
 \textheight 21cm
 \footskip 1.0cm
 
@@ -284,7 +284,7 @@ Additionally, the stationary state does not change under application of the tran
 The invariance of the stationary state is represented by the long ``tails" in \ref{fig:decay}. 
 The exact sequence composition of stationary state is unique given the parametrization of the model. 
 
-\subsection*{Failure to account for site-specificity leads to branch length underestimation.}
+\subsection*{Simulations demonstrate how failure to account for site-specificity leads to branch-length underestimation.}
 
 \begin{figure}[H]
 \centerline{\includegraphics[width=0.85\textwidth]{figures/simulations}}
@@ -296,6 +296,8 @@ The length of one branch in one simulation is shown in grey and the average leng
 The grey, dashed reference line $y=x$ represents the behavior of an unbiased estimator. 
 }
 \end{figure}
+
+\skhcomment{Change "averaged" to "ExpCM averaged across sites". This will distinguish it from the other types of averages used later. Also clarify in text referring to figure}
 
 Next, we tested the effect of stationary state and $\Gamma\omega$ rate variation on branch length estimation given sequences with site-specific amino-acid frequencies. 
 We simulated sequences under an ExpCM, re-estimated the branch lengths using the models in \ref{fig:model_feature}C, and compared these estimates to the actual branch lengths.
@@ -314,7 +316,7 @@ However, while not biased towards over- or underestimation, the variance between
 The increase in error, even with a perfect model match, underscores the difficulty of estimating extremely long branches. 
 Despite this universal difficulty, it is clear from the GY94 and averaged ExpCM results that models with a uniform stationary state will always drastically underestimate long branches. 
 
-\subsection*{empirical Data}
+\subsection*{Site-specific models estimate longer branches on real data.}
 
 \begin{figure}[H]
 \centerline{\includegraphics[width=0.8\textwidth]{figures/empirical_trees.pdf}}
@@ -334,6 +336,7 @@ All ExpCMs describe the evolution of HA better than the GY94 models, as evaluate
 The mean $\omega$ value from each $K=4$ bins is shown for the models with $\Gamma\omega$ rate variation, otherwise simply the fit, gene-wide $\omega$. 
 Each ExpCM has a stringency parameter $>1$.
 \skhcomment{GY94+$\Gamma\omega$ has one $\omega$ of 0 because of rounding.}
+\skhcomment{check LL values}
 } 
      \begin{tabular}{cccccccccc}
         \hline
@@ -348,6 +351,8 @@ Each ExpCM has a stringency parameter $>1$.
 	GY94 & - & - & 7625 & -52560  & 0.07 & -\\
       \end{tabular}
 \end{table}
+
+\skhcomment{In the beginning of the 4th Results section, you don't need to say we assume site-specific preferences. We aren't assuming anything, we're just analyzing the data. Give a better intro to why we chose HA: there are data sets for two diverged variants (H1 and H3), and this gene has been widely studied using phylogenetics.}
 
 Next, we wanted to examine the effect of substitution model on branch length estimation for actual protein coding sequences. 
 We assume protein coding sequences have site-specific amino-acid preferences, but unlike the simulations, we do not know the underlying model.
@@ -378,6 +383,8 @@ Consequently, the stationary state defined by these preferences is most accurate
 An ExpCM with a more general stationary state, defined by the average of the H1 and H3 preferences, lengthen the preferences from both the H1 and H3 clades (\ref{fig:empirical_trees}). 
 
 \subsection*{Competing effects of shifting preferences and long branches.}
+
+\skhcomment{I know I was pressing on this a lot, but I think that the three trees in Figure 5 turn out not to be useful as they aren't aligned in a helpful way. So I would suggest instead creating something that is a hybrid between the current Supplementary figure 4A and the Figure 5B. It shows the sequence subsets, and then just shows that the stringency parameter goes down for more diverged alignments. I like the Supplementary figure 4A as it shows the trees most clearly. I like the Figure 5B because it gives the stringency parameters but also shows their actual effects in logos, which is more intuitive than just plotting them on a graph.}
 
 \begin{figure}[H]
 \centerline{\includegraphics[width=0.85\textwidth]{figures/doud_compete_2}}
@@ -417,6 +424,8 @@ The inverse relationship between stringency parameter and divergence supports th
 Current models which have one stationary state across the entire tree, site-specific or not, will not be able to address this tension. 
 
 \subsection*{\texttt{phylobayes}}
+
+\skhcomment{For Figure 6, make a better x-legend. All the models are mutation-selection models. Instead write something like `phylobayes` for the x-legend}
 
 Finally, we compared the branch lengths estimated between two different models with site-specific stationary states. 
 We compared the branch lengths estimated by ExpCM+$\Gamma\omega$ (avg) with the branch lengths estimated by the mutation-selection model implemented in \texttt{phylobayes}. 
@@ -527,47 +536,15 @@ where $a$ is all amino acids, $p_{r,x}$ is the stationary state of the model at 
 \centerline{\includegraphics[width=\textwidth]{figures/prefs_lee}}
 \caption{\label{suppfig:prefs_lee}
 \textbf{H3 preferences measured by \textit{lee} rescaled with the ExpCM stringency parameter optimized in \ref{fig:tree_lee}A  ($\beta = 1.46$)}
-\skhcomment{I need to change the $\beta$ value when the new \texttt{phydms} results finish running.} 
-}
+ }
 \end{suppfig}
 
 \begin{suppfig}[H]
 \centerline{\includegraphics[width=\textwidth]{figures/prefs_average}}
 \caption{\label{fig:prefs_average}
 \textbf{The average of the H1 preferences measured by \cite{doud2016accurate} and the H3 preferences measured by \textit{Lee} rescaled with the ExpCM stringency parameter optimized in \ref{fig:tree_average}A  ($\beta = 1.77$)}}
-\skhcomment{I need to change the $\beta$ value when the new \texttt{phydms} results finish running.}
 \end{suppfig}
  
-
-
-\begin{table}[t!]
-\caption{\label{tab:simulation_params}
-ExpCM parameters used to simulate sequences in Fig.~\ref{fig:simulation}.}
-      \begin{tabular}{ccccc}
-        \hline
-          Parameter & Value\\ \hline
-       	$\beta$ & $1.54$\\
-	$\kappa$ & $3.60$\\
-	$\omega$ & $0.20$\\
-	$\phi_A$, $\phi_C$, $\phi_G$& $0.38$, $0.17$, $0.23$\\
-      \end{tabular}
-\end{table}
-
-\begin{table}[t!]
-\caption{\label{tab:wsn_low_params}
-Model parameters used in  Fig.~\ref{fig:decay}.}
-      \begin{tabular}{ccccc}
-        \hline
-          Model & Parameters\\ \hline
-          ExpCM & $\beta=1.54196$\\
-           & $\kappa=3.47184$\\
-           & $\omega=0.219225$\\ 
-          YNGKP M0 & $\kappa=2.9984$\\
-          & $\omega=0.09076$\\
-          YNGKP M5 & $\kappa=2.9984$\\
-          & $\omega=0.09076$\\
-      \end{tabular}
-\end{table}
 
 \begin{suppfig}[H]
 \centerline{\includegraphics[width=0.85\textwidth]{figures/lee_compete}}
