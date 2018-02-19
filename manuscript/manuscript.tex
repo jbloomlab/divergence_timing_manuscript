@@ -193,7 +193,7 @@ It is also not homogenous among the different amino acids at a given site.
 For instance, some protein sites strongly prefer hydrophobic amino acids, others may be constrained to just one or a few amino acids, and yet others may tolerate many amino acids.
 In general, these constraints are highly idiosyncratic among sites, and so pose a challenge for phylogenetic substitution models.
 
-Here we consider how purifying selection is handled by codon substitution models, which are the most accurate of the three classes (nucleotide, amino acid, and nucleotide) of phylogenetic substitution models in widespread use\jdbcomment{find a citation for this and replace word ``accurate'' with something else if appropriate. Perhaps this one or something cited within \url{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4620419/}}.
+Here we consider how purifying selection is handled by codon substitution models, which are the most accurate of the three classes (nucleotide, amino acid, and nucleotide) of phylogenetic substitution models in widespread use~\citep{arenas2015trends}.
 Codon substitution models distinguish between two types of substitutions: synonymous and nonsynonymous.
 The relative rate of these substitutions is referred to as dN/dS or $\omega$.
 In their simplest form, codon substitution models fit a single $\omega$ that represents the gene-wide average selection on nonsynonymous mutations relative to synonymous ones.
@@ -216,7 +216,7 @@ These models capture the site-to-site variation in amino-acid composition that i
 
 However, the increased realism of mutation-selection models comes at the cost of an increased number of parameters. 
 Codon substitution models with uniform stationary states have only a modest number of parameters that must be fit from the phylogenetic data.
-For instance, a GY94 M5 model with the typical F3X4 stationary state\jdbcomment{add citation, maybe just GY94 paper?} has 12 parameters: two describing the shape of the gamma distribution over $\omega$, a transition-transversion rate, and 9 parameters describing nucleotide composition of the stationary state.
+For instance, a GY94 M5 model with the typical F3X4 stationary state~\citep{yang1994maximum} has 12 parameters: two describing the shape of the gamma distribution over $\omega$, a transition-transversion rate, and 9 parameters describing nucleotide composition of the stationary state.
 However, mutation-selection models must additionally specify 19 parameters defining the stationary state for \emph{each} site (there are 20 amino acids whose frequencies are constrained to sum to one).
 This corresponds to $19\times L$ parameters for a protein of length $L$, or 9500 parameters for a 500-residue protein.
 It is challenging to obtain values for these parameters without overfitting the data~\citep{rodrigue2013statistical}.
