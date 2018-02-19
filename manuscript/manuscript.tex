@@ -265,11 +265,10 @@ For instance, \ref{fig:decay} shows that the GY94+$\Gamma\omega$ model takes lon
 This fact holds true even if we use experimental measurements of HA's site-specific amino-acid preferences~\citep{doud2016accurate} to calculate a different $\omega_r$ value for each site using the method of \citet[\ref{eq:w_r};][]{spielman2015relationship}.
 Specifically, this GY94+$\omega_r$ model predicts that different sites will approach the asymptote at different rates, but the asymptote is always the same (\ref{fig:decay}).
 The invariance of the asymptotic sequence identity under different schemes for modeling $\omega$ is a fundamental feature of the mathematics of homogeneous substitution models.
-The asymptotic sequence divergence is a function of only the stationary state of the substitution matrix, and the stationary state of a stochastic matrix is invariant with respect to multiplication by any non-zero number\jdbcomment{But this isn't true, because $\omega$ only multiplies some elements of transition matrix. I think it's probably something like if you multiple pairs of elements on equivalent positions across diagonal?}.
+The asymptotic sequence divergence is a function of only the stationary state of the substitution matrix, and the stationary state of a stochastic matrix is invariant with respect to multiplication by any non-zero number~\citep{nielsen2006statistical}.
 Therefore, different schemes for modeling $\omega$ can alter the time it takes to reach stationary state, but no matter how ``well" a model accounts for site-to-site variation in $\omega$ it will always have the same stationary state as a simple GY94 model. 
 
 \jdbcomment{In contrast, ExpCM models have different stationary states at each site...}
-\skhcomment{Google books: reversible matrix exchangeability stationary state}
 
 We visualized the effect of stationary state on branch length estimation by examining the expected amino-acid identity of a set of sequences given some branch length for site-specific and uniform stationary state models. 
 By definition, the expected identity given a very long time varies from site to site for the site-specific stationary state models (\ref{fig:decay}, ExpCM, red) but is constant across sites for the uniform stationary state models (\ref{fig:decay}, GY94, blue). 
