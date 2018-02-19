@@ -292,13 +292,11 @@ The exact sequence composition of stationary state is unique given the parametri
 \caption{\label{fig:simulations}
 \textbf{Model performance under simulated, site-specific data.} 
 Alignments were simulated under an ExpCM and branch lengths were re-estimated using models from the ExpCM and GY94 families. 
-The averaged ExpCMs have a uniform stationary state defined by the average preference for each amino acid across all sites in the protein. 
+The ExpCM's averaged across sites have a uniform stationary state defined by the average preference for each amino acid across all sites in the protein. 
 The length of one branch in one simulation is shown in grey and the average length of one branch across ten simulations is shown in black. 
 The grey, dashed reference line $y=x$ represents the behavior of an unbiased estimator. 
 }
 \end{figure}
-
-\skhcomment{Change "averaged" to "ExpCM averaged across sites". This will distinguish it from the other types of averages used later. Also clarify in text referring to figure}
 
 Next, we tested the effect of stationary state and $\Gamma\omega$ rate variation on branch length estimation given sequences with site-specific amino-acid frequencies. 
 We simulated sequences under an ExpCM, re-estimated the branch lengths using the models in \ref{fig:model_feature}C, and compared these estimates to the actual branch lengths.
@@ -306,8 +304,8 @@ We simulated sequences under an ExpCM, re-estimated the branch lengths using the
 The models with a uniform stationary state underestimated the branch lengths of the simulated sequences, especially the lengths of long branches. 
 The GY94 model estimated branches lengths which are only about 60\% of the true branch length for the longest branches. 
 Accounting for site-to-site rate variation by $\Gamma\omega$ did not prevent the underestimation of long branches, as the GY94+$\Gamma\omega$ inferred approximately the same branch lengths as the GY94 model.
-We also estimated branch lengths using averaged ExpCMs.
-The averaged ExpCMs have a uniform stationary state defined by the average DMS preference for a given amino acid across all sites from the deep mutational scan. 
+We also estimated branch lengths using ExpCM's averaged across sites.
+The ExpCM's averaged across sites have a uniform stationary state defined by the average DMS preference for a given amino acid across all sites from the deep mutational scan. 
 Even these models, which share information with the model used to simulate the sequences, underestimated the long branches. 
 The inability of these uniform stationary state models to specifically describe purifying selection on a site by site basis clearly hinder their ability to accurately estimate long branch lengths. 
 
