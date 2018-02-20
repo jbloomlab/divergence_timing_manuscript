@@ -20,12 +20,12 @@ from Bio import SeqIO
 
 # Globals ---------------------------------------------------------------------
 # Set-up trees
-TREE = "../HA/branch_lengths/phydms/WSN_high_0_ExpCM_HA_Doud_prefs_tree.newick"
-TREE_PREFIX = "WSN_high_0"
+TREE = "../HA/branch_lengths/phydms/hybrid_high_0_ExpCM_HA_hybridDoud_prefs_tree.newick"
+TREE_PREFIX = "hybrid_high_0"
 # Set-up models
-PARAMS_FILE = "../HA/branch_lengths/phydms/WSN_low_0_ExpCM_HA_Doud_prefs_"\
+PARAMS_FILE = "../HA/branch_lengths/phydms/hybrid_lowH1_0_ExpCM_HA_hybridDoud_prefs_"\
               "modelparams.txt"
-PREFS_FILE = "../HA/data/references/HA_Doud_prefs.csv"
+PREFS_FILE = "../HA/data/references/HA_hybridDoud_prefs.csv"
 MODEL = createModel(PREFS_FILE, PARAMS_FILE)
 
 # Set-up simulations
