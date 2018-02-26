@@ -198,8 +198,7 @@ Codon models distinguish between two types of substitutions: synonymous and nons
 The relative rate of these substitutions is referred to as dN/dS or $\omega$.
 In their simplest form, codon substitution models fit a single $\omega$ that represents the gene-wide average selection on nonsynonymous mutations relative to synonymous ones.
 Here we will use such substitution models in the form proposed by \citet{goldman1994codon}.
-Using the classification scheme of \citet{yang2000codon}, when these models have a single gene-wide $\omega$ they are called M0.
-We will refer to the M0 variant of the \citet{goldman1994codon} model simply as GY94.
+When these models have a single gene-wide $\omega$ they are classified as M0 by \citet{yang2000codon} but we will refer to them as GY94 models. 
 The gene-wide $\omega$ is usually $<1$\citep{murrell2015gene}, and crudely represents the fact that many amino-acid substitutions are under purifying selection.
 
 A single gene-wide $\omega$ ignores the fact that purifying selection is heterogeneous across sites.
@@ -218,11 +217,11 @@ However, the increased realism of mutation-selection models comes at the cost of
 Codon substitution models with uniform stationary states have only a modest number of parameters that must be fit from the phylogenetic data.
 For instance, a GY94+$\Gamma\omega$ model with the commonly used F3X4 stationary state has 12 parameters: two describing the shape of the gamma distribution over $\omega$, a transition-transversion rate, and 9 parameters describing nucleotide composition of the stationary state.
 However, mutation-selection models must additionally specify 19 parameters defining the stationary state for \emph{each} site (there are 20 amino acids whose frequencies are constrained to sum to one).
-This corresponds to $19\times L$ parameters for a protein of length $L$, or 9500 parameters for a 500-residue protein.
+This corresponds to $19\times L$ parameters for a protein of length $L$, or 9,500 parameters for a 500-residue protein.
 It is challenging to obtain values for these parameters without overfitting the data~\citep{rodrigue2013statistical}.
-Here we will primarily use experimentally informed codon models (ExpCM)~\citep{bloom2014experimentally, hilton2017phydms, bloom2017identification} which define values for these parameters \textit{a priori} from deep mutational scanning experiments~\citep{fowler2014deep} so they do not need to be fit from phylogenetic data.
-Therefore, the number of remaining free parameters for an ExpCM are similar to a non-site-specific substitution model.
-Alternative strategies of obtaining parameters for site-specific stationary states via Bayesian\skhcomment{cite} or maximum-likelihood estimation\skhcomment{cite} are discussed in the last section of the Results.
+Here we will primarily use experimentally informed codon models (ExpCM)~\citep{bloom2014experimentally, hilton2017phydms, bloom2017identification} to address this concern as ExpCM's define these parameters \textit{a priori} from deep mutational scanning experiments~\citep{fowler2014deep} so the parameters do not need to be fit from phylogenetic data.
+The number of remaining free parameters for an ExpCM are similar to a non-site-specific substitution model.
+Alternative strategies of obtaining parameters for site-specific stationary states via Bayesian \citep{lartillot2004bayesian, rodrigue2014site} or maximum-likelihood estimation\citep{si2008empirical} are discussed in the last section of the Results.
 
 Importantly, these two strategies for modeling purifying selection are not mutually exclusive.
 Mutation-selection models such as ExpCM can still incorporate an $\omega$ parameter, which now represents the relative rate of nonsynonymous to synonymous substitution \emph{after} accounting for the constraints due to the site-specific stationary state.
