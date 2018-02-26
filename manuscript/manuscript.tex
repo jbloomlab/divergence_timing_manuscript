@@ -353,63 +353,56 @@ One scan measured the site-specific amino-acid preferences in an H1 background (
 These two deep mutational scans sample the breadth of HA diversity as their respective focal sequences are only $\sim42\%$ identical on the amino acid level. 
 By comparing these two ExpCMs, we can examine the effect of the experiment's focal sequence on branch length estimation, along with the effect of site-specific stationary state and $\Gamma\omega$ rate variation.
 
-\jdbcomment{The results in Figure ? show the distinct effects of modeling variation in $\omega$ and variation in the stationary state... (Basically, more clearly delineate the two effects)}
-Models with either site-specific stationary state or $\Gamma\omega$ rate variation estimated longer branches than models without (\ref{fig:empirical_trees}). 
-Furthermore, we can isolate the effect of each method. 
-For example, the increase in branch length estimated by GY94+$\Gamma\omega$ compared to GY94 and by ExpCM+$\Gamma\omega$ compared to ExpCM shows that $\Gamma\omega$ rate variation increases branch length in the presence and absence of a site-specific stationary state. 
-We also see an increase in branch length with the addition of a site-specific stationary state in the presence and absence of $\Gamma\omega$ rate variation (\ref{fig:empirical_trees}, GY94 vs. ExpCM and GY94+$\Gamma\omega$ vs. ExpCM+$\Gamma\omega$). 
-The model with both methods, ExpCM+$\Gamma\omega$, estimated the longest branches of all the models. 
-However, the branch length extension from any of the ExpCM compared to any of the GY94 models was not uniform across the entire tree. 
-The branches with the largest difference in branch length are near the focal sequence of the deep mutational scans (\ref{fig:empirical_trees}, circle for H1 and triangle for H3)
-This local effect of the ExpCM indicates that the stationary state described by the deep mutational scanning preferences is most accurate near the focal sequences of the scan. 
+The results in \ref{fig:empirical_trees} show the distinct effects of modeling variation in $\omega$ and variation in the stationary state. 
+The models with $\Gamma\omega$ rate variation estimated longer branches than the same base model without this variation. 
+For example, in \ref{fig:empirical_trees}, the GY94+$\Gamma\omega$ model estimated longer branches than the GY94 and the ExpCM+$\Gamma
+\omega$(H1 prefs) estimated longer branches than the ExpCM(H1 prefs). 
 
-The local effect of the ExpCM is not entirely surprising. 
-Proteins are affected by epistatic interactions, where the effect of a mutation at one site is dependent on the amino-acid identity at another site. 
-While one of the strengths of deep mutational scanning is the ability to accurately measure the effect of all single amino-acid mutations, these measurements are done in the context of a single genetic background and do not take into account epistatic interactions. 
-Consequently, the stationary state defined by these preferences is most accurate for only a subset of the tree.
-An ExpCM with a more general stationary state, defined by the average of the H1 and H3 preferences, lengthen the preferences from both the H1 and H3 clades (\ref{fig:empirical_trees}). 
+The models with site-specific stationary states, the ExpCM's, estimated longer branches than the GY94 models. 
+Both the ExpCM(H1 prefs) and ExpCM(H3) prefs estimated longer branches than the GY94 model. 
+However, in contrast with the effect of adding $\Gamma\omega$ rate variation, the effect of site-specific stationary defined by deep mutational scanning preferences is not uniform across the entire tree. 
+The effect is largest on the branches near the focal sequence of the deep mutational scan (\ref{fig:empirical_trees}). 
+While the increase in length estimated by the ExpCM's has a strong local effect, the increase is in seen even in the presence of $\Gamma\omega$ rate variation. 
+The ExpCM+$\Gamma\omega$ estimated longer branches than the GY94+$\Gamma\omega$. 
+The site-specificity of the ExpCM's stationary state is clearly important for estimating the long branches on the HA tree. 
 
 \subsection*{Competing effects of shifting preferences and long branches.}
 
-\skhcomment{I know I was pressing on this a lot, but I think that the three trees in Figure 5 turn out not to be useful as they aren't aligned in a helpful way. So I would suggest instead creating something that is a hybrid between the current Supplementary figure 4A and the Figure 5B. It shows the sequence subsets, and then just shows that the stringency parameter goes down for more diverged alignments. I like the Supplementary figure 4A as it shows the trees most clearly. I like the Figure 5B because it gives the stringency parameters but also shows their actual effects in logos, which is more intuitive than just plotting them on a graph.}
-\skhcomment{Two panels one for H1 and one for H3. Each panel has big tree with the subtrees labeled and the same prefs snippet as fig 4 with the different beta values for each subtree.}
-
 \begin{figure}[H]
-\centerline{\includegraphics[width=0.85\textwidth]{figures/doud_compete_2}}
-\caption{\label{fig:doud_compete}
-\textbf{The ExpCM defined by H1 preferences lengthen longer branches on the HA tree.} 
-\textbf{(A)} An HA alignment was subsampled to create three smaller alignments with varying degrees of divergence from the focal H3 sequence, referred to as "low", "intermediate", and "high". 
-\textbf{(B)} The phylogenetic tree of the "high" alignment. 
-The colors denote the alignment and the black circle denotes the focal H3 sequence. 
-\textbf{(C)} The value of the ExpCM and ExpCM+$\Gamma\omega$ stringency parameter $\beta$ decreases as the divergence from the focal H3 sequence increases. 
-\textbf{(D)} Comparisons of branch lengths optimized by the four substitution models for the varying degrees of divergence. 
-Black points represent branches from the focal H3 sequence and grey points represent all other branches.  
-The branch lengths are in average number of codon substitutions per site. 
+\centerline{\includegraphics[width=0.85\textwidth]{figures/compete_3}}
+\caption{\label{fig:compete}
+\textbf{Effect of overall divergence on the congruency between natural sequences and the deep mutational scanning preferences.} 
+For each deep mutational scanning preference set, we fit an ExpCM to three trees representing high, intermediate, and low overall divergence from the experimental focal sequence. 
+We used the ExpCM stringency parameter ($\beta$) to determine the congruency between the natural sequences and the experimental measurements. 
+A $\beta >1$ indicates that the natural sequences favor the same amino-acid preferences as the experimental measurements but with a greater strength. 
+A $\beta < 1$ indicates the natural sequences do not favor the same amino-acid preferences as the experimental measurements or favor the same amino acids but less strongly. 
+As the overall divergence increased, the $\beta$ value for the ExpCM(H3 prefs) and ExpCM(H1 prefs) decreased, indicating that the preferences do ``shift" over the full HA tree. 
+\skhcomment{1. I need to clean up and do a better job aligning the different parts of this figure but what do you think of the overall layout? 2. \ref{supp:compete_4} shows an alternative layout.}
 }
 \end{figure}
 
-We looked closer at the effect of shifting preferences on branch length estimation. 
-We examined the behavior of the ExpCM on trees with varying levels of overall sequence divergence from the ExpCM focal sequence. 
-For each tree, we asked ``does the site-specific stationary state model estimate longer branches than the uniform stationary state model?" and ``is the preference set defining the ExpCM relevant?"
+The local effect of the ExpCM is not entirely surprising. 
+Proteins are affected epistatic interactions, where the effect of a mutation at one site is dependent on the amino-acid identity at another site. 
+While one of the strengths of deep mutational scanning is the ability to accurately measure the effect of all single amino-acid mutations, these measurements are done in the context of a single genetic background and do not take into account epistatic interactions. 
+The stationary state of the ExpCM's is only as accurate as deep mutational scanning preferences and the results in \ref{fig:empirical_trees} indicate that any given deep mutational scan is most accurate for only a subset of the tree with closely related sequences to the focal sequence.  
 
-The effect of site-specific stationary state on branch length estimation is seen most strongly on long branches. 
-As the full HA tree represents ``high" divergence from the DMS focal sequence, we took subsets the tree to create trees with either ``intermediate" or ``low" divergence from the DMS focal sequence. 
-The majority of the branch length estimates are very similar between the GY94+$\Gamma\omega$ and the ExpCM+$\Gamma\omega$ for the ``low" and ``intermediate" alignments. 
-Only when the tree has a high overall divergence from the DMS focal sequence, and therefore the longest branches, is there a difference between the two models. 
-This result is not unsurprising. 
-One of the original motivations for the ``mutation-selection" models was the effect the model would have on long branches specifically. 
+%An ExpCM with a more general stationary state, defined by the average of the H1 and H3 preferences, increases the estimates of branch length from both the H1 and H3 clade (\ref{fig:empirical_trees}). 
 
-We wanted to determine the accuracy or relevance of the ExpCM on these subtrees. 
-Due to the local branch length extension in \ref{fig:empirical_trees}, we expect that the preferences are most accurate on the low divergence tree. We use the ExpCM stringency parameters as a proxy for accuracy of the preference set. 
-The stringency parameter rescales the raw preferences from the deep mutational scan. 
-Large stringency parameter values ($>1$) indicate that selection in nature prefers the same amino acids as selection in lab but with a higher stringency.
-Or that the preferences measured in lab are relevant for describing the evolution of that protein. 
-The stringency parameter for ExpCM(H1 prefs) has the highest value for the low divergence alignment and declines as the overall divergence increases. 
-The ExpCM(H3 prefs) show the same pattern. 
-The inverse relationship between stringency parameter and divergence supports the hypothesis that epistatic interactions degrade the ExpCM stationary state as defined by DMS preferences. 
-\skhcomment{All epistatic? Could there just be a change?}
+We examined how the deep mutational scanning preferences shift across the full HA tree by comparing the ExpCM behavior on trees with varying levels of overall divergence from the ExpCM focal sequence. 
+For each of the subtrees in \ref{fig:compete}, we asked "how well do the deep mutational scanning preferences agree with the natural sequences?" using the ExpCM stringency parameter $\beta$ (\ref{eq:Frxy}). 
+The fit $\beta$ parameter rescales the raw preferences from the deep mutational scan and relates the selection in nature to selection in the lab. 
+We interpret $\beta >1$ as selection in nature favoring the same amino acids as selection in the experiments, or that the amino-acid preferences are a good model of purifying selection. 
+The larger the $\beta$ more strongly the selection in nature favors these same, experimental preferences. 
+Conversely, we interpret a $\beta<1$ as selection in nature favoring different amino acids than selection in lab and that the preferences are not a good description of natural evolution.  
+\skhcomment{mention pop-gen derivation and the relationship between lab vs. nature selection and pop size?}
 
-Current models which have one stationary state across the entire tree, site-specific or not, will not be able to address this tension. 
+The results in \ref{fig:compete} show that as the overall divergence from the focal sequence of a deep mutational scan increase, the $\beta$ value decreases. 
+This inverse relationship between $\beta$ and overall divergence is seen for both the ExpCM(H1 prefs) and ExpCM(H3 prefs). 
+Along with the local effect in branch length extension seen \ref{fig:empirical_trees}, this indicates that the amino-acid preferences have shifted across the HA tree. 
+This leaves us in a regime with inherent tension. 
+Models which take into account the site-specific constraints of purifying selection in their stationary states are important for the accurate estimation of long branches but the site-specific constraints are not static throughout evolution. 
+Models with a single stationary state regardless of lineage, site-specific or not, will not be able to capture the shifting functional constraints due to epistatic interactions. 
+\skhcomment{All betas are greater than 1 so the preferences are ``better" than the GY94 model even at high overall divergence.}
 
 \subsection*{\texttt{phylobayes}}
 
@@ -534,7 +527,7 @@ where $a$ is all amino acids, $p_{r,x}$ is the stationary state of the model at 
 
 \begin{suppfig}[H]
 \centerline{\includegraphics[width=0.85\textwidth]{figures/lee_compete}}
-\caption{\label{fig:lee_compete}
+\caption{\label{supp:lee_compete}
 \textbf{The ExpCM defined by H1 preferences lengthen longer branches on the HA tree.} 
 \textbf{(A)} An HA alignment was subsampled to create three smaller alignments with varying degrees of divergence from the focal H3 sequence, referred to as "low", "intermediate", and "high". 
 \textbf{(B)} The phylogenetic tree of the "high" alignment. 
@@ -543,6 +536,12 @@ The colors denote the alignment and the black circle denotes the focal H3 sequen
 \textbf{(D)} Comparisons of branch lengths optimized by the four substitution models for the varying degrees of divergence. 
 Black points represent branches from the focal H3 sequence and grey points represent all other branches.  
 The branch lengths are in average number of codon substitutions per site. 
+}
+\end{suppfig}
+
+\begin{suppfig}[H]
+\centerline{\includegraphics[width=0.85\textwidth]{figures/compete_4}}
+\caption{\label{supp:compete_4}
 }
 \end{suppfig}
 
