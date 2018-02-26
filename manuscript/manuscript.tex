@@ -406,22 +406,26 @@ Models with a single stationary state regardless of lineage, site-specific or no
 
 \subsection*{\texttt{phylobayes}}
 
-Finally, we compared the branch lengths estimated between two different models with site-specific stationary states. 
-We compared the branch lengths estimated by ExpCM+$\Gamma\omega$ (avg) with the branch lengths estimated by the mutation-selection model implemented in \texttt{phylobayes}. 
-The \texttt{phylobayes} mutation-selection model estimates the amino-acid preferences which define the stationary state in a Bayesian framework rather than defining them from the DMS \textit{a priori}. 
-Branch length estimates are very similar between the ExpCM+$\Gamma\omega$ (avg) and the \texttt{phylobayes} mutation-selection model. 
-The equivalence between the two models shows the general importance of site-specific stationary states. 
-The local accuracy of the DMS preferences and the ExpCM can still be seen. 
-The branch length estimates from either focal sequence (H1 and H3) are longer by the ExpCM than by the \texttt{phylobayes} mutation-selection model. 
-This indicates that the DMS preferences are still more accurate for the local branches around the focal sequence than the global preferences estimated by \texttt{phylobayes}. 
+The previous sections show that the ExpCM's, with their site-specific stationary states, estimate longer branches than the GY94. 
+However, the ExpCM stationary state has a strong local effect as the amino-acid preferences from deep mutational scanning experiments are most accurate near their focal sequence. 
+There are other models with site-specific stationary states which infer all of the parameters from the phylogenetic data rather than from independent experiments. 
+For example, the CAT model, an amino-acid rather than codon model, describes the stationary state at each site as a mixture model of distinct, finite amino-acid profiles and the mutation-selection model implemented in \texttt{phylobayes} is almost identical to the ExpCM except the amino-acid preferences are inferred in a Bayesian framework rather than defined by deep mutational scanning experiments. 
+We compared the ExpCM with the \texttt{phylobayes} mutation-selection model to examine the effect of site-specific stationary states on branch length estimation with and without experimental preferences. 
 
-\skhcomment{What is the average difference in branch length between the two models?}
+The results in \ref{fig:phylobayes} show that the ExpCM+$\Gamma\omega$(H1+H3 avg prefs) and the \texttt{phylobayes} mutation-selection model, which includes $\Gamma\omega$, estimated similar branch lengths on the HA tree in \ref{fig:empirical_trees}. 
+While the two models estimated the same branch length on average, the tension between local and global accuracy is still apparent in the results. 
+All of the long branches from either the H1 or H3 focal sequence were estimated to be longer by the ExpCM+$\Gamma\omega$ while all other branches were estimated to be longer by the \texttt{phylobayes} mutation-selection model. 
+This enrichment of branches from the focal sequence in the branches estimated to be longer by the ExpCM+$\Gamma\omega$(H1+H3 prefs) indicates that the ``global" stationary state inferred by \texttt{phylobayes} is not as accurate as the deep mutational scanning preferences for sequences close to the focal sequence. 
+The accuracy of the deep mutational scanning preferences is sacrificed for more a universal stationary state. 
+While the parameters inferred by the \texttt{phylobayes} model are a good compromise, they do not avoid the tension between the importance of a site-specific stationary state for long branch estimation and shifting preferences. 
+
 
 \begin{figure}[H]
 \centerline{\includegraphics[width=0.5\textwidth]{figures/phylobayes.pdf}}
 \caption{\label{fig:phylobayes}
-\textbf{Comparison of ExpCM and phylobayes}
-\skhcomment{y=x line too faint?}
+\textbf{Comparison of ExpCM and \texttt{phylobayes}}
+We estimated the branch lengths of the HA tree in \ref{fig:empirical_trees} using the mutation-selection model implemented in \texttt{phylobayes}. 
+In comparison to ExpCM's, the \texttt{phylobayes} model infers the site-specific amino-acid preferences from the phylogenetic data rather than defining them \textit{a priori} from deep mutational scanning experiments. 
 }
 \end{figure}
 
