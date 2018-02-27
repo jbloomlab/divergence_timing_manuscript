@@ -355,7 +355,7 @@ We fit the GY94 model and each of the three ExpCM's to the fixed HA tree topolog
 \ref{tab:empirical_data} shows that all of the ExpCM's fit the actual data much better than the GY94 model.
 The best fit was for the ExpCM that was informed by the average of the H1 and H3 deep mutational scans.
 For all models, incorporating $\Gamma\omega$ rate variation improved the fit, although even ExpCM's without $\Gamma\omega$ greatly outperformed the GY94+$\Gamma\omega$ models.
-\jdbcomment{Probably comment a bit on $\omega$ here: they are typically less than one for all models, but are higher for ExpCM than GY94. Possibly also comment on the stringency parameter.}
+\jdbcomment{Probably comment a bit on $\omega$ here: they are typically less than one for all models, but are higher for ExpCM than GY94. Possibly also comment on the stringency parameter, aligning with description in the next section.}
 
 \ref{fig:empirical_trees} shows that modeling purifying selection via either $\Gamma\omega$ rate variation or a site-specific stationary state increases the estimated branch lengths.
 But important, the effects from these two methods of modeling purifying selection are largely independent.
@@ -371,55 +371,67 @@ Therefore, \jdbcomment{something general summarizing the key finding from this s
 \subsection*{Competing effects of shifting preferences and long branches.}
 
 \begin{figure}
-\centerline{\includegraphics[width=0.85\textwidth]{figures/compete_3}}
+\centerline{\includegraphics[width=0.75\textwidth]{figures/compete_3}}
 \caption{\label{fig:compete}
-\textbf{Effect of overall divergence on the congruency between natural sequences and the deep mutational scanning preferences.} 
-For each deep mutational scanning preference set, we fit an ExpCM to three trees representing high, intermediate, and low overall divergence from the experimental focal sequence. 
-We used the ExpCM stringency parameter ($\beta$) to determine the congruency between the natural sequences and the experimental measurements. 
-A $\beta >1$ indicates that the natural sequences favor the same amino-acid preferences as the experimental measurements but with a greater strength. 
-A $\beta < 1$ indicates the natural sequences do not favor the same amino-acid preferences as the experimental measurements or favor the same amino acids but less strongly. 
-As the overall divergence increased, the $\beta$ value for the ExpCM(H3 prefs) and ExpCM(H1 prefs) decreased, indicating that the preferences do ``shift" over the full HA tree. 
-\skhcomment{1. I need to clean up and do a better job aligning the different parts of this figure but what do you think of the overall layout? 2. \ref{supp:compete_4} shows an alternative layout.}
+\textbf{The congruency between natural selection and the deep mutational scanning measurements decreases with sequence divergence.} 
+We fit an ExpCM informed by the H1 or H3 deep mutational scanning experiments to trees spanning sequences with low, intermediate, and high divergence from the sequence used in the experiment. 
+The ExpCM stringency parameter ($\beta$) is a measure of the congruency between natural selection and the experimental measurements. 
+Larger values of $\beta$ indicate that natural selection prefers the same amino acids as the experiments but with greater stringency. 
+As divergence increases between the HA used in the experiment and the other sequences in the tree, the $\beta$ value decreases.
+Therefore, the preferences measured in each experiment are progressively less congruent with those of the HA sequences on the tree as we include increasingly diverged sequences. 
+\jdbcomment{\emph{Maybe} if logo stacks a bit higher, the point is a bit clearer.}
 }
 \end{figure}
 
-The local effect of the ExpCM is not entirely surprising. 
-Proteins are affected epistatic interactions, where the effect of a mutation at one site is dependent on the amino-acid identity at another site. 
-While one of the strengths of deep mutational scanning is the ability to accurately measure the effect of all single amino-acid mutations, these measurements are done in the context of a single genetic background and do not take into account epistatic interactions. 
-The stationary state of the ExpCM's is only as accurate as deep mutational scanning preferences and the results in \ref{fig:empirical_trees} indicate that any given deep mutational scan is most accurate for only a subset of the tree with closely related sequences to the focal sequence.  
+The fact that an ExpCM has the greatest effect on branches close to the sequence used in the experiment can be rationalized in terms of existing knowledge about how epistasis shifts protein amino-acid preferences during evolution~\jdbcomment{Stokes shift paper, Shah et al paper, Doud et al 2015, Haddox et al 2018, look at other papers cited about Stokes shift in Haddox et al 2018}.
+In reality, sites in proteins do not have completely conserved site-specific amino-acid preferences. 
+Rather, the effect of a mutation at one site in a protein can depend on the amino-acid identity of other sites in the protein~\jdbcomment{Maybe cite a couple of general papers on epistasis, some good ones in Haddox et al 2018}. 
+The deep mutational scanning experiments that inform our ExpCM's are each done in the context of a single HA genetic background, and so do not account for how such epistatic interactions can cause amino-acid preferences to shift as substitutions accumulate. 
+Therefore, it makes sense that an ExpCM would most accurately describe the site-specific amino-acid preferences of sequences closely related to the one used in the experiment.
 
-%An ExpCM with a more general stationary state, defined by the average of the H1 and H3 preferences, increases the estimates of branch length from both the H1 and H3 clade (\ref{fig:empirical_trees}). 
-
-We examined how the deep mutational scanning preferences shift across the full HA tree by comparing the ExpCM behavior on trees with varying levels of overall divergence from the ExpCM focal sequence. 
-For each of the subtrees in \ref{fig:compete}, we asked "how well do the deep mutational scanning preferences agree with the natural sequences?" using the ExpCM stringency parameter $\beta$ (\ref{eq:Frxy}). 
+We can observe this phenomenon of shifting amino-acid preferences degrading the accuracy of the ExpCM by fitting trees containing increasingly diverged sequences.
+Specifically, for each HA for which we have deep mutational scanning data, we created three HA phylogenetic trees: a ``low'' divergence tree that contains only sequences with $\ge ?$ amino-acid identity to the HA used in the experiment, an ``intermediate'' divergence tree that contains sequences with $\ge ?$ amino-acid identity to the HA in the experiment, and a ``high'' divergence tree that contains all the HAs (which have as little as 38\% identity to the HA in the experiment).
+\ref{fig:compete} shows these sets of HA sequences.
+For each of the subtrees in \ref{fig:compete}, we examined the congruence between site-specific natural selection over the tree and the amino-acid preferences measured in the deep mutational scanning experiment. 
+\jdbcomment{Some general description of $\beta$ here. I think we'd noted above possibly describing it then? If so, just put a short recap here. If you decide not to describe it above in any detail, have something longer here.}
 The fit $\beta$ parameter rescales the raw preferences from the deep mutational scan and relates the selection in nature to selection in the lab. 
 We interpret $\beta >1$ as selection in nature favoring the same amino acids as selection in the experiments, or that the amino-acid preferences are a good model of purifying selection. 
 The larger the $\beta$ more strongly the selection in nature favors these same, experimental preferences. 
 Conversely, we interpret a $\beta<1$ as selection in nature favoring different amino acids than selection in lab and that the preferences are not a good description of natural evolution.  
-\skhcomment{mention pop-gen derivation and the relationship between lab vs. nature selection and pop size?}
 
-The results in \ref{fig:compete} show that as the overall divergence from the focal sequence of a deep mutational scan increase, the $\beta$ value decreases. 
-This inverse relationship between $\beta$ and overall divergence is seen for both the ExpCM(H1 prefs) and ExpCM(H3 prefs). 
-Along with the local effect in branch length extension seen \ref{fig:empirical_trees}, this indicates that the amino-acid preferences have shifted across the HA tree. 
-This leaves us in a regime with inherent tension. 
+\ref{fig:compete} shows that as the divergence from the sequence used in the deep mutational scan increases, the value of $\beta$ decreases. 
+This inverse relationship between $\beta$ and overall divergence is seen for the ExpCM's informed by both the H1 and H3 experiments.
+Specifically, \jdbcomment{something about how the decreasing $\beta$ flattens the preferences and so loses information from the experiment.}
+The flattening with increasing sequence divergence arises because the amino-acid preferences are increasingly less accurate as we move away from the experimental sequence on the tree.
+As shown in \jdbcomment{simulation figure}, the ability of models with site-specific stationary states to extend branch lengths requires these stationary states to be accurate\jdbcomment{Maybe expand the simulation figure to have two rows and have something with randomized preferences too}.
+This fact also helps rationalize why the average of the H1 and H3 experiments does better across the whole tree \jdbcomment{refer to the figure showing that and give some explanation.}
+ 
+The fact that amino-acid preferences shift as proteins evolve leaves us with an inherent tension: models with site-specific stationary states only become important for accurate branch-length estimation as sequences become increasingly diverged, but this same divergence degrades the accuracy of extrapolating the amino-acid preferences from any given experiment across the phylogenetic tree.
+More importantly, the fact that amino-acid preferences shift over time means that there will not be any model with a single set of site-specific stationary states that accurately describes a phylogenetic tree that covers a wide span of sequences.
+\jdbcomment{Use a slightly more succinct version of what you have below to drive home the point:
+``This leaves us in a regime with inherent tension. 
 Models which take into account the site-specific constraints of purifying selection in their stationary states are important for the accurate estimation of long branches but the site-specific constraints are not static throughout evolution. 
-Models with a single stationary state regardless of lineage, site-specific or not, will not be able to capture the shifting functional constraints due to epistatic interactions. 
-\skhcomment{All betas are greater than 1 so the preferences are ``better" than the GY94 model even at high overall divergence.}
+Models with a single stationary state regardless of lineage, site-specific or not, will not be able to capture the shifting functional constraints due to epistatic interactions.''} 
 
-\subsection*{\texttt{phylobayes}}
+\subsection*{Models with stationary states estimated from natural sequences give similar results to ExpCM's}
+The previous sections used ExpCM's, which are mutation-selection models that use site-specific amino-acid preferences that have been measured experiments.
+However, there are other implementations of mutation-selection models that infer the amino-acid preferences from natural sequence data.
+These models are generally implemented in a Bayesian framework, which avoids the overfitting problems associated with trying to make maximum-likelihood estimates of thousands of parameters giving the site-specific stationary states.
+For example, the CAT model\jdbcomment{citation} implements site-specific stationary states for amino-acid substitution models by drawing the stationary state at each site from a mixture model of distinct, finite amino-acid profiles \jdbcomment{wording in preceding sentence might need some tweaking}.
+However, the model most comparable to our ExpCM's is the mutation-selection model implemented in \texttt{phylobayes}, \jdbcomment{and referred to as MutSel.}
+This \jbcomment{MutSel} model is mathematically identical to the ExpCM's except the amino-acid preferences are sampled from a Bayesian mixture models rather than derived from experiments\jdbcomment{The preceding might not be accurate either in the wording about Bayesian mixture models, or because the nucleotide frequency parameters might be different? Also might have site-specific $\omega_r$. Check these and adjust to be accurate.}
+Like ExpCM's, these MutSel models still assume a single set of site-specific amino-acid preferences for the entire tree.
 
-The previous sections show that the ExpCM's, with their site-specific stationary states, estimate longer branches than the GY94. 
-However, the ExpCM stationary state has a strong local effect as the amino-acid preferences from deep mutational scanning experiments are most accurate near their focal sequence. 
-There are other models with site-specific stationary states which infer all of the parameters from the phylogenetic data rather than from independent experiments. 
-For example, the CAT model, an amino-acid rather than codon model, describes the stationary state at each site as a mixture model of distinct, finite amino-acid profiles and the mutation-selection model implemented in \texttt{phylobayes} is almost identical to the ExpCM except the amino-acid preferences are inferred in a Bayesian framework rather than defined by deep mutational scanning experiments. 
-We compared the ExpCM with the \texttt{phylobayes} mutation-selection model to examine the effect of site-specific stationary states on branch length estimation with and without experimental preferences. 
-
-The results in \ref{fig:phylobayes} show that the ExpCM+$\Gamma\omega$(H1+H3 avg prefs) and the \texttt{phylobayes} mutation-selection model, which includes $\Gamma\omega$, estimated similar branch lengths on the HA tree in \ref{fig:empirical_trees}. 
-While the two models estimated the same branch length on average, the tension between local and global accuracy is still apparent in the results. 
-All of the long branches from either the H1 or H3 focal sequence were estimated to be longer by the ExpCM+$\Gamma\omega$ while all other branches were estimated to be longer by the \texttt{phylobayes} mutation-selection model. 
-This enrichment of branches from the focal sequence in the branches estimated to be longer by the ExpCM+$\Gamma\omega$(H1+H3 prefs) indicates that the ``global" stationary state inferred by \texttt{phylobayes} is not as accurate as the deep mutational scanning preferences for sequences close to the focal sequence. 
-The accuracy of the deep mutational scanning preferences is sacrificed for more a universal stationary state. 
-While the parameters inferred by the \texttt{phylobayes} model are a good compromise, they do not avoid the tension between the importance of a site-specific stationary state for long branch estimation and shifting preferences. 
+Comparing ExpCM and MutSel models can therefore help resolve whether the limitations of the ExpCM's are due to the experiments not accurately measuring the amino-acid preferences that best describe site-specific selection across the entire tree, or whether the limitation is simply that there is no such set of preferences\jdbcomment{probably too wordy}.
+The best-performing ExpCM is the one that uses the average of the H1 and H3 deep mutational scanning\jdbcomment{reference why this is true}.
+We therefore compared this ExpCM with the \texttt{phylobayes} mutation-selection model to examine the effect of site-specific stationary states on branch length estimation with and without experimental preferences. 
+The results in \ref{fig:phylobayes} show that the ExpCM+$\Gamma\omega$(H1+H3 avg prefs) and the \jdbcomment{MutSel} model estimated similar branch lengths on the HA tree in \ref{fig:empirical_trees}. 
+\jdbcomment{Should add note somewhere about how branch lengths were normalized. This might actually be best in the figure legend, not here.}
+While the two models estimated similar branch lengths overall, the tension between local and global accuracy of the amino-acid preferences is still apparent in the results. 
+All the long branches from either the H1 or H3 sequences used in the experiments were estimated to be slightly longer by the ExpCM+$\Gamma\omega$, while many other branches were estimated to be slightly longer by the \jdbcomment{MutSel} model. 
+The relatively longer branches from the experimental sequences when using the ExpCM+$\Gamma\omega$ suggests that the ``global" stationary state inferred by \texttt{phylobayes} is not as accurate as the deep mutational scanning preferences for sequences close to the experimental sequences. 
+However, at sequences distant from those used in the experiments, the ``global'' preferences estimated by the MutSel model appear to be slightly better than the average of the experimental values.
+Therefore, while the site-specific MutSel models inferred by \texttt{phylobayes} are probably more accurate for sequences distant from the H1 and H3 in the experiments, they do not avoid the tension between the importance of a site-specific stationary state for long branch estimation and shifting preferences. 
 
 
 \begin{figure}
@@ -428,8 +440,12 @@ While the parameters inferred by the \texttt{phylobayes} model are a good compro
 \textbf{Comparison of ExpCM and \texttt{phylobayes}}
 We estimated the branch lengths of the HA tree in \ref{fig:empirical_trees} using the mutation-selection model implemented in \texttt{phylobayes}. 
 In comparison to ExpCM's, the \texttt{phylobayes} model infers the site-specific amino-acid preferences from the phylogenetic data rather than defining them \textit{a priori} from deep mutational scanning experiments. 
+\jdbcomment{Is this the $\Gamma\omega$ model? If so, indicate in y-axis}
 }
 \end{figure}
+
+\jdbcomment{Somewhere that makes sense (possibly a few paragraphs above) add more material on correlation of prefs from phylobayes and DMS. We want to show how phylobayes prefs are more similar to H1+H3 avg than H1 and H3 are too each other, so maybe show several correlation plots. However, avoid correlating H1+H3 with H1 or H3, since this is confounded since H1 and H3 are both part of H1+H3.
+Also, add a supplementary figure showing the phylobayes prefs in the same format as the DMS prefs}
 
 \section*{Conclusion}
 
