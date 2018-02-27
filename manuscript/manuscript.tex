@@ -341,7 +341,7 @@ To test the models on real data, we used actual sequences of influenza HA.
 The topology of HA phylogenetic trees (\ref{fig:empirical_trees}) makes these sequences an interesting test case for branch-length estimation.
 HA consists of a number of different subtypes.
 Sequences within a subtype have \jdbcomment{?} amino-acid identity, but sequences in different subtypes have as little as 38\% identity.
-However, HA proteins from all subtypes (with the exception of an unusual subtype of bat influenza virus that we exclude from this analysis~\jdbcomment{?}) have a highly conserved structure that performs a highly conserved function~\citep{ha2002h5,russell2004h1}.
+However, HA proteins from all subtypes (with the exception of an unusual subtype of bat influenza virus that we exclude from this analysis~\citep{zhu2013hemagglutinin,hoffmann2016hemagglutinin,sun2013bat}) have a highly conserved structure that performs a highly conserved function~\citep{ha2002h5,russell2004h1}.
 We used \texttt{RAxML} with nucleotide model of substitution (GTRCAT) to infer a phylogenetic tree for 87 HA sequences drawn from 14 of the 18 subtypes (we excluded bat influenza and three other rare subtypes).
 For the rest of this paper, we fix the tree topology to this \texttt{RAxML}-inferred tree.
 Although the nucleotide model used with \texttt{RAxML} is probably less accurate than codon models, the modular subtype structure of the HA phylogeny means that most of the phylogenetic uncertainty probably lies in the length of the long branches separating the subtypes rather than in the tree topology itself.
