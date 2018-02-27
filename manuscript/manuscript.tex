@@ -216,10 +216,10 @@ This corresponds to $19\times L$ parameters for a protein of length $L$, or 9,50
 It is challenging to obtain values for these parameters without overfitting the data~\citep{rodrigue2013statistical}.
 Here we will primarily use experimentally informed codon models (ExpCM's)~\citep{bloom2014experimentally, hilton2017phydms, bloom2017identification} which define these parameters \textit{a priori} from deep mutational scanning experiments so they do not need to be fit from phylogenetic data.
 The number of remaining free parameters for an ExpCM are similar to a non-site-specific substitution model.
-Alternative strategies of obtaining parameters for site-specific stationary states via Bayesian \citep{lartillot2004bayesian, rodrigue2014site} or maximum-likelihood estimation~\citep{si2008empirical}\jdbcomment{check that this should be Si Quang and not Quang} are discussed in the last section of the Results.
+Alternative strategies of obtaining parameters for site-specific stationary states via Bayesian \citep{lartillot2004bayesian, rodrigue2014site} or maximum-likelihood estimation~\citep{si2008empirical} are discussed in the last section of the Results.
 
 Importantly, these two strategies for modeling purifying selection are not mutually exclusive.
-Mutation-selection models such as ExpCM can still incorporate an $\omega$ parameter\jdbcomment{cite Haddox et al paper}, which now represents the relative rate of nonsynonymous to synonymous substitution \emph{after} accounting for the constraints due to the site-specific stationary state.
+Mutation-selection models such as ExpCM can still incorporate an $\omega$ parameter~\citep{haddox2017mapping}, which now represents the relative rate of nonsynonymous to synonymous substitution \emph{after} accounting for the constraints due to the site-specific stationary state.
 This $\omega$ parameter for an ExpCM can be drawn from a distribution just like for GY94-style models. 
 We will denote such models as ExpCM+$\Gamma\omega$.
 \ref{fig:model_feature}C shows the full spectrum of models that incorporate all combinations of gamma-distributed $\omega$ and site-specific stationary states.
@@ -236,7 +236,7 @@ For the GY94 model, the graphs are identical for all sites since this models doe
 The graphs do differ among sites if we use the amino-acid preferences to calculate a different $\omega_r$ value for each site $r$ in a GY94 framework~\citep[\ref{eq:w_r};][]{spielman2015relationship}.
 However, all GY94 models, including the one with site-specific $\omega_r$ values, approach the same asymptote since they all have the same stationary state.
 But the ExpCM has different asymptotes for different sites since it accounts for how amino-acid preferences lead to site-specific stationary states.
-\jdbcomment{Can you choose something instead of site 348 where the preferences and asymptotic divergence distributions look similar? Here they look very different since there are 6 Leu codons and 1 Met codon}
+\skhcomment{Currently, this plot is made using the hybridDoud preferences. I should change the numbering to reflect WSN sequential numbering}
 }
 \end{figure}
 
