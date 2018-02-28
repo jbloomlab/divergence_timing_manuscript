@@ -118,5 +118,6 @@ def rescale_prefs(df, beta):
     df = df.drop("site", axis=1)
     df = df.apply(pd.to_numeric)
     df = df ** beta
+    df = df.div(df.sum(axis=1), axis=0)
     df["site"] = [x+1 for x in range(len(df))]
     return df
