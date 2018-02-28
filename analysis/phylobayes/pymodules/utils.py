@@ -93,3 +93,30 @@ def calc_distances(treePath):
         df["distance"].append(t.get_distance(seqs[0], seqs[1]))
     df = pd.DataFrame(df)
     return df
+
+
+def melt_df(df, new_name):
+    """
+    The purpose of this function reformat a preferences file from wide form
+    to long form.
+
+    input:
+        df: `pandas dataframe`, preferences in wide form
+        new_name: `str`, column name for values
+    output:
+        `pandas dataframe`: preferences in long form
+    """
+    df = pd.melt(df, id_vars=['site'], value_vars=[x for x in df.columns.values
+                 if x != "site"], var_name='amino_acid', value_name=new_name)
+    return df
+
+
+def rescale_prefs(df, beta):
+    """
+    This function rescales the preferences by raising them to the beta value.
+    """
+    df = df.drop("site", axis=1)
+    df = df.apply(pd.to_numeric)
+    df = df ** beta
+    df["site"] = [x+1 for x in range(len(df))]
+    return df
