@@ -18,6 +18,7 @@ After `phylobayes`,  I have other functions which
 1. format the preferences
 2. calculate the branch lengths
 3. normalize the branch lengths
+4. compare the inferred preferences to the measured DMS preferences
 
 ## Data
 
@@ -29,4 +30,4 @@ I ran this protocol on all 7 alignments from HA branch lengths
 4. Perth high divergence
 5. Perth intermediate divergence
 6. Perth low divergence
-7. hybrid high divergence 
+7. hybrid high divergence
