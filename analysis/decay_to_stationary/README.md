@@ -21,6 +21,8 @@ $\omega_r = \frac{\sum_x \sum_{y \in N_x}p_{r,x}P_{r,xy}}{\sum_x \sum_{y \in Nx}
 
 where $x,y$ are codons, $r$ is a site, $p_{r,x}$ is the stationary state, $P_{r,xy}$ is the rate of transition from codon $x$ to codon $y$ at site $r$, $q_{xy}$ is the rate of mutation from codon $x$ to codon $y$ and $N_x$ is the set of codons that are synonymous to $x$ and differ by 1 nucleotide.
 
+I use the $\omega_r$ values calculated *without* the $\omega$ from the ExpCM - just the preferences.
+
 ## Models
 
 I calculated the expected pairwise amino-acid identity at site for four models
@@ -32,15 +34,15 @@ I calculated the expected pairwise amino-acid identity at site for four models
 
 These models are defined by three model parameter files
 
-1. [`YNGKP_M0_modelparams.txt`](../HA/branch_lengths/phydms/WSN_low_0_YNGKP_M0_modelparams.txt)  
-2. [`YNGKP_M5_modelparams.txt`](../HA/branch_lengths/phydms/WSN_low_0_YNGKP_M5_modelparams.txt)
-3. [`ExpCM_HA_Doud_prefs_modelparams.txt`](../HA/branch_lengths/phydms/WSN_low_0_ExpCM_HA_Doud_prefs_modelparams.txt)
+1. [`YNGKP_M0_modelparams.txt`](../HA/branch_lengths/phydms/hybrid_lowH1_0_YNGKP_M0_modelparams.txt)  
+2. [`YNGKP_M5_modelparams.txt`](../HA/branch_lengths/phydms/hybrid_lowH1_0_YNGKP_M5_modelparams.txt)
+3. [`ExpCM_HA_Doud_prefs_modelparams.txt`](../HA/branch_lengths/phydms/hybrid_lowH1_0_ExpCM_HA_Doud_prefs_modelparams.txt)
 
 These model parameters come from the `WSN_low_0` run.
 
-The fourth model (`GY94 + $\omega_r$`) is also defined by the parameters in [`YNGKP_M0_modelparams.txt`](../HA/branch_lengths/phydms/WSN_low_0_YNGKP_M0_modelparams.txt) except for the $\omega$ parameter.
+The fourth model (`GY94 + $\omega_r$`) is also defined by the parameters in [`YNGKP_M0_modelparams.txt`](../HA/branch_lengths/phydms/hybrid_lowH1_0_YNGKP_M0_modelparams.txt) except for the $\omega$ parameter.
 
-The preferences for the `ExpCM` model are in [`HA_Doud_prefs.csv`](../HA/data/references/HA_Doud_prefs.csv).
+The preferences for the `ExpCM` model are in [`HA_hybridDoud_prefs.csv`](../HA/data/references/HA_hybridDoud_prefs.csv).
 
 ## Script
 

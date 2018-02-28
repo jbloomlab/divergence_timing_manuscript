@@ -69,13 +69,13 @@ def get_stationarystate(model,start,length):
 def main():
     # set up params for runs
     start_site = 117
-    number_of_sites = 5
+    number_of_sites = 15
     phydms_dir = "../HA/branch_lengths/phydms/"
     prefs_dir = "../HA/data/references/"
-    YNGKP_M0_modelparams_fname = "{0}WSN_low_0_YNGKP_M0_modelparams.txt".format(phydms_dir)
-    YNGKP_M5_modelaprams_fname = "{0}WSN_low_0_YNGKP_M5_modelparams.txt".format(phydms_dir)
-    ExpCM_modelparams_fname = "{0}WSN_low_0_ExpCM_HA_Doud_prefs_modelparams.txt".format(phydms_dir)
-    Doud_prefs_fname = "{0}HA_Doud_prefs.csv".format(prefs_dir)
+    YNGKP_M0_modelparams_fname = "{0}hybrid_lowH1_0_YNGKP_M0_modelparams.txt".format(phydms_dir)
+    YNGKP_M5_modelaprams_fname = "{0}hybrid_lowH1_0_YNGKP_M5_modelparams.txt".format(phydms_dir)
+    ExpCM_modelparams_fname = "{0}hybrid_lowH1_0_ExpCM_HA_hybridDoud_prefs_modelparams.txt".format(phydms_dir)
+    Doud_prefs_fname = "{0}HA_hybridDoud_prefs.csv".format(prefs_dir)
     if not os.path.isdir("outputs"):
         os.makedirs("outputs")
 
