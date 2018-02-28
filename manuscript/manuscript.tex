@@ -347,7 +347,8 @@ Although the nucleotide model used with \texttt{RAxML} is probably less accurate
 There are two deep mutational scanning datasets for HA that estimated amino-acid preferences for all sites.
 One scan measured the site-specific amino-acid preferences of an H1 HA~\citep{doud2016accurate} and the other measured the preferences of an H3 HA~\citep{lee2018deep}.
 These two HAs have only $\sim$42\% amino-acid identity, and so are separated by a large distance on the phylogenetic tree (see triangle and circle on \ref{fig:empirical_trees}).
-The experimentally measured amino-acid preferences clearly differ between the the H1 and H3 HA at a substantial number of sites~\citep{lee2018deep}\jdbcomment{maybe also refer to your own supplementary figures}.
+The experimentally measured amino-acid preferences clearly differ between the the H1 and H3 HA at a substantial number of sites~\citep[\ref{suppfig:prefs_doud}, 
+\ref{suppfig:prefs_lee};][]{lee2018deep}.
 Therefore, we also created a third set of amino-acid preferences by averaging the preferences measured in the deep mutational scanning of the H1 and H3 HAs, under the conjecture that these averaged preferences might do a better job of describing the ``average'' constraint on sites across the full HA tree.
 These three sets of HA amino-acid preferences define three different ExpCM's.
  
@@ -379,7 +380,6 @@ The ExpCM stringency parameter ($\beta$) is a measure of the congruency between 
 Larger values of $\beta$ indicate that natural selection prefers the same amino acids as the experiments but with greater stringency. 
 As divergence increases between the HA used in the experiment and the other sequences in the tree, the $\beta$ value decreases.
 Therefore, the preferences measured in each experiment are progressively less congruent with those of the HA sequences on the tree as we include increasingly diverged sequences. 
-\jdbcomment{\emph{Maybe} if logo stacks a bit higher, the point is a bit clearer.}
 }
 \end{figure}
 
@@ -403,7 +403,7 @@ Conversely, we interpret a $\beta<1$ as selection in nature favoring different a
 This inverse relationship between $\beta$ and overall divergence is seen for the ExpCM's informed by both the H1 and H3 experiments.
 Specifically, \jdbcomment{something about how the decreasing $\beta$ flattens the preferences and so loses information from the experiment.}
 The flattening with increasing sequence divergence arises because the amino-acid preferences are increasingly less accurate as we move away from the experimental sequence on the tree.
-As shown in \jdbcomment{simulation figure}, the ability of models with site-specific stationary states to extend branch lengths requires these stationary states to be accurate\jdbcomment{Maybe expand the simulation figure to have two rows and have something with randomized preferences too}.
+As shown in \ref{fig:simulations}, the ability of models with site-specific stationary states to extend branch lengths requires these stationary states to be accurate\jdbcomment{Maybe expand the simulation figure to have two rows and have something with randomized preferences too}.
 This fact also helps rationalize why the average of the H1 and H3 experiments does better across the whole tree \jdbcomment{refer to the figure showing that and give some explanation.}
  
 The fact that amino-acid preferences shift as proteins evolve leaves us with an inherent tension: models with site-specific stationary states only become important for accurate branch-length estimation as sequences become increasingly diverged, but this same divergence degrades the accuracy of extrapolating the amino-acid preferences from any given experiment across the phylogenetic tree.
@@ -414,10 +414,21 @@ Models which take into account the site-specific constraints of purifying select
 Models with a single stationary state regardless of lineage, site-specific or not, will not be able to capture the shifting functional constraints due to epistatic interactions.''} 
 
 \subsection*{Models with stationary states estimated from natural sequences give similar results to ExpCM's}
+
+\begin{figure}
+\centerline{\includegraphics[width=0.99\textwidth]{figures/phylobayes.pdf}}
+\caption{\label{fig:phylobayes}
+\textbf{Comparison of ExpCM and \texttt{phylobayes}}
+We estimated the branch lengths of the HA tree in \ref{fig:empirical_trees} using the mutation-selection model implemented in \texttt{phylobayes}. 
+In comparison to ExpCM's, the \texttt{phylobayes} model infers the site-specific amino-acid preferences from the phylogenetic data rather than defining them \textit{a priori} from deep mutational scanning experiments. 
+\skhcomment{I am less sold on using colors on the x or y axis. Is it too confusing with the focal sequence color coding in panel B}
+}
+\end{figure}
+
 The previous sections used ExpCM's, which are mutation-selection models that use site-specific amino-acid preferences that have been measured experiments.
 However, there are other implementations of mutation-selection models that infer the amino-acid preferences from natural sequence data.
 These models are generally implemented in a Bayesian framework, which avoids the overfitting problems associated with trying to make maximum-likelihood estimates of thousands of parameters giving the site-specific stationary states.
-For example, the CAT model\jdbcomment{citation} implements site-specific stationary states for amino-acid substitution models by drawing the stationary state at each site from a mixture model of distinct, finite amino-acid profiles \jdbcomment{wording in preceding sentence might need some tweaking}.
+For example, the CAT model~\citep{si2008empirical} implements site-specific stationary states for amino-acid substitution models by drawing the stationary state at each site from a mixture model of distinct, finite amino-acid profiles \jdbcomment{wording in preceding sentence might need some tweaking}.
 However, the model most comparable to our ExpCM's is the mutation-selection model implemented in \texttt{phylobayes}, \jdbcomment{and referred to as MutSel.}
 This \jdbcomment{MutSel} model is mathematically identical to the ExpCM's except the amino-acid preferences are sampled from a Bayesian mixture models rather than derived from experiments\jdbcomment{The preceding might not be accurate either in the wording about Bayesian mixture models, or because the nucleotide frequency parameters might be different? Also might have site-specific $\omega_r$. Check these and adjust to be accurate.}
 Like ExpCM's, these MutSel models still assume a single set of site-specific amino-acid preferences for the entire tree.
@@ -433,18 +444,7 @@ The relatively longer branches from the experimental sequences when using the Ex
 However, at sequences distant from those used in the experiments, the ``global'' preferences estimated by the MutSel model appear to be slightly better than the average of the experimental values.
 Therefore, while the site-specific MutSel models inferred by \texttt{phylobayes} are probably more accurate for sequences distant from the H1 and H3 in the experiments, they do not avoid the tension between the importance of a site-specific stationary state for long branch estimation and shifting preferences. 
 
-
-\begin{figure}
-\centerline{\includegraphics[width=0.99\textwidth]{figures/phylobayes.pdf}}
-\caption{\label{fig:phylobayes}
-\textbf{Comparison of ExpCM and \texttt{phylobayes}}
-We estimated the branch lengths of the HA tree in \ref{fig:empirical_trees} using the mutation-selection model implemented in \texttt{phylobayes}. 
-In comparison to ExpCM's, the \texttt{phylobayes} model infers the site-specific amino-acid preferences from the phylogenetic data rather than defining them \textit{a priori} from deep mutational scanning experiments. 
-}
-\end{figure}
-
-\jdbcomment{Somewhere that makes sense (possibly a few paragraphs above) add more material on correlation of prefs from phylobayes and DMS. We want to show how phylobayes prefs are more similar to H1+H3 avg than H1 and H3 are too each other, so maybe show several correlation plots. However, avoid correlating H1+H3 with H1 or H3, since this is confounded since H1 and H3 are both part of H1+H3.
-Also, add a supplementary figure showing the phylobayes prefs in the same format as the DMS prefs}
+\jdbcomment{Somewhere that makes sense (possibly a few paragraphs above) add more material on correlation of prefs from phylobayes and DMS. We want to show how phylobayes prefs are more similar to H1+H3 avg than H1 and H3 are too each other, so maybe show several correlation plots. However, avoid correlating H1+H3 with H1 or H3, since this is confounded since H1 and H3 are both part of H1+H3.}
 
 \section*{Conclusion}
 
