@@ -356,18 +356,23 @@ We fit the GY94 model and each of the three ExpCM's to the fixed HA tree topolog
 \ref{tab:empirical_data} shows that all of the ExpCM's fit the actual data much better than the GY94 model.
 The best fit was for the ExpCM that was informed by the average of the H1 and H3 deep mutational scans.
 For all models, incorporating $\Gamma\omega$ rate variation improved the fit, although even ExpCM's without $\Gamma\omega$ greatly outperformed the GY94+$\Gamma\omega$ models.
-\jdbcomment{Probably comment a bit on $\omega$ here: they are typically less than one for all models, but are higher for ExpCM than GY94. Possibly also comment on the stringency parameter, aligning with description in the next section.}
+As mentioned in the previous section, $\omega$ is generally fit to values $<1$ in phylogenetic studies~\citep{murrell2015gene} and our results follow this trend. 
+\ref{tab:empirical_data} shows that most models were fit to very small $\omega$ values. 
+However, the ExpCM's always fit $\omega$ values greater than the GY94 model and the ExpCM's with $\Gamma\omega$ all have one $\omega >1$. 
+This increase in $\omega$ values makes sense due to the different interpretation of $\omega$ in each family of models. 
+The ExpCM $\omega$ is the relative rate of fixation of nonsynonymous to synonymous mutations \textit{after} accounting for the functional constraints described by the deep mutational scanning amino-acid preferences.
+The ExpCM's more realistic null model gives it more power to detect diversifying selection, such as the \skhcomment{obvious} immune pressure on HA~\citep{bloom2017identification}. 
 
 \ref{fig:empirical_trees} shows that modeling purifying selection via either $\Gamma\omega$ rate variation or a site-specific stationary state increases the estimated branch lengths.
 But important, the effects from these two methods of modeling purifying selection are largely independent.
 For every model (GY94 or any of the three ExpCM's), the $\Gamma\omega$ version estimates longer deep branches.
 In addition, all ExpCM's estimate longer deep branches than the GY94 model, and all ExpCM+$\Gamma\omega$ models estimate longer deep branches than the GY94+$\Gamma\omega$ model.
 
-However, while adding $\Gamma\omega$ rate variation increases the length of deep branches in a fashion that appears roughly uniform across the tree (\ref{fig:empirical_trees}, the branch lengthening from the ExpCM's is not uniform across the tree. 
+However, while adding $\Gamma\omega$ rate variation increases the length of deep branches in a fashion that appears roughly uniform across the tree (\ref{fig:empirical_trees}), the branch lengthening from the ExpCM's is not uniform across the tree. 
 In particular, the branch lengthening is most pronounced near the sequence of the HA that was used in the deep mutational scanning experiment that parameterized the ExpCM.
 For instance, the ExpCM informed by the H1 data most dramatically lengthens branches near the H1 clade of the tree, while the ExpCM informed by the H3 data has the largest effect on branches near the H3 clade.
 The ExpCM informed by the average of the H1 and H3 data has a more uniform effect, but still most strongly affects branches near either the H1 or H3 clades.
-Therefore, \jdbcomment{something general summarizing the key finding from this section: ExpCM's help, but clearly any given set of preferences from an experiment has an effect strongest near that sequence.}
+Therefore, \ref{fig:empirical_trees} shows that the ExpCM's estimate longer branches but that the effect is clearly biased by the given set of preferences used to define the model.
 
 \subsection*{Competing effects of shifting preferences and long branches.}
 
