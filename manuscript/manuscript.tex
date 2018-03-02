@@ -393,30 +393,25 @@ In reality, sites in proteins do not have completely conserved site-specific ami
 Rather, the effect of a mutation at one site in a protein can depend on the amino-acid identity of other sites in the protein~\jdbcomment{Maybe cite a couple of general papers on epistasis, some good ones in Haddox et al 2018}. 
 The deep mutational scanning experiments that inform our ExpCM's are each done in the context of a single HA genetic background, and so do not account for how such epistatic interactions can cause amino-acid preferences to shift as substitutions accumulate. 
 Therefore, it makes sense that an ExpCM would most accurately describe the site-specific amino-acid preferences of sequences closely related to the one used in the experiment.
-
+ 
 We can observe this phenomenon of shifting amino-acid preferences degrading the accuracy of the ExpCM by fitting trees containing increasingly diverged sequences.
-Specifically, for each HA for which we have deep mutational scanning data, we created three HA phylogenetic trees: a ``low'' divergence tree that contains only sequences with $\ge ?$ amino-acid identity to the HA used in the experiment, an ``intermediate'' divergence tree that contains sequences with $\ge ?$ amino-acid identity to the HA in the experiment, and a ``high'' divergence tree that contains all the HAs (which have as little as 38\% identity to the HA in the experiment).
+Specifically, for each HA for which we have deep mutational scanning data, we created three HA phylogenetic trees: a ``low'' divergence tree that contains only sequences with \skhcomment{$\ge ?$} amino-acid identity to the HA used in the experiment, an ``intermediate'' divergence tree that contains sequences with \skhcomment{$\ge ?$} amino-acid identity to the HA in the experiment, and a ``high'' divergence tree that contains all the HAs (which have as little as 38\% identity to the HA in the experiment).
 \ref{fig:compete} shows these sets of HA sequences.
 For each of the subtrees in \ref{fig:compete}, we examined the congruence between site-specific natural selection over the tree and the amino-acid preferences measured in the deep mutational scanning experiment. 
-\jdbcomment{Some general description of $\beta$ here. I think we'd noted above possibly describing it then? If so, just put a short recap here. If you decide not to describe it above in any detail, have something longer here.}
-The fit $\beta$ parameter rescales the raw preferences from the deep mutational scan and relates the selection in nature to selection in the lab. 
-We interpret $\beta >1$ as selection in nature favoring the same amino acids as selection in the experiments, or that the amino-acid preferences are a good model of purifying selection. 
-The larger the $\beta$ more strongly the selection in nature favors these same, experimental preferences. 
-Conversely, we interpret a $\beta<1$ as selection in nature favoring different amino acids than selection in lab and that the preferences are not a good description of natural evolution.  
+We used the ExpCM fit parameter $\beta$ to measure this congruency~(\ref{eq:Frxy}). 
+In essence, $\beta$ rescales the deep mutational scanning measurements~(\ref{fig:compete}). 
+Larger values of $\beta$ indicate that natural selection prefers the same amino acids as the experiments but with a greater stringency, or a strong congruence between natural selection and the experimental preferences. 
 
 \ref{fig:compete} shows that as the divergence from the sequence used in the deep mutational scan increases, the value of $\beta$ decreases. 
 This inverse relationship between $\beta$ and overall divergence is seen for the ExpCM's informed by both the H1 and H3 experiments.
-Specifically, \jdbcomment{something about how the decreasing $\beta$ flattens the preferences and so loses information from the experiment.}
+Specifically, as the $\beta$ value decreases, the preferences ``flatten" and draw less information from the experiment. 
+At the most extreme, $\beta = 0$, the preferences would be perfectly uniform and look identical to the GY94 preferences in \ref{fig:empirical_trees}. 
 The flattening with increasing sequence divergence arises because the amino-acid preferences are increasingly less accurate as we move away from the experimental sequence on the tree.
 As shown in \ref{fig:simulations}, the ability of models with site-specific stationary states to extend branch lengths requires these stationary states to be accurate\jdbcomment{Maybe expand the simulation figure to have two rows and have something with randomized preferences too}.
-This fact also helps rationalize why the average of the H1 and H3 experiments does better across the whole tree \jdbcomment{refer to the figure showing that and give some explanation.}
+This fact also helps rationalize why the ExpCM defined by the average of the H1 and H3 experiments, representing the ``average" constraint on HA, does better across the whole tree (\ref{fig:empirical_trees}). 
  
 The fact that amino-acid preferences shift as proteins evolve leaves us with an inherent tension: models with site-specific stationary states only become important for accurate branch-length estimation as sequences become increasingly diverged, but this same divergence degrades the accuracy of extrapolating the amino-acid preferences from any given experiment across the phylogenetic tree.
 More importantly, the fact that amino-acid preferences shift over time means that there will not be any model with a single set of site-specific stationary states that accurately describes a phylogenetic tree that covers a wide span of sequences.
-\jdbcomment{Use a slightly more succinct version of what you have below to drive home the point:
-``This leaves us in a regime with inherent tension. 
-Models which take into account the site-specific constraints of purifying selection in their stationary states are important for the accurate estimation of long branches but the site-specific constraints are not static throughout evolution. 
-Models with a single stationary state regardless of lineage, site-specific or not, will not be able to capture the shifting functional constraints due to epistatic interactions.''} 
 
 \subsection*{Models with stationary states estimated from natural sequences give similar results to ExpCM's}
 
