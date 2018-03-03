@@ -63,6 +63,7 @@
 
 \newcommand\skhcomment[1]{{\color{cyan}[#1]}}
 \newcommand\jdbcomment[1]{{\color{red}[#1]}}
+\newcommand\modelName[1]{{\color{magenta}[#1]}}
 
 
 \usepackage{hyperref}
@@ -418,38 +419,47 @@ More importantly, the fact that amino-acid preferences shift over time means tha
 \begin{figure}
 \centerline{\includegraphics[width=0.99\textwidth]{figures/phylobayes.pdf}}
 \caption{\label{fig:phylobayes}
-\textbf{Comparison of ExpCM and \texttt{phylobayes}}
-We estimated the branch lengths of the HA tree in \ref{fig:empirical_trees} using the mutation-selection model implemented in \texttt{phylobayes}. 
-In comparison to ExpCM's, the \texttt{phylobayes} model infers the site-specific amino-acid preferences from the phylogenetic data rather than defining them \textit{a priori} from deep mutational scanning experiments. 
+\textbf{Models inferred from natural sequences have similar stationary states to models defined by experimental preferences and estimate similar branch lengths.}
+We estimated the branch lengths of the HA tree in \ref{fig:empirical_trees} using the ExpCM(H1+H3 avg)+$\Gamma\omega$ and the \modelName{MutSel} model implemented in \texttt{phylobayes}. 
+(A) The amino-acid preferences inferred by \modelName{MutSel} are more similar to the average of the H1 and H3 preferences then the H1 and H3 individual preferences sets are to each other, indicating that the average preference set is able to capture the ``global" constraint across the tree.
+(B) The ExpCM and the \modelName{MutSel} model estimated similar branch lengths. 
+However, the branches near the sequences used in the deep mutationally scanning experiments were estimated to be slightly longer by the ExpCM.
+To aid direct comparison between the models, we normalized the branch lengths on each tree by the length between an early and a late seasonal human H1 sequence. 
+See Materials and Methods for more information. 
+\skhcomment{add in which $\beta$ value I used.}
 \skhcomment{I am less sold on using colors on the x or y axis. Is it too confusing with the focal sequence color coding in panel B}
 }
 \end{figure}
 
-The previous sections used ExpCM's, which are mutation-selection models that use site-specific amino-acid preferences that have been measured experiments.
-However, there are other implementations of mutation-selection models that infer the amino-acid preferences from natural sequence data.
-These models are generally implemented in a Bayesian framework, which avoids the overfitting problems associated with trying to make maximum-likelihood estimates of thousands of parameters giving the site-specific stationary states.
-For example, the CAT model~\citep{si2008empirical} implements site-specific stationary states for amino-acid substitution models by drawing the stationary state at each site from a mixture model of distinct, finite amino-acid profiles \jdbcomment{wording in preceding sentence might need some tweaking}.
-However, the model most comparable to our ExpCM's is the mutation-selection model implemented in \texttt{phylobayes}, \jdbcomment{and referred to as MutSel.}
-This \jdbcomment{MutSel} model is mathematically identical to the ExpCM's except the amino-acid preferences are sampled from a Bayesian mixture models rather than derived from experiments\jdbcomment{The preceding might not be accurate either in the wording about Bayesian mixture models, or because the nucleotide frequency parameters might be different? Also might have site-specific $\omega_r$. Check these and adjust to be accurate.}
-Like ExpCM's, these MutSel models still assume a single set of site-specific amino-acid preferences for the entire tree.
+The previous sections used ExpCM's, which are mutation-selection models that use site-specific amino-acid preferences that have been measured by experiments. 
+However, other implementations allow the stationary stationary state of a site-specific model to be inferred directly from the natural sequence data. 
+These models are generally implemented in a Bayesian framework, which avoids the overfitting problems associated with trying to make maximum-likelihood estimates of the thousands of parameters describing site-specific stationary sates. 
+The model most comparable to our ExpCM's is the codon mutation-selection model implemented in \texttt{phylobayes}, which we will refer to as \modelName{MutSel}. 
+The \modelName{MutSel} model is mathematically identical to the ExpCM's except the amino-acid preferences are modeled using Dirichlet processes rather than derived from experiments. 
+Like ExpCM's, \modelName{MutSel} models still assume a single set of site-specific amino-acid preferences for the entire tree.
 
-Comparing ExpCM and MutSel models can therefore help resolve whether the limitations of the ExpCM's are due to the experiments not accurately measuring the amino-acid preferences that best describe site-specific selection across the entire tree, or whether the limitation is simply that there is no such set of preferences\jdbcomment{probably too wordy}.
-The best-performing ExpCM is the one that uses the average of the H1 and H3 deep mutational scanning\jdbcomment{reference why this is true}.
-We therefore compared this ExpCM with the \texttt{phylobayes} mutation-selection model to examine the effect of site-specific stationary states on branch length estimation with and without experimental preferences. 
-The results in \ref{fig:phylobayes} show that the ExpCM+$\Gamma\omega$(H1+H3 avg prefs) and the \jdbcomment{MutSel} model estimated similar branch lengths on the HA tree in \ref{fig:empirical_trees}. 
-\jdbcomment{Should add note somewhere about how branch lengths were normalized. This might actually be best in the figure legend, not here.}
-While the two models estimated similar branch lengths overall, the tension between local and global accuracy of the amino-acid preferences is still apparent in the results. 
-All the long branches from either the H1 or H3 sequences used in the experiments were estimated to be slightly longer by the ExpCM+$\Gamma\omega$, while many other branches were estimated to be slightly longer by the \jdbcomment{MutSel} model. 
+Comparing ExpCM's and \modelName{MutSel} models can therefore help to explain the limitations of the ExpCM's. 
+Are the amino-acid preference sets defining the ExpCM's in \ref{fig:empirical_trees} poor descriptors of the site-specific natural selection across the whole tree, or is there simply not a single set that adequately describes this selection? 
+If there is a single set, we would expect the \modelName{MutSel} model to outperform the ExpCM because its stationary state is not biased by the specific sequence used in an experiment. 
+The ExpCM that estimates the longest branches is the one that uses the average of the H1 and H3 deep mutational scanning measurements with $\Gamma\omega$ rate variation~(\ref{fig:empirical_trees}).  
+We therefore compared this ExpCM with a \modelName{MutSel} model given the tree in \ref{fig:empirical_trees}. 
+
+First, the stationary state inferred by \modelName{MutSel} is similar to the average of the H1 and H3 preferences measured by deep mutational scanning. 
+As \ref{fig:phylobayes}A shows, the site-specific amino-acid preferences estimated by \modelName{MutSel} are more correlated with the average amino-acid preferences from the H1 and H3 experiments than the individual deep mutational scanning experiments are to each other. 
+This strong correlation between the \modelName{MutSel} and the average deep mutational scanning preference set indicates that, when averaged, the experimental preferences are able to capture the global site-specific functional constraint fairly well. 
+
+Second, the results in \ref{fig:phylobayes}B show that the ExpCM+$\Gamma\omega$(H1+H3 avg prefs) and the \modelName{MutSel} model estimated similar branch lengths on the HA tree in \ref{fig:empirical_trees}. 
+While overall the two models estimated similar lengths, the tension between local and global accuracy of the amino-acid preferences is still apparent in these results. 
+All the long branches from either the H1 or H3 sequences used in the experiments were estimated to be slightly longer by the ExpCM+$\Gamma\omega$, while many other branches were estimated to be slightly longer by the \modelName{MutSel} model. 
 The relatively longer branches from the experimental sequences when using the ExpCM+$\Gamma\omega$ suggests that the ``global" stationary state inferred by \texttt{phylobayes} is not as accurate as the deep mutational scanning preferences for sequences close to the experimental sequences. 
-However, at sequences distant from those used in the experiments, the ``global'' preferences estimated by the MutSel model appear to be slightly better than the average of the experimental values.
-Therefore, while the site-specific MutSel models inferred by \texttt{phylobayes} are probably more accurate for sequences distant from the H1 and H3 in the experiments, they do not avoid the tension between the importance of a site-specific stationary state for long branch estimation and shifting preferences. 
-
-\jdbcomment{Somewhere that makes sense (possibly a few paragraphs above) add more material on correlation of prefs from phylobayes and DMS. We want to show how phylobayes prefs are more similar to H1+H3 avg than H1 and H3 are too each other, so maybe show several correlation plots. However, avoid correlating H1+H3 with H1 or H3, since this is confounded since H1 and H3 are both part of H1+H3.}
+However, at sequences distant from those used in the experiments, the ``global'' preferences estimated by the \modelName{MutSel} model appear to be slightly better than the average of the experimental values.
+Therefore, while the site-specific \modelName{MutSel} models inferred by \texttt{phylobayes} are probably more accurate for sequences distant from the H1 and H3 in the experiments, they do not avoid the tension between the importance of a site-specific stationary state for long branch estimation and shifting preferences. 
 
 \section*{Conclusion}
 
 \begin{enumerate}
   \item We don't allow any of the models to vary by lineage. 
+  \item discussion in \citet{rodrigue2010mutation}
 \end{enumerate}
 
 \newpage
