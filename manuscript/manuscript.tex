@@ -425,13 +425,11 @@ More importantly, the fact that amino-acid preferences shift over time means tha
 \centerline{\includegraphics[width=0.99\textwidth]{figures/phylobayes.pdf}}
 \caption{\label{fig:phylobayes}
 \textbf{Models inferred from natural sequences have similar stationary states to models defined by experimental preferences and estimate similar branch lengths.}
-We estimated the branch lengths of the HA tree in \ref{fig:empirical_trees} using the ExpCM(H1+H3 avg)+$\Gamma\omega$ and the \modelName{MutSel} model implemented in \texttt{phylobayes}. 
-(A) The amino-acid preferences inferred by \modelName{MutSel} are more similar to the average of the H1 and H3 preferences then the H1 and H3 individual preferences sets are to each other, indicating that the average preference set is able to capture the ``global" constraint across the tree.
-(B) The ExpCM and the \modelName{MutSel} model estimated similar branch lengths. 
-However, the branches near the sequences used in the deep mutationally scanning experiments were estimated to be slightly longer by the ExpCM.
-To aid direct comparison between the models, we normalized the branch lengths on each tree by the length between an early and a late seasonal human H1 sequence. 
-See Materials and Methods for more information. 
-\skhcomment{Order in figure legend doesn't make sense. The first data in the figure is about prefs, not branch lengths, so describe that first. Also, either arrange figure to compare MutSel and avg first, or re-arrange legend to describe them in the order they are presented. I don't know if you need to add exact beta value? Just say re-scaled by stringency parameter in Table X. I don't feel strongly about coloring.}
+(A) We fit an ExpCM(H1+H3 avg)+$\Gamma\omega$ and a \modelName{MutSel} to the tree in \ref{fig:empirical_trees}. 
+The \modelName{MutSel} amino-acid preferences are inferred from the natural sequences while the ExpCM amino-acid preferences are experimentally measured and then rescaled using the stringency parameter in \ref{tab:empirical_data}. 
+The \modelName{MutSel} preferences are more correlated with the average of the H1 and H3 deep mutational scanning preference sets than the individual experiments are to each other (Pearson's r: 0.74 vs. 0.52). 
+(B) The \modelName{MutSel} and the ExpCM(H1+H3 avg)+$\Gamma\omega$ estimated similar branch lengths. 
+To aid direct comparison between the models, we normalized the branch lengths by the length between and early and late seasonal human H1 sequence. 
 }
 \end{figure}
 
