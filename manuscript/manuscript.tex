@@ -105,8 +105,7 @@
 \begin{abstract}
 \noindent  
 Molecular phylogenetics can be used to estimate the time since the divergence of modern gene sequences.
-\skhcomment{I wonder if we should change this second sentence, because I'm not sure how many of the other cases for which there are actually other methods outside of viruses?Maybe it would be better to say: "For highly diverged sequences, such phylogenetic techniques often estimate surprisingly recent divergence times."Then the next sentence (as already written) talks about how for viruses there are other methods that show these are too recent.}
-For highly diverged sequences, such phylogenetic techniques often estimate substantially more recent times than other methods.
+For highly diverged sequences, such phylogenetic techniques of- ten estimate surprisingly recent divergence times. 
 In the case of viruses, there is independent evidence that the estimates of deep divergence times from molecular phylogenetics are too recent.
 This discrepancy is caused in part by inadequate models of purifying selection leading to branch-length underestimation.
 Here we show that models informed by experimental measurements of purifying selection due to site-specific amino-acid preferences lengthen deep branches on phylogenies of influenza virus hemagglutinin.
@@ -221,8 +220,8 @@ The number of remaining free parameters for an ExpCM are similar to a non-site-s
 An alternative strategy of obtaining parameters for site-specific stationary states via Bayesian \citep{lartillot2004bayesian, rodrigue2014site} estimation is discussed in the last section of the Results.
 
 Importantly, these two strategies for modeling purifying selection are not mutually exclusive.
-Mutation-selection models such as ExpCM can still incorporate an $\omega$ parameter~\citep{haddox2017mapping}, \skhcomment{I realized this citation is wrong. For the fact that ExpCM and mutation-selection models can still incorporate omega, we should cite the relevant Rodrigue / Lartillot paper and Bloom (2017).The Haddox et al (2017) should be cited for the fact that omega can still be drawn from a gamma. At that point, we should also cite relevant Rodrigue / Lartillot paper for their approach to do this.} which now represents the relative rate of nonsynonymous to synonymous substitution \emph{after} accounting for the constraints due to the site-specific stationary state.
-This $\omega$ parameter for an ExpCM can be drawn from a distribution just like for GY94-style models. 
+Mutation-selection models such as ExpCM can still incorporate an $\omega$ parameter~\citep{rodrigue2016detecting, bloom2017identification}, which now represents the relative rate of nonsynonymous to synonymous substitution \emph{after} accounting for the constraints due to the site-specific stationary state.
+This $\omega$ parameter for an ExpCM can be drawn from a distribution just like for GY94-style models~\citep{haddox2017mapping, rodrigue2014site}. 
 We will denote such models as ExpCM+$\Gamma\omega$.
 \ref{fig:model_feature}C shows the full spectrum of models that incorporate all combinations of gamma-distributed $\omega$ and site-specific stationary states.
 
@@ -366,7 +365,7 @@ However, the ExpCM's with a single $\omega$ always fit $\omega$ values greater t
 Among the models with $\Gamma\omega$, the GY94 fits all four $\omega$ categories to values $<< 1$, but the ExpCM's all fit one of the four $\omega$ categories to a value $>1$.
 This increase in $\omega$ values makes sense given the different interpretation of $\omega$ in each family of models. 
 The ExpCM $\omega$ is the relative rate of fixation of nonsynonymous to synonymous mutations \textit{after} accounting for the functional constraints described by the deep mutational scanning amino-acid preferences.
-This more realistic null model gives ExpCM's more power to detect diversifying selection~\citep{bloom2017identification}\skhcomment{rodrigue MBE}, for amino-acid change, which occurs at some sites in HA due to immune selection.
+This more realistic null model gives ExpCM's more power to detect diversifying selection~\citep{bloom2017identification, odrigue2016detecting}, for amino-acid change, which occurs at some sites in HA due to immune selection.
 
 \skhcomment{I don't like how this paragraph comes almost as an afterthought from the next one given that branch lengths are actually are main point. I wonder if we can add a stronger first sentence to draw more emphasis to this paragraph. I also feel like a sentence between the current first and second one would be good. It could comment a bit more on the specifics of the results in Figure 4 in a way that draws out the point better.}
 \ref{fig:empirical_trees} shows that modeling purifying selection via either $\Gamma\omega$ rate variation or a site-specific stationary state increases the estimated branch lengths.
@@ -432,15 +431,13 @@ We estimated the branch lengths of the HA tree in \ref{fig:empirical_trees} usin
 However, the branches near the sequences used in the deep mutationally scanning experiments were estimated to be slightly longer by the ExpCM.
 To aid direct comparison between the models, we normalized the branch lengths on each tree by the length between an early and a late seasonal human H1 sequence. 
 See Materials and Methods for more information. 
-\skhcomment{add in which $\beta$ value I used.}
-\skhcomment{I am less sold on using colors on the x or y axis. Is it too confusing with the focal sequence color coding in panel B}
 \skhcomment{Order in figure legend doesn't make sense. The first data in the figure is about prefs, not branch lengths, so describe that first. Also, either arrange figure to compare MutSel and avg first, or re-arrange legend to describe them in the order they are presented. I don't know if you need to add exact beta value? Just say re-scaled by stringency parameter in Table X. I don't feel strongly about coloring.}
 }
 \end{figure}
 
 The previous sections used ExpCM's, which are mutation-selection models that use site-specific amino-acid preferences that have been measured by experiments. 
 However, other implementations of mutation-selection models allow their stationary states to be inferred directly from the natural sequence data. 
-These models are generally implemented in a Bayesian framework, which avoids the overfitting problems associated with trying to make maximum-likelihood estimates of the thousands of parameters describing site-specific stationary states\skhcomment{overfitting problems associated with trying to make}. 
+These models are generally implemented in a Bayesian framework, which avoids the overfitting problems associated with trying to make maximum-likelihood estimates of the thousands of parameters describing site-specific stationary states.
 The model most comparable to our ExpCM's is the codon mutation-selection model implemented in \texttt{phylobayes}, which we will refer to as \modelName{MutSel}. 
 The \modelName{MutSel} model is mathematically very similar to the ExpCM's except the amino-acid preferences are modeled using Dirichlet processes rather than derived from experiments. 
 Like ExpCM's, \modelName{MutSel} models still assume a single set of site-specific amino-acid preferences for the entire tree.
