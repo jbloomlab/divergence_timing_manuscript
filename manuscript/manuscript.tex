@@ -237,7 +237,6 @@ For the GY94 model, the graphs are identical for all sites since this model does
 The graphs do differ among sites if we use the amino-acid preferences to calculate a different $\omega_r$ value for each site $r$ in a GY94 framework~\citep[\ref{eq:w_r};][]{spielman2015relationship}.
 However, all GY94 models, including the one with site-specific $\omega_r$ values, approach the same asymptote since they all have the same stationary state.
 But the ExpCM has different asymptotes for different sites since it accounts for how amino-acid preferences lead to site-specific stationary states.
-\skhcomment{I still feel like some of the fonts here are too small. Can you make the small ones up the same size as the legend titles on the axes.}
 }
 \end{figure}
 
@@ -467,6 +466,38 @@ Therefore, while the site-specific \modelName{MutSel} models inferred by \texttt
 \newpage
 \section*{Materials and Methods}
 
+\subsection*{Decay to stationary state}
+
+I built the models using the results for the hybrid\_lowH1 tree. 
+I used YNKGP M0, YNGKP M5, and the ExpCM with the hybrid doud preferences. 
+The $\omega_r$ values were calculated without the fit $\omega$ from the ExpCM. 
+When making the YNGKP M0 + $\omega_r$ the $\omega$ value is set to spielman\_wr * $\omega$ from the fit YNGKP M0. 
+The preferences were rescaled with the same $\beta$ as the ExpCM. 
+
+\subsubsection*{Spielman $\omega_{r}$ values inferred from the ExpCM} 
+We inferred the average nonsynonymous fixation rate from the ExpCM following~\citet{spielman2015relationship} as 
+\begin{equation}
+\label{eq:w_r}
+\omega_{r} = \frac{\sum_{x} \sum_{y \in N_x} {p_{r,x} \times P_{r,xy}}}{\sum_{x} \sum_{y \in N_x} {p_{r,x} \times Q_{xy}}}
+\end{equation}
+where $p_{r,x}$ is the stationary state of the ExpCM at site $r$ and codon $x$, $P_{r,xy}$ is the substitution rate from codon $x$ to codon $y$ at site $r$, $Q_{xy}$ is the mutation rate from codon $x$ to codon $y$, and $N_x$ is the set of codons that are nonsynonymous to codon $x$ and differ from codon $x$ by only one nucleotide. 
+
+\subsubsection*{Expected pairwise amino-acid identity}
+\textit{Do I need to talk about the branchScale scaling I used?}
+The expected pairwise amino-acid identity at a site $r$ over time $t$ for a given model is 
+\begin{equation}
+\label{eq:f}
+\sum_a \sum_{x \in a} p_{r,x} \sum_{y \in a} [M_{r}\left(t\right)]_{xy}
+\end{equation}
+where $a$ is all amino acids, $p_{r,x}$ is the stationary state of the model at site $r$ and codon $x$, and $[M_{r}\left(t\right)]_{xy}$ is the transition rate from codon $x$ to codon $y$ at site $r$ given time $t$. 
+
+\subsection*{Simulations}
+
+Used \texttt{pyvolve}. 
+The tree was the large tree, specifically high hybrid with doud prefs 
+total of 10 replicates 
+Model was the hybrid lowH1 with hybrid doud prefs 
+
 \subsection*{Influenza hemagglutinin sequences.}
 We downloaded all full-length protein-coding sequences for each of the 18 influenza HA subtypes. 
 We used \texttt{phydms\_prepalignment} \citep{hilton2017phydms} to filter and align the sequences. 
@@ -538,22 +569,7 @@ p_{r,x} = \frac{\left(\pi_{r,\mathcal{A}\left(x\right)}\right)^{\beta} \phi_{x_0
 \subsubsection*{ExpCM + $\Gamma\omega$ and YNGKP M5}
 
 
-\subsubsection*{Spielman $\omega_{r}$ values inferred from the ExpCM} 
-We inferred the average nonsynonymous fixation rate from the ExpCM following~\citet{spielman2015relationship} as 
-\begin{equation}
-\label{eq:w_r}
-\omega_{r} = \frac{\sum_{x} \sum_{y \in N_x} {p_{r,x} \times P_{r,xy}}}{\sum_{x} \sum_{y \in N_x} {p_{r,x} \times Q_{xy}}}
-\end{equation}
-where $p_{r,x}$ is the stationary state of the ExpCM at site $r$ and codon $x$, $P_{r,xy}$ is the substitution rate from codon $x$ to codon $y$ at site $r$, $Q_{xy}$ is the mutation rate from codon $x$ to codon $y$, and $N_x$ is the set of codons that are nonsynonymous to codon $x$ and differ from codon $x$ by only one nucleotide. 
 
-\subsubsection*{Expected pairwise amino-acid identity}
-\textit{Do I need to talk about the branchScale scaling I used?}
-The expected pairwise amino-acid identity at a site $r$ over time $t$ for a given model is 
-\begin{equation}
-\label{eq:f}
-\sum_a \sum_{x \in a} p_{r,x} \sum_{y \in a} [M_{r}\left(t\right)]_{xy}
-\end{equation}
-where $a$ is all amino acids, $p_{r,x}$ is the stationary state of the model at site $r$ and codon $x$, and $[M_{r}\left(t\right)]_{xy}$ is the transition rate from codon $x$ to codon $y$ at site $r$ given time $t$. 
 
 \newpage
 \section*{Supplemental Information}
