@@ -399,7 +399,7 @@ The deep mutational scanning experiments that inform our ExpCM's were performed 
 Therefore, it makes sense that an ExpCM would most accurately describe the evolution of sequences closely related to the one used in the experiment.
  
 We can clearly observe how shifting amino-acid preferences degrade the accuracy of the ExpCM by fitting them to containing increasingly diverged sequences.
-Specifically, for H1 and H3 HAs, we created three phylogenetic trees: a ``low'' divergence tree that contains only sequences with \skhcomment{$\ge ?$} amino-acid identity to the HA used in the experiment, an ``intermediate'' divergence tree that contains sequences with \skhcomment{$\ge ?$} amino-acid identity to the HA in the experiment, and a ``high'' divergence tree that contains all the HAs (which have as little as 38\% identity to the HA in the experiment).
+Specifically, for H1 and H3 HAs, we created three phylogenetic trees: a ``low'' divergence tree that contains only sequences with $\ge 59\%$ amino-acid identity to the HA used in the experiment, an ``intermediate'' divergence tree that contains sequences with $\ge 46\%$ amino-acid identity to the HA in the experiment, and a ``high'' divergence tree that contains all the HAs (which have as little as 38\% identity to the HA in the experiment).
 \ref{fig:compete} shows the subtrees containing each of these sets of HA sequences.
 For each subtree, we examined the congruence between site-specific natural selection and the amino-acid preferences measured in the deep mutational scanning experiment. 
 We used the ExpCM stringency parameter $\beta$ to measure this congruency~(\ref{eq:Frxy}). 
@@ -463,85 +463,20 @@ Therefore, while the site-specific \modelName{MutSel} models inferred by \texttt
   \item discussion in \citet{rodrigue2010mutation}
 \end{enumerate}
 
-\newpage
 \section*{Materials and Methods}
 
-\subsection*{Decay to stationary state}
+\subsection*{Models}
 
-I built the models using the results for the hybrid\_lowH1 tree. 
-I used YNKGP M0, YNGKP M5, and the ExpCM with the hybrid doud preferences. 
-The $\omega_r$ values were calculated without the fit $\omega$ from the ExpCM. 
-When making the YNGKP M0 + $\omega_r$ the $\omega$ value is set to spielman\_wr * $\omega$ from the fit YNGKP M0. 
-The preferences were rescaled with the same $\beta$ as the ExpCM. 
+\subsubsection*{Experimentally Informed Codon Model (ExpCM)}
 
-\subsubsection*{Spielman $\omega_{r}$ values inferred from the ExpCM} 
-We inferred the average nonsynonymous fixation rate from the ExpCM following~\citet{spielman2015relationship} as 
-\begin{equation}
-\label{eq:w_r}
-\omega_{r} = \frac{\sum_{x} \sum_{y \in N_x} {p_{r,x} \times P_{r,xy}}}{\sum_{x} \sum_{y \in N_x} {p_{r,x} \times Q_{xy}}}
-\end{equation}
-where $p_{r,x}$ is the stationary state of the ExpCM at site $r$ and codon $x$, $P_{r,xy}$ is the substitution rate from codon $x$ to codon $y$ at site $r$, $Q_{xy}$ is the mutation rate from codon $x$ to codon $y$, and $N_x$ is the set of codons that are nonsynonymous to codon $x$ and differ from codon $x$ by only one nucleotide. 
-
-\subsubsection*{Expected pairwise amino-acid identity}
-\textit{Do I need to talk about the branchScale scaling I used?}
-The expected pairwise amino-acid identity at a site $r$ over time $t$ for a given model is 
-\begin{equation}
-\label{eq:f}
-\sum_a \sum_{x \in a} p_{r,x} \sum_{y \in a} [M_{r}\left(t\right)]_{xy}
-\end{equation}
-where $a$ is all amino acids, $p_{r,x}$ is the stationary state of the model at site $r$ and codon $x$, and $[M_{r}\left(t\right)]_{xy}$ is the transition rate from codon $x$ to codon $y$ at site $r$ given time $t$. 
-
-\subsection*{Simulations}
-
-Used \texttt{pyvolve}. 
-The tree was the large tree, specifically high hybrid with doud prefs 
-total of 10 replicates 
-Model was the hybrid lowH1 with hybrid doud prefs 
-
-\subsection*{Influenza hemagglutinin sequences.}
-We downloaded all full-length protein-coding sequences for each of the 18 influenza HA subtypes. 
-We used \texttt{phydms\_prepalignment} \citep{hilton2017phydms} to filter and align the sequences. 
-We subsampled to five per year plus the required sequences. 
-Total of 87 sequences. 
-Inferred tree topology using \texttt{RAxML}. 
-
-\subsection*{Simulations.}
-How was the model fit? 
-How many simulations? 
-How was the tree constructed? 
-
-\subsection*{Expected Asymptotic Sequence Identity.}
-How were the models fit? 
-What is the equation? 
-What is the equation for the $\omega_r$ term? (does it include the ExpCM $\omega$?)
-How is the GY94$\omega_r$ model constructed? ie How does it interact with the $\omega$ value in the GY94 model? 
-
-\subsection*{Deep mutational scanning amino acid preferences.}
-Where did we get the preferences? 
-How were the average preferences calculated? 
-How was the ``hybrid" sequence made? 
-Numbering scheme. 
-
-\subsection*{Substitution models}
-\subsubsection*{GY94 models}
-\subsubsection*{ExpCMs}
-We recap the \textbf{Exp}erimentally Informed \textbf{C}odon \textbf{M}odel (ExpCM) \citep{bloom2014experimentally,bloom2014informed,bloom2017identification,hilton2017phydms} to introduce nomenclature. 
+The ExpCM is described in detail in \citet{hilton2017phydms}. 
 
 In an ExpCM, rate of substitution $P_{r,xy}$ of site $r$ from codon $x$ to $y$ is written in mutation-selection form~\citep{halpern1998evolutionary,mccandlish2014modeling,spielman2015relationship} as
 \begin{equation}
 P_{r,xy} = Q_{xy} \times F_{r,xy}
 \end{equation}
 where $Q_{xy}$ is proportional to the rate of mutation from $x$ to $y$, and $F_{r,xy}$ is proportional to the probability that this mutation fixes.
-The rate of mutation $Q_{xy}$ is assumed to be uniform across sites, and takes an HKY85-like~\citep{hasegawa1985dating} form:
-\begin{equation}
-Q_{xy} = 
-\begin{cases}
-\phi_w & \mbox{if $x$ and $y$ differ by a transversion to nucleotide $w$} \\
-\kappa \phi_w & \mbox{if $x$ and $y$ differ by a transition to nucleotide $w$} \\
-0 & \mbox{if $x$ and $y$ differ by $>1$ nucleotide.}
-\end{cases}
-\end{equation}
-The $\kappa$ parameter represents the transition-transversion ratio, and the $\phi_w$ values give the expected frequency of nucleotide $w$ in the absence of selection on amino-acid substitutions, and are constrained by $1 = \sum_w \phi_w$.
+The rate of mutation $Q_{xy}$ is assumed to be uniform across sites, and takes an HKY85-like~\citep{hasegawa1985dating} form.
 
 The deep mutational scanning data are incorporated into the ExpCM via the $F_{r,xy}$ terms.
 The experiments measure the preference $\pi_{r,a}$ of every site $r$ for every amino-acid $a$.
@@ -558,42 +493,98 @@ where $\mathcal{A}\left(x\right)$ is the amino-acid encoded by codon $x$, $\beta
 The ExpCM has six free parameters (three $\phi_w$ values, $\kappa$, $\beta$, and $\omega$).
 The preferences $\pi_{r,a}$ are \emph{not} free parameters since they are determined by an experiment independent of the sequence alignment being analyzed.
 
-The ExpCM stationary state frequency $p_{r,x}$ of codon $x$ at site $r$ is~\citep{bloom2017identification} 
+\subsubsection*{GY94}
+
+We consider the basic Goldman-Yang style (GY94) substitution model defined as M0 in \citet{yang2000codon}. 
+$P_{xy}$ is the substitution rate from codon $x$ to codon $y$ and is defined by
+
 \begin{equation}
-\label{eq:p_rx}
-p_{r,x} = \frac{\left(\pi_{r,\mathcal{A}\left(x\right)}\right)^{\beta} \phi_{x_0} \phi_{x_1} \phi_{x_2}}{\sum_z \left(\pi_{r,\mathcal{A}\left(z\right)}\right)^{\beta} \phi_{z_0} \phi_{z_1} \phi_{z_2}},
+\label{eq:GY94}
+P_xy = 
+\begin{cases}
+  0 & \mbox{if $x$ and $y$ differ by more than one nucleotide,}\\
+  \mu \omega \Phi_{y} & \mbox{if $x$ is converted to $y$ by a single-nucleotide transversion,} \\
+  \kappa \mu \omega \Phi_{y} & \mbox{if $x$ is converted to $y$ by a single-nucleotide transition,} \\
+  -\sum\limits_{z \ne x} P_{xz} & \mbox{if $x = y$.}
+  \end{cases}
 \end{equation}
-\subsection*{Theoretical effect of model choice on branch length}
-\subsection*{Effect of model choice on natural sequences}
+where $\kappa$ is the transition-transversion ratio, $\Phi_y$ is the equilibrium frequency of
+codon $y$, $\omega$ is the gene-wide rate of non-synonymous change, and $\mu$ is the substitution rate.
 
-\subsubsection*{ExpCM + $\Gamma\omega$ and YNGKP M5}
+\subsubsection*{GY94 with $\omega_r$}
+Following~\citet{spielman2015relationship}, we inferred an $\omega$ for each site in the protein ($\omega_r$) from an ExpCM. 
+\begin{equation}
+\label{eq:w_r}
+\omega_{r} = \frac{\sum_{x} \sum_{y \in N_x} {p_{r,x} \times \frac{P_{r,xy}}{\omega}}}{\sum_{x} \sum_{y \in N_x} {p_{r,x} \times Q_{xy}}}
+\end{equation}
+where $p_{r,x}$ is the stationary state of the ExpCM at site $r$ and codon $x$, $P_{r,xy}$ is the substitution rate from codon $x$ to codon $y$ at site $r$, $Q_{xy}$ is the mutation rate from codon $x$ to codon $y$, and $N_x$ is the set of codons that are nonsynonymous to codon $x$ and differ from codon $x$ by only one nucleotide. 
 
+We replaced the $\omega$ value in \ref{eq:GY94} with $\omega \times \omega_r$, resulting in a site-specific model with the GY94 stationary state. 
 
+\subsection*{Adding $\Gamma\omega$}
 
+For the GY94+$\Gamma\omega$ and ExpCM+$\Gamma\omega$, $\omega$ is drawn from $K=4$ discrete categories and equal weight is given to each category. 
+Set to the mean of the discretized $\Gamma$-distribution. 
+
+\subsection*{Deep Mutational Scanning Amino-Acid preferences.}
+We used deep mutational scanning amino-acid preferences from an H1 HA~\citep{doud2016accurate} and an H3 HA~\citep{lee2018deep} to define the ExpCM's. 
+We only considered homologous sites between the H1 and H3 protein (described in \ref{suppfile:WSN_Perth_map}). 
+The resulting preference sets, including the average between the H1 and H3 preferences, are found in \ref{suppfile:H1_prefs}, \ref{suppfile:H3_prefs}, and \ref{suppfile:avg_prefs}.
+
+\subsection*{Influenza virus hemagglutinin (HA) sequences and tree topology.}
+
+We downloaded all full-length, coding sequences for 14 of the 18 HA subtypes, excluding the rare subtypes 12, 15, 17, and 18. 
+We filtered and aligned the sequences using \texttt{phydms\_comprehensive}~\citep{hilton2017phydms}. 
+Specifically, we used \texttt{phydms\_comprehensive} default parameters except \texttt{--minidentity 0.3} and we removed sites which are not homologous between the H1 and H3 deep mutational references sequences using the sequence in \ref{suppfile:hybrid_sequence}. 
+We subsampled the sequences so that there were 5 sequences per subtype with $\le 1$ sequence per year per subtype. 
+%Finally, we ensured the ``landmark" sequences from the H1, H2, and H3 subtypes (\ref{suppfile:required_seqs}) were included. 
+The resulting alignment contains 87 sequences and is found in \ref{suppfile:alignment_high}. 
+
+We created four subalignments with ``low" and ``intermediate" divergence from either the H1 or the H3 deep mutational scanning reference sequence. 
+The ``low divergence" alignments had   $\ge 59\%$ amino-acid identity from the reference sequence and the ``intermediate divergence" alignments had $\ge 46\%$ identity from the reference sequence.
+The resulting alignments are found in \ref{suppfile:alignment_lowH1}, \ref{suppfile:alignment_lowH3}, \ref{suppfile:alignment_intermediateH1}, and \ref{suppfile:alignment_intermediateH3}.  
+
+We inferred the tree topology of each alignment using \texttt{RAxML}~\citep{stamatakis2006raxml} and the GTRCAT model. 
+We estimated the branch lengths of given this fixed topology for the ExpCM and GY94 models using \texttt{phydms\_comprehensive}~\citep{hilton2017phydms}. 
+
+\subsection*{Asymptotic sequence divergence.}
+
+We built ExpCM and GY94 models using parameters fit to the ``low divergence from H1" tree.  
+Specifically, we built a GY94 model using the parameter values in \ref{suppfile:hybrid_lowH1_GY94}, a GY94+$\Gamma\omega$ model using the parameter values in \ref{suppfile:hybrid_lowH1_GY94+Gr}, an ExpCM using the parameters in \ref{suppfile:hybrid_lowH1_ExpCMdoud} and the amino-acid preferences in \ref{suppfile:H1_prefs}, and a GY94+$\omega_r$ using the GY94 parameters in \ref{suppfile:hybrid_lowH1_GY94} and the ExpCM defined by\ref{suppfile:hybrid_lowH1_ExpCMdoud} and \ref{suppfile:H1_prefs}. 
+
+For each model we calculated the expected sequence divergence given some branch length $t$ by 
+\begin{equation}
+\label{eq:f}
+\sum_a \sum_{x \in a} p_{r,x} \sum_{y \in a} [M_{r}\left(t\right)]_{xy}
+\end{equation}
+where $a$ is all amino acids, $p_{r,x}$ is the stationary state of the model at site $r$ and codon $x$, and $[M_{r}\left(t\right)]_{xy}$ is the transition rate from codon $x$ to codon $y$ at site $r$ given time $t$. 
+
+\subsection*{Simulations}
+
+We simulated sequences using \texttt{pyvolve}~\citep{spielman2015pyvolve} along tree for the full alignment (\ref{fig:empirical_trees};\ref{suppfile:alignment_high}) using an ExpCM defined by the parameters in \ref{suppfile:hybrid_lowH1_ExpCMdoud} and the amino-acid preferences in \ref{suppfile:H1_prefs}. 
+We performed 10 replicate simulations and estimated the branch lengths for each replicate using \texttt{phydms\_comprehensive}. 
 
 \newpage
 \section*{Supplemental Information}
 
-\subsection*{Model Parameters for the simulations}
-
 \begin{suppfig}[H]
 \centerline{\includegraphics[width=\textwidth]{figures/prefs_doud}}
 \caption{\label{suppfig:prefs_doud}
-\textbf{H1 preferences measured by \cite{doud2016accurate} rescaled with the ExpCM stringency parameter optimized in \ref{fig:tree_doud}A  ($\beta = 1.12$)} 
+\textbf{H1 preferences measured by \cite{doud2016accurate} (\ref{suppfile:H1_prefs}) rescaled with the ExpCM stringency parameter optimized in \ref{fig:empirical_trees}  ($\beta = 1.12$)}. 
 }
 \end{suppfig}
 
 \begin{suppfig}[H]
 \centerline{\includegraphics[width=\textwidth]{figures/prefs_lee}}
 \caption{\label{suppfig:prefs_lee}
-\textbf{H3 preferences measured by \textit{lee} rescaled with the ExpCM stringency parameter optimized in \ref{fig:tree_lee}A  ($\beta = 1.28$)}
+\textbf{H3 preferences measured by~\citet{lee2018deep} (\ref{suppfile:H1_prefs}) rescaled with the ExpCM stringency parameter optimized in \ref{fig:empirical_trees}  ($\beta = 1.28$)}
  }
 \end{suppfig}
 
 \begin{suppfig}[H]
 \centerline{\includegraphics[width=\textwidth]{figures/prefs_average}}
 \caption{\label{suppfig:prefs_average}
-\textbf{The average of the H1 preferences measured by \cite{doud2016accurate} and the H3 preferences measured by \textit{Lee} rescaled with the ExpCM stringency parameter optimized in \ref{fig:tree_average}A  ($\beta = 1.70$)}}
+\textbf{The average of the H1 preferences measured by \cite{doud2016accurate} and the H3 preferences measured by~\citet{lee2018deep} ((\ref{suppfile:avg_prefs})) rescaled with the ExpCM stringency parameter optimized in \ref{fig:empirical_trees}  ($\beta = 1.70$)}}
 \end{suppfig}
 
 \begin{suppfig}[H]
@@ -603,6 +594,111 @@ p_{r,x} = \frac{\left(\pi_{r,\mathcal{A}\left(x\right)}\right)^{\beta} \phi_{x_0
 }
 \end{suppfig}
 
+\begin{suppfig}[H]
+\centerline{\includegraphics[width=0.50\textwidth]{figures/divergence_distances.pdf}}
+\caption{\label{suppfig:subalignments}
+\textbf{Subalignments.}
+}
+\end{suppfig}
+
+\begin{suppfile}
+\caption{
+\label{suppfile:hybrid_sequence}
+The ``hybrid" sequence used to align the HA sequences.
+Specifically, this sequence is the H1 deep mutational scanning reference sequence A/Wilson Smith/1933 except it only contains the codon positions shared between A/Wilson Smith/1933 and the H3 deep mutational scanning reference sequence A/Perth/2009. 
+}
+\end{suppfile}
+
+\begin{suppfile}
+\caption{
+\label{suppfile:required_seqs}
+These sequences from the H1, H2, and H3 subtypes were required to be in the final alignment. 
+}
+\end{suppfile}
+
+\begin{suppfile}
+\caption{
+\label{suppfile:alignment_high}
+HA sequences used in \ref{fig:empirical_trees}.  
+}
+\end{suppfile}
+
+\begin{suppfile}
+\caption{
+\label{suppfile:alignment_lowH1}
+HA sequences for the ``low divergence from H1" tree in \ref{fig:compete}.  
+}
+\end{suppfile}
+
+\begin{suppfile}
+\caption{
+\label{suppfile:alignment_lowH3}
+HA sequences for the ``low divergence from H3" tree in \ref{fig:compete}.  
+}
+\end{suppfile}
+
+\begin{suppfile}
+\caption{
+\label{suppfile:alignment_intermediateH1}
+HA sequences for the ``low divergence from H1" tree in \ref{fig:compete}.  
+}
+\end{suppfile}
+
+\begin{suppfile}
+\caption{
+\label{suppfile:alignment_intermediateH3}
+HA sequences for the ``low divergence from H3" tree in \ref{fig:compete}.  
+}
+\end{suppfile}
+
+\begin{suppfile}
+\caption{
+\label{suppfile:WSN_Perth_map}
+Homologous sites in WSN and Perth using sequential numbering starting at the second (first non-M) codon. 
+}
+\end{suppfile}
+
+\begin{suppfile}
+\caption{
+\label{suppfile:H1_prefs}
+Deep mutational scanning preferences from \citet{doud2016accurate} for the homologous sites between the H1 reference sequence and the H3 reference sequence. 
+}
+\end{suppfile}
+
+\begin{suppfile}
+\caption{
+\label{suppfile:H3_prefs}
+Deep mutational scanning preferences from \citet{lee2018deep} for the homologous sites between the H1 reference sequence and the H3 reference sequence. 
+}
+\end{suppfile}
+
+\begin{suppfile}
+\caption{
+\label{suppfile:avg_prefs}
+The average deep mutational scanning preferences from \citet{doud2016accurate} ad \citet{lee2018deep}. 
+}
+\end{suppfile}
+
+\begin{suppfile}
+\caption{
+\label{suppfile:hybrid_lowH1_ExpCMdoud}
+ExpCM model parameters fit using the amino-acid preferences from~\citet{doud2016accurate}(\ref{suppfile:H1_prefs}) and the ``low divergence from H1" tree (\ref{suppfile:alignment_lowH1})
+}
+\end{suppfile}
+
+\begin{suppfile}
+\caption{
+\label{suppfile:hybrid_lowH1_GY94}
+GY94 model parameters fit using the ``low divergence from H1" tree (\ref{suppfile:alignment_lowH1}). 
+}
+\end{suppfile}
+
+\begin{suppfile}
+\caption{
+\label{suppfile:hybrid_lowH1_GY94+Gr}
+GY94+$\Gamma\omega$ model parameters fit using the ``low divergence from H1" tree (\ref{suppfile:alignment_lowH1}). 
+}
+\end{suppfile}
 
 \clearpage 
 \bibliographystyle{mbe}

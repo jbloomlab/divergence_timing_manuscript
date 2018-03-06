@@ -1,0 +1,18 @@
+HA_SUBTYPE,SEQ_ID,NOTES
+H1,cds_AAD17229_A/South_Carolina/1/1918_1918//_HA_HA_1,1918 flu
+H1,cds_ABU50586_A/Solomon_Islands/3/2006_2006/08/21_HA_HA_1,newest classical H1N1
+H1,cds_AGM53850_A/California/07/2009_2009/04/09_HA_HA_1,vaccine strain pdmH1N1
+H1,cds_AAL87868_A/Swine/Minnesota/55551/2000_2000//_HA_HA_1,classical swine flu
+H1,cds_ABF21278_A/Wilson-Smith/1933_1933//_HA_HA_1,WSN REF
+H2,cds_AIU46709_A/Netherlands/M2/1957_1957/07/13_HA_HA_2,early human H2N2
+H2,cds_AAA43089_A/Berkeley/1/1968_1968//_HA_HA_2,late human H2N2
+H2,cds_ABQ01355_A/Albany/1/1960_1960//_HA_HA_2,middle human H2N2
+H3,cds_CAA24269_A/Aichi/2/1968_1968//_HA_HA_3,Aichi/1968
+H3,cds_AHX37629_A/Perth/16/2009_2009/04/07_HA_HA_3,Perth/09 REF
+H3,cds_ANM98799_A/California/25/2016_2016/01/16_HA_HA_3,recent human H3N2
+H3,cds_ABD16571_A/Memphis/7/1990_1990//_HA_HA_3,middle human H3N2
+H3,cds_ABB04283_A/Hong_Kong/46/1980_1980//_HA_HA_3,middle human H3N2
+H3,cds_AAA43164_A/equine/Miami/1963_1963//_HA_HA_3,early equine H3N8
+H3,cds_AKI84352_A/equine/Tennessee/28A/2014_2014/10/21_HA_HA_3,later equine H3N8
+H3,cds_ACD85176_A/equine/Kentucky/3/1986_1986//_HA_HA_3,middle equine H3N8
+H3,cds_AOS87374_A/equine/Argentina/E1134-7/2001_2001/07/31_HA_HA_3,middle equine H3N8
