@@ -111,7 +111,7 @@ Here we show that models which account for purifying selection through experimen
 This deepening of branch lengths is due to more realistic stationary states of the models, and is independent of the branch-length-extension from modeling site-to-site variation in amino-acid substitution rate.
 The branch-length extension from experimentally informed site-specific models is similar to that achieved by other approaches that allow the stationary state to vary across sites.
 However, the improvements from these site-specific but time-homogeneous and site-independent models are limited by the fact that a protein's amino-acid preferences gradually shift as it evolves.
-Overall, our work underscores the importance of modeling how site-specific purifying selection affects the stationary state when estimating deep divergence times---but also shows the inherent limitations of approaches that fail to model how this selection shifts over time due to epistasis. 
+Overall, our work underscores the importance of modeling how site-specific purifying selection affects the stationary state when estimating deep divergence times---but also shows the inherent limitations of approaches that fail to model how this selection shifts over time. 
 \end{abstract}
 
 \clearpage
@@ -319,10 +319,10 @@ All ExpCM's fit a stringency parameter $>1$.
      \begin{tabular}{cccccccccc}
         \hline
          Model & $\Delta$AIC & {\shortstack{Log\\ Likelihood}} & $\omega$ & {\shortstack{Stringency\\ parameter ($\beta$)}}\\ \hline
-       	ExpCM + $\Gamma\omega$ (H1+H3 avg)  & 0 & -48751 & 0.19,  0.50,  0.90,  1.86 &  1.70\\
+       	ExpCM  (H1+H3 avg) + $\Gamma\omega$  & 0 & -48751 & 0.19,  0.50,  0.90,  1.86 &  1.70\\
 	ExpCM (H1+H3 avg)  &  950 & -49227 & 0.15 & 1.78\\
-	ExpCM + $\Gamma\omega$ (H1)  & 1306 & -49404  & 0.13 ,  0.44,  0.91,  2.16 & 1.12\\
-	ExpCM + $\Gamma\omega$ (H3) & 1737 & -49620 & 0.09,  0.33,  0.72,  1.77 & 1.28\\
+	ExpCM  (H1) + $\Gamma\omega$  & 1306 & -49404  & 0.13 ,  0.44,  0.91,  2.16 & 1.12\\
+	ExpCM (H3) + $\Gamma\omega$ & 1737 & -49620 & 0.09,  0.33,  0.72,  1.77 & 1.28\\
 	ExpCM (H1) & 2556 & -50030 &  0.13 & 1.22\\
 	ExpCM (H3) &  3197 & -50350 & 0.12 & 1.45\\
 	GY94 + $\Gamma\omega$  & 4719 & -51106 & 0.00,  0.03,  0.08,  0.26 & - \\
@@ -347,9 +347,8 @@ Although the nucleotide model used with \texttt{RAxML} is probably less accurate
 There are two deep mutational scanning datasets for HA that estimated amino-acid preferences for all sites.
 One scan measured the site-specific amino-acid preferences of an H1 HA~\citep{doud2016accurate} and the other measured the preferences of an H3 HA~\citep{lee2018deep}.
 These two HAs have only $\sim$42\% amino-acid identity, and so are separated by a large distance on the phylogenetic tree (see triangle and circle on \ref{fig:empirical_trees}).
-\skhcomment{figure out how to put the lee paper first and then the supp figures}
-The experimentally measured amino-acid preferences clearly differ between the H1 and H3 HA at a substantial number of sites~\citep[\ref{suppfig:prefs_doud}, 
-\ref{suppfig:prefs_lee};][]{lee2018deep}.
+The experimentally measured amino-acid preferences clearly differ between the H1 and H3 HA at a substantial number of sites~\citep[][\ref{suppfig:prefs_doud}, 
+\ref{suppfig:prefs_lee}]{lee2018deep}.
 Therefore, we also created a third set of amino-acid preferences by averaging the preferences measured in the deep mutational scanning of the H1 and H3 HAs, under the conjecture that these averaged preferences might do a better job of describing the ``average'' constraint on sites across the full HA tree.
 These three sets of HA amino-acid preferences define three different ExpCM's.
  
@@ -386,7 +385,7 @@ Therefore, \ref{fig:empirical_trees} shows that the ExpCM's estimate longer bran
 We fit an ExpCM informed by the H1 or H3 deep mutational scanning experiments to trees spanning sequences with low, intermediate, and high divergence from the sequence used in the experiment. 
 The ExpCM stringency parameter ($\beta$) is a measure of the congruency between natural selection and the experimental measurements. 
 Larger values of $\beta$ indicate that natural selection prefers the same amino acids as the experiments but with greater stringency. 
-As divergence increases between the HA used in the experiment and the other sequences in the tree, the $\beta$ value decreases.
+As divergence increases between the HA used in the experiment and the other sequences in the tree, the $\beta$ value decreases and the preference sets ``flatten."
 Therefore, the preferences measured in each experiment are progressively less congruent with those of the HA sequences on the tree as we include increasingly diverged sequences. 
 }
 \end{figure}
@@ -434,21 +433,21 @@ To aid direct comparison between the models, we normalized the branch lengths by
 The previous sections used ExpCM's, which are mutation-selection models that use site-specific amino-acid preferences that have been measured by experiments. 
 However, other implementations of mutation-selection models allow their stationary states to be inferred directly from the natural sequence data. 
 These models are generally implemented in a Bayesian framework, which avoids the overfitting problems associated with trying to make maximum-likelihood estimates of the thousands of parameters describing site-specific stationary states.
-The model most comparable to our ExpCM's is the codon mutation-selection model implemented in \texttt{phylobayes}, which we will refer to as pbMutSel. 
+The model most comparable to our ExpCM's is the codon mutation-selection model implemented in \texttt{phylobayes}, which we will refer to as pbMutSel~\citep{rodrigue2014site}. 
 The pbMutSel model is mathematically very similar to the ExpCM's except the amino-acid preferences are modeled using Dirichlet processes rather than derived from experiments. 
 Like ExpCM's, pbMutSel models still assume a single set of site-specific amino-acid preferences for the entire tree.
 
 Comparing ExpCM's and pbMutSel models can therefore help identify the ultimate limits of mutation-selection models where each site has a single time-homogeneous stationary state across the entire tree. 
-If the limits of the ExpCM's reflected in Figure X are simply because the deep mutational scanning do not accurately measure the "true" amino-acid preferences of HA across the tree, then we would expect the pbMutSel models (which derive their stationary states from the entire tree) to perform better.
+If the limits of the ExpCM's reflected in \ref{fig:empirical_trees} are simply because the deep mutational scanning experiments do not accurately measure the ``true" amino-acid preferences of HA across the tree, then we would expect the pbMutSel models (which derive their stationary states from the entire tree) to perform better.
 On the other hand, if the major limitation is simply that there is not any single set of time-homogenous amino-acid preferences that describe HA evolution over the entire tree, then we would expect pbMutSel and ExpCM models to perform similarly.
 
 The ExpCM that estimates the longest branches is the one that uses the average of the H1 and H3 deep mutational scanning measurements with $\Gamma\omega$ rate variation~(\ref{fig:empirical_trees}).  
 We therefore compared this ExpCM with a pbMutSel model given the tree in \ref{fig:empirical_trees}. 
-First, the stationary state inferred by pbMutSel is similar to the average of the H1 and H3 preferences measured by deep mutational scanning. 
-As \ref{fig:phylobayes}A shows, the site-specific amino-acid preferences estimated by pbMutSel are more correlated with the average amino-acid preferences from the H1 and H3 experiments than the individual deep mutational scanning experiments are to each other. 
+First, As \ref{fig:phylobayes}A shows, the stationary state inferred by pbMutSel is similar to the average of the H1 and H3 preferences measured by deep mutational scanning. 
+The site-specific amino-acid preferences estimated by pbMutSel are more correlated with the average amino-acid preferences from the H1 and H3 experiments than the individual deep mutational scanning experiments are to each other. 
 This strong correlation between the pbMutSel and the average deep mutational scanning preference set indicates that, when averaged, the experimental preferences are able to capture the global site-specific functional constraint fairly well. 
 
-Second, the results in \ref{fig:phylobayes}B show that the ExpCM+$\Gamma\omega$(H1+H3 avg prefs) and the pbMutSel model estimated similar branch lengths on the HA tree in \ref{fig:empirical_trees}. 
+Second, the results in \ref{fig:phylobayes}B show that the ExpCM+$\Gamma\omega$(H1+H3 avg prefs) and the pbMutSel model also estimated similar branch lengths on the HA tree in \ref{fig:empirical_trees}. 
 While overall the two models estimated similar lengths, the tension between local and global accuracy of the amino-acid preferences is still apparent in these results. 
 All the long branches from either the H1 or H3 sequences used in the experiments were estimated to be slightly longer by the ExpCM+$\Gamma\omega$, while many other branches were estimated to be slightly longer by the pbMutSel model. 
 The relatively longer branches from the experimental sequences when using the ExpCM+$\Gamma\omega$ suggests that the ``global" stationary state inferred by \texttt{phylobayes} is not as accurate as the deep mutational scanning preferences for sequences close to the experimental sequences. 
@@ -526,17 +525,19 @@ Briefly, $\omega$ is drawn from a $\Gamma$ distribution discretized into $K=4$ b
 Each bin is equally weighted and $\omega$ takes on the mean value of the bin. 
 
 \subsection*{Deep mutational scanning amino-acid preferences.}
-We used amino-acid preferences measured in deep mutational scanning of an H1 HA~\citep{doud2016accurate} and an H3 HA~\citep{lee2018deep} to define the $\pi_{r, A\left(x\right)}$ parameters~(\ref{eq:Frxy}) of the ExpCM's. 
-We only considered homologous sites between the H1 and H3 protein, described in \ref{suppfile:WSN_Perth_map}. 
+We used amino-acid preferences measured in the deep mutational scans of an H1 HA~\citep{doud2016accurate} and an H3 HA~\citep{lee2018deep} to define the ExpCM $\pi_{r, A\left(x\right)}$ parameters~(\ref{eq:Frxy}). 
+We only considered sites which are homologous between H1 HA and H3 HA. 
+These homologous sites, and their mapping between the H1 reference strain A/Wilson Smith/1933 and the H3 reference strain a A/Perth/2009, are described in \ref{suppfile:WSN_Perth_map}. 
 The resulting preference sets, including the average between the H1 and H3 preferences, are found in \ref{suppfile:H1_prefs}, \ref{suppfile:H3_prefs}, and \ref{suppfile:avg_prefs}.
 
 \subsection*{Influenza virus hemagglutinin (HA) sequences and tree topology.}
 
 We downloaded all full-length, coding sequences for 14 of the 18 HA subtypes, excluding the rare subtypes 12, 15, 17, and 18. 
 We filtered and aligned the sequences using \texttt{phydms\_prepalignment}~\citep{hilton2017phydms}. 
-Specifically, we used \texttt{phydms\_prepalignment} with the flag \texttt{--minidentity 0.3} to sequences with ambiguous nucleotides, premature stops, or frameshift mutations as well as redundant sequences.  
-We also removed any codon sites which are not shared between the H1 and H3 deep mutational scanning reference sequences by aligning to sequence in \ref{suppfile:hybrid_sequence}. 
-We subsampled the remaining sequences so there are $\ge 5$ sequences per subtype with $\le 1$ sequence per year per subtype. 
+Specifically, we used \texttt{phydms\_prepalignment} with the flag \texttt{--minidentity 0.3} to remove sequences with ambiguous nucleotides, premature stops, or frameshift mutations as well as redundant sequences.  
+We also removed any codon sites which are not shared between the H1 HA and H3 HA used in the deep mutational scanning experiments. 
+We subsampled the remaining sequences to five sequences per subtype with $\le 1$ sequence per year per subtype. 
+We also included a small number of representative sequences from the major human and equine influenza lineages, described in \ref{suppfile:required_seqs}. 
 The resulting alignment contains 87 sequences and is found in \ref{suppfile:alignment_high}. 
 
 We created four subalignments with ``low" and ``intermediate" divergence from either the H1 or the H3 deep mutational scanning reference sequence. 
@@ -569,13 +570,11 @@ We performed 10 replicate simulations and estimated the branch lengths for each 
 We inferred a pbMutSel model for the full tree (\ref{fig:empirical_trees}, \ref{suppfile:alignment_high}). 
 We ran one chain for 5000 steps, saved every sample, and discarded the first 500 samples as a burnin. 
 We normalized the branch lengths on the pbMutSel consensus tree and the ExpCM(H1+H3 avg)+$\Gamma\omega$ by dividing each branch by the length from A/South Carolina/1/1918 and A/Solomon Islands/3/2006. 
-These two H1 sequences are early and late representatives of the longest continuous sampled \skhcomment{in evolution but not in time...} lineage of human influenza. 
+These two H1 sequences are early and late representatives of the longest known human influenza lineage. 
 
 \subsection*{Code and analysis.}
 All code used is available at \url{https://github.com/jbloomlab/divergence_timing_manuscript}. 
-For the main analysis, we used \texttt{phydms}~\citep{hilton2017phydms} version 2.2.dev2 (available at \url{github.com/jbloomlab/phydms}) to filter sequences and estimate branch lengths, \texttt{pyvolve}~\citep{spielman2015pyvolve} version 0.8.7 (available at \url{https://github.com/sjspielman/pyvolve}) to simulate the sequences and \texttt{phylobayes}~\citep{rodrigue2014site} version 1.8 (available at \url{https://github.com/bayesiancook/pbmpi}) to infer the pbMutSel model. 
-
-We also used \texttt{ggplot2}~\citep{wickham2016ggplot2}, \texttt{ggtree}~\citep{yu2017ggtree}, and \texttt{ggseqlogo}~\citep{wagih2017ggseqlogo} for visualization.
+For the main analysis, we used \texttt{phydms}~\citep{hilton2017phydms} version 2.2.dev2 (available at \url{github.com/jbloomlab/phydms}) to filter sequences and estimate branch lengths, \texttt{pyvolve}~\citep{spielman2015pyvolve} version 0.8.7 (available at \url{https://github.com/sjspielman/pyvolve}) to simulate the sequences and \texttt{phylobayes}~\citep{rodrigue2014site} version 1.8 (available at \url{https://github.com/bayesiancook/pbmpi}) to infer the pbMutSel model. We also used \texttt{ggplot2}~\citep{wickham2016ggplot2}, \texttt{ggtree}~\citep{yu2017ggtree}, and \texttt{ggseqlogo}~\citep{wagih2017ggseqlogo} for visualization.
 
 
 
@@ -585,27 +584,43 @@ We also used \texttt{ggplot2}~\citep{wickham2016ggplot2}, \texttt{ggtree}~\citep
 \begin{suppfig}[H]
 \centerline{\includegraphics[width=\textwidth]{figures/prefs_doud}}
 \caption{\label{suppfig:prefs_doud}
-\textbf{H1 preferences measured by \cite{doud2016accurate} (\ref{suppfile:H1_prefs}) rescaled with the ExpCM stringency parameter optimized in \ref{fig:empirical_trees}  ($\beta = 1.12$)}. 
+\textbf{H1 HA amino-acid preferences measured by deep mutational scanning.}
+Each column represents a site in the protein and the height of each letter is proportional to the preference for the amino acid as measured by~\citet{doud2016accurate}. 
+Here the preferences are rescaled by the ExpCM stringency parameter in \ref{tab:empirical_data} ($\beta=1.12$). 
+We only considered homologous sites between H1 and H3. 
+The conversion between the numbering scheme in this figure and sequential numbering of the H1 HA reference sequence A/Wilson Smith/1933 is found in \ref{suppfile:WSN_Perth_map}. 
 }
 \end{suppfig}
 
 \begin{suppfig}[H]
 \centerline{\includegraphics[width=\textwidth]{figures/prefs_lee}}
 \caption{\label{suppfig:prefs_lee}
-\textbf{H3 preferences measured by~\citet{lee2018deep} (\ref{suppfile:H1_prefs}) rescaled with the ExpCM stringency parameter optimized in \ref{fig:empirical_trees}  ($\beta = 1.28$)}
+\textbf{H3 HA amino-acid preferences measured by deep mutational scanning.}
+Each column represents a site in the protein and the height of each letter is proportional to the preference for the amino acid as measured by~\citet{lee2018deep}. 
+Here the preferences are rescaled by the ExpCM stringency parameter in \ref{tab:empirical_data} ($\beta=1.28$). 
+We only considered homologous sites between H1 and H3. 
+The conversion between the numbering scheme in this figure and sequential numbering of the H3 HA reference sequence A/Perth/2009 is found in \ref{suppfile:WSN_Perth_map}. 
  }
 \end{suppfig}
 
 \begin{suppfig}[H]
 \centerline{\includegraphics[width=\textwidth]{figures/prefs_average}}
 \caption{\label{suppfig:prefs_average}
-\textbf{The average of the H1 preferences measured by \cite{doud2016accurate} and the H3 preferences measured by~\citet{lee2018deep} ((\ref{suppfile:avg_prefs})) rescaled with the ExpCM stringency parameter optimized in \ref{fig:empirical_trees}  ($\beta = 1.70$)}}
+\textbf{Average of H1 HA  and H3 HA amino-acid preferences measured by deep mutational scanning.}
+Each column represents a site in the protein and the height of each letter is proportional to the average preference for the amino acid measured by~\citet{doud2016accurate} and~\citet{lee2018deep}. 
+Here the preferences are rescaled by the ExpCM stringency parameter in \ref{tab:empirical_data} ($\beta=1.70$). 
+We only considered homologous sites between H1 and H3. 
+The conversion between the numbering scheme in this figure and sequential numbering of the H1 HA reference sequence A/Wilson Smith/1933 or H3 HA reference sequence A/Perth/2009 is found in \ref{suppfile:WSN_Perth_map}. 
+}
 \end{suppfig}
 
 \begin{suppfig}[H]
 \centerline{\includegraphics[width=\textwidth]{figures/prefs_mutSel}}
 \caption{\label{suppfig:prefs_mutSel}
-\textbf{Preferences inferred by the mutSel model on the full HA tree.}
+\textbf{Amino-acid preferences inferred by the pbMutSel model.}
+Each column represents a site in the protein and the height of each letter is proportional to the preference for the amino acid inferred by pbMutSel~\citep{rodrigue2014site} using the tree in \ref{fig:empirical_trees}. 
+We only considered homologous sites between H1 and H3. 
+The conversion between the numbering scheme in this figure and sequential numbering of the H1 HA reference sequence A/Wilson Smith/1933 or H3 HA reference sequence A/Perth/2009 is found in \ref{suppfile:WSN_Perth_map}. 
 }
 \end{suppfig}
 
@@ -621,96 +636,112 @@ We also used \texttt{ggplot2}~\citep{wickham2016ggplot2}, \texttt{ggtree}~\citep
 \begin{suppfile}
 \caption{
 \label{suppfile:WSN_Perth_map}
-Homologous sites in WSN and Perth using sequential numbering starting at the second (first non-M) codon. 
+Map for homologous sites between H1 HA and H3 HA. 
+This file provides a conversion between the numbering scheme we use in the paper, including all logoplots and the sites in \ref{fig:decay}, to sequential numbering in either the H1 HA reference sequence A/Wilson Smith/1933 or the H3 HA reference sequence A/Perth/2009. 
+The sequential numbering for the HA strains starts with site1 as the second codon (first non-methionine codon). 
 }
 \end{suppfile}
 
 \begin{suppfile}
 \caption{
 \label{suppfile:H1_prefs}
-Deep mutational scanning preferences from \citet{doud2016accurate} for the homologous sites between the H1 reference sequence and the H3 reference sequence. 
+Amino acid preferences measured by the deep mutational scanning of the H1 HA strain A/Wilson Smith/1933~\citep{doud2016accurate}. 
+This file only contains measurements for the homologous sites between H1 HA and H3 HA. 
+Conversion from this numbering scheme to sequential numbering in A/Wilson Smith/1933 is found in \ref{suppfile:WSN_Perth_map}. 
 }
 \end{suppfile}
 
 \begin{suppfile}
 \caption{
 \label{suppfile:H3_prefs}
-Deep mutational scanning preferences from \citet{lee2018deep} for the homologous sites between the H1 reference sequence and the H3 reference sequence. 
+Amino acid preferences measured by the deep mutational scanning of the H3 HA strain A/Perth/2009~\citep{lee2018deep}. 
+This file only contains measurements for the homologous sites between H1 HA and H3 HA. 
+Conversion from this numbering scheme to sequential numbering in A/Perth/2009 is found in \ref{suppfile:WSN_Perth_map}. 
 }
 \end{suppfile}
 
 \begin{suppfile}
 \caption{
 \label{suppfile:avg_prefs}
-The average deep mutational scanning preferences from \citet{doud2016accurate} ad \citet{lee2018deep}. 
-}
+Average of the amino acid preferences measured by the deep mutational scanning of the H1 HA strain A/Wilson Smith/1933~\citep{doud2016accurate} and the H3 HA strain A/Perth/2009~\citep{lee2018deep}. 
+This file only contains measurements for the homologous sites between H1 HA and H3 HA. 
+Conversion from this numbering scheme to sequential numbering in A/Wilson Smith/1933 or A/Perth/2009 is found in \ref{suppfile:WSN_Perth_map}. }
 \end{suppfile}
 
 \begin{suppfile}
 \caption{
-\label{suppfile:hybrid_sequence}
-The ``hybrid" sequence used to align the HA sequences.
-Specifically, this sequence is the H1 deep mutational scanning reference sequence A/Wilson Smith/1933 except it only contains the codon positions shared between A/Wilson Smith/1933 and the H3 deep mutational scanning reference sequence A/Perth/2009. 
+\label{suppfile:required_seqs}
+This file contains the representative sequences of major human equine influenza lineages added to the alignment in \ref{suppfile:alignment_high}. 
 }
 \end{suppfile}
 
 \begin{suppfile}
 \caption{
 \label{suppfile:alignment_high}
-HA sequences used in \ref{fig:empirical_trees}.  
+The HA sequences used for the full HA tree in \ref{fig:empirical_trees}. 
+We inferred the topology using \texttt{RAxML} and the GTRCAT model. 
 }
 \end{suppfile}
 
 \begin{suppfile}
 \caption{
 \label{suppfile:alignment_lowH1}
-HA sequences for the ``low divergence from H1" tree in \ref{fig:compete}.  
+The HA sequences using for the ``low divergence from H1" tree in \ref{fig:compete}. 
+All sequences have $\ge 59\%$ amino-acid identity to the H1 reference sequence A/Wilson Smith/1933. 
+We inferred the topology using \texttt{RAxML} and the GTRCAT model. 
 }
 \end{suppfile}
 
 \begin{suppfile}
 \caption{
 \label{suppfile:alignment_lowH3}
-HA sequences for the ``low divergence from H3" tree in \ref{fig:compete}.  
+The HA sequences using for the ``low divergence from H3" tree in \ref{fig:compete}. 
+All sequences have $\ge 59\%$ amino-acid identity to the H3 reference sequence A/Perth/2009. 
+We inferred the topology using \texttt{RAxML} and the GTRCAT model. 
 }
 \end{suppfile}
 
 \begin{suppfile}
 \caption{
 \label{suppfile:alignment_intermediateH1}
-HA sequences for the ``low divergence from H1" tree in \ref{fig:compete}.  
+The HA sequences using for the ``intermediate divergence from H1" tree in \ref{fig:compete}. 
+All sequences have $\ge 46\%$ amino-acid identity to the H1 reference sequence A/Wilson Smith/1933. 
+We inferred the topology using \texttt{RAxML} and the GTRCAT model. 
 }
 \end{suppfile}
 
 \begin{suppfile}
 \caption{
 \label{suppfile:alignment_intermediateH3}
-HA sequences for the ``low divergence from H3" tree in \ref{fig:compete}.  
+The HA sequences using for the ``intermediate divergence from H3" tree in \ref{fig:compete}. 
+All sequences have $\ge 46\%$ amino-acid identity to the H3 reference sequence A/Perth/2009. 
+We inferred the topology using \texttt{RAxML} and the GTRCAT model. 
 }
 \end{suppfile}
 
 \begin{suppfile}
 \caption{
 \label{suppfile:hybrid_lowH1_GY94}
-GY94 model parameters fit using the ``low divergence from H1" tree (\ref{suppfile:alignment_lowH1}). 
+The GY94 model parameters fit to the ``low divergence from H1" tree (\ref{fig:compete}, \ref{suppfile:alignment_lowH1}). 
+The model was fit using \texttt{phydms\_comprehensive}. 
 }
 \end{suppfile}
 
 \begin{suppfile}
 \caption{
 \label{suppfile:hybrid_lowH1_GY94+Gr}
-GY94+$\Gamma\omega$ model parameters fit using the ``low divergence from H1" tree (\ref{suppfile:alignment_lowH1}). 
+The GY94+$\Gamma\omega$ model parameters fit to the ``low divergence from H1" tree (\ref{fig:compete}, \ref{suppfile:alignment_lowH1}). 
+The model was fit using \texttt{phydms\_comprehensive}. 
 }
 \end{suppfile}
 
 \begin{suppfile}
 \caption{
 \label{suppfile:hybrid_lowH1_ExpCMdoud}
-ExpCM model parameters fit using the amino-acid preferences from~\citet{doud2016accurate}(\ref{suppfile:H1_prefs}) and the ``low divergence from H1" tree (\ref{suppfile:alignment_lowH1})
+The ExpCM model parameters fit to the ``low divergence from H1" tree (\ref{fig:compete}, \ref{suppfile:alignment_lowH1}). 
+The model was fit using \texttt{phydms\_comprehensive} and the H1 HA amino-acid preference set in \ref{suppfile:H1_prefs}. 
 }
 \end{suppfile}
-
-
 
 \clearpage 
 \bibliographystyle{mbe}
