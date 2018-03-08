@@ -193,7 +193,7 @@ The relative rate of these substitutions is referred to as dN/dS or $\omega$.
 In their simplest form, codon substitution models fit a single $\omega$ that represents the gene-wide average fixation rate of nonsynonymous mutations relative to synonymous ones.
 Here we will use such substitution models in the form proposed by \citet{goldman1994codon}.
 When these models have a single gene-wide $\omega$ they are classified as M0 by \citet{yang2000codon}.
-Here we will refer to M0 Goldman-Yang models simply as GY94 models. 
+Here we will refer to M0 Goldman-Yang models simply as GY94 models (\ref{eq:GY94}). 
 The gene-wide $\omega$ is usually $<1$~\citep{murrell2015gene}, and crudely represents the fact that many amino-acid substitutions are under purifying selection.
 
 A single gene-wide $\omega$ ignores the fact that purifying selection is heterogeneous across sites.
@@ -213,8 +213,8 @@ Codon substitution models with uniform stationary states have only a modest numb
 For instance, a GY94+$\Gamma\omega$ model with the commonly used F3X4 stationary state has 12 parameters: two describing the shape of the gamma distribution over $\omega$, a transition-transversion rate, and nine parameters describing the nucleotide composition of the stationary state.
 However, mutation-selection models must additionally specify 19 parameters defining the stationary state for \emph{each} site (there are 20 amino acids whose frequencies are constrained to sum to one).
 This corresponds to $19\times L$ parameters for a protein of length $L$, or 9,500 parameters for a 500-residue protein.
-It is challenging to obtain values for these parameters without overfitting the data~\citep{rodrigue2013statistical}.
-Here we will primarily use experimentally informed codon models~\citep[ExpCM's;][]{bloom2014experimentally, hilton2017phydms, bloom2017identification} which define these parameters \textit{a priori} from deep mutational scanning experiments so they do not need to be fit from phylogenetic data.
+It is challenging to obtain values for these parameters in a maximum-likelihood framework without overfitting the data~\citep{rodrigue2013statistical}.
+Here we will primarily use experimentally informed codon models~\citep[ExpCM's, \ref{eq:ExpCM};][]{bloom2014experimentally, hilton2017phydms, bloom2017identification} which define these parameters \textit{a priori} from deep mutational scanning experiments so they do not need to be fit from phylogenetic data.
 The number of remaining free parameters for an ExpCM is similar to a non-site-specific substitution model.
 An alternative strategy of obtaining parameters for site-specific stationary states via Bayesian inference~\citep{lartillot2004bayesian, rodrigue2014site} is discussed in the last section of the Results.
 
@@ -251,7 +251,7 @@ If the substitution model underestimates the asymptotic sequence identity then i
 
 \ref{fig:decay} shows how different substitution models predict sequence identity to decrease as a function of branch length using model parameters fit to a phylogeny of H1 influenza hemagglutinin (HA) genes.
 The GY94 model predicts the same behavior for all sites, since it does not have any site-specific parameters.
-This model predicts an asymptotic sequence divergence of 0.059, which is slightly higher than 0.05 since some of the 20 amino acids are favored due to more redundant codons and biases towards certain nucleotides.
+This model predicts an asymptotic sequence divergence of 0.059, which is slightly higher than 0.050 since some of the 20 amino acids are favored due to more redundant codons and biases towards certain nucleotides.
 Intuitively, this asymptotic sequence identity of 0.059 seems low, since like many proteins HA has a highly conserved structure and function that imposes constraints that cause most sites to sample only a small subset of the 20 amino acids among all known HA homologs~\citep{nobusawa1991comparison}.
 
 Accounting for site-to-site rate variation in GY94 models affects the rate at which the asymptotic sequence identity is approached, but not the actual value of this asymptote. 
@@ -340,7 +340,7 @@ The topology of HA phylogenetic trees (\ref{fig:empirical_trees}) makes these se
 HA consists of a number of different subtypes.
 Sequences within a subtype have $>75\%$ amino-acid identity, but sequences in different subtypes have as little as 38\% identity.
 However, HA proteins from all subtypes have a highly conserved structure that performs a highly conserved function~\citep{ha2002h5,russell2004h1}.
-We used \texttt{RAxML}  with a nucleotide substitution model  (GTRCAT) to infer a phylogenetic tree for 87 HA sequences drawn from 14 of the 18 subtypes (we excluded bat influenza and three other rare subtypes).
+We used \texttt{RAxML}~\citep{stamatakis2006raxml} with a nucleotide substitution model  (GTRCAT) to infer a phylogenetic tree for 87 HA sequences drawn from 14 of the 18 subtypes (we excluded bat influenza and three other rare subtypes).
 For the rest of this paper, we fix the tree topology to this \texttt{RAxML}-inferred tree.
 Although the nucleotide model used with \texttt{RAxML} is probably less accurate than codon models, the modular subtype structure of the HA phylogeny means that most of the phylogenetic uncertainty lies in the length of the long branches separating the subtypes rather than in the tree topology itself.
 
@@ -444,7 +444,7 @@ On the other hand, if the major limitation is simply that there is not any singl
 
 The ExpCM that estimates the longest branches is the one that uses the average of the H1 and H3 deep mutational scanning measurements with $\Gamma\omega$ rate variation~(\ref{fig:empirical_trees}).  
 We therefore compared this ExpCM with a pbMutSel model given the tree in \ref{fig:empirical_trees}. 
-First, As \ref{fig:phylobayes}A shows, the stationary state inferred by pbMutSel is similar to the average of the H1 and H3 preferences measured by deep mutational scanning. 
+First, \ref{fig:phylobayes}A shows that the stationary state inferred by pbMutSel is similar to the average of the H1 and H3 preferences measured by deep mutational scanning. 
 The site-specific amino-acid preferences estimated by pbMutSel are more correlated with the average amino-acid preferences from the H1 and H3 experiments than the individual deep mutational scanning experiments are to each other. 
 This strong correlation between the pbMutSel and the average deep mutational scanning preference set indicates that, when averaged, the experimental preferences are able to capture the global site-specific functional constraint fairly well. 
 
@@ -466,7 +466,30 @@ Therefore, while the site-specific pbMutSel models inferred by \texttt{phylobaye
 
 \subsection*{Models}
 
-\subsubsection*{Experimentally Informed Codon Model (ExpCM).}
+\subsubsection*{GY94}
+
+The GY94 model is defined as the M0 in \cite{yang2000codon}. 
+$P_{xy}$ is the substitution rate from codon $x$ to codon $y$ and is defined by
+
+\begin{equation}
+\label{eq:GY94}
+P_{xy} = 
+\begin{cases}
+  0 & \mbox{if $x$ and $y$ differ by more than one nucleotide,}\\
+  \mu \omega \Phi_{y} & \mbox{if $x$ is converted to $y$ by a single-nucleotide transversion,} \\
+  \kappa \mu \omega \Phi_{y} & \mbox{if $x$ is converted to $y$ by a single-nucleotide transition,} \\
+  -\sum\limits_{z \ne x} P_{xz} & \mbox{if $x = y$.}
+  \end{cases}
+\end{equation}
+where $\kappa$ is the transition-transversion ratio, $\Phi_y$ is the equilibrium frequency of
+codon $y$, $\omega$ is the gene-wide rate of non-synonymous change, and $\mu$ is the substitution rate.
+The stationary state of a GY94 model is defined as 
+\begin{equation}
+\label{eq:px}
+p_{x} = \Phi_x
+\end{equation}
+
+\subsubsection*{Experimentally Informed Codon Model (ExpCM)}
 
 In an ExpCM, the rate of substitution $P_{r,xy}$ of site $r$ from codon $x$ to $y$ is written in mutation-selection form~\citep{halpern1998evolutionary,mccandlish2014modeling,spielman2015relationship} as
 \begin{equation}
@@ -488,26 +511,16 @@ F_{r,xy} =
    \end{cases}
 \end{equation}
 where $\mathcal{A}\left(x\right)$ is the amino-acid encoded by codon $x$, $\beta$ is the stringency parameter, and $\omega$ is the relative rate of nonsynonymous to synonymous substitutions after accounting for the amino-acid preferences.
+
+The stationary state of an ExpCM is defined as 
+\begin{equation}
+\label{eq:prx}
+p_{r,x} = \frac{\phi_{x_1}\phi_{x_2}\phi_{x_3}\left(\pi_{r,A\left(x\right)}\right)^\beta}{\sum_z \phi_{z_1}\phi_{z_2}\phi_{z_3}\left(\pi_{r,A\left(z\right)}\right)^\beta}
+\end{equation}
+where $\phi_{x_1}$, $\phi_{x_2}$, and $\phi_{x_3}$ are the nucleotides at position 1, 2, and 3 of codon $x$. 
+
 The preferences $\pi_{r,a}$ are \emph{not} free parameters since they are determined by an experiment independent of the sequence alignment being analyzed.
 The ExpCM is described in detail in~\citet{hilton2017phydms}. 
-
-\subsubsection*{GY94}
-
-The GY94 model is defined as the M0 in \cite{yang2000codon}. 
-$P_{xy}$ is the substitution rate from codon $x$ to codon $y$ and is defined by
-
-\begin{equation}
-\label{eq:GY94}
-P_{xy} = 
-\begin{cases}
-  0 & \mbox{if $x$ and $y$ differ by more than one nucleotide,}\\
-  \mu \omega \Phi_{y} & \mbox{if $x$ is converted to $y$ by a single-nucleotide transversion,} \\
-  \kappa \mu \omega \Phi_{y} & \mbox{if $x$ is converted to $y$ by a single-nucleotide transition,} \\
-  -\sum\limits_{z \ne x} P_{xz} & \mbox{if $x = y$.}
-  \end{cases}
-\end{equation}
-where $\kappa$ is the transition-transversion ratio, $\Phi_y$ is the equilibrium frequency of
-codon $y$, $\omega$ is the gene-wide rate of non-synonymous change, and $\mu$ is the substitution rate.
 
 \subsubsection*{GY94 with $\omega_r$.}
 
@@ -551,7 +564,7 @@ We estimated the branch lengths of this fixed topology using the ExpCM and GY94 
 \subsection*{Asymptotic sequence divergence.}
 
 We defined ExpCM and GY94 models using parameter values fit to the ``low divergence from H1" tree~(\ref{fig:empirical_trees}, \ref{suppfile:alignment_lowH1}). 
-Specifically, we defined the GY94 model using the parameter values in \ref{suppfile:hybrid_lowH1_GY94}, the GY94+$\Gamma\omega$ using the parameter values in\ref{suppfile:hybrid_lowH1_GY94+Gr} and the ExpCM using the parameter values in \ref{suppfile:hybrid_lowH1_ExpCMdoud} and the H1 amino-acid preferences from~\citet{doud2016accurate} in \ref{suppfile:H1_prefs}. 
+Specifically, we defined the GY94 model using the parameter values in~\ref{suppfile:hybrid_lowH1_GY94}, the GY94+$\Gamma\omega$ using the parameter values in~\ref{suppfile:hybrid_lowH1_GY94+Gr} and the ExpCM using the parameter values in~\ref{suppfile:hybrid_lowH1_ExpCMdoud} and the H1 amino-acid preferences from~\citet{doud2016accurate} in~\ref{suppfile:H1_prefs}. 
 
 For each model, we calculated the expected sequence divergence given branch length $t$ by 
 \begin{equation}
@@ -639,7 +652,7 @@ The conversion between the numbering scheme in this figure and sequential number
 \label{suppfile:WSN_Perth_map}
 Map for homologous sites between H1 HA and H3 HA. 
 This file provides a conversion between the numbering scheme we use in the paper, including all logoplots and the sites in \ref{fig:decay}, to sequential numbering in either the H1 HA reference sequence A/Wilson Smith/1933 or the H3 HA reference sequence A/Perth/2009. 
-The sequential numbering for the HA strains starts with site1 as the second codon (first non-methionine codon). 
+The sequential numbering for the HA strains starts with ``site 1" as the second codon (first non-methionine codon). 
 }
 \end{suppfile}
 
