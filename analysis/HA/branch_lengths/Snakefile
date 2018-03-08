@@ -9,6 +9,7 @@ from Bio import SeqIO
 import numpy as np
 import pandas as pd
 from pymodules.utils import *
+from ete3 import Tree
 # import re
 # import random
 # import os
@@ -37,11 +38,12 @@ REPS = range(10)
 
 rule all:
     input:
-        expand("phydms/hybrid_{level}_{seed}_modelcomparison.md",level=LEVELS,
-            seed=SEEDS),
+        expand("phydms/hybrid_{level}_{seed}_modelcomparison.md", level=LEVELS,
+               seed=SEEDS),
         "outputs/branch_lengths.csv",
         "outputs/model_by_model.csv",
-        "outputs/params.csv"
+        "outputs/params.csv",
+        "outputs/tree_length.csv"
 
 # Run `phydms_comprehensive` for each of the preference sets (next 3 rules)
 rule run_phydms_Lee:
@@ -87,13 +89,13 @@ rule run_phydms_hybrid:
     output:
         modelcomparison = "phydms/hybrid_{level}_{seed}_modelcomparison.md"
     params:
-        prefs = " ".join(["{0}HA_average_prefs.csv".format(PREFERENCES_DIR),
-                "{0}HA_hybridDoud_prefs.csv".format(PREFERENCES_DIR),
-                "{0}HA_hybridLee_prefs.csv".format(PREFERENCES_DIR)]),
+        pref = " ".join(["{0}HA_average_prefs.csv".format(PREFERENCES_DIR),
+                         "{0}HA_hybridDoud_prefs.csv".format(PREFERENCES_DIR),
+                         "{0}HA_hybridLee_prefs.csv".format(PREFERENCES_DIR)]),
         phydms_id = 'hybrid_{level}_{seed}'
     shell:
         'phydms_comprehensive phydms/{params.phydms_id} {input.alignment} \
-                {params.prefs} --raxml raxml --gammaomega --randprefs'
+                {params.pref} --raxml raxml --gammaomega --randprefs'
 
 # Make the bootstrapped alignments
 
@@ -183,7 +185,7 @@ rule calc_branch_lengths:
     run:
         final_cols = ["seq_id", "sequence1", "sequence2", "model", "distance",
                       "alignment_id", "alignment_ref", "divergence_level",
-                       "from_ref", "pref_set"]
+                      "from_ref", "pref_set"]
         final = []
         # for run in input.true_runs + input.bootstrap_runs:
         for run in input.true_runs:
@@ -202,7 +204,8 @@ rule calc_branch_lengths:
                     elif "ExpCM_HA_average_prefs" in tree_fname:
                         pref_set = "average"
                     else:
-                        raise ValueError("Couldn't parse pref set: {0}".format(tree_fname))
+                        raise ValueError("Couldn't parse pref set: {0}"
+                                         .format(tree_fname))
                 else:
                     pref_set = "NA"
                 if control == 0:
@@ -238,21 +241,27 @@ rule make_model_by_model:
         model_pairs = {
                        ("ExpCM", "average"): [("GY94", 0)],
                        ("GY94_gammaomega", "average"): [("GY94", 0)],
-                       ("ExpCM_gammaomega", "average"): [("ExpCM", "average"), ("GY94_gammaomega", "average")],
+                       ("ExpCM_gammaomega", "average"): [("ExpCM", "average"),
+                                                         ("GY94_gammaomega",
+                                                         "average")],
                        ("ExpCM", "Doud"): [("GY94", 0)],
                        ("GY94_gammaomega", "Doud"): [("GY94", 0)],
-                       ("ExpCM_gammaomega", "Doud"): [("ExpCM", "Doud"), ("GY94_gammaomega", 0)],
-                                          ("ExpCM", "Lee"): [("GY94", 0)],
-                                          ("GY94_gammaomega", "Lee"): [("GY94", 0)],
-                                          ("ExpCM_gammaomega", "Lee"): [("ExpCM", "Lee"), ("GY94_gammaomega", 0)]
+                       ("ExpCM_gammaomega", "Doud"): [("ExpCM", "Doud"),
+                                                      ("GY94_gammaomega", 0)],
+                       ("ExpCM", "Lee"): [("GY94", 0)],
+                       ("GY94_gammaomega", "Lee"): [("GY94", 0)],
+                       ("ExpCM_gammaomega", "Lee"): [("ExpCM", "Lee"),
+                                                     ("GY94_gammaomega", 0)]
                        }
         df = pd.read_csv(input.branch_lengths)
         df = df.fillna(0)
         for alignment, alignment_df in df.groupby(["alignment_id"]):
-            for model_1, model_1_df in alignment_df.groupby(["model", "pref_set"]):
+            for model_1, model_1_df in alignment_df.groupby(["model",
+                                                             "pref_set"]):
                 if model_1 in list(model_pairs.keys()):
                     first = model_1_df[["seq_id", "distance"]]
-                    for model_2, temp in alignment_df.groupby(["model", "pref_set"]):
+                    for model_2, temp in alignment_df.groupby(["model",
+                                                               "pref_set"]):
                         if model_2 in model_pairs[model_1]:
                             long_name = "{0}_{1}/{2}_{3}".format(model_1[0],
                                                                  model_1[1],
@@ -309,3 +318,49 @@ rule summarize_betas:
                     df.append(temp)
         df = pd.concat(df)
         df.to_csv(output.params, index=False)
+
+rule calc_total_branch_length:
+    """
+    The purpose of this rule is calculate the overall length of branches on a
+    tree.
+    """
+    message: "Tree length"
+    input:
+        phydms_runs = expand("phydms/{alignment_id}_modelcomparison.md",
+                             alignment_id=ALIGNMENT_IDS)
+    output:
+        tree = "outputs/tree_length.csv"
+    run:
+        final = {"alignment_id": [], "model": [], "pref_set": [],
+                 "tree_length": []}
+        for run in input.phydms_runs:
+            bootstrap = run.split("/")[0]
+            assert bootstrap in ["bootstrap", "phydms"]
+            alignment_id = os.path.basename("_".join(run.split("_")[:-1]))
+            for tree_fname in \
+                    glob.glob("{0}/{1}*.newick".format(bootstrap,
+                                                       alignment_id)):
+                model_name, control = extract_model_name(tree_fname)
+                if model_name in ["ExpCM", "ExpCM_gammaomega"]:
+                    if "ExpCM_HA_hybridDoud_prefs" in tree_fname:
+                        pref_set = "Doud"
+                    elif "ExpCM_HA_hybridLee_prefs" in tree_fname:
+                        pref_set = "Lee"
+                    elif "ExpCM_HA_average_prefs" in tree_fname:
+                        pref_set = "average"
+                    else:
+                        raise ValueError("Couldn't parse pref set: {0}"
+                                         .format(tree_fname))
+                else:
+                    pref_set = "NA"
+                sum = 0
+                if control == 0:
+                    t = Tree(tree_fname)
+                    for node in t.traverse("postorder"):
+                        sum += node.dist
+                    final["alignment_id"].append(alignment_id)
+                    final["model"].append(model_name)
+                    final["pref_set"].append(pref_set)
+                    final["tree_length"].append(sum)
+        final = pd.DataFrame(final)
+        final.to_csv(output.tree, index=False)
