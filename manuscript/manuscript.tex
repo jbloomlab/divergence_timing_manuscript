@@ -251,8 +251,8 @@ If the substitution model underestimates the asymptotic sequence identity then i
 
 \ref{fig:decay} shows how different substitution models predict sequence identity to decrease as a function of branch length using model parameters fit to a phylogeny of H1 influenza hemagglutinin (HA) genes.
 The GY94 model predicts the same behavior for all sites, since it does not have any site-specific parameters.
-This model predicts an asymptotic sequence divergence of \jdbcomment{?}, which is slightly higher than 0.05 since some of the 20 amino acids are favored due to more redundant codons and biases towards certain nucleotides.
-Intuitively, this asymptotic sequence identity of \jdbcomment{?} seems low, since like many proteins HA has a highly conserved structure and function that imposes constraints that cause most sites to sample only a small subset of the 20 amino acids among all known HA homologs~\citep{nobusawa1991comparison}.
+This model predicts an asymptotic sequence divergence of 0.059, which is slightly higher than 0.05 since some of the 20 amino acids are favored due to more redundant codons and biases towards certain nucleotides.
+Intuitively, this asymptotic sequence identity of 0.059 seems low, since like many proteins HA has a highly conserved structure and function that imposes constraints that cause most sites to sample only a small subset of the 20 amino acids among all known HA homologs~\citep{nobusawa1991comparison}.
 
 Accounting for site-to-site rate variation in GY94 models affects the rate at which the asymptotic sequence identity is approached, but not the actual value of this asymptote. 
 For instance, \ref{fig:decay} shows that the GY94+$\Gamma\omega$ model takes longer to reach the asymptote than GY94, but the asymptote for both models is identical. 
@@ -338,7 +338,7 @@ However, if ExpCM's do a substantially better job than GY94 models of capturing 
 To test the models on real data, we used actual sequences of influenza HA. 
 The topology of HA phylogenetic trees (\ref{fig:empirical_trees}) makes these sequences an interesting test case for branch-length estimation.
 HA consists of a number of different subtypes.
-Sequences within a subtype have \jdbcomment{?} amino-acid identity, but sequences in different subtypes have as little as 38\% identity.
+Sequences within a subtype have $>75\%$ amino-acid identity, but sequences in different subtypes have as little as 38\% identity.
 However, HA proteins from all subtypes have a highly conserved structure that performs a highly conserved function~\citep{ha2002h5,russell2004h1}.
 We used \texttt{RAxML}  with a nucleotide substitution model  (GTRCAT) to infer a phylogenetic tree for 87 HA sequences drawn from 14 of the 18 subtypes (we excluded bat influenza and three other rare subtypes).
 For the rest of this paper, we fix the tree topology to this \texttt{RAxML}-inferred tree.
