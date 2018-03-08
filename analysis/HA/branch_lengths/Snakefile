@@ -243,7 +243,7 @@ rule make_model_by_model:
                        ("GY94_gammaomega", "average"): [("GY94", 0)],
                        ("ExpCM_gammaomega", "average"): [("ExpCM", "average"),
                                                          ("GY94_gammaomega",
-                                                         "average")],
+                                                         0)],
                        ("ExpCM", "Doud"): [("GY94", 0)],
                        ("GY94_gammaomega", "Doud"): [("GY94", 0)],
                        ("ExpCM_gammaomega", "Doud"): [("ExpCM", "Doud"),
