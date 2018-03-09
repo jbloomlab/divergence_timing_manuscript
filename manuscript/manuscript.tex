@@ -117,49 +117,44 @@ Overall, our work underscores the importance of modeling how site-specific purif
 \clearpage
 
 \section*{Introduction} 
-\skhcomment{from JDB: what is the "age" of a virus? Maybe "divergence time of viral lineages"}
-skhcomment{from JDB: what is the less than a million actually? "Old" is not the right phrase.}
-Estimating the divergence time of viral lineages of a virus is essential to understanding its evolutionary history, including its emergence, spread, and past zoonoses. 
-This estimation is commonly done using the concept a ``molecular clock" to transform the branch lengths of the viral phylogenetic tree into age in years. 
-However, this molecular dating technique often underestimates the age of many viruses, including measles, foamy virus, and ebola \skhcomment{(citations)}, compared to other methods which are independent of the viral phylogeny. 
-For example, SIV (the original source of HIV) is estimated to be less than a million years old based on the viral phylogeny \citep{sharp2000origins,wertheim2009dating,worobey2010island} but estimated to be several million years old based on the host tree or endogenous retroviral elements  \citep{compton2013host} \skhcomment{(other citations)}. 
-Overall, there is a systematic and substantially large underestimation of of branch length on viral phylogenies. 
-\skhcomment{long branches}
 
-Branch length underestimation is due, in part, to strong purifying selection masking the evolutionary signal in the observed sequences. 
-Purifying selection can lead to mutational saturation, where multiple unobserved, substitutions occur at a single site along a long branch and erase the divergence signal \citep{holmes2003molecular}.
-Furthermore, proteins do not have equal preference for all amino acids at all sites, this evident by a simple visual inspection of a multiple sequence alignment. 
-How many and which amino acids tolerated at each site of the protein generate a site-specific expected rate of change. 
-Failing to account for these site-specific constraints will lead to branch length underestimation. 
-\skhcomment{you will have mutational saturation no matter what - this is a separate, addressable issue?}
-\skhcomment{talk about the high mutation rate in viruses?}
+When studying a protein's evolutionary history, it is important to understand the timescale at which the evolutionary events have occurred. 
+For example, understanding how long a particular viral lineage has been circulating informs hypotheses about population size, evolutionary rate, and possible previous hosts. Molecular phylogenetic is commonly used to make sure estimates of time since the divergence of two lineages. 
+Under a molecular clock assumption, the branch lengths on a phylogenetic tree can be transformed into estimates of absolute time. 
+However, it has been observed that these phylogenetic estimates often appear to estimate times since deep divergences that appear to be too recent. 
+That is, when two nodes are separated by a very long branch, the phylogenetic estimate of this branch length often appears to be too short, which leads to an estimate of time that is too recent. 
 
-Substitution models that incorporate site-to-site rate variation have been developed to decrease the bias in long branch estimation. 
-The most common strategy is to allow a single rate-controlling parameter to vary according to some statistical distribution, such as a $\Gamma$-distributed $\omega$ (~dN/dS) \citep{yang2000codon}. 
-This flexibility in the value of $\omega$ accounts for the site-to-site rate variation by allow some sites to have a higher dN/dS value than others. 
-While this modification is simple and only requires the addition of one extra parameter, it does not describe site-specificity in its stationary state. 
-That is, at evolutionary equilibrium, this model still assumes that each site in the protein evolves identically.  
+In the case of viruses, there is independent evidence that the estimates of these deep divergences are indeed too recent. 
+The times since the divergence of lineages within lentiviruses, paramyxoviruses and filoviruses have been estimated by methods which rely on information outside of or in addition to the viral phylogenetic tree.  
+These independent estimates are often orders of magnitude older than the estimates using the viral phylogenetic tree only. 
+For example, there are multiple examples of filovirus integrations into the genomes of rodents. 
+Using these viral integrations and the fossil dates of the rodent species tree, the divergence of two main filovirus groups has been estimated to be $>7$ millions years ago. 
+This estimate stands in stark contrast to the phylogenetic estimate of filovirus divergence which estimates this event happened $\sim 10,000$ years ago. 
+All together, this indicates that phylogenetic branch length estimation does truly have a systematic bias towards underestimation. 
 
-An alternative approach is to model the site-specific amino-acid frequencies explicitly, such as those models in the mutation-selection family \citep{halpern1998evolutionary}. 
-In these models, each amino-acid at each site in the protein is described by its own parameter and these differences are reflected in the stationary state of the model. 
-The rate of change at a given site is controlled by these amino acid profiles and can now vary from site to site, as expected based on observations in nature. 
-Importantly, these rate variations are not constrained to an arbitrary statistical distribution but by parameters with a direct biological interpretation. 
+Branch length underestimation is due in part to inadequate modeling of purifying selection. 
+During evolution, protein sites do not sample all 20 available amino-acids equally. 
+Instead, proteins have site-specific amino-acid preferences which are necessary to maintain the structure and function of the protein. 
+Failure to account for these constraints will lead to branch length underestimation because the model will assume that sequences which have been evolving for a very long period of time should be more diverged than is actually the case. 
+Furthermore, the site-specific amino-acid preferences at one site are often dependent on the amino-acid identity at another site. 
+As a result, the preferences ``shift" over time time due to the accumulation of substitutions in other parts of the protein.  
 
-Mutation-selection models are presumably more biologically relevant but pose more practical challenges than the $\Gamma\omega$ models. 
-These models are highly parametrized with 19 free parameters (the 20 amino acid preferences are constrained to sum to one) per site leading to thousands of parameters for the length of a normal protein. 
-One way to avoid overfitting is to implement the model as a mixture model in either a bayesian \citep{lartillot2004bayesian} or maximum likelihood framework \citep{si2008empirical}. 
+Most phylogenetic substitution models are time-homogenous and site-independent: they do not take into account how sites may interact with each other or how preferences may shift over time. 
+However, they can model purifying selection with varying degrees of complexity. 
+One method is to allow the parameter controlling the rate of nonsynonymous to synonymous substitution, the dN/dS parameter, to vary among the protein sites. 
+This variation accounts for the fact that constrained sites will have a lower rate of amino-acid substitution than mutationally constrained sites. 
+However, the stationary state of this model, which describes the expected sequence composition after a very long evolutionary time, will be exactly the same as a model without any variation in the dN/dS parameter. 
+Alternatively, models can have site-specific stationary states which explicitly acknowledge the protein's site-specific amino-acid preferences. 
+Such models should estimate deep divergence times because model still expects relatively low sequence divergence even after a very long evolutionary time. 
 
-Alternatively, you can reduce the parameter space by defining the amino-acid frequencies \textit{a priori}. 
-We have shown previously that we can define an Experimentally Informed Codon Model (ExpCM) \citep{bloom2014experimentally,bloom2014informed} from the mutation-selection family using measurements from deep mutational scanning \citep{fowler2014deep}, a high-throughput functional assay. 
-ExpCM are therefore defined by amino-acid preferences measured in a \textit{single} genetic background and do not reflect any epistatic changes which may have occurred over the virus's evolutionary history. 
-But they contain no more parameters than the traditional codon models while maintaining a site-specific stationary state. 
-We hypothesize that the ExpCM will estimate longer branches than the traditional models due to the protein-specific description of purifying selection. 
-\skhcomment{CAT model has been shown to work well (better) on saturated data.}
+Here, we tested the effect of modeling site-specific amino-acid preferences though a model with a site-specific stationary state on an influenza hemagglutinin (HA) phylogenetic tree. 
+Specifically, we used Experimentally Informed Codon Models (ExpCM's) defined by site-specific amino-acid preferences measured by a high-throughput functional assay called deep mutational scanning. 
+We found that these ExpCM's estimated longer branches. 
+We found that the extension in branch length due modeling purifying selection via a site-specific stationary state is largely independent of the the effect of modeling purifying selection through rate variation. 
+However, our results make it clear that the site-specific amino-preferences of HA are constant across the entire tree. 
+In particular, the branch lengthening is most pronounced near the sequence of the HA that was used in the deep mutational scanning experiment that parameterized the ExpCM.
+These results underscore the importance of modeling how site-specific purifying selection affects the stationary state when estimating deep divergence times---but also shows the inherent limitations of approaches that fail to model how this selection shifts over time. 
 
-In order to test this hypothesis, we compared the branch lengths of a influenza virus HA phylogenetic trees optimized by different substitution models. 
-We found that the ExpCM did extend the length of branches from the focal sequence on the tree \skhcomment{define focal} and that this extension was seen even in the context of $\Gamma$-distributed rate variation. 
-Furthermore, we found this extension occurred even in the presence of $\Gamma$-distributed $\omega$, indicating that they are both important for modeling purifying selection. 
-This supports the conclusion that modeling purifying selection, especially in a model with a non-uniform stationary state, is important to estimating the branch lengths on phylogenetic trees. 
 
 \section*{Results and Discussion}
 
@@ -214,6 +209,7 @@ For instance, a GY94+$\Gamma\omega$ model with the commonly used F3X4 stationary
 However, mutation-selection models must additionally specify 19 parameters defining the stationary state for \emph{each} site (there are 20 amino acids whose frequencies are constrained to sum to one).
 This corresponds to $19\times L$ parameters for a protein of length $L$, or 9,500 parameters for a 500-residue protein.
 It is challenging to obtain values for these parameters in a maximum-likelihood framework without overfitting the data~\citep{rodrigue2013statistical}.
+\skhcomment{Do we need to comment on the tamuri paper?}
 Here we will primarily use experimentally informed codon models~\citep[ExpCM's, \ref{eq:ExpCM};][]{bloom2014experimentally, hilton2017phydms, bloom2017identification} which define these parameters \textit{a priori} from deep mutational scanning experiments so they do not need to be fit from phylogenetic data.
 The number of remaining free parameters for an ExpCM is similar to a non-site-specific substitution model.
 An alternative strategy of obtaining parameters for site-specific stationary states via Bayesian inference~\citep{lartillot2004bayesian, rodrigue2014site} is discussed in the last section of the Results.
@@ -459,8 +455,17 @@ Therefore, while the site-specific pbMutSel models inferred by \texttt{phylobaye
 \section*{Conclusion}
 
 \begin{enumerate}
+	\item branch length underestimation
+	\item models of purifying selection - especially site-specific stationary states 
+	\item we looked at models which were defined we using site-specific amino-acid preferences measured by deep mutational scanning 
+	\item we found that the lengthen the branches but that the effect is not uniform across the entire tree - the preferences have shifted over time 
+	\item This points to two things 1) it is important to model purifying selection 2) just has there is an inherent limitation to models which are site-specific but also models which don't take into account epistasis or how preferences shift over time. 
+\end{enumerate}
+
+\begin{enumerate}
   \item We don't allow any of the models to vary by lineage. 
   \item discussion in \citet{rodrigue2010mutation}
+  \item we could look into the epistasis because we used DMS sets from two, highly diverged viral homologs
 \end{enumerate}
 
 \section*{Materials and Methods}
