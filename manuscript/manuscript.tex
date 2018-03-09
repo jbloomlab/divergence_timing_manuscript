@@ -366,10 +366,11 @@ This more realistic null model gives ExpCM's more power to detect diversifying s
 
 Models which account for purifying selection via either $\Gamma\omega$ rate variation or a site-specific stationary state are not just better fit models, they also increase the estimation of branch length on the HA tree. 
 As \ref{fig:empirical_trees} shows, the tree optimized by without $\Gamma\omega$ rate variation and without a site-specific stationary state, the GY94 model, estimated the shortest branches of all eight models. 
-Specifically, the ExpCM's defined by H1 HA or H3 HA amino-acid preferences estimated a tree which overall length is $\sim 8\%$ longer than the GY94 tree and the GY94+$\Gamma\omega$ model estimated tree which is $\sim 36\%$ longer than the GY94 tree. 
+Specifically, the ExpCM's defined by H1 HA or H3 HA amino-acid preferences estimated a tree which overall length is $\sim 8\%$ longer than the GY94 tree and the GY94+$\Gamma\omega$ model estimated tree which is $\sim 36\%$ longer than the GY94 tree~\ref{supptab:tree_lengths}. 
 But importantly, the effects from these two methods of modeling purifying selection are largely independent.
 For every model (GY94 or any of the three ExpCM's), the $\Gamma\omega$ version estimates longer deep branches.
 In addition, all ExpCM's estimate longer deep branches than the GY94 model, and all ExpCM+$\Gamma\omega$ models estimate longer deep branches than the GY94+$\Gamma\omega$ model.
+\skhcomment{I think we can make a stronger statement about the independence of these effects. I did the calculation and 96\% of the branch length extension of GY94 vs. ExpCM(H1+H3)+$\Gamma\omega$ can be explained by simply adding the ``effect of adding $\Gamma\omega$" (GY94 vs. GY94+$\Gamma\omega$) and the ``effect of adding preferences" (GY94 vs. ExpCM(H1+H3). Do you think that is a useful analysis to include?}
 
 However, while adding $\Gamma\omega$ rate variation increases the length of deep branches in a fashion that appears roughly uniform across the tree (\ref{fig:empirical_trees}), the branch lengthening from the ExpCM's is not uniform across the tree. 
 In particular, the branch lengthening is most pronounced near the sequence of the HA that was used in the deep mutational scanning experiment that parameterized the ExpCM.
@@ -641,9 +642,26 @@ The conversion between the numbering scheme in this figure and sequential number
 \begin{suppfig}[H]
 \centerline{\includegraphics[width=0.50\textwidth]{figures/divergence_distances.pdf}}
 \caption{\label{suppfig:subalignments}
-\textbf{Subalignments.}
+\textbf{Overall divergence for the subtrees in \ref{fig:compete}.} 
+We created two sub alignments from the alignment (\ref{suppfile:alignment_high}) used in \ref{fig:empirical_trees} for each deep mutational scanning reference HA. 
+The ``low" alignments have $\ge59\%$ amino-acid identity to the reference sequence (\ref{suppfile:alignment_lowH1}, \ref{suppfile:alignment_lowH3}) and the ``intermediate" alignments have $\ge46\%$ amino-acid identity to the reference sequence (\ref{suppfile:alignment_intermediateH1}, \ref{suppfile:alignment_intermediateH3}).
 }
 \end{suppfig}
+
+\begin{table}[t!]
+\caption{\label{supptab:tree_lengths}
+{\bf Total branch length for the trees in \ref{fig:empirical_trees}.}
+The branch lengths are in average codon substitutions per site. 
+} 
+     \begin{tabular}{cccccccccc}
+        \hline
+         Model & no rate variation & {\shortstack{$\Gamma\omega$ rate\\ variation}} \\ \hline
+         GY94 &53.05 & 72.28\\
+         ExpCM (H1) & 57.32 & 81.31\\
+         ExpCM (H3) & 57.77 & 78.98\\
+         ExpCM(H1 + H3 avg) & 62.98 & 83.96 \\
+      \end{tabular}
+\end{table}
 
 %%%
 
