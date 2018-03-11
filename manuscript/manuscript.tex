@@ -156,7 +156,7 @@ In particular, the branch lengthening is most pronounced near the sequence of th
 These results underscore the importance of modeling how site-specific purifying selection affects the stationary state when estimating deep divergence times---but also shows the inherent limitations of approaches that fail to model how this selection shifts over time. 
 
 
-\section*{Results and Discussion}
+\section*{Results}
 
 \subsection*{Different ways substitution models account for purifying selection}
 
@@ -452,21 +452,34 @@ The relatively longer branches from the experimental sequences when using the Ex
 However, at sequences distant from those used in the experiments, the ``global'' preferences estimated by the pbMutSel model appear to be slightly better than the average of the experimental values.
 Therefore, while the site-specific pbMutSel models inferred by \texttt{phylobayes} are probably more accurate for sequences distant from the H1 and H3 in the experiments, they do not avoid the tension between the importance of a site-specific stationary state for long branch estimation and shifting preferences. 
 
-\section*{Conclusion}
+\section*{Discussion}
 
-\begin{enumerate}
-	\item branch length underestimation
-	\item models of purifying selection - especially site-specific stationary states 
-	\item we looked at models which were defined we using site-specific amino-acid preferences measured by deep mutational scanning 
-	\item we found that the lengthen the branches but that the effect is not uniform across the entire tree - the preferences have shifted over time 
-	\item This points to two things 1) it is important to model purifying selection 2) just has there is an inherent limitation to models which are site-specific but also models which don't take into account epistasis or how preferences shift over time. 
-\end{enumerate}
+Here, we tested the effect of models with site-specific stationary states on branch length estimation for the phylogenetic tree of highly diverged influenza HA sequences. 
+We used site-specific stationary state models called ExpCM's, which are defined by amino-acid preferences measured by deep mutational scanning. 
+We found that the ExpCM's estimated longer branches and did so independently from substitution rate variation via $\Gamma\omega$. 
+We also found that the ExpCM's estimated branch lengths of a similar length to models which infer the stationary state from the natural sequences in a Bayesian framework.  
 
-\begin{enumerate}
-  \item We don't allow any of the models to vary by lineage. 
-  \item discussion in \citet{rodrigue2010mutation}
-  \item we could look into the epistasis because we used DMS sets from two, highly diverged viral homologs
-\end{enumerate}
+These results underscore the importance of modeling site-specific amino-acid preferences when estimating long branchs. 
+As the simulations \ref{fig:simulations} show, models with uniform stationary states will always underestimate the lengths of branches which have evolved under site-specific constraints. 
+The results with the influenza HA sequences shows that models with site-specific stationary states estimate longer branches when the stationary state is accurate. 
+However, it is also clear that the accuracy of the ExpCM's stationary state degrades as the tree becomes more diverged from the HA used in the deep mutational scan. 
+The desired effect of estimating long, accurate branches can only be achieved when the stationary state is accurate across the entire tree. 
+
+However, it is clear from our results that a major limitation of site-independent, time-homogenous models is their inability to capture epistatic interactions. 
+The site-specific amino-acid preferences of a protein shift across time and models with a single stationary state across the entire tree cannot capture these dynamics. 
+The ExpCM's defined by preferences measured in one of two highly diverged HA's had the largest effect on branches near the HA from the experiment. 
+The local effect of the ExpCM's defined by a single preference set indicate that different parts of the tree have different stationary states. 
+This point is underscored by the comparison of the ExpCM defined by the average preference set and the pbMutSel model, which infers the stationary state from the natural sequences. 
+Even though the stationary state of the pbMutSel model is more representative of the global stationary state, the ExpCM with average preferences has a larger effect on the branches from the H1 and H3 sequences. 
+Therefore, while it is clear that modeling site-specific amino-acid preferences is important, neither one of these models is able to capture how these preferences shift over time.
+
+Clearly, the site-independence and time-homogeneity assumptions of the ExpCM and pbMutSel models inhibit their ability to accurately describe the effect of epistasis.
+In order to fully address the bias towards underestimation of divergence times by phylogenetic models, these models need to be able to accommodate how site-specific amino-acid preferences shift over time. 
+One way to achieve this goal would be to void the site-independence assumption and create a model which explicitly describes the interactions between sites in a protein. 
+However, while even modeling simple pairwise interactions would be a daunting task, epistasis could have higher order interactions which be extremely difficult to model. 
+Another strategy would be to allow the stationary state to shift over lineages in the tree. 
+Such a model might be still be site-independent but, by breaking the time-homogeneity assumption, would capture some effect of the shifting preferences. 
+Models which account for epistasis would be inherently more complex but it clear from our results that it is important to capture how preferences shift over time to accurately estimate long branch lengths.
 
 \section*{Materials and Methods}
 
