@@ -39,6 +39,19 @@
 \usepackage{rotating}
 \usepackage{color}
 \usepackage{float}
+
+% allow bigger floats per here: https://tex.stackexchange.com/a/11382
+\renewcommand{\topfraction}{.85}
+\renewcommand{\bottomfraction}{.85}
+\renewcommand{\textfraction}{.15}
+\renewcommand{\floatpagefraction}{.85}
+\renewcommand{\dbltopfraction}{.66}
+\renewcommand{\dblfloatpagefraction}{.66}
+\setcounter{topnumber}{9}
+\setcounter{bottomnumber}{9}
+\setcounter{totalnumber}{20}
+\setcounter{dbltopnumber}{9}
+
 \renewcommand{\figurename}{{}}
 \renewcommand{\thefigure}{{Figure~\arabic{figure}}}
 
@@ -77,12 +90,12 @@
 \title{Modeling site-specific amino-acid preferences deepens phylogenetic estimates of the divergence of viral proteins.} 
 
 \author
-{Sarah K. Hilton$^{1,2}$  and Jesse D. Bloom$^{1,2}$\\
+{Sarah K. Hilton$^{1,2}$  and Jesse D. Bloom$^{1,2*}$\\
 \\
-\normalsize{$^1$Division of Basic Sciences and Computational Biology Program,}\\
-\normalsize{Fred Hutchinson Cancer Research Center, Seattle, WA 98109, USA}\\
-\normalsize{$^2$Department of Genome Sciences, University of Washington, Seattle, WA}\\
-\normalsize{E-mail:  jbloom@fredhutch.org.}\\
+\footnotesize{$^1$Basic Sciences and Computational Biology Program, Fred Hutchinson Cancer Research Center}\\
+\footnotesize{$^2$Department of Genome Sciences, University of Washington}\\
+\footnotesize{Seattle, WA, USA}\\
+\footnotesize{$^*$E-mail:  jbloom@fredhutch.org.}\\
 }
 
 
@@ -103,15 +116,16 @@
 
 \begin{abstract}
 \noindent  
-Molecular phylogenetics can be used to estimate the time since the divergence of modern gene sequences.
-For highly diverged sequences, such phylogenetic techniques often estimate surprisingly recent divergence times. 
+Molecular phylogenetics is often used to estimate the time since the divergence of modern gene sequences.
+For highly diverged sequences, such phylogenetic techniques can estimate surprisingly recent divergence times. 
 In the case of viruses, there is independent evidence that the estimates of deep divergence times from molecular phylogenetics are too recent.
 This discrepancy is caused in part by inadequate models of purifying selection leading to branch-length underestimation.
-Here we show that models which account for purifying selection through experimental measurements of site-specific amino-acid preferences lengthen deep branches on phylogenies of influenza virus hemagglutinin.
+Here we examine the effect on branch-length estimation of using models that incorporate experimental measurements of purifying selection.
+We find that models informed by experimentally measured site-specific amino-acid preferences estimate longer deep branches on phylogenies of influenza virus hemagglutinin.
 This deepening of branch lengths is due to more realistic stationary states of the models, and is independent of the branch-length-extension from modeling site-to-site variation in amino-acid substitution rate.
 The branch-length extension from experimentally informed site-specific models is similar to that achieved by other approaches that allow the stationary state to vary across sites.
 However, the improvements from these site-specific but time-homogeneous and site-independent models are limited by the fact that a protein's amino-acid preferences gradually shift as it evolves.
-Overall, our work underscores the importance of modeling how site-specific purifying selection affects the stationary state when estimating deep divergence times---but also shows the inherent limitations of approaches that fail to model how this selection shifts over time. 
+Overall, our work underscores the importance of modeling site-specific amino-acid preferences when estimating deep divergence times---but also shows the inherent limitations of approaches that fail to account for how these preferences shift over time. 
 \end{abstract}
 
 \clearpage
@@ -607,7 +621,7 @@ These two H1 sequences are early and late representatives of the longest known h
 
 \subsection*{Code and analysis.}
 All code used is available at \url{https://github.com/jbloomlab/divergence_timing_manuscript}. 
-For the main analysis, we used \texttt{phydms}~\citep{hilton2017phydms} version 2.2.dev2 (available at \url{github.com/jbloomlab/phydms}) to filter sequences and estimate branch lengths, \texttt{pyvolve}~\citep{spielman2015pyvolve} version 0.8.7 (available at \url{https://github.com/sjspielman/pyvolve}) to simulate the sequences and \texttt{phylobayes}~\citep{rodrigue2014site} version 1.8 (available at \url{https://github.com/bayesiancook/pbmpi}) to infer the pbMutSel model. We also used \texttt{ggplot2}~\citep{wickham2016ggplot2}, \texttt{ggtree}~\citep{yu2017ggtree}, and \texttt{ggseqlogo}~\citep{wagih2017ggseqlogo} for visualization.
+For the main analysis, we used \texttt{phydms}~\citep{hilton2017phydms} version 2.2.2 (available at \url{github.com/jbloomlab/phydms}) to filter sequences and estimate branch lengths, \texttt{pyvolve}~\citep{spielman2015pyvolve} version 0.8.7 (available at \url{https://github.com/sjspielman/pyvolve}) to simulate the sequences and \texttt{phylobayes}~\citep{rodrigue2014site} version 1.8 (available at \url{https://github.com/bayesiancook/pbmpi}) to infer the pbMutSel model. We also used \texttt{ggplot2}~\citep{wickham2016ggplot2}, \texttt{ggtree}~\citep{yu2017ggtree}, and \texttt{ggseqlogo}~\citep{wagih2017ggseqlogo} for visualization.
 
 
 
