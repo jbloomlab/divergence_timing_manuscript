@@ -279,7 +279,10 @@ For instance, \ref{fig:decay} shows that at sites such as 183 and 305 in the H1 
 When sites with highly constrained amino-acid preferences such as these are common, an ExpCM can estimate a long branch length at modest sequence identities that a GY94 model might attribute to a shorter branch.
 
 
-\subsection*{Simulations demonstrate how failure to model site-specific stationary states leads to branch-length underestimation.}
+\subsection*{Simulations demonstrate how failure to model site-specific amino-acid preferences leads to branch-length underestimation.}
+
+To directly demonstrate the effect of stationary state and $\Gamma\omega$ rate variation on branch-length estimation, we tested the ability of a variety of models to accurately infer branch lengths on simulated data (\ref{fig:simulations}).
+Specifically, we simulated alignments of sequences along the HA phylogenetic tree in \ref{fig:empirical_trees} using an ExpCM parameterized by the amino-acid preferences of H1 HA as experimentally measured by deep mutational scanning~\citep{doud2016accurate}. We then estimated the branch lengths from the simulated sequences using all the substitution models in \ref{fig:model_feature}C, and compared these estimates to the actual branch lengths used in the simulations.
 
 \begin{figure}
 \centerline{\includegraphics[width=0.85\textwidth]{figures/simulations}}
@@ -293,15 +296,12 @@ The grey dashed line at $y=x$ represents the behavior of an unbiased estimator.
 }
 \end{figure}
 
-To directly demonstrate the effect of stationary state and $\Gamma\omega$ rate variation on branch-length estimation, we tested the ability of a variety of models to accurately infer branch lengths on simulated data (\ref{fig:simulations}).
-Specifically, we simulated alignments of sequences along the HA phylogenetic tree in \ref{fig:empirical_trees} using an ExpCM parameterized by the amino-acid preferences of H1 HA as experimentally measured by deep mutational scanning~\citep{doud2016accurate}. We then estimated the branch lengths from the simulated sequences using all the substitution models in \ref{fig:model_feature}C, and compared these estimates to the actual branch lengths used in the simulations.
-
 The models with a uniform stationary state underestimated the lengths of long branches on the phylogenetic tree of the simulated sequences (\ref{fig:simulations}). 
-The GY94 model estimated branches lengths that are only about 60\% of the true values for the longest branches. 
+The GY94 model estimated branch lengths that are $\sim$60\% of the true values for the longest branches. 
 Accounting for site-to-site variation in $\omega$ did not fix the fundamental problem: the GY94+$\Gamma\omega$ did slightly better, but still substantially underestimated the longest branches.
-However, there was no systematic underestimation of long branches by the ExpCM and ExpCM+$\Gamma\omega$ models, which accurately accounted for the site-specific amino-acid preferences used in the simulations.
-The improved performance of the ExpCM's is due to their site-specific modeling of the stationary state: if we parameterize these models by site-specific amino-acid preferences that have been averaged across HA sites, then they perform no better than GY94 models~\ref{fig:simulations}.
-Therefore, models with uniform stationary states are fundamentally incapable of accurately estimating the length of long branches in phylogenies of sequences that have evolved under strong site-specific amino-acid preferences.
+However, there was no systematic underestimation of long branches by the ExpCM and ExpCM+$\Gamma\omega$ models.
+The improved performance of the ExpCM's is due to their modeling of the site-specific amino-acid preferences: if we parameterize ExpCM's by amino-acid preferences that have been averaged across HA sites (and so are no longer site-specific), then they perform no better than GY94 models (\ref{fig:simulations}).
+Therefore, models with uniform stationary states underestimate the length of long branches in phylogenies of sequences that have evolved under strong site-specific amino-acid preferences.
 
 
 \subsection*{Experimentally informed site-specific models estimate longer branches on real data.}
