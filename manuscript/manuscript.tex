@@ -235,6 +235,15 @@ We will denote such models as ExpCM+$\Gamma\omega$.
 \ref{fig:model_feature}C shows the full spectrum of models that incorporate all combinations of gamma-distributed $\omega$ and site-specific stationary states.
 
 \subsection*{Effect of stationary state and rate variation on branch-length estimation}
+Given a single branch, a substitution model transforms sequence identity into branch length.
+Under a molecular-clock assumption, this branch length is proportional to time.
+The transformation from sequence identity to branch length is trivial when the sequence identity is high.
+For instance, when there has only been one substitution, then the sequence identity will simply be $\frac{L - 1}{L}$ for a gene of $L$ sites, and even a simple exponential model~\citep{zuckerkandl1965} will correctly infer the short branch length of $1/L$ substitutions per site.
+However, as substitutions accumulate it becomes progressively more likely for multiple changes to occur at the same site.
+In this regime, the accuracy of the substitution model becomes critical for transforming sequence identity into branch length.
+Any time-homogenous substitution model predicts that after a very large number of substitutions, two related sequences will approach some asymptotic amino-acid sequence identity.
+For instance, if all 20 amino acids are equally likely in the stationary state, then this asymptotic sequence identity will be $\frac{1}{20} = 0.05$.
+If the substitution model underestimates the asymptotic sequence identity then it will also underestimate long branch lengths, since it will predict that sequences that have evolved for a very long time should be more diverged than is actually the case.
 
 \begin{figure}
 \centerline{\includegraphics[width=0.90\textwidth]{figures/decay.pdf}}
@@ -249,23 +258,13 @@ But the ExpCM has different asymptotes for different sites since it accounts for
 }
 \end{figure}
 
-Given a single branch, a substitution model transforms sequence identity into branch length.
-Under a molecular-clock assumption, this branch length is proportional to time.
-The transformation from sequence identity to branch length is trivial when the sequence identity is high.
-For instance, when there has only been one substitution, then the sequence identity will simply be $\frac{L - 1}{L}$ for a gene of $L$ sites, and even a simple exponential model~\citep{zuckerkandl1965} will correctly infer the short branch length of $1/L$ substitutions per site.
-However, as substitutions accumulate it becomes progressively more likely for multiple changes to occur at the same site.
-In this regime, the accuracy of the substitution model becomes critical for transforming sequence identity into branch length.
-Any time-homogenous substitution model predicts that after a very large number of substitutions, two related sequences will approach some amino-acid asymptotic sequence identity.
-For instance, if all 20 amino acids are equally likely in the stationary state, then this asymptotic sequence identity will be 0.05.
-If the substitution model underestimates the asymptotic sequence identity then it will also underestimate long branch lengths, since it will predict that sequences that have evolved for a very long time should be more diverged than is actually the case.
-
-\ref{fig:decay} shows how different substitution models predict sequence identity to decrease as a function of branch length using model parameters fit to a phylogeny of H1 influenza hemagglutinin (HA) genes.
+\ref{fig:decay} shows how different substitution models predict amino-acid sequence identity to decrease as a function of branch length using model parameters fit to a phylogeny of H1 influenza hemagglutinin (HA) genes.
 The GY94 model predicts the same behavior for all sites, since it does not have any site-specific parameters.
-This model predicts an asymptotic sequence divergence of 0.059, which is slightly higher than 0.050 since some of the 20 amino acids are favored due to more redundant codons and biases towards certain nucleotides.
+This model predicts an asymptotic sequence divergence of 0.059, which is slightly higher than $\frac{1}{20} = 0.05$ since some of the 20 amino acids are favored due to more redundant codons and biases towards certain nucleotides.
 Intuitively, this asymptotic sequence identity of 0.059 seems low, since like many proteins HA has a highly conserved structure and function that imposes constraints that cause most sites to sample only a small subset of the 20 amino acids among all known HA homologs~\citep{nobusawa1991comparison}.
 
 Accounting for site-to-site rate variation in GY94 models affects the rate at which the asymptotic sequence identity is approached, but not the actual value of this asymptote. 
-For instance, \ref{fig:decay} shows that the GY94+$\Gamma\omega$ model takes longer to reach the asymptote than GY94, but the asymptote for both models is identical. 
+For instance, \ref{fig:decay} shows that the GY94+$\Gamma\omega$ model takes longer to reach the asymptote than GY94, but that the asymptote is identical for both models. 
 This fact holds true even if we use experimental measurements of HA's site-specific amino-acid preferences~\citep{doud2016accurate} to calculate a different $\omega_r$ value for each site using the method of \citet{spielman2015relationship} (see \ref{eq:w_r}).
 Specifically, this GY94+$\omega_r$ model predicts that different sites will approach the asymptote at different rates, but the asymptote is always the same (\ref{fig:decay}).
 The invariance of the asymptotic sequence identity under different schemes for modeling $\omega$ is a fundamental feature of the mathematics of reversible substitution models.
@@ -276,7 +275,7 @@ Therefore, no matter how ``well" a model accounts for site-to-site variation in 
 
 However, mutation-selection models such as ExpCM's have site-specific stationary states.
 Therefore, they predict that different sites will have different asymptotic sequence identities (\ref{fig:decay})---a prediction that accords with the empirical observation that some sites are much more variable than others in alignments of highly diverged sequences.
-For instance, \ref{fig:decay} shows that at sites such as 348 and 305 in the H1 HA, an ExpCM but not a GY94-style model predicts that the divergence will always be low. 
+For instance, \ref{fig:decay} shows that at sites such as 183 and 305 in the H1 HA, an ExpCM but not a GY94-style model predicts that the divergence will always be low. 
 When sites with highly constrained amino-acid preferences such as these are common, an ExpCM can estimate a long branch length at modest sequence identities that a GY94 model might attribute to a shorter branch.
 
 
