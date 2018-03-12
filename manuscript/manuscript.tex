@@ -180,7 +180,7 @@ These results underscore the importance of modeling how site-specific purifying 
 \textbf{Different ways codon models account for purifying selection.}
 (A) The dN/dS parameter, $\omega$, can be defined as one gene-wide average (orange triangle) or allowed to vary according to some statistical distribution (blue circles). 
 For computational tractability, the distribution is discretized into $K$ bins and $\omega$ takes on the mean of each bin~\citep{yang1994maximum,yang2000codon}. 
-A gamma distribution ($\Gamma$) with $K=4$ bins is shown here.
+A gamma distribution (denoted by $\Gamma$) with $K=4$ bins is shown here.
 (B) A substitution model's stationary state defines the expected sequence composition after a very long evolutionary time. 
 Most substitution models have stationary states that are uniform across sites.
 However, substitution models can have site-specific stationary states.
@@ -213,24 +213,24 @@ A GY94+$\Gamma\omega$ captures the fact that the rate of nonsynonymous substitut
 However, this formulation treats all nonsynonymous substitutions equivalently, since the rate is agnostic to the amino-acid identity of the mutation. 
 
 A model formulation that accounts for the fact that purifying selection depends on the specific amino-acid mutation is provided by so-called ``mutation-selection'' models~\citep{halpern1998evolutionary,yang2008mutation,rodrigue2010mutation,tamuri2012estimating,mccandlish2014modeling}.
-These models explicitly define a different set of amino-acid preferences at each site in the protein. 
+Here we will consider mutation-selection models where the site-specific selection is assumed to act solely at the protein level (different codons for the same protein are treated as selectively equivalent).
+Such models explicitly define a different set of amino-acid preferences at each site in the protein. 
 This more mechanistic formulation results in a site-specific stationary state (\ref{fig:model_feature}B). 
-These models capture the site-to-site variation in amino-acid composition that is an obvious features of real proteins, and usually better describe actual evolution than models with only rate variation~\citep{lartillot2004bayesian, le2008phylogenetic, rodrigue2010mutation,hilton2017phydms,bloom2014experimentally}.
+These models capture the site-to-site variation in amino-acid composition that is an obvious features of real proteins, and usually better describe actual evolution than models with only rate variation as assessed by Bayesian or maximum-likelihood criteria~\citep{lartillot2004bayesian, le2008phylogenetic, si2008empirical, wang2008class, rodrigue2010mutation,bloom2014experimentally,bloom2014informed,hilton2017phydms}.
 
 However, the increased realism of mutation-selection models comes at the cost of an increased number of parameters. 
 Codon substitution models with uniform stationary states have only a modest number of parameters that must be fit from the phylogenetic data.
 For instance, a GY94+$\Gamma\omega$ model with the commonly used F3X4 stationary state has 12 parameters: two describing the shape of the gamma distribution over $\omega$, a transition-transversion rate, and nine parameters describing the nucleotide composition of the stationary state.
-However, mutation-selection models must additionally specify 19 parameters defining the stationary state for \emph{each} site (there are 20 amino acids whose frequencies are constrained to sum to one).
+However, mutation-selection models must additionally specify 19 parameters defining the amino-acid preferences for \emph{each} site (there are 20 amino acids whose preferences are constrained to sum to one).
 This corresponds to $19\times L$ parameters for a protein of length $L$, or 9,500 parameters for a 500-residue protein.
-It is challenging to obtain values for these parameters in a maximum-likelihood framework without overfitting the data~\citep{rodrigue2013statistical}.
-\skhcomment{Do we need to comment on the tamuri paper?}
-Here we will primarily use experimentally informed codon models~\citep[ExpCM's, \ref{eq:ExpCM};][]{bloom2014experimentally, hilton2017phydms, bloom2017identification} which define these parameters \textit{a priori} from deep mutational scanning experiments so they do not need to be fit from phylogenetic data.
-The number of remaining free parameters for an ExpCM is similar to a non-site-specific substitution model.
-An alternative strategy of obtaining parameters for site-specific stationary states via Bayesian inference~\citep{lartillot2004bayesian, rodrigue2014site} is discussed in the last section of the Results.
+It is challenging to obtain values for these amino-acid preference parameters in a maximum-likelihood framework without overfitting the data~\citep{rodrigue2013statistical}.
+Here we will primarily use experimentally informed codon models (ExpCM's), which define the site-specific amino-acid preferences parameters \textit{a priori} from deep mutational scanning experiments so that they do not need to be fit from phylogenetic data~\citep[see Methods and][]{bloom2014experimentally, hilton2017phydms, bloom2017identification}.
+Because the amino-acid preference parameters in an ExpCM are obtained from experiments, the number of ExpCM free parameters that are fit from the phylogenetic data are similar to a non-site-specific substitution model.
+An alternative strategy of obtaining the amino-acid preference parameters via Bayesian inference~\citep{lartillot2004bayesian, rodrigue2014site} is discussed in the last section of the Results.
 
 Importantly, these two strategies for modeling purifying selection are not mutually exclusive.
-Mutation-selection models such as ExpCM can still incorporate an $\omega$ parameter~\citep{rodrigue2016detecting, bloom2017identification}, which now represents the relative rate of nonsynonymous to synonymous substitution \emph{after} accounting for the constraints due to the site-specific stationary state.
-This $\omega$ parameter for an ExpCM can be drawn from a distribution just like for GY94-style models~\citep{haddox2017mapping, rodrigue2014site}. 
+Mutation-selection models such as ExpCM can still incorporate an $\omega$ parameter, which now represents the relative rate of nonsynonymous to synonymous substitution \emph{after} accounting for the constraints due to the site-specific amino-acid preferences~\citep{bloom2017identification,rodrigue2017detecting}.
+This $\omega$ parameter for an ExpCM can be drawn from a statistical distribution (e.g., a gamma distribution) just like for GY94-style models~\citep{rodrigue2014site,haddox2017mapping}. 
 We will denote such models as ExpCM+$\Gamma\omega$.
 \ref{fig:model_feature}C shows the full spectrum of models that incorporate all combinations of gamma-distributed $\omega$ and site-specific stationary states.
 
@@ -372,7 +372,7 @@ However, the ExpCM's with a single $\omega$ always fit $\omega$ values greater t
 Among the models with $\Gamma\omega$, the GY94 fits all four $\omega$ categories to values $<< 1$, but the ExpCM's all fit one of the four $\omega$ categories to a value $>1$.
 This increase in $\omega$ values makes sense given the different interpretation of $\omega$ in each family of models. 
 The ExpCM $\omega$ is the relative rate of fixation of nonsynonymous to synonymous mutations \textit{after} accounting for the functional constraints described by the deep mutational scanning amino-acid preferences.
-This more realistic null model gives ExpCM's more power to detect diversifying selection~\citep{bloom2017identification, rodrigue2016detecting}, for amino-acid change, which occurs at some sites in HA due to immune selection.
+This more realistic null model gives ExpCM's more power to detect diversifying selection~\citep{bloom2017identification, rodrigue2017detecting}, for amino-acid change, which occurs at some sites in HA due to immune selection.
 
 Models which account for purifying selection via either $\Gamma\omega$ rate variation or a site-specific stationary state are not just better fit models, they also increase the estimation of branch length on the HA tree. 
 As \ref{fig:empirical_trees} shows, the tree optimized by without $\Gamma\omega$ rate variation and without a site-specific stationary state, the GY94 model, estimated the shortest branches of all eight models. 
@@ -495,7 +495,7 @@ Another strategy would be to allow the stationary state to shift over lineages i
 Such a model might be still be site-independent but, by breaking the time-homogeneity assumption, would capture some effect of the shifting preferences. 
 Models which account for epistasis would be inherently more complex but it clear from our results that it is important to capture how preferences shift over time to accurately estimate long branch lengths.
 
-\section*{Materials and Methods}
+\section*{Methods}
 
 \subsection*{Models}
 
