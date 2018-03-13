@@ -446,7 +446,7 @@ If amino-acid preferences shift during evolution, there simply will not be any m
 \textbf{Models inferred from natural sequences have similar stationary states to models defined by experimental preferences and estimate similar branch lengths.}
 (A) We fit an ExpCM(H1+H3 avg)+$\Gamma\omega$ and a pbMutSel to the full HA tree in \ref{fig:empirical_trees}. 
 The pbMutSel amino-acid preferences are inferred from the natural HA sequences, while the ExpCM amino-acid preferences are experimentally measured and then rescaled by the stringency parameter in \ref{tab:empirical_data}. 
-The pbMutSel preferences are more correlated with the average of the H1 and H3 deep mutational scanning preference sets than the individual H1 and H3 experiments are to each other (Pearson's $r$: 0.74 versus 0.52). 
+The pbMutSel preferences are more correlated with the re-scaled average of the H1 and H3 deep mutational scanning preferences than the individual re-scaled H1 and H3 deep mutational scanning preferences are to each other (Pearson's $r$: 0.74 versus 0.52). 
 (B) The ExpCM(H1+H3 avg)+$\Gamma\omega$ and pbMutSel models estimated similar branch lengths when fit to the entire HA tree. 
 \jdbcomment{You need to mention and give a bit of explanation for the coloring. What does it mean for a branch to be ``from'' H1 or H3? Would it be better to say branch ``leading to''? And does that mean leading to it with respect to the root of the tree as shown in \ref{fig:empirical_trees}?}
 The \texttt{phydms} program implementing ExpCM's and the \texttt{phylobayes} program implementing pbMutSel models give branch lengths in different units, so to facilitate direct comparison between the models, we have normalized all branch lengths returned by each program by the length of the branches separating the earliest (\jdbcomment{say exact strain}) and latest (\jdbcomment{say exact strain}) seasonal human H1 sequences on the three. 
@@ -516,145 +516,182 @@ Models which account for epistasis would be inherently more complex but it clear
 
 \section*{Methods}
 
-\subsection*{Models}
+\subsection*{Substitution models}
+All of the substitution models used in this paper have been described previously.
+However, here we briefly recap their exact mathematical implementations.
 
-\subsubsection*{GY94}
+\subsubsection*{GY94 model}
 
-The GY94 model is defined as the M0 in \cite{yang2000codon}. 
-$P_{xy}$ is the substitution rate from codon $x$ to codon $y$ and is defined by
-
+The GY94 model is M0 variant of the Goldman-Yang model described by \citet{yang2000codon}. 
+Specifically, the substitution rate $P_{xy}$ from codon $x$ to codon $y$ is 
 \begin{equation}
 \label{eq:GY94}
 P_{xy} = 
 \begin{cases}
   0 & \mbox{if $x$ and $y$ differ by more than one nucleotide,}\\
-  \mu \omega \Phi_{y} & \mbox{if $x$ is converted to $y$ by a single-nucleotide transversion,} \\
-  \kappa \mu \omega \Phi_{y} & \mbox{if $x$ is converted to $y$ by a single-nucleotide transition,} \\
-  -\sum\limits_{z \ne x} P_{xz} & \mbox{if $x = y$.}
+  \Phi_y & \mbox{if $\mathcal{A}\left(x\right) = \mathcal{A}\left(y\right)$ and $x$ is converted to $y$ by a single-nucleotide transversion,} \\
+  \omega \Phi_{y} & \mbox{if $\mathcal{A}\left(x\right) \ne \mathcal{A}\left(y\right)$ and $x$ is converted to $y$ by a single-nucleotide transversion,} \\
+  \kappa \Phi_y & \mbox{if $\mathcal{A}\left(x\right) = \mathcal{A}\left(y\right)$ and $x$ is converted to $y$ by a single-nucleotide transition,} \\
+  \omega \kappa \Phi_{y} & \mbox{if $\mathcal{A}\left(x\right) \ne \mathcal{A}\left(y\right)$ and $x$ is converted to $y$ by a single-nucleotide transition,} \\
+  -\sum\limits_{z \ne x} P_{xz} & \mbox{if $x = y$,}
   \end{cases}
 \end{equation}
-where $\kappa$ is the transition-transversion ratio, $\Phi_y$ is the equilibrium frequency of
-codon $y$, $\omega$ is the gene-wide rate of non-synonymous change, and $\mu$ is the substitution rate.
-The stationary state of a GY94 model is defined as 
+where $\mathcal{A}\left(x\right)$ is the amino-acid encoded by codon $x$, $\kappa$ is the transition-transversion rate, $\Phi_y$ is the equilibrium frequency of codon $y$, and $\omega$ is the relative rate of nonsynonymous and synonymous substitutions.
+\jdbcomment{I have dropped the $\mu$ from the equation above since it is confounded with branch lengths and so not estimated separately for any of our models.
+Also, the equation wasn't right as the $\omega$ term should only be there for nonsynonymous substitutions.
+Also, you need to add a line specifying how the $\Phi_y$ terms are defined. Probably the CF3X4 method? Add this, a proper citation, and one-sentence description.}
+The frequency $p_x$ of codon $x$ in the stationary state of a GY94 model is simply 
 \begin{equation}
 \label{eq:px}
-p_{x} = \Phi_x
+p_{x} = \Phi_x.
 \end{equation}
+Overall, a GY94 model has 11 free parameters: $\kappa$, $\omega$, and the 9 nucleotide frequency parameters used to define $\Phi_y$. 
 
 \subsubsection*{Experimentally Informed Codon Model (ExpCM)}
 
-In an ExpCM, the rate of substitution $P_{r,xy}$ of site $r$ from codon $x$ to $y$ is written in mutation-selection form~\citep{halpern1998evolutionary,mccandlish2014modeling,spielman2015relationship} as
+The ExpCM models used in this paper are the ones described in \citet{bloom2017identification}. 
+Briefly, the rate of substitution $P_{r,xy}$ of site $r$ from codon $x$ to $y$ is 
 \begin{equation}
 \label{eq:ExpCM}
 P_{r,xy} = Q_{xy} \times F_{r,xy}
 \end{equation}
 where $Q_{xy}$ is proportional to the rate of mutation from $x$ to $y$, and $F_{r,xy}$ is proportional to the probability that this mutation fixes.
-The rate of mutation $Q_{xy}$ is assumed to be uniform across sites, and takes an HKY85-like~\citep{hasegawa1985dating} form.
+The rate of mutation $Q_{xy}$ is assumed to be uniform across sites, and takes an HKY85-like~\citep{hasegawa1985dating} form as described in \citet{bloom2017identification}.
+\jdbcomment{You need to add a more precise description of this because otherwise it doesn't make any sense when you refer to the $\phi_x$ parameters two paragraphs below if they have never been defined in this context.}
 
 The deep mutational scanning amino-acid preferences are incorporated into the ExpCM via the $F_{r,xy}$ terms.
 The experiments measure the preference $\pi_{r,a}$ of every site $r$ for every amino-acid $a$.
-The $F_{r,xy}$ terms are defined in terms of these experimentally measured amino-acid preferences as
+$F_{r,xy}$ is defined in terms of these experimentally measured amino-acid preferences as
 \begin{equation}
 \label{eq:Frxy}
 F_{r,xy} = 
 \begin{cases}
-   1 & \mbox{if $\mathcal{A}\left(x\right) = \mathcal{A}\left(y\right)$} \\
-   \omega \times \frac{\ln\left[\left(\pi_{r,\mathcal{A}\left(y\right)} / \pi_{r,\mathcal{A}\left(x\right)}\right)^{\beta}\right]}{1 - \left(\pi_{r,\mathcal{A}\left(x\right)} / \pi_{r,\mathcal{A}\left(y\right)}\right)^{\beta}} & \mbox{if $\mathcal{A}\left(x\right) \ne \mathcal{A}\left(y\right)$}
+   1 & \mbox{if $\mathcal{A}\left(x\right) = \mathcal{A}\left(y\right)$,} \\
+   \omega \times \frac{\ln\left[\left(\pi_{r,\mathcal{A}\left(y\right)} / \pi_{r,\mathcal{A}\left(x\right)}\right)^{\beta}\right]}{1 - \left(\pi_{r,\mathcal{A}\left(x\right)} / \pi_{r,\mathcal{A}\left(y\right)}\right)^{\beta}} & \mbox{if $\mathcal{A}\left(x\right) \ne \mathcal{A}\left(y\right)$,}
    \end{cases}
 \end{equation}
-where $\mathcal{A}\left(x\right)$ is the amino-acid encoded by codon $x$, $\beta$ is the stringency parameter, and $\omega$ is the relative rate of nonsynonymous to synonymous substitutions after accounting for the amino-acid preferences.
+where $\beta$ is the stringency parameter~\citet{bloom2014informed,hilton2017phydms} and $\omega$ is the relative rate of nonsynonymous to synonymous substitutions after accounting for the amino-acid preferences.
 
-The stationary state of an ExpCM is defined as 
+The stationary state of is 
 \begin{equation}
 \label{eq:prx}
 p_{r,x} = \frac{\phi_{x_1}\phi_{x_2}\phi_{x_3}\left(\pi_{r,A\left(x\right)}\right)^\beta}{\sum_z \phi_{z_1}\phi_{z_2}\phi_{z_3}\left(\pi_{r,A\left(z\right)}\right)^\beta}
 \end{equation}
 where $\phi_{x_1}$, $\phi_{x_2}$, and $\phi_{x_3}$ are the nucleotides at position 1, 2, and 3 of codon $x$. 
 
-The preferences $\pi_{r,a}$ are \emph{not} free parameters since they are determined by an experiment independent of the sequence alignment being analyzed.
-The ExpCM is described in detail in~\citet{hilton2017phydms}. 
+An ExpCM has five free parameters: $\kappa$, $\omega$, and the three independent $\phi_x$ values.
+The amino-acid preferences $\pi_{r,a}$ are \emph{not} free parameters since they are determined \textit{a priori} by an experiment independent of the sequence alignment being analyzed.
 
-\subsubsection*{GY94 with $\omega_r$.}
+\subsubsection*{$\Gamma\omega$ rate variation}
 
-We defined a site-specific model with the GY94 stationary state by multiplying the $\omega$ in \ref{eq:GY94} with a site-specific $\omega_r$ value calculated from an ExpCM (\ref{eq:ExpCM}). 
-Specifically, following \citet{spielman2015relationship}, 
+The GY94+$\Gamma\omega$ is equivalent to the M5 model in \citet{yang2000codon} with $\omega$ drawn from $K = 4$ categories.
+The ExpCM+$\Gamma\omega$ similarly draws $\omega$ from a $\Gamma$ distribution discretized into $K=4$ bins. 
+Each bin is equally weighted and $\omega$ takes on the mean value of the bin. 
+Because the $\Gamma$ distribution is defined by two parameters, adding $\Gamma\omega$ to a model with a single $\omega$ adds one free parameter.
+Therefore, the GY94+$\Gamma\omega$ model has 12 free parameters, and the ExpCM+$\Gamma\omega$ model has 6 free parameters.
+
+\subsubsection*{GY94 with $\omega_r$}
+In \ref{fig:decay}, we describe GY94 models where each site $r$ has its own $\omega_r$ value that is calculated from the amino-acid preferences using the relationship described by \citet{spielman2015relationship}.
+This relationship gives the expected rate of nonsynonymous to synonymous substitutions given the amino-acid preferences.
+Specifically, we first fit an ExpCM, which allows us to calculate $P_{r,xy}$ (\ref{eq:ExpCM}), $Q_{xy}$ (\jdbcomment{as noted above, you need to give this equation in the ExpCM section}), and $p_{r,x}$ (\ref{eq:prx}).
+We then calculated $\omega_r$ using the equation of \citet{spielman2015relationship}, normalizing by the gene-wide $\omega$ fit by the ExpCM:
 \begin{equation}
 \label{eq:w_r}
-\omega_{r} = \frac{\sum_{x} \sum_{y \in N_x} {p_{r,x} \times \frac{P_{r,xy}}{\omega}}}{\sum_{x} \sum_{y \in N_x} {p_{r,x} \times Q_{xy}}}
+\omega_{r} = \frac{\sum_{x} \sum_{y \in N_x} {p_{r,x} \times \frac{P_{r,xy}}{\omega}}}{\sum_{x} \sum_{y \in N_x} {p_{r,x} \times Q_{xy}}},
 \end{equation}
-where $p_{r,x}$ is the stationary state of the ExpCM at site $r$ and codon $x$, $P_{r,xy}$ is the substitution rate from codon $x$ to codon $y$ at site $r$, $Q_{xy}$ is the mutation rate from codon $x$ to codon $y$, $\omega$ is the relative nonsynonymous substitution rate from the ExpCM and $N_x$ is the set of codons that are nonsynonymous to codon $x$ and differ from codon $x$ by only one nucleotide. 
+where $N_x$ is the set of codons that are nonsynonymous to codon $x$ and differ from codon $x$ by only one nucleotide. 
 
-\subsection*{$\Gamma\omega$ rate variation.}
+\subsection*{HA amino-acid preferences from deep mutational scanning experiments}
+We used amino-acid preferences measured in deep mutational scans of the A/WSN/1933 H1 HA~\citep{doud2016accurate} and the A/Perth/2009 H3 HA~\citep{lee2018deep} to define the amino-acid preferences that inform the ExpCM's. 
+We only used sites that can be unambiguously aligned in these H1 and H3 HAs. 
+These alignable sites and their mapping to sequential numbering of the HA sequences used in the deep mutational scanning experiments are in \ref{suppfile:WSN_Perth_map}. 
+The experimentally measured amino-acid preferences masked to just include these alignable sites are in \ref{suppfile:H1_prefs} and \ref{suppfile:H3_prefs}.
+\jdbcomment{Is this right, do the files just have the masked preferences rather than the full set of sites? Also, as described below, we are running up against a limit in supplementary files. So rather than also giving a file with the averaged values, just add a few sentences clearly explaining how the averaging was done.}
 
-The GY94+$\Gamma\omega$ is defined as M5 in \citet{yang2000codon} and the ExpCM+$\Gamma\omega$ follows the same logic. 
-Briefly, $\omega$ is drawn from a $\Gamma$ distribution discretized into $K=4$ bins. 
-Each bin is equally weighted and $\omega$ takes on the mean value of the bin. 
+\subsection*{HA sequences and tree topology.}
 
-\subsection*{Deep mutational scanning amino-acid preferences.}
-We used amino-acid preferences measured in the deep mutational scans of an H1 HA~\citep{doud2016accurate} and an H3 HA~\citep{lee2018deep} to define the ExpCM $\pi_{r, A\left(x\right)}$ parameters~(\ref{eq:Frxy}). 
-We only considered sites which are homologous between H1 HA and H3 HA. 
-These homologous sites, and their mapping between the H1 reference strain A/Wilson Smith/1933 and the H3 reference strain a A/Perth/2009, are described in \ref{suppfile:WSN_Perth_map}. 
-The resulting preference sets, including the average between the H1 and H3 preferences, are found in \ref{suppfile:H1_prefs}, \ref{suppfile:H3_prefs}, and \ref{suppfile:avg_prefs}.
-
-\subsection*{Influenza virus hemagglutinin (HA) sequences and tree topology.}
-
-We downloaded all full-length, coding sequences for 14 of the 18 HA subtypes, excluding the rare subtypes 12, 15, 17, and 18. 
+We downloaded all full-length, coding sequences for 14 of the 18 HA subtypes, excluding the rare subtypes 12, 15, 17, and 18.
+\jdbcomment{Add a sentence indicating \emph{why} you excluded these subtypes. Also you need to say where you downloaded the sequences from and give a date.} 
 We filtered and aligned the sequences using \texttt{phydms\_prepalignment}~\citep{hilton2017phydms}. 
 Specifically, we used \texttt{phydms\_prepalignment} with the flag \texttt{--minidentity 0.3} to remove sequences with ambiguous nucleotides, premature stops, or frameshift mutations as well as redundant sequences.  
-We also removed any codon sites which are not shared between the H1 HA and H3 HA used in the deep mutational scanning experiments. 
-We subsampled the remaining sequences to five sequences per subtype with $\le 1$ sequence per year per subtype. 
+We also removed all codon sites which that are not alignable between the H1 HA and H3 HA used in the deep mutational scanning experiments (these alignable sites are listed in  \ref{suppfile:WSN_Perth_map}). 
+We subsampled the remaining sequences to five per subtype with $\le 1$ sequence per year per subtype. 
 We also included a small number of representative sequences from the major human and equine influenza lineages, described in \ref{suppfile:required_seqs}. 
-The resulting alignment contains 87 sequences and is found in \ref{suppfile:alignment_high}. 
+\jdbcomment{We need to trim supplementary files, so get rid of \ref{suppfile:required_seqs} and put an approximate justification / explanation here.}
+The resulting alignment contains 87 sequences, and is provided in \ref{suppfile:alignment_high}. 
 
-We created four subalignments with ``low" and ``intermediate" divergence from either the H1 or the H3 deep mutational scanning reference sequence. 
-The ``low divergence" alignments had   $\ge 59\%$ amino-acid identity from the reference sequence and the ``intermediate divergence" alignments had $\ge 46\%$ identity from the reference sequence.
+We created four subalignments with ``low" and ``intermediate" divergence from either the H1 or the H3 deep mutational scanning reference sequence \jdbcomment{for the analysis in Figure ?}. 
+The ``low divergence" alignments had $\ge 59\%$ amino-acid identity to the sequence used in the deep mutational scanning, and the ``intermediate divergence" alignments had $\ge 46\%$ identity from the reference sequence.
 The resulting alignments are found in \ref{suppfile:alignment_lowH1}, \ref{suppfile:alignment_lowH3}, \ref{suppfile:alignment_intermediateH1}, and \ref{suppfile:alignment_intermediateH3}.  
+\jdbcomment{Again, we should probably get rid of these four preceding files since we have too many. Presumably they can be re-generated using the description above of the identity cutoffs?}
 
 We inferred the tree topology of each alignment using \texttt{RAxML}~\citep{stamatakis2006raxml} and the GTRCAT model. 
-We estimated the branch lengths of this fixed topology using the ExpCM and GY94 models with \texttt{phydms\_comprehensive}~\citep{hilton2017phydms}. 
+We estimated the branch lengths of this fixed topology using each ExpCM and GY94 models with \texttt{phydms\_comprehensive}~\citep{hilton2017phydms}. 
 
-\subsection*{Asymptotic sequence divergence.}
+\subsection*{Asymptotic amino-acid sequence identity}
+For the analysis in \ref{fig:decay}, we fit models to the ``low divergence" H1 subtree.
+\jdbcomment{This gave the parameter values in Supplementary table... (You need to put these into one or more supplementary tables, or just list them here as we have too many Supplementary files.} 
 
-We defined ExpCM and GY94 models using parameter values fit to the ``low divergence from H1" tree~(\ref{fig:empirical_trees}, \ref{suppfile:alignment_lowH1}). 
-Specifically, we defined the GY94 model using the parameter values in~\ref{suppfile:hybrid_lowH1_GY94}, the GY94+$\Gamma\omega$ using the parameter values in~\ref{suppfile:hybrid_lowH1_GY94+Gr} and the ExpCM using the parameter values in~\ref{suppfile:hybrid_lowH1_ExpCMdoud} and the H1 amino-acid preferences from~\citet{doud2016accurate} in~\ref{suppfile:H1_prefs}. 
-
-For each model, we calculated the expected sequence divergence given branch length $t$ by 
+For each model, we calculated the expected amino-acid sequence identity for two sequences separated by a branch length of $t$ as 
 \begin{equation}
 \label{eq:f}
-\sum_a \sum_{x \in a} p_{r,x} \sum_{y \in a} [M_{r}\left(t\right)]_{xy}
+\sum_a \sum_{x \in a} p_{r,x} \sum_{y \in a} \left[e^{t\mathbf{P_r}}\right]_{xy}
 \end{equation}
-where $a$ is all amino acids, $p_{r,x}$ is the stationary state of the model at site $r$ and codon $x$, and $[M_{r}\left(t\right)]_{xy}$ is the transition rate from codon $x$ to codon $y$ at site $r$ given time $t$. 
+where $a$ ranges over all 20 amino acids, $x \in a$ indicates that $x$ ranges over all codons that encode amino-acid $a$, $p_{r,x}$ is the stationary state of the model at site $r$ and codon $x$ (given by \ref{eq:px} for GY94-family models, and \ref{eq:prx} for ExpCM-family models), and $\left[e^{t\mathbf{P_r}}\right]_{xy}$ is the value in row $x$ and column $y$ of the matrix obtained by exponentiating the product of $t$ and the substitution matrix $\mathbf{P_r}$ for site $r$ (defined by \ref{eq:GY94} for GY94-family models and \ref{eq:ExpCM} for ExpCM-family models).
 
 \subsection*{Simulations}
+For \ref{fig:simulations}, we simulated sequences using \texttt{pyvolve}~\citep{spielman2015pyvolve} along the full HA tree using an ExpCM defined by parameters fit to the ``low divergence'' H1 subtree. 
 
-We simulated sequences using \texttt{pyvolve}~\citep{spielman2015pyvolve} along the tree for the full alignment (\ref{fig:empirical_trees}, \ref{suppfile:alignment_high}) using an ExpCM defined by parameters fit to the ``low divergence from H1 tree" (\ref{suppfile:alignment_lowH1}). 
-Specifically, we defined the ExpCM using the parameter values in \ref{suppfile:hybrid_lowH1_ExpCMdoud} and the H1 amino-acid preferences from \citet{doud2016accurate} in \ref{suppfile:H1_prefs}. 
 We performed 10 replicate simulations and estimated the branch lengths for each replicate using \texttt{phydms\_comprehensive}~\citep{hilton2017phydms}. 
 
 \subsection*{pbMutSel inference with \texttt{phylobayes}.}
-
-We inferred a pbMutSel model for the full tree (\ref{fig:empirical_trees}, \ref{suppfile:alignment_high}). 
+For \ref{fig:phylobayes}, we fit a pbMutSel model to the full HA tree. 
 We ran one chain for 5000 steps, saved every sample, and discarded the first 500 samples as a burnin. 
-We normalized the branch lengths on the pbMutSel consensus tree and the ExpCM(H1+H3 avg)+$\Gamma\omega$ by dividing each branch by the length from A/South Carolina/1/1918 and A/Solomon Islands/3/2006. 
-These two H1 sequences are early and late representatives of the longest known human influenza lineage. 
+\jdbcomment{Presumably the program gives some measure of convergence? If so, describe what it was.}
+\jdbcomment{You need to better describe what the tree represents and what the pbMutSel preferences represent. Are they the posterior mean?}
 
-\subsection*{Code and analysis.}
-All code used is available at \url{https://github.com/jbloomlab/divergence_timing_manuscript}. 
-For the main analysis, we used \texttt{phydms}~\citep{hilton2017phydms} version 2.2.2 (available at \url{github.com/jbloomlab/phydms}) to filter sequences and estimate branch lengths, \texttt{pyvolve}~\citep{spielman2015pyvolve} version 0.8.7 (available at \url{https://github.com/sjspielman/pyvolve}) to simulate the sequences and \texttt{phylobayes}~\citep{rodrigue2014site} version 1.8 (available at \url{https://github.com/bayesiancook/pbmpi}) to infer the pbMutSel model. We also used \texttt{ggplot2}~\citep{wickham2016ggplot2}, \texttt{ggtree}~\citep{yu2017ggtree}, and \texttt{ggseqlogo}~\citep{wagih2017ggseqlogo} for visualization.
+In order to make the branch lengths in \ref{fig:phylobayes} comparable between the pbMutSel tree returned by \texttt{phylobayes} and the other trees returned by \texttt{phyddms}, we we normalized the branch lengths on the pbMutSel consensus tree and the ExpCM(H1+H3 avg)+$\Gamma\omega$ by dividing each branch by the length from A/South Carolina/1/1918 and A/Solomon Islands/3/2006. 
+These two H1 sequences are early and late representatives of the longest known human influenza lineage, and are of sufficiently high identity that different ExpCM and GY94 substitution models all estimate nearly identical branch lengths separating them. 
+
+\subsection*{Software versions and computer code}
+All code used for the analyses in this paper is available at \url{https://github.com/jbloomlab/divergence_timing_manuscript}. 
+The external computer programs that we used were
+\begin{itemize} 
+\item \texttt{phydms}~\citep{hilton2017phydms} version 2.2.2 (available at \url{github.com/jbloomlab/phydms}) to fit the ExpCM and GY94 models.
+\item \texttt{pyvolve}~\citep{spielman2015pyvolve} version 0.8.7 (available at \url{https://github.com/sjspielman/pyvolve}) to simulate the sequences.
+\item \texttt{phylobayes}~\citep{rodrigue2014site} version 1.8 (available at \url{https://github.com/bayesiancook/pbmpi}) to fit the pbMutSel model. 
+\item \jdbcomment{RAxML}
+\item We used \texttt{ggplot2}~\citep{wickham2016ggplot2}, \texttt{ggtree}~\citep{yu2017ggtree}, and \texttt{ggseqlogo}~\citep{wagih2017ggseqlogo} for visualization of the results.
+\end{itemize}
 
 
 
 \newpage
 \section*{Supplemental Information}
 
+\jdbcomment{The MBE instructions appear to indicate that you can have at most five \emph{files} (see \url{https://academic.oup.com/mbe/pages/Supplementary_Information}). 
+I would take this to mean that we can have one merged PDF with figures / tables, plus four supplementary files.
+Looking at existing papers seems to confirm this.
+Note also that they have some limits on acceptable file formats, although you can turn FASTA and CSV into the allowable TXT just by adding that extension, as in \texttt{alignment.fasta.txt} and they won't complain.
+So you need to get rid of all but 4 supplementary files. 
+
+I would say keep the map of site numbers, the H1 and H3 preferences, and the alignment. 
+I think all the other files can either be re-generated using the other ones if you provide adequate instructions in the methods (e.g., averaging the preferences or pruning the full alignment to sub-alignments), or simply have model parameters which could be put in a supplementary table.
+
+Also, put the supplementary information after the references.
+
+Also, put a page break after each supplementary figure / table using the \texttt{clearpage} command.
+}
+
+
 \begin{suppfig}[H]
 \centerline{\includegraphics[width=\textwidth]{figures/prefs_doud}}
 \caption{\label{suppfig:prefs_doud}
 \textbf{H1 HA amino-acid preferences measured by deep mutational scanning.}
-Each column represents a site in the protein and the height of each letter is proportional to the preference for the amino acid as measured by~\citet{doud2016accurate}. 
-Here the preferences are rescaled by the ExpCM stringency parameter in \ref{tab:empirical_data} ($\beta=1.12$). 
-We only considered homologous sites between H1 and H3. 
-The conversion between the numbering scheme in this figure and sequential numbering of the H1 HA reference sequence A/Wilson Smith/1933 is found in \ref{suppfile:WSN_Perth_map}. 
+Each column represents a site in the HA protein, and the height of each letter is proportional to the preference for the amino acid measured by~\citet{doud2016accurate} and then re-scaled by the stringency parameter in \ref{tab:empirical_data}. 
+The plot only shows sites that are alignable between the H1 and H3 HAs, and these alignable sites are numbered sequentially starting from 1.
+The conversion between the numbering scheme in this figure and sequential numbering of the H1 HA reference sequence is in \ref{suppfile:WSN_Perth_map}. 
+\jdbcomment{For this figure and the other logo plots, increase the number of rows by a few so things are a bit bigger.}
 }
 \end{suppfig}
 
@@ -662,10 +699,7 @@ The conversion between the numbering scheme in this figure and sequential number
 \centerline{\includegraphics[width=\textwidth]{figures/prefs_lee}}
 \caption{\label{suppfig:prefs_lee}
 \textbf{H3 HA amino-acid preferences measured by deep mutational scanning.}
-Each column represents a site in the protein and the height of each letter is proportional to the preference for the amino acid as measured by~\citet{lee2018deep}. 
-Here the preferences are rescaled by the ExpCM stringency parameter in \ref{tab:empirical_data} ($\beta=1.28$). 
-We only considered homologous sites between H1 and H3. 
-The conversion between the numbering scheme in this figure and sequential numbering of the H3 HA reference sequence A/Perth/2009 is found in \ref{suppfile:WSN_Perth_map}. 
+Similar to \ref{suppfig:prefs_doud} but shows the re-scaled preferences for the H3 HA as measured by \citet{lee2018deep}.
  }
 \end{suppfig}
 
@@ -673,10 +707,7 @@ The conversion between the numbering scheme in this figure and sequential number
 \centerline{\includegraphics[width=\textwidth]{figures/prefs_average}}
 \caption{\label{suppfig:prefs_average}
 \textbf{Average of H1 HA  and H3 HA amino-acid preferences measured by deep mutational scanning.}
-Each column represents a site in the protein and the height of each letter is proportional to the average preference for the amino acid measured by~\citet{doud2016accurate} and~\citet{lee2018deep}. 
-Here the preferences are rescaled by the ExpCM stringency parameter in \ref{tab:empirical_data} ($\beta=1.70$). 
-We only considered homologous sites between H1 and H3. 
-The conversion between the numbering scheme in this figure and sequential numbering of the H1 HA reference sequence A/Wilson Smith/1933 or H3 HA reference sequence A/Perth/2009 is found in \ref{suppfile:WSN_Perth_map}. 
+Similar to \ref{suppfig:prefs_doud} but shows the re-scaled average of the preferences for the H1 and H3 HAs.
 }
 \end{suppfig}
 
@@ -684,9 +715,7 @@ The conversion between the numbering scheme in this figure and sequential number
 \centerline{\includegraphics[width=\textwidth]{figures/prefs_mutSel}}
 \caption{\label{suppfig:prefs_mutSel}
 \textbf{Amino-acid preferences inferred by the pbMutSel model.}
-Each column represents a site in the protein and the height of each letter is proportional to the preference for the amino acid inferred by pbMutSel~\citep{rodrigue2014site} using the tree in \ref{fig:empirical_trees}. 
-We only considered homologous sites between H1 and H3. 
-The conversion between the numbering scheme in this figure and sequential numbering of the H1 HA reference sequence A/Wilson Smith/1933 or H3 HA reference sequence A/Perth/2009 is found in \ref{suppfile:WSN_Perth_map}. 
+Similar to \ref{suppfig:prefs_doud}, but shows the preferences inferred by fitting the pbMutSel model to the full HA tree.
 }
 \end{suppfig}
 
@@ -694,6 +723,8 @@ The conversion between the numbering scheme in this figure and sequential number
 \centerline{\includegraphics[width=0.50\textwidth]{figures/divergence_distances.pdf}}
 \caption{\label{suppfig:subalignments}
 \textbf{Overall divergence for the subtrees in \ref{fig:compete}.} 
+\jdbcomment{This legend is indecipherable because rather than saying what you are showing you just refer to a lot of other figures / files.
+Reduce the references to other figures / files to the minimum needed an explain what is actually being shown.}
 We created two sub alignments from the alignment (\ref{suppfile:alignment_high}) used in \ref{fig:empirical_trees} for each deep mutational scanning reference HA. 
 The ``low" alignments have $\ge59\%$ amino-acid identity to the reference sequence (\ref{suppfile:alignment_lowH1}, \ref{suppfile:alignment_lowH3}) and the ``intermediate" alignments have $\ge46\%$ amino-acid identity to the reference sequence (\ref{suppfile:alignment_intermediateH1}, \ref{suppfile:alignment_intermediateH3}).
 }
@@ -723,18 +754,20 @@ So this gives 3 columns: model, tree diameter, \% of GY94 tree diameter}
 \begin{suppfile}
 \caption{
 \label{suppfile:WSN_Perth_map}
-Map for homologous sites between H1 HA and H3 HA. 
-This file provides a conversion between the numbering scheme we use in the paper, including all logoplots and the sites in \ref{fig:decay}, to sequential numbering in either the H1 HA reference sequence A/Wilson Smith/1933 or the H3 HA reference sequence A/Perth/2009. 
+List of alignable sites between H1 HA and H3 HA. 
+This file provides a conversion between the numbering scheme we use in the paper (sequential numbering of just the alignable sites) to sequential numbering of the H1 HA reference sequence A/Wilson Smith/1933 and the H3 HA reference sequence A/Perth/2009. 
 The sequential numbering for the HA strains starts with ``site 1" as the second codon (first non-methionine codon). 
+\jdbcomment{The last sentence is so unclear that even I'm not sure what it means. If this isn't apparent from the file, explain it much better! Wouldn't it be simpler if you just used numbering that started with 1 at the first codon?
+Also, add the actual file so we can see if it makes sense.}
 }
 \end{suppfile}
 
 \begin{suppfile}
 \caption{
 \label{suppfile:H1_prefs}
-Amino acid preferences measured by the deep mutational scanning of the H1 HA strain A/Wilson Smith/1933~\citep{doud2016accurate}. 
-This file only contains measurements for the homologous sites between H1 HA and H3 HA. 
-Conversion from this numbering scheme to sequential numbering in A/Wilson Smith/1933 is found in \ref{suppfile:WSN_Perth_map}. 
+Amino acid preferences measured by the deep mutational scanning of the H1 HA strain A/WSN/1933~\citep{doud2016accurate}. 
+This file only contains measurements for the alignable sites between H1 and H3 HAs. 
+Conversion from this numbering scheme to sequential numbering of A/WSN/1933 is in \ref{suppfile:WSN_Perth_map}. 
 }
 \end{suppfile}
 
@@ -742,8 +775,8 @@ Conversion from this numbering scheme to sequential numbering in A/Wilson Smith/
 \caption{
 \label{suppfile:H3_prefs}
 Amino acid preferences measured by the deep mutational scanning of the H3 HA strain A/Perth/2009~\citep{lee2018deep}. 
-This file only contains measurements for the homologous sites between H1 HA and H3 HA. 
-Conversion from this numbering scheme to sequential numbering in A/Perth/2009 is found in \ref{suppfile:WSN_Perth_map}. 
+This file only contains measurements for the alignable sites between H1 and H3 HAs. 
+Conversion from this numbering scheme to sequential numbering of A/Perth/2009 is in in \ref{suppfile:WSN_Perth_map}. 
 }
 \end{suppfile}
 
@@ -767,6 +800,8 @@ This file contains the representative sequences of major human equine influenza 
 \label{suppfile:alignment_high}
 The HA sequences used for the full HA tree in \ref{fig:empirical_trees}. 
 We inferred the topology using \texttt{RAxML} and the GTRCAT model. 
+\jdbcomment{This legend is not very good. If the file just has the alignment, then why are we talking about RAxML in its legend?
+Also, I think referring to \ref{fig:empirical_trees} to refer to the tree topology is not very clear, since that figure shows lots of stuff beyond just one tree.}
 }
 \end{suppfile}
 
