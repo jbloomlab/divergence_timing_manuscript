@@ -397,45 +397,46 @@ For instance, the ExpCM informed by the H1 data most dramatically lengthens bran
 The ExpCM informed by the average of the H1 and H3 data has a more uniform effect across the tree, but still most strongly extends branches leading to either the H1 or H3 clade.
 Therefore, \ref{fig:empirical_trees} shows that ExpCM's estimate longer branches, but that the effect is shaped by the set of amino-acid preferences used to inform the model.
 
-\subsection*{Competing effects of shifting preferences and long branches.}
+\subsection*{Shifting amino-acid preferences limit the benefits of models with site-specific stationary states for estimating long branch lengths.}
 
 \begin{figure}
 \centerline{\includegraphics[width=0.75\textwidth]{figures/compete}}
 \caption{\label{fig:compete}
-\textbf{The congruency between natural selection and the deep mutational scanning measurements decreases with sequence divergence.} 
+\textbf{The congruence between natural selection and the deep mutational scanning measurements decreases with sequence divergence.} 
 We fit an ExpCM informed by the H1 or H3 deep mutational scanning experiments to trees spanning sequences with low, intermediate, and high divergence from the sequence used in the experiment. 
-The ExpCM stringency parameter ($\beta$) is a measure of the congruency between natural selection and the experimental measurements. 
+The ExpCM stringency parameter ($\beta$) is a measure of the congruence between natural selection and the experimental measurements~\citep{bloom2014informed,hilton2017phydms}. 
 Larger values of $\beta$ indicate that natural selection prefers the same amino acids as the experiments but with greater stringency. 
-As divergence increases between the HA used in the experiment and the other sequences in the tree, the $\beta$ value decreases and the preference sets ``flatten."
-Therefore, the preferences measured in each experiment are progressively less congruent with those of the HA sequences on the tree as we include increasingly diverged sequences. 
+As divergence increases between the HA used in the experiment and the other sequences in the tree, the $\beta$ value decreases and the amino-acid preference ``flatten."
+Therefore, the preferences measured in each experiment are progressively less congruent with natural selection as we include increasingly diverged sequences. 
 }
 \end{figure}
 
-The fact that an ExpCM has the greatest effect on branches close to the sequence used in the experiment can be rationalized in terms of existing knowledge about how epistasis shifts protein amino-acid preferences during evolution~\citep{pollock2012amino, shah2015contingency, doud2015site, haddox2017mapping, risso2014mutational}.
-In reality, sites in proteins do not have completely conserved site-specific amino-acid preferences. 
-Rather, the effect of a mutation at one site in a protein can depend on the amino-acid identity of other sites in the protein~\citep{starr2018pervasive, pollock2012amino, shah2015contingency, bazykin2015changing}. 
-The deep mutational scanning experiments that inform our ExpCM's were performed in the context of a single HA genetic background, and so do not account for how such epistatic interactions can cause amino-acid preferences to shift as substitutions accumulate. 
-Therefore, it makes sense that an ExpCM would most accurately describe the evolution of sequences closely related to the one used in the experiment.
+The fact that an ExpCM leads to the most profound lengthening of the branches leading to the sequence used in the experiment can be rationalized in terms of existing knowledge about epistasis during protein evolution.
+Each ExpCM is informed by a single set of experimentally measured amino-acid preferences.
+But in reality, the effect of a mutation at one site in a protein can depend on the amino-acid identities of other sites in the protein~\citep{ortlund2007crystal, gong2013stability, harms2014historical, tufts2014epistasis, starr2018pervasive}. 
+This epistasis can lead to shifts in a protein's amino-acid preferences over evolutionary time~\citep{pollock2012amino, doud2015site, shah2015contingency, bazykin2015changing, haddox2017mapping}.
+Because the deep mutational scanning experiments that inform our ExpCM's were each performed in the context of a single HA genetic background, their measurements do not account for the epistatic shifts in amino-acid preferences that accumulate as HA evolves. 
+Therefore, an ExpCM is expected to most accurately describe the evolution of sequences closely related to the one used in the experiment.
  
-We can clearly observe how shifting amino-acid preferences degrade the accuracy of the ExpCM by fitting them to trees containing increasingly diverged sequences.
-Specifically, for H1 and H3 HAs, we created three phylogenetic trees: a ``low'' divergence tree that contains only sequences with $\ge 59\%$ amino-acid identity to the HA used in the experiment, an ``intermediate'' divergence tree that contains sequences with $\ge 46\%$ amino-acid identity to the HA in the experiment, and a ``high'' divergence tree that contains all the HAs (which have as little as 38\% identity to the HA in the experiment).
+We can observe how shifting amino-acid preferences degrade the accuracy of an ExpCM by fitting the model to trees containing increasingly diverged sequences.
+For both H1 and H3 HAs, we created three phylogenetic trees: a ``low'' divergence tree that contains sequences with $\ge$59\% amino-acid identity to the HA used in the experiment, an ``intermediate'' divergence tree that contains sequences with $\ge$46\% amino-acid identity to the HA in the experiment, and a ``high'' divergence tree that contains all HAs (which have as little as 38\% identity to the HA in the experiment).
 \ref{fig:compete} shows the subtrees containing each of these sets of HA sequences.
 For each subtree, we examined the congruence between site-specific natural selection and the amino-acid preferences measured in the deep mutational scanning experiment. 
-We used the ExpCM stringency parameter $\beta$ to measure this congruency~(\ref{eq:Frxy}). 
-In essence, $\beta$ rescales the deep mutational scanning measurements~(\ref{fig:compete}). 
-Larger values of $\beta$ indicate that natural selection prefers the same amino acids as the experiments but with a greater stringency, indicating a strong congruence between natural selection and the experimental preferences. 
+We used the ExpCM stringency parameter $\beta$ to measure this congruence~\citep{bloom2014informed,hilton2017phydms}. 
+Values of $\beta$ that are $>$1 indicate that natural selection prefers the same amino acids as the experiments but with a greater stringency, suggesting strong congruence between natural selection and the experimental preferences. 
+In contrast, values of $\beta$ that are $<$1 flatten the preferences, suggesting that they provide a relatively poor description of natural selection on the protein.
 
 \ref{fig:compete} shows that as the divergence from the sequence used in the deep mutational scan increases, the value of $\beta$ decreases. 
 This inverse relationship between $\beta$ and overall divergence is seen for the ExpCM's informed by both the H1 and H3 experiments.
-Specifically, as the $\beta$ value decreases, the preferences ``flatten" and draw less information from the experiment. 
-At the most extreme, $\beta = 0$, the preferences would be perfectly uniform and look identical to the GY94 preferences in \ref{fig:empirical_trees}.
-In reality, $\beta$ never reaches a value this low, indicating the deep mutational scanning experiments remain somewhat informative about the real purifying selection across the entire swath of HAs. 
-However, the flattening with increasing sequence divergence arises because the amino-acid preferences are increasingly less accurate as we move away from the experimental sequence on the tree.
-As shown in \ref{fig:simulations}, the ability of models with site-specific stationary states to extend branch lengths requires these stationary states to be accurate.
-This fact also helps rationalize why the ExpCM defined by the average of the H1 and H3 experiments, representing the ``average" constraint on HA, does better across the whole tree (\ref{fig:empirical_trees}). 
+Specifically, as the $\beta$ value decreases, the preferences ``flatten" and so the ExpCM draws less information from the experiment. 
+At the most extreme value of $\beta = 0$, the preferences would be perfectly uniform and look similar to the GY94 preferences in \ref{fig:empirical_trees}.
+In reality, $\beta$ never reaches a value this low, indicating the deep mutational scanning experiments remain somewhat informative about real natural selection across the entire swath of HAs. 
+However, \ref{fig:compete} shows that the amino-acid preferences clearly become less informative about natural selection as we move away from the experimental sequence on the tree.
+This shifting of amino-acid preferences helps explain why the ExpCM informed by the average of the H1 and H3 experiments performs best (\ref{tab:empirical_data} and \ref{fig:empirical_trees}): averaging the measurements across these two HAs is a heuristic method of accounting for shifts in preferences during HA evolution. 
  
-The fact that amino-acid preferences shift as proteins evolve leaves us with an inherent tension: models with site-specific stationary states only become important for accurate branch-length estimation as sequences become increasingly diverged, but this same divergence degrades the accuracy of extrapolating the amino-acid preferences from any given experiment across the phylogenetic tree.
-More importantly, the fact that amino-acid preferences shift over time means that there will not be any model with a single set of site-specific stationary states that accurately describes a phylogenetic tree that covers a wide span of sequences.
+The fact that amino-acid preferences shift as a protein evolves leaves us with an inherent tension: models with site-specific amino-acid preferences only become important for accurate branch-length estimation as sequences become increasingly diverged, but this same divergence degrades the accuracy of extrapolating the amino-acid preferences from any given experiment across the phylogenetic tree.
+Crucially, this problem is expected to be more fundamental than the inability of a single deep mutational scanning experiment to measure amino-acid preferences in more than one genetic background.
+If amino-acid preferences shift during evolution, there simply will not be any model with a single set of time-homogeneous site-specific stationary states that accurately describes evolution along the entirety of a phylogenetic tree that covers a wide span of sequences.
 
 \subsection*{Models with stationary states estimated from natural sequences give similar results to ExpCM's}
 
