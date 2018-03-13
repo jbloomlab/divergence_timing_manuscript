@@ -438,43 +438,52 @@ The fact that amino-acid preferences shift as a protein evolves leaves us with a
 Crucially, this problem is expected to be more fundamental than the inability of a single deep mutational scanning experiment to measure amino-acid preferences in more than one genetic background.
 If amino-acid preferences shift during evolution, there simply will not be any model with a single set of time-homogeneous site-specific stationary states that accurately describes evolution along the entirety of a phylogenetic tree that covers a wide span of sequences.
 
-\subsection*{Models with stationary states estimated from natural sequences give similar results to ExpCM's}
+\subsection*{A model with amino-acid preferences estimated from natural sequences give similar results to an ExpCM}
 
 \begin{figure}
 \centerline{\includegraphics[width=0.99\textwidth]{figures/phylobayes.pdf}}
 \caption{\label{fig:phylobayes}
 \textbf{Models inferred from natural sequences have similar stationary states to models defined by experimental preferences and estimate similar branch lengths.}
-(A) We fit an ExpCM(H1+H3 avg)+$\Gamma\omega$ and a pbMutSel to the tree in \ref{fig:empirical_trees}. 
-The pbMutSel amino-acid preferences are inferred from the natural sequences while the ExpCM amino-acid preferences are experimentally measured and then rescaled using the stringency parameter in \ref{tab:empirical_data}. 
-The pbMutSel preferences are more correlated with the average of the H1 and H3 deep mutational scanning preference sets than the individual experiments are to each other (Pearson's r: 0.74 vs. 0.52). 
-(B) The pbMutSel and the ExpCM(H1+H3 avg)+$\Gamma\omega$ estimated similar branch lengths. 
-To aid direct comparison between the models, we normalized the branch lengths by the length between and early and late seasonal human H1 sequence. 
+(A) We fit an ExpCM(H1+H3 avg)+$\Gamma\omega$ and a pbMutSel to the full HA tree in \ref{fig:empirical_trees}. 
+The pbMutSel amino-acid preferences are inferred from the natural HA sequences, while the ExpCM amino-acid preferences are experimentally measured and then rescaled by the stringency parameter in \ref{tab:empirical_data}. 
+The pbMutSel preferences are more correlated with the average of the H1 and H3 deep mutational scanning preference sets than the individual H1 and H3 experiments are to each other (Pearson's $r$: 0.74 versus 0.52). 
+(B) The ExpCM(H1+H3 avg)+$\Gamma\omega$ and pbMutSel models estimated similar branch lengths when fit to the entire HA tree. 
+\jdbcomment{You need to mention and give a bit of explanation for the coloring. What does it mean for a branch to be ``from'' H1 or H3? Would it be better to say branch ``leading to''? And does that mean leading to it with respect to the root of the tree as shown in \ref{fig:empirical_trees}?}
+The \texttt{phydms} program implementing ExpCM's and the \texttt{phylobayes} program implementing pbMutSel models give branch lengths in different units, so to facilitate direct comparison between the models, we have normalized all branch lengths returned by each program by the length of the branches separating the earliest (\jdbcomment{say exact strain}) and latest (\jdbcomment{say exact strain}) seasonal human H1 sequences on the three. 
 }
 \end{figure}
 
 The previous sections used ExpCM's, which are mutation-selection models that use site-specific amino-acid preferences that have been measured by experiments. 
-However, other implementations of mutation-selection models allow their stationary states to be inferred directly from the natural sequence data. 
-These models are generally implemented in a Bayesian framework, which avoids the overfitting problems associated with trying to make maximum-likelihood estimates of the thousands of parameters describing site-specific stationary states.
+However, there are other mathematically similar implementations of mutation-selection models that infer the amino-acid preferences directly from the natural sequence data. 
+When these models are designed for use in phylogenetic inference, they are generally implemented in a Bayesian framework, which avoids the overfitting problems associated with trying to make maximum-likelihood estimates of the thousands of amino-acid preference parameters~\citep{lartillot2014overcoming}.
+(Note that the maximum-likelihood implementations of \citet{tamuri2012estimating,tamuri2014penalized} are designed for estimating the amino-acid preferences, \emph{not} for phylogenetic inference.)
 The model most comparable to our ExpCM's is the codon mutation-selection model implemented in \texttt{phylobayes}, which we will refer to as pbMutSel~\citep{rodrigue2014site}. 
-The pbMutSel model is mathematically very similar to the ExpCM's except the amino-acid preferences are modeled using Dirichlet processes rather than derived from experiments. 
-Like ExpCM's, pbMutSel models still assume a single set of site-specific amino-acid preferences for the entire tree.
+\jdbcomment{Throughout this section, you refer to \texttt{phylobayes}. But are you sure that \texttt{phylobayes} is the same thing as the \texttt{PhyloBayes-MPI} program that implements the pbMutSel models? I didn't look into this in great detail, but I got different websites when I Googled the two. Check this, and if it's actually \texttt{PhyloBayes-MPI} then update all references to the program to indicate that.}
+In the pbMutSel model, the amino-acid preferences are modeled using Dirichlet processes rather than derived from experiments. 
+However, like an ExpCM, a pbMutSel model still assumes a single set of time-homogeneous site-specific amino-acid preferences for the entire tree.
 
-Comparing ExpCM's and pbMutSel models can therefore help identify the ultimate limits of mutation-selection models where each site has a single time-homogeneous stationary state across the entire tree. 
-If the limits of the ExpCM's reflected in \ref{fig:empirical_trees} are simply because the deep mutational scanning experiments do not accurately measure the ``true" amino-acid preferences of HA across the tree, then we would expect the pbMutSel models (which derive their stationary states from the entire tree) to perform better.
-On the other hand, if the major limitation is simply that there is not any single set of time-homogenous amino-acid preferences that describe HA evolution over the entire tree, then we would expect pbMutSel and ExpCM models to perform similarly.
+Comparing ExpCM and pbMutSel models can help determine the ultimate limits of mutation-selection models that assign each site a single set of amino-acid preferences. 
+If the limitations of ExpCM's described above arise simply because the deep mutational scanning experiments do not correctly measure the ``true" amino-acid preferences of HA across the entirety of a highly diverged phylogenetic tree, then we would expect the pbMutSel models (which infer these preferences from the entire tree) to perform better.
+On the other hand, if the major limitation is that no single set of time-homogenous amino-acid preferences can fully describe HA evolution over the entire tree, then we would expect ExpCM and pbMutSel models to perform similarly.
 
-The ExpCM that estimates the longest branches is the one that uses the average of the H1 and H3 deep mutational scanning measurements with $\Gamma\omega$ rate variation~(\ref{fig:empirical_trees}).  
-We therefore compared this ExpCM with a pbMutSel model given the tree in \ref{fig:empirical_trees}. 
-First, \ref{fig:phylobayes}A shows that the stationary state inferred by pbMutSel is similar to the average of the H1 and H3 preferences measured by deep mutational scanning. 
-The site-specific amino-acid preferences estimated by pbMutSel are more correlated with the average amino-acid preferences from the H1 and H3 experiments than the individual deep mutational scanning experiments are to each other. 
-This strong correlation between the pbMutSel and the average deep mutational scanning preference set indicates that, when averaged, the experimental preferences are able to capture the global site-specific functional constraint fairly well. 
+We fit a pbMutSel model to the entire HA phylogenetic tree, and compared the results to those from analyzing the same tree with the best ExpCM, which is the ExpCM(H1+H3 avg)+$\Gamma\omega$ variant.
+This is a direct apple-to-apples comparison, since the pbMutSel model also draws $\omega$ from a gamma-distribution.
+\jdbcomment{Is the previous sentence correct? If so, can you add citation for it?}
+First, we compared the amino-acid preferences inferred by the pbMutSel model to the preferences measured in the experiments.
+\ref{fig:phylobayes}A shows that the preferences inferred by pbMutSel are quite similar to the (H1+ H3 avg) obtained by averaging the deep mutational scanning measurements for the H1 and H3 HAs. 
+Notably, the amino-acid preferences from the pbMutSel model are more correlated with the (H1+ H3 avg) than the H1 and H3 measurements are with each other (\ref{fig:phylobayes}A).
+This strong correlation indicates that the ExpCM(H1+H3 avg)+$\Gamma\omega$ is unlikely to be much different than a pbMutSel model that is parameterized only using the natural sequence data.  
 
-Second, the results in \ref{fig:phylobayes}B show that the ExpCM+$\Gamma\omega$(H1+H3 avg prefs) and the pbMutSel model also estimated similar branch lengths on the HA tree in \ref{fig:empirical_trees}. 
-While overall the two models estimated similar lengths, the tension between local and global accuracy of the amino-acid preferences is still apparent in these results. 
-All the long branches from either the H1 or H3 sequences used in the experiments were estimated to be slightly longer by the ExpCM+$\Gamma\omega$, while many other branches were estimated to be slightly longer by the pbMutSel model. 
-The relatively longer branches from the experimental sequences when using the ExpCM+$\Gamma\omega$ suggests that the ``global" stationary state inferred by \texttt{phylobayes} is not as accurate as the deep mutational scanning preferences for sequences close to the experimental sequences. 
-However, at sequences distant from those used in the experiments, the ``global'' preferences estimated by the pbMutSel model appear to be slightly better than the average of the experimental values.
-Therefore, while the site-specific pbMutSel models inferred by \texttt{phylobayes} are probably more accurate for sequences distant from the H1 and H3 in the experiments, they do not avoid the tension between the importance of a site-specific stationary state for long branch estimation and shifting preferences. 
+We next compared the branch lengths estimated by using the ExpCM(H1+H3 avg)+$\Gamma\omega$ and pbMutSel models.
+As shown in \ref{fig:phylobayes}B, these two models estimated similar branch lengths across the entire HA phylogenetic tree. 
+However, the estimates are not identical, and the tension between local and global accuracy of the amino-acid preferences is still apparent. 
+Specifically, the long branches leading to the H1 or H3 sequences used in the experiments were estimated to be slightly longer by the ExpCM, while many other branches were estimated to be slightly longer by the pbMutSel model. 
+The relatively longer branches leading to the experimental sequences when using the ExpCM(H1+H3 avg)+$\Gamma\omega$ suggests that the ``tree average" amino-acid preferences inferred by the pbMutSel model are not as accurate as the preferences from the deep mutational scanning for sequences close to those used in the experiments. 
+However, for sequences distant from those used in the experiments, the ``tree average'' preferences inferred by the pbMutSel model appear to be slightly better than the experimental values.
+Therefore, while the ExpCM and pbMutSel models differ slightly in the extent to which they lengthen different branches, neither model can avoid the tension between the local and global accuracy of amino-acid preferences. 
+
+\subsection*{\jdbcomment{Possible new section?}}
+\jdbcomment{We should think about what happens if we try an ExpCM just on the set of sites that Juhye's paper found did \emph{not} substantially shift in amino-acid preferences between H1 and H3.}
 
 \section*{Discussion}
 
