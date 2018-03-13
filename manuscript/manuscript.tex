@@ -449,7 +449,7 @@ The pbMutSel amino-acid preferences are inferred from the natural HA sequences, 
 The pbMutSel preferences are more correlated with the re-scaled average of the H1 and H3 deep mutational scanning preferences than the individual re-scaled H1 and H3 deep mutational scanning preferences are to each other (Pearson's $r$: 0.74 versus 0.52). 
 (B) The ExpCM(H1+H3 avg)+$\Gamma\omega$ and pbMutSel models estimated similar branch lengths when fit to the entire HA tree. 
 \jdbcomment{You need to mention and give a bit of explanation for the coloring. What does it mean for a branch to be ``from'' H1 or H3? Would it be better to say branch ``leading to''? And does that mean leading to it with respect to the root of the tree as shown in \ref{fig:empirical_trees}?}
-The \texttt{phydms} program implementing ExpCM's and the \texttt{phylobayes} program implementing pbMutSel models give branch lengths in different units, so to facilitate direct comparison between the models, we have normalized all branch lengths returned by each program by the length of the branches separating the earliest (\jdbcomment{say exact strain}) and latest (\jdbcomment{say exact strain}) seasonal human H1 sequences on the three. 
+The \texttt{phydms} program implementing ExpCM's and the \texttt{PhyloBayes-MPI} program implementing pbMutSel models give branch lengths in different units, so to facilitate direct comparison between the models, we have normalized all branch lengths returned by each program by the length of the branches separating the earliest (A/South Carolina/1918) and latest (A/Solomon Islands/2006) seasonal human H1 sequences on the three. 
 }
 \end{figure}
 
@@ -457,8 +457,7 @@ The previous sections used ExpCM's, which are mutation-selection models that use
 However, there are other mathematically similar implementations of mutation-selection models that infer the amino-acid preferences directly from the natural sequence data. 
 When these models are designed for use in phylogenetic inference, they are generally implemented in a Bayesian framework, which avoids the overfitting problems associated with trying to make maximum-likelihood estimates of the thousands of amino-acid preference parameters~\citep{lartillot2014overcoming}.
 (Note that the maximum-likelihood implementations of \citet{tamuri2012estimating,tamuri2014penalized} are designed for estimating the amino-acid preferences, \emph{not} for phylogenetic inference.)
-The model most comparable to our ExpCM's is the codon mutation-selection model implemented in \texttt{phylobayes}, which we will refer to as pbMutSel~\citep{rodrigue2014site}. 
-\jdbcomment{Throughout this section, you refer to \texttt{phylobayes}. But are you sure that \texttt{phylobayes} is the same thing as the \texttt{PhyloBayes-MPI} program that implements the pbMutSel models? I didn't look into this in great detail, but I got different websites when I Googled the two. Check this, and if it's actually \texttt{PhyloBayes-MPI} then update all references to the program to indicate that.}
+The model most comparable to our ExpCM's is the codon mutation-selection model implemented in \texttt{PhyloBayes-MPI}, which we will refer to as pbMutSel~\citep{rodrigue2014site}. 
 In the pbMutSel model, the amino-acid preferences are modeled using Dirichlet processes rather than derived from experiments. 
 However, like an ExpCM, a pbMutSel model still assumes a single set of time-homogeneous site-specific amino-acid preferences for the entire tree.
 
@@ -467,8 +466,7 @@ If the limitations of ExpCM's described above arise simply because the deep muta
 On the other hand, if the major limitation is that no single set of time-homogenous amino-acid preferences can fully describe HA evolution over the entire tree, then we would expect ExpCM and pbMutSel models to perform similarly.
 
 We fit a pbMutSel model to the entire HA phylogenetic tree, and compared the results to those from analyzing the same tree with the best ExpCM, which is the ExpCM(H1+H3 avg)+$\Gamma\omega$ variant.
-This is a direct apple-to-apples comparison, since the pbMutSel model also draws $\omega$ from a gamma-distribution.
-\jdbcomment{Is the previous sentence correct? If so, can you add citation for it?}
+This is a direct apple-to-apples comparison, since the pbMutSel model also draws $\omega$ from a gamma-distribution~\citep{rodrigue2014site}.
 First, we compared the amino-acid preferences inferred by the pbMutSel model to the preferences measured in the experiments.
 \ref{fig:phylobayes}A shows that the preferences inferred by pbMutSel are quite similar to the (H1+ H3 avg) obtained by averaging the deep mutational scanning measurements for the H1 and H3 HAs. 
 Notably, the amino-acid preferences from the pbMutSel model are more correlated with the (H1+ H3 avg) than the H1 and H3 measurements are with each other (\ref{fig:phylobayes}A).
@@ -620,7 +618,7 @@ We also included a small number of representative sequences from the major human
 \jdbcomment{We need to trim supplementary files, so get rid of \ref{suppfile:required_seqs} and put an approximate justification / explanation here.}
 The resulting alignment contains 87 sequences, and is provided in \ref{suppfile:alignment_high}. 
 
-We created four subalignments with ``low" and ``intermediate" divergence from either the H1 or the H3 deep mutational scanning reference sequence \jdbcomment{for the analysis in Figure ?}. 
+We created four subalignments with ``low" and ``intermediate" divergence from either the H1 or the H3 deep mutational scanning reference sequence for the analysis in \ref{fig:compete}. 
 The ``low divergence" alignments had $\ge 59\%$ amino-acid identity to the sequence used in the deep mutational scanning, and the ``intermediate divergence" alignments had $\ge 46\%$ identity from the reference sequence.
 The resulting alignments are found in \ref{suppfile:alignment_lowH1}, \ref{suppfile:alignment_lowH3}, \ref{suppfile:alignment_intermediateH1}, and \ref{suppfile:alignment_intermediateH3}.  
 \jdbcomment{Again, we should probably get rid of these four preceding files since we have too many. Presumably they can be re-generated using the description above of the identity cutoffs?}
@@ -644,27 +642,29 @@ For \ref{fig:simulations}, we simulated sequences using \texttt{pyvolve}~\citep{
 
 We performed 10 replicate simulations and estimated the branch lengths for each replicate using \texttt{phydms\_comprehensive}~\citep{hilton2017phydms}. 
 
-\subsection*{pbMutSel inference with \texttt{phylobayes}.}
+\subsection*{pbMutSel inference with \texttt{PhyloBayes-MPI}.}
 For \ref{fig:phylobayes}, we fit a pbMutSel model to the full HA tree. 
 We ran one chain for 5000 steps, saved every sample, and discarded the first 500 samples as a burnin. 
 \jdbcomment{Presumably the program gives some measure of convergence? If so, describe what it was.}
 \jdbcomment{You need to better describe what the tree represents and what the pbMutSel preferences represent. Are they the posterior mean?}
 
-In order to make the branch lengths in \ref{fig:phylobayes} comparable between the pbMutSel tree returned by \texttt{phylobayes} and the other trees returned by \texttt{phyddms}, we we normalized the branch lengths on the pbMutSel consensus tree and the ExpCM(H1+H3 avg)+$\Gamma\omega$ by dividing each branch by the length from A/South Carolina/1/1918 and A/Solomon Islands/3/2006. 
+In order to make the branch lengths in \ref{fig:phylobayes} comparable between the pbMutSel tree returned by \texttt{PhyloBayes-MPI} and the other trees returned by \texttt{phydms}, we we normalized the branch lengths on the pbMutSel consensus tree and the ExpCM(H1+H3 avg)+$\Gamma\omega$ by dividing each branch by the length from A/South Carolina/1/1918 and A/Solomon Islands/3/2006. 
 These two H1 sequences are early and late representatives of the longest known human influenza lineage, and are of sufficiently high identity that different ExpCM and GY94 substitution models all estimate nearly identical branch lengths separating them. 
 
 \subsection*{Software versions and computer code}
-All code used for the analyses in this paper is available at \url{https://github.com/jbloomlab/divergence_timing_manuscript}. 
+All code used for the analyses in this paper is available at \url{https://github.com/jbloomlab/divergence_timing_manuscript}. \skhcomment{make repo public}
 The external computer programs that we used were
 \begin{itemize} 
 \item \texttt{phydms}~\citep{hilton2017phydms} version 2.2.2 (available at \url{github.com/jbloomlab/phydms}) to fit the ExpCM and GY94 models.
 \item \texttt{pyvolve}~\citep{spielman2015pyvolve} version 0.8.7 (available at \url{https://github.com/sjspielman/pyvolve}) to simulate the sequences.
-\item \texttt{phylobayes}~\citep{rodrigue2014site} version 1.8 (available at \url{https://github.com/bayesiancook/pbmpi}) to fit the pbMutSel model. 
-\item \jdbcomment{RAxML}
+\item \texttt{PhyloBayes-MPI}~\citep{rodrigue2014site} version 1.8 (available at \url{https://github.com/bayesiancook/pbmpi}) to fit the pbMutSel model. 
+\item \texttt{RAxML}~\citep{stamatakis2006raxml} version 8.2.11 (available at \url{https://github.com/stamatak/standard-RAxML} to infer tree topology.
 \item We used \texttt{ggplot2}~\citep{wickham2016ggplot2}, \texttt{ggtree}~\citep{yu2017ggtree}, and \texttt{ggseqlogo}~\citep{wagih2017ggseqlogo} for visualization of the results.
 \end{itemize}
 
-
+\clearpage 
+\bibliographystyle{mbe}
+\bibliography{references.bib}
 
 \newpage
 \section*{Supplemental Information}
@@ -677,10 +677,6 @@ So you need to get rid of all but 4 supplementary files.
 
 I would say keep the map of site numbers, the H1 and H3 preferences, and the alignment. 
 I think all the other files can either be re-generated using the other ones if you provide adequate instructions in the methods (e.g., averaging the preferences or pruning the full alignment to sub-alignments), or simply have model parameters which could be put in a supplementary table.
-
-Also, put the supplementary information after the references.
-
-Also, put a page break after each supplementary figure / table using the \texttt{clearpage} command.
 }
 
 
@@ -694,6 +690,8 @@ The conversion between the numbering scheme in this figure and sequential number
 \jdbcomment{For this figure and the other logo plots, increase the number of rows by a few so things are a bit bigger.}
 }
 \end{suppfig}
+\clearpage 
+
 
 \begin{suppfig}[H]
 \centerline{\includegraphics[width=\textwidth]{figures/prefs_lee}}
@@ -702,6 +700,7 @@ The conversion between the numbering scheme in this figure and sequential number
 Similar to \ref{suppfig:prefs_doud} but shows the re-scaled preferences for the H3 HA as measured by \citet{lee2018deep}.
  }
 \end{suppfig}
+\clearpage 
 
 \begin{suppfig}[H]
 \centerline{\includegraphics[width=\textwidth]{figures/prefs_average}}
@@ -710,6 +709,7 @@ Similar to \ref{suppfig:prefs_doud} but shows the re-scaled preferences for the 
 Similar to \ref{suppfig:prefs_doud} but shows the re-scaled average of the preferences for the H1 and H3 HAs.
 }
 \end{suppfig}
+\clearpage 
 
 \begin{suppfig}[H]
 \centerline{\includegraphics[width=\textwidth]{figures/prefs_mutSel}}
@@ -718,6 +718,7 @@ Similar to \ref{suppfig:prefs_doud} but shows the re-scaled average of the prefe
 Similar to \ref{suppfig:prefs_doud}, but shows the preferences inferred by fitting the pbMutSel model to the full HA tree.
 }
 \end{suppfig}
+\clearpage 
 
 \begin{suppfig}[H]
 \centerline{\includegraphics[width=0.50\textwidth]{figures/divergence_distances.pdf}}
@@ -729,6 +730,7 @@ We created two sub alignments from the alignment (\ref{suppfile:alignment_high})
 The ``low" alignments have $\ge59\%$ amino-acid identity to the reference sequence (\ref{suppfile:alignment_lowH1}, \ref{suppfile:alignment_lowH3}) and the ``intermediate" alignments have $\ge46\%$ amino-acid identity to the reference sequence (\ref{suppfile:alignment_intermediateH1}, \ref{suppfile:alignment_intermediateH3}).
 }
 \end{suppfig}
+\clearpage 
 
 \begin{supptable}[t!]
 \caption{\label{supptab:tree_lengths}
@@ -748,6 +750,8 @@ So this gives 3 columns: model, tree diameter, \% of GY94 tree diameter}
          ExpCM(H1 + H3 avg) & 62.98 & 83.96 \\
       \end{tabular}
 \end{supptable}
+\clearpage 
+
 
 %%%
 
@@ -761,6 +765,7 @@ The sequential numbering for the HA strains starts with ``site 1" as the second 
 Also, add the actual file so we can see if it makes sense.}
 }
 \end{suppfile}
+\clearpage 
 
 \begin{suppfile}
 \caption{
@@ -770,6 +775,7 @@ This file only contains measurements for the alignable sites between H1 and H3 H
 Conversion from this numbering scheme to sequential numbering of A/WSN/1933 is in \ref{suppfile:WSN_Perth_map}. 
 }
 \end{suppfile}
+\clearpage 
 
 \begin{suppfile}
 \caption{
@@ -779,6 +785,7 @@ This file only contains measurements for the alignable sites between H1 and H3 H
 Conversion from this numbering scheme to sequential numbering of A/Perth/2009 is in in \ref{suppfile:WSN_Perth_map}. 
 }
 \end{suppfile}
+\clearpage 
 
 \begin{suppfile}
 \caption{
@@ -787,6 +794,7 @@ Average of the amino acid preferences measured by the deep mutational scanning o
 This file only contains measurements for the homologous sites between H1 HA and H3 HA. 
 Conversion from this numbering scheme to sequential numbering in A/Wilson Smith/1933 or A/Perth/2009 is found in \ref{suppfile:WSN_Perth_map}. }
 \end{suppfile}
+\clearpage 
 
 \begin{suppfile}
 \caption{
@@ -794,6 +802,7 @@ Conversion from this numbering scheme to sequential numbering in A/Wilson Smith/
 This file contains the representative sequences of major human equine influenza lineages added to the alignment in \ref{suppfile:alignment_high}. 
 }
 \end{suppfile}
+\clearpage 
 
 \begin{suppfile}
 \caption{
@@ -804,6 +813,7 @@ We inferred the topology using \texttt{RAxML} and the GTRCAT model.
 Also, I think referring to \ref{fig:empirical_trees} to refer to the tree topology is not very clear, since that figure shows lots of stuff beyond just one tree.}
 }
 \end{suppfile}
+\clearpage 
 
 \begin{suppfile}
 \caption{
@@ -813,6 +823,7 @@ All sequences have $\ge 59\%$ amino-acid identity to the H1 reference sequence A
 We inferred the topology using \texttt{RAxML} and the GTRCAT model. 
 }
 \end{suppfile}
+\clearpage 
 
 \begin{suppfile}
 \caption{
@@ -822,6 +833,7 @@ All sequences have $\ge 59\%$ amino-acid identity to the H3 reference sequence A
 We inferred the topology using \texttt{RAxML} and the GTRCAT model. 
 }
 \end{suppfile}
+\clearpage 
 
 \begin{suppfile}
 \caption{
@@ -831,6 +843,7 @@ All sequences have $\ge 46\%$ amino-acid identity to the H1 reference sequence A
 We inferred the topology using \texttt{RAxML} and the GTRCAT model. 
 }
 \end{suppfile}
+\clearpage 
 
 \begin{suppfile}
 \caption{
@@ -840,6 +853,7 @@ All sequences have $\ge 46\%$ amino-acid identity to the H3 reference sequence A
 We inferred the topology using \texttt{RAxML} and the GTRCAT model. 
 }
 \end{suppfile}
+\clearpage 
 
 \begin{suppfile}
 \caption{
@@ -848,6 +862,7 @@ The GY94 model parameters fit to the ``low divergence from H1" tree (\ref{fig:co
 The model was fit using \texttt{phydms\_comprehensive}. 
 }
 \end{suppfile}
+\clearpage 
 
 \begin{suppfile}
 \caption{
@@ -856,6 +871,7 @@ The GY94+$\Gamma\omega$ model parameters fit to the ``low divergence from H1" tr
 The model was fit using \texttt{phydms\_comprehensive}. 
 }
 \end{suppfile}
+\clearpage 
 
 \begin{suppfile}
 \caption{
@@ -864,11 +880,6 @@ The ExpCM model parameters fit to the ``low divergence from H1" tree (\ref{fig:c
 The model was fit using \texttt{phydms\_comprehensive} and the H1 HA amino-acid preference set in \ref{suppfile:H1_prefs}. 
 }
 \end{suppfile}
-
 \clearpage 
-\bibliographystyle{mbe}
-\bibliography{references.bib}
-
-
 
 \end{document}
