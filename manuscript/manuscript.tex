@@ -604,27 +604,24 @@ The experimentally measured amino-acid preferences masked to just include these 
 
 \subsection*{HA sequences and tree topology.}
 
-We downloaded all full-length, coding sequences for 14 of the 18 HA subtypes, excluding the rare subtypes 12, 15, 17, and 18.
-\jdbcomment{Add a sentence indicating \emph{why} you excluded these subtypes. Also you need to say where you downloaded the sequences from and give a date.} 
+We downloaded all full-length, coding sequences for 14 of the 18 HA subtypes from the Influenza Virus Resource Database~\citep[June 2017;][]{bao2008influenza}. 
+We excluded rare subtypes 12, 15, 17, and 18, which have limited sequences in the database.  
 We filtered and aligned the sequences using \texttt{phydms\_prepalignment}~\citep{hilton2017phydms}. 
 Specifically, we used \texttt{phydms\_prepalignment} with the flag \texttt{--minidentity 0.3} to remove sequences with ambiguous nucleotides, premature stops, or frameshift mutations as well as redundant sequences.  
 We also removed all codon sites which that are not alignable between the H1 HA and H3 HA used in the deep mutational scanning experiments (these alignable sites are listed in  \ref{suppfile:WSN_Perth_map}). 
 We subsampled the remaining sequences to five per subtype with $\le 1$ sequence per year per subtype. 
-We also included a small number of representative sequences from the major human and equine influenza lineages, described in \ref{suppfile:required_seqs}. 
-\jdbcomment{We need to trim supplementary files, so get rid of \ref{suppfile:required_seqs} and put an approximate justification / explanation here.}
+We also included a small number of sequences from the major human and equine influenza lineages to ensure representation of these well-studied lineages. 
 The resulting alignment contains 87 sequences, and is provided in \ref{suppfile:alignment_high}. 
 
 We created four subalignments with ``low" and ``intermediate" divergence from either the H1 or the H3 deep mutational scanning reference sequence for the analysis in \ref{fig:compete}. 
-The ``low divergence" alignments had $\ge 59\%$ amino-acid identity to the sequence used in the deep mutational scanning, and the ``intermediate divergence" alignments had $\ge 46\%$ identity from the reference sequence.
-The resulting alignments are found in \ref{suppfile:alignment_lowH1}, \ref{suppfile:alignment_lowH3}, \ref{suppfile:alignment_intermediateH1}, and \ref{suppfile:alignment_intermediateH3}.  
-\jdbcomment{Again, we should probably get rid of these four preceding files since we have too many. Presumably they can be re-generated using the description above of the identity cutoffs?}
+The ``low divergence" alignments had $\ge 59\%$ amino-acid identity to the sequence used in the deep mutational scanning, and the ``intermediate divergence" alignments had $\ge 46\%$ identity from the reference sequence(~\ref{suppfig:subalignments}).
 
 We inferred the tree topology of each alignment using \texttt{RAxML}~\citep{stamatakis2006raxml} and the GTRCAT model. 
 We estimated the branch lengths of this fixed topology using each ExpCM and GY94 models with \texttt{phydms\_comprehensive}~\citep{hilton2017phydms}. 
 
 \subsection*{Asymptotic amino-acid sequence identity}
 For the analysis in \ref{fig:decay}, we fit models to the ``low divergence" H1 subtree.
-\jdbcomment{This gave the parameter values in Supplementary table... (You need to put these into one or more supplementary tables, or just list them here as we have too many Supplementary files.} 
+This gave the parameter values in \ref{supptab:fit_params}. 
 
 For each model, we calculated the expected amino-acid sequence identity for two sequences separated by a branch length of $t$ as 
 \begin{equation}
@@ -668,11 +665,6 @@ The external computer programs that we used were
 \jdbcomment{The MBE instructions appear to indicate that you can have at most five \emph{files} (see \url{https://academic.oup.com/mbe/pages/Supplementary_Information}). 
 I would take this to mean that we can have one merged PDF with figures / tables, plus four supplementary files.
 Looking at existing papers seems to confirm this.
-Note also that they have some limits on acceptable file formats, although you can turn FASTA and CSV into the allowable TXT just by adding that extension, as in \texttt{alignment.fasta.txt} and they won't complain.
-So you need to get rid of all but 4 supplementary files. 
-
-I would say keep the map of site numbers, the H1 and H3 preferences, and the alignment. 
-I think all the other files can either be re-generated using the other ones if you provide adequate instructions in the methods (e.g., averaging the preferences or pruning the full alignment to sub-alignments), or simply have model parameters which could be put in a supplementary table.
 }
 
 
@@ -718,44 +710,44 @@ Similar to \ref{suppfig:prefs_doud}, but shows the preferences inferred by fitti
 \begin{suppfig}[H]
 \centerline{\includegraphics[width=0.50\textwidth]{figures/divergence_distances.pdf}}
 \caption{\label{suppfig:subalignments}
-\textbf{Overall divergence for the subtrees in \ref{fig:compete}.} 
-\jdbcomment{This legend is indecipherable because rather than saying what you are showing you just refer to a lot of other figures / files.
-Reduce the references to other figures / files to the minimum needed an explain what is actually being shown.}
-We created two sub alignments from the alignment (\ref{suppfile:alignment_high}) used in \ref{fig:empirical_trees} for each deep mutational scanning reference HA. 
-The ``low" alignments have $\ge59\%$ amino-acid identity to the reference sequence (\ref{suppfile:alignment_lowH1}, \ref{suppfile:alignment_lowH3}) and the ``intermediate" alignments have $\ge46\%$ amino-acid identity to the reference sequence (\ref{suppfile:alignment_intermediateH1}, \ref{suppfile:alignment_intermediateH3}).
+\textbf{Overall divergence for subtrees.}
+We created two subalignments for each HA used in our deep mutational scanning experiments. 
+The ``low divergence" alignments had $\ge$59\% amino-acid identity to either the H1 or H3 reference sequence. 
+The ``intermediate divergence" alignments had $\ge$46\% amino-acid identity to the reference sequences.
 }
 \end{suppfig}
 \clearpage 
 
 \begin{supptable}[t!]
 \caption{\label{supptab:tree_diameter}
-{\bf Tree diameter for trees in \ref{fig:empirical_trees}.}
-The branch lengths are in average codon substitutions per site. 
-\skhcomment{finish table legend}
+{\bf Branch length extension as measured by tree diameter.}
+We calculated the tree diameter, or the distance between the two most divergent tips, for the trees in \ref{fig:empirical_trees}.
+For each tree, the diameter is reported as a raw value and a percentage of the GY94 model tree, the smallest of the eight trees. 
 } 
      \begin{tabular}{cccccccccc}
         \hline
-         Model & Tree diameter & {\shortstack{Percentage increase compared\\ to GY94 tree diameter}} \\ \hline
-         GY94 & 11.42 & 0\%\\
-         ExpCM(H1) & 14.11& 23\%\\
-         ExpCM(H3) & 15.50 & 36\%\\
-         ExpCM(H1+H3 avg) & 19.08 & 67\%\\
-         GY94 + $\Gamma\omega$ & 19.13 & 68\%\\
-         ExpCM(H1) + $\Gamma\omega$ & 25.20 & 121\% \\
-         ExpCM(H3) + $\Gamma\omega$ & 26.56 & 133\% \\
-         ExpCM(H1+H3 avg) + $\Gamma\omega$ & 29.82 & 161\% \\
+         Model & {\shortstack{Tree diameter\\ (average codon substitutions per site)}} & {\shortstack{Percentage of\\ GY94 tree diameter}} \\ \hline
+         GY94 & 11.42 & 100\%\\
+         ExpCM(H1) & 14.11& 123\%\\
+         ExpCM(H3) & 15.50 & 136\%\\
+         ExpCM(H1+H3 avg) & 19.06 & 167\%\\
+         GY94 + $\Gamma\omega$ & 19.13 & 168\%\\
+         ExpCM(H1) + $\Gamma\omega$ & 25.21 & 221\% \\
+         ExpCM(H3) + $\Gamma\omega$ & 26.56 & 233\% \\
+         ExpCM(H1+H3 avg) + $\Gamma\omega$ & 29.82 & 261\% \\
       \end{tabular}
 \end{supptable}
 \clearpage 
 
 \begin{supptable}[t!]
 \caption{\label{supptab:fit_params}
-{\bf Total branch length for the trees in \ref{fig:empirical_trees}.}
-\skhcomment{finish legend}
+{\bf Model parameters fit to a low divergence tree.}
+We fit GY94 models and an ExpCM defined by H1 deep mutational scanning preferences to the ``low divergence from H1" tree in \ref{fig:compete}. 
+We used these model parameters calculate the expected pairwise sequence identity in \ref{fig:decay}. 
 } 
      \begin{tabular}{ccc}
         \hline
-         Model & Parameters \\ \hline\hline
+         Model & Parameters \\ \hline
          GY94 &  {\shortstack{$\kappa = 3.17$, $\omega = 0.10$, \\$\phi_{1,A} = 0.32$, $\phi_{1,C} = 0.13$, $\phi_{1,G} = 0.28$, \\$\phi_{2,A} = 0.38$, $\phi_{2,C} = 0.18$,  $\phi_{2G} = 0.19$,\\ $\phi_{3, A} = 0.35$, $\phi_{3,C} = 0.19$, $\phi_{3,G} = 0.21$}}\\ \hline
          GY94 + $\Gamma\omega$ & {\shortstack{$\alpha_\omega = 0.51$, $\beta_\omega = 3.92$, $\kappa = 3.49$, \\$\phi_{1,A} = 0.32$, $\phi_{1,C} = 0.14$, $\phi_{1,G} = 0.28$, \\$\phi_{2,A} = 0.38$, $\phi_{2,C} = 0.18$, $\phi_{2,G} = 0.20$, \\$\phi_{3,A} = 0.355$, $\phi_{3,C} = 0.19$, $\phi_{3,G} = 0.21$}}\\ \hline
          ExpCM(H1) &  {\shortstack{$\beta = 1.22$, $\kappa = 3.24$, $\omega = 0.13$,\\ $\phi_A = 0.37$, $\phi_C = 0.18$, $\phi_G = 0.23$}}\\ \hline
