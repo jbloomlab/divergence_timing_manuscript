@@ -750,6 +750,21 @@ So this gives 3 columns: model, tree diameter, \% of GY94 tree diameter}
 \end{supptable}
 \clearpage 
 
+\begin{supptable}[t!]
+\caption{\label{supptab:fit_params}
+{\bf Total branch length for the trees in \ref{fig:empirical_trees}.}
+The branch lengths are in average codon substitutions per site. 
+} 
+     \begin{tabular}{ccc}
+        \hline
+         Model & Parameters \\ \hline\hline
+         GY94 &  {\shortstack{$\kappa = 3.17$, $\omega = 0.10$, \\$\phi_{1,A} = 0.32$, $\phi_{1,C} = 0.13$, $\phi_{1,G} = 0.28$, \\$\phi_{2,A} = 0.38$, $\phi_{2,C} = 0.18$,  $\phi_{2G} = 0.19$,\\ $\phi_{3, A} = 0.35$, $\phi_{3,C} = 0.19$, $\phi_{3,G} = 0.21$}}\\ \hline
+         GY94 + $\Gamma\omega$ & {\shortstack{$\alpha_\omega = 0.51$, $\beta_\omega = 3.92$, $\kappa = 3.49$, \\$\phi_{1,A} = 0.32$, $\phi_{1,C} = 0.14$, $\phi_{1,G} = 0.28$, \\$\phi_{2,A} = 0.38$, $\phi_{2,C} = 0.18$, $\phi_{2,G} = 0.20$, \\$\phi_{3,A} = 0.355$, $\phi_{3,C} = 0.19$, $\phi_{3,G} = 0.21$}}\\ \hline
+         ExpCM(H1) &  {\shortstack{$\beta = 1.22$, $\kappa = 3.24$, $\omega = 0.13$,\\ $\phi_A = 0.37$, $\phi_C = 0.18$, $\phi_G = 0.23$}}\\ \hline
+      \end{tabular}
+\end{supptable}
+\clearpage 
+
 
 %%%
 
@@ -763,7 +778,6 @@ The sequential numbering for the HA strains starts with ``site 1" as the second 
 Also, add the actual file so we can see if it makes sense.}
 }
 \end{suppfile}
-\clearpage 
 
 \begin{suppfile}
 \caption{
@@ -773,7 +787,6 @@ This file only contains measurements for the alignable sites between H1 and H3 H
 Conversion from this numbering scheme to sequential numbering of A/WSN/1933 is in \ref{suppfile:WSN_Perth_map}. 
 }
 \end{suppfile}
-\clearpage 
 
 \begin{suppfile}
 \caption{
@@ -783,24 +796,6 @@ This file only contains measurements for the alignable sites between H1 and H3 H
 Conversion from this numbering scheme to sequential numbering of A/Perth/2009 is in in \ref{suppfile:WSN_Perth_map}. 
 }
 \end{suppfile}
-\clearpage 
-
-\begin{suppfile}
-\caption{
-\label{suppfile:avg_prefs}
-Average of the amino acid preferences measured by the deep mutational scanning of the H1 HA strain A/Wilson Smith/1933~\citep{doud2016accurate} and the H3 HA strain A/Perth/2009~\citep{lee2018deep}. 
-This file only contains measurements for the homologous sites between H1 HA and H3 HA. 
-Conversion from this numbering scheme to sequential numbering in A/Wilson Smith/1933 or A/Perth/2009 is found in \ref{suppfile:WSN_Perth_map}. }
-\end{suppfile}
-\clearpage 
-
-\begin{suppfile}
-\caption{
-\label{suppfile:required_seqs}
-This file contains the representative sequences of major human equine influenza lineages added to the alignment in \ref{suppfile:alignment_high}. 
-}
-\end{suppfile}
-\clearpage 
 
 \begin{suppfile}
 \caption{
@@ -811,73 +806,5 @@ We inferred the topology using \texttt{RAxML} and the GTRCAT model.
 Also, I think referring to \ref{fig:empirical_trees} to refer to the tree topology is not very clear, since that figure shows lots of stuff beyond just one tree.}
 }
 \end{suppfile}
-\clearpage 
-
-\begin{suppfile}
-\caption{
-\label{suppfile:alignment_lowH1}
-The HA sequences using for the ``low divergence from H1" tree in \ref{fig:compete}. 
-All sequences have $\ge 59\%$ amino-acid identity to the H1 reference sequence A/Wilson Smith/1933. 
-We inferred the topology using \texttt{RAxML} and the GTRCAT model. 
-}
-\end{suppfile}
-\clearpage 
-
-\begin{suppfile}
-\caption{
-\label{suppfile:alignment_lowH3}
-The HA sequences using for the ``low divergence from H3" tree in \ref{fig:compete}. 
-All sequences have $\ge 59\%$ amino-acid identity to the H3 reference sequence A/Perth/2009. 
-We inferred the topology using \texttt{RAxML} and the GTRCAT model. 
-}
-\end{suppfile}
-\clearpage 
-
-\begin{suppfile}
-\caption{
-\label{suppfile:alignment_intermediateH1}
-The HA sequences using for the ``intermediate divergence from H1" tree in \ref{fig:compete}. 
-All sequences have $\ge 46\%$ amino-acid identity to the H1 reference sequence A/Wilson Smith/1933. 
-We inferred the topology using \texttt{RAxML} and the GTRCAT model. 
-}
-\end{suppfile}
-\clearpage 
-
-\begin{suppfile}
-\caption{
-\label{suppfile:alignment_intermediateH3}
-The HA sequences using for the ``intermediate divergence from H3" tree in \ref{fig:compete}. 
-All sequences have $\ge 46\%$ amino-acid identity to the H3 reference sequence A/Perth/2009. 
-We inferred the topology using \texttt{RAxML} and the GTRCAT model. 
-}
-\end{suppfile}
-\clearpage 
-
-\begin{suppfile}
-\caption{
-\label{suppfile:hybrid_lowH1_GY94}
-The GY94 model parameters fit to the ``low divergence from H1" tree (\ref{fig:compete}, \ref{suppfile:alignment_lowH1}). 
-The model was fit using \texttt{phydms\_comprehensive}. 
-}
-\end{suppfile}
-\clearpage 
-
-\begin{suppfile}
-\caption{
-\label{suppfile:hybrid_lowH1_GY94+Gr}
-The GY94+$\Gamma\omega$ model parameters fit to the ``low divergence from H1" tree (\ref{fig:compete}, \ref{suppfile:alignment_lowH1}). 
-The model was fit using \texttt{phydms\_comprehensive}. 
-}
-\end{suppfile}
-\clearpage 
-
-\begin{suppfile}
-\caption{
-\label{suppfile:hybrid_lowH1_ExpCMdoud}
-The ExpCM model parameters fit to the ``low divergence from H1" tree (\ref{fig:compete}, \ref{suppfile:alignment_lowH1}). 
-The model was fit using \texttt{phydms\_comprehensive} and the H1 HA amino-acid preference set in \ref{suppfile:H1_prefs}. 
-}
-\end{suppfile}
-\clearpage 
 
 \end{document}
