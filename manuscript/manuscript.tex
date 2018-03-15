@@ -379,16 +379,13 @@ Importantly, models that account for purifying selection via either $\Gamma\omeg
 \ref{fig:empirical_trees} shows the branch lengths optimized by each model on a common scale.
 The tree's deepest branches are shortest when they are optimized by the GY94 model, which lacks both $\Gamma\omega$ and site-specific amino-acid preferences.
 Adding either $\Gamma\omega$ rate variation or site-specific amino-acid preferences increases the length of the deep branches.
-Specifically, the tree's diameter (distance from the two most divergent tips) is \jdbcomment{36\% needs to be updated for tree diameter} longer for the GY94+$\Gamma\omega$ model than for the GY94 model (\ref{supptab:tree_lengths}).
-The tree diameter is \jdbcomment{8\% needs to be updated for tree diameter} longer for ExpCM's informed by H1 or H3 amino-acid preferences than for GY94, and \jdbcomment{?} longer for the ExpCM informed by the average of the H1 and H3 preferences (\ref{supptab:tree_lengths}).
-\jdbcomment{I am pretty sure that the standard quantity used in this context is not the average or total branch length, but rather the distance between the two most distant nodes on the tree, which is what I have called the ``tree diameter'' here.
-I checked with Erick Matsen, and he said that ``tree diameter'' is the correct term here.
-So can you update \ref{supptab:tree_lengths} and the preceding numbers to use that measure instead?}
+Specifically, the tree's diameter (distance from the two most divergent tips) is 68\% longer for the GY94+$\Gamma\omega$ model than for the GY94 model (\ref{supptab:tree_diameter}).
+The tree diameter is 24\% and 36\% longer for ExpCM's informed by H1 or H3 amino-acid preferences, respectively, than for GY94, and 67\% longer for the ExpCM informed by the average of the H1 and H3 preferences (\ref{supptab:tree_diameter}).
 
 The deepening of branch lengths that results from the $\Gamma\omega$ and site-specific amino-acid preference approaches to modeling purifying selection are largely independent.
 This can be seen by examining the ExpCM+$\Gamma\omega$ models, which combine $\Gamma\omega$ rate variation with site-specific amino-acid preferences.
 As shown in \ref{fig:empirical_trees}, these ExpCM+$\Gamma\omega$ models estimate longer branches than models with just $\Gamma\omega$ rate variation (GY94+$\Gamma\omega$) or just site-specific amino-acid preferences (ExpCM's).
-The near independence of these effects is quantified in \ref{supptab:tree_lengths}, which shows that \jdbcomment{96\%, needs to be fixed if using tree diameter} of the tree diameter extension of ExpCM(H1+H3)+$\Gamma\omega$ versus can be explained by simply adding the extension from incorporating $\Gamma\omega$ (GY94+$\Gamma\omega$ versus GY94) to the extension from incorporating site-specific amino-acid preferences (ExpCM(H1+H3) versus GY94).
+The near independence of these effects is quantified in \ref{supptab:tree_diameter}, which shows that 83\% of the tree diameter extension of ExpCM(H1+H3)+$\Gamma\omega$ versus can be explained by simply adding the extension from incorporating $\Gamma\omega$ (GY94+$\Gamma\omega$ versus GY94) to the extension from incorporating site-specific amino-acid preferences (ExpCM(H1+H3) versus GY94).
 
 However, while adding $\Gamma\omega$ rate variation increases the length of deep branches in a roughly uniform fashion across the tree, the branch lengthening from adding site-specific amino-acid preferences is not uniform across the tree (\ref{fig:empirical_trees}). 
 Instead, the branch lengthening is most pronounced on branches leading to the HA sequence that was used in the deep mutational scanning experiment that informed the ExpCM.
@@ -731,21 +728,22 @@ The ``low" alignments have $\ge59\%$ amino-acid identity to the reference sequen
 \clearpage 
 
 \begin{supptable}[t!]
-\caption{\label{supptab:tree_lengths}
-{\bf Total branch length for the trees in \ref{fig:empirical_trees}.}
+\caption{\label{supptab:tree_diameter}
+{\bf Tree diameter for trees in \ref{fig:empirical_trees}.}
 The branch lengths are in average codon substitutions per site. 
-\jdbcomment{Change to be tree diameter, which is distance between two most distant tip nodes.
-Also, to make it easier to relate back to the percentage increases in the text, make 8 rows, one for each model and get rid of the ``rate variation'' column. 
-Then add a new column that gives \% diameter relative to GY94 (the entry would just be 100\% for GY94).
-So this gives 3 columns: model, tree diameter, \% of GY94 tree diameter}
+\skhcomment{finish table legend}
 } 
      \begin{tabular}{cccccccccc}
         \hline
-         Model & no rate variation & {\shortstack{$\Gamma\omega$ rate\\ variation}} \\ \hline
-         GY94 &53.05 & 72.28\\
-         ExpCM(H1) & 57.32 & 81.31\\
-         ExpCM(H3) & 57.77 & 78.98\\
-         ExpCM(H1 + H3 avg) & 62.98 & 83.96 \\
+         Model & Tree diameter & {\shortstack{Percentage increase compared\\ to GY94 tree diameter}} \\ \hline
+         GY94 & 11.42 & 0\%\\
+         ExpCM(H1) & 14.11& 23\%\\
+         ExpCM(H3) & 15.50 & 36\%\\
+         ExpCM(H1+H3 avg) & 19.08 & 67\%\\
+         GY94 + $\Gamma\omega$ & 19.13 & 68\%\\
+         ExpCM(H1) + $\Gamma\omega$ & 25.20 & 121\% \\
+         ExpCM(H3) + $\Gamma\omega$ & 26.56 & 133\% \\
+         ExpCM(H1+H3 avg) + $\Gamma\omega$ & 29.82 & 161\% \\
       \end{tabular}
 \end{supptable}
 \clearpage 
@@ -753,7 +751,7 @@ So this gives 3 columns: model, tree diameter, \% of GY94 tree diameter}
 \begin{supptable}[t!]
 \caption{\label{supptab:fit_params}
 {\bf Total branch length for the trees in \ref{fig:empirical_trees}.}
-The branch lengths are in average codon substitutions per site. 
+\skhcomment{finish legend}
 } 
      \begin{tabular}{ccc}
         \hline
