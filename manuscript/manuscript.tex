@@ -415,7 +415,7 @@ Because the deep mutational scanning experiments that inform our ExpCM's were ea
 Therefore, an ExpCM is expected to most accurately describe the evolution of sequences closely related to the one used in the experiment.
  
 We can observe how shifting amino-acid preferences degrade the accuracy of an ExpCM by fitting the model to trees containing increasingly diverged sequences.
-For both H1 and H3 HAs, we created three phylogenetic trees: a ``low'' divergence tree that contains sequences with $\ge$59\% amino-acid identity to the HA used in the experiment, an ``intermediate'' divergence tree that contains sequences with $\ge$46\% amino-acid identity to the HA in the experiment, and a ``high'' divergence tree that contains all HAs (which have as little as 38\% identity to the HA in the experiment).
+For both H1 and H3 HAs, we created three phylogenetic trees (\ref{suppfig:subalignments}): a ``low'' divergence tree that contains sequences with $\ge$59\% amino-acid identity to the HA used in the experiment, an ``intermediate'' divergence tree that contains sequences with $\ge$46\% amino-acid identity to the HA in the experiment, and a ``high'' divergence tree that contains all HAs (which have as little as 38\% identity to the HA in the experiment).
 \ref{fig:compete} shows the subtrees containing each of these sets of HA sequences.
 For each subtree, we examined the congruence between site-specific natural selection and the amino-acid preferences measured in the deep mutational scanning experiment. 
 We used the ExpCM stringency parameter $\beta$ to measure this congruence~\citep{bloom2014informed,hilton2017phydms}. 
@@ -762,10 +762,7 @@ We used these model parameters calculate the expected pairwise sequence identity
 \caption{
 \label{suppfile:WSN_Perth_map}
 List of alignable sites between H1 HA and H3 HA. 
-This file provides a conversion between the numbering scheme we use in the paper (sequential numbering of just the alignable sites) to sequential numbering of the H1 HA reference sequence A/Wilson Smith/1933 and the H3 HA reference sequence A/Perth/2009. 
-The sequential numbering for the HA strains starts with ``site 1" as the second codon (first non-methionine codon). 
-\jdbcomment{The last sentence is so unclear that even I'm not sure what it means. If this isn't apparent from the file, explain it much better! Wouldn't it be simpler if you just used numbering that started with 1 at the first codon?
-Also, add the actual file so we can see if it makes sense.}
+This files provides a conversion between the numbering scheme we use in the paper (sequential numbering of just the alignable sites) to sequential numbering of the H1 HA reference sequence A/Wilson Smith/1933 and the H3 HA reference sequence A/Perth/2009. 
 }
 \end{suppfile}
 
@@ -790,10 +787,9 @@ Conversion from this numbering scheme to sequential numbering of A/Perth/2009 is
 \begin{suppfile}
 \caption{
 \label{suppfile:alignment_high}
-The HA sequences used for the full HA tree in \ref{fig:empirical_trees}. 
-We inferred the topology using \texttt{RAxML} and the GTRCAT model. 
-\jdbcomment{This legend is not very good. If the file just has the alignment, then why are we talking about RAxML in its legend?
-Also, I think referring to \ref{fig:empirical_trees} to refer to the tree topology is not very clear, since that figure shows lots of stuff beyond just one tree.}
+The HA sequences for the full HA tree. 
+The sequences in this alignment contain only the alignable sites between H1 and H3 HAs.
+Conversion from this numbering scheme to sequential numbering of A/Perth/2009 is in in \ref{suppfile:WSN_Perth_map}. 
 }
 \end{suppfile}
 
