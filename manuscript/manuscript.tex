@@ -314,7 +314,7 @@ The branch lengths of the HA tree are optimized using the indicated ExpCM or GY9
 The amino-acid preferences defining the model (ExpCM) or implied by the model (GY94) are shown as logo plots for 15 sites in HA; the full set of experimentally measured amino-acid preferences are in \ref{suppfig:prefs_doud}, \ref{suppfig:prefs_lee}, and \ref{suppfig:prefs_average}. 
 The ExpCM's use amino-acid preferences measured in deep mutational scanning of an H1 HA~\citep{doud2016accurate}, an H3 HA~\citep{lee2018deep}, or the average of the measurements for these two HAs.
 Circle denotes the H1 clade and triangle denotes the H3 clade.
-\jdbcomment{Add a line to this legend about how trees are rooted, such as: ``Each tree is separately midpoint rooted''---or if that is not what was done, then add something that indicates how it was done. If it isn't what was done, can you remind me of rationale for not doing that?}
+The \texttt{RAxML}-inferred base tree is midpoint rooted and each tree here maintains this rooting.
 }
 \end{figure}
 
@@ -531,9 +531,9 @@ P_{xy} =
   \end{cases}
 \end{equation}
 where $\mathcal{A}\left(x\right)$ is the amino-acid encoded by codon $x$, $\kappa$ is the transition-transversion rate, $\Phi_y$ is the equilibrium frequency of codon $y$, and $\omega$ is the relative rate of nonsynonymous and synonymous substitutions.
-\jdbcomment{I have dropped the $\mu$ from the equation above since it is confounded with branch lengths and so not estimated separately for any of our models.
-Also, the equation wasn't right as the $\omega$ term should only be there for nonsynonymous substitutions.
-Also, you need to add a line specifying how the $\Phi_y$ terms are defined. Probably the CF3X4 method? Add this, a proper citation, and one-sentence description.}
+We define the codon frequency parameters, $\Phi_y$, using the ``corrected F3X4" method from~\citep{pond2010correcting}. 
+This method calculates the $\Phi_y$ values from the empirical alignment frequencies but corrects for the exclusion of sequences with premature stop codons from the analysis. 
+
 The frequency $p_x$ of codon $x$ in the stationary state of a GY94 model is simply 
 \begin{equation}
 \label{eq:px}
@@ -550,8 +550,18 @@ Briefly, the rate of substitution $P_{r,xy}$ of site $r$ from codon $x$ to $y$ i
 P_{r,xy} = Q_{xy} \times F_{r,xy}
 \end{equation}
 where $Q_{xy}$ is proportional to the rate of mutation from $x$ to $y$, and $F_{r,xy}$ is proportional to the probability that this mutation fixes.
-The rate of mutation $Q_{xy}$ is assumed to be uniform across sites, and takes an HKY85-like~\citep{hasegawa1985dating} form as described in \citet{bloom2017identification}.
-\jdbcomment{You need to add a more precise description of this because otherwise it doesn't make any sense when you refer to the $\phi_x$ parameters two paragraphs below if they have never been defined in this context.}
+
+The rate of mutation $Q_{xy}$ is assumed to be uniform across sites, and takes an HKY85-like~\citep{hasegawa1985dating} form as 
+\begin{equation}
+\label{eq:Qxy}
+   Q_{xy} = \begin{cases}
+            0 & \mbox{if $x$ and $y$ differ by more than one nucleotide,} \\
+            \phi_w & \mbox{if $x$ can be converted to $y$ by a transversion of a nucleotide to $w$,} \\
+            \kappa \times \phi_w & \mbox{if $x$ can be converted to $y$ by a transition of a nucleotide to $w$} \\
+            \end{cases}
+\end{equation}
+where $\phi_w$ is the nucleotide frequency of nucleotide $w$ and $\kappa$ is the transition-transversion rate.
+
 
 The deep mutational scanning amino-acid preferences are incorporated into the ExpCM via the $F_{r,xy}$ terms.
 The experiments measure the preference $\pi_{r,a}$ of every site $r$ for every amino-acid $a$.
@@ -564,7 +574,7 @@ F_{r,xy} =
    \omega \times \frac{\ln\left[\left(\pi_{r,\mathcal{A}\left(y\right)} / \pi_{r,\mathcal{A}\left(x\right)}\right)^{\beta}\right]}{1 - \left(\pi_{r,\mathcal{A}\left(x\right)} / \pi_{r,\mathcal{A}\left(y\right)}\right)^{\beta}} & \mbox{if $\mathcal{A}\left(x\right) \ne \mathcal{A}\left(y\right)$,}
    \end{cases}
 \end{equation}
-where $\beta$ is the stringency parameter~\citet{bloom2014informed,hilton2017phydms} and $\omega$ is the relative rate of nonsynonymous to synonymous substitutions after accounting for the amino-acid preferences.
+where $\beta$ is the stringency parameter~\citep{bloom2014informed,hilton2017phydms} and $\omega$ is the relative rate of nonsynonymous to synonymous substitutions after accounting for the amino-acid preferences.
 
 The stationary state of is 
 \begin{equation}
@@ -587,7 +597,7 @@ Therefore, the GY94+$\Gamma\omega$ model has 12 free parameters, and the ExpCM+$
 \subsubsection*{GY94 with $\omega_r$}
 In \ref{fig:decay}, we describe GY94 models where each site $r$ has its own $\omega_r$ value that is calculated from the amino-acid preferences using the relationship described by \citet{spielman2015relationship}.
 This relationship gives the expected rate of nonsynonymous to synonymous substitutions given the amino-acid preferences.
-Specifically, we first fit an ExpCM, which allows us to calculate $P_{r,xy}$ (\ref{eq:ExpCM}), $Q_{xy}$ (\jdbcomment{as noted above, you need to give this equation in the ExpCM section}), and $p_{r,x}$ (\ref{eq:prx}).
+Specifically, we first fit an ExpCM, which allows us to calculate $P_{r,xy}$ (\ref{eq:ExpCM}), $Q_{xy}$ (\ref{eq:Qxy}), and $p_{r,x}$ (\ref{eq:prx}).
 We then calculated $\omega_r$ using the equation of \citet{spielman2015relationship}, normalizing by the gene-wide $\omega$ fit by the ExpCM:
 \begin{equation}
 \label{eq:w_r}
