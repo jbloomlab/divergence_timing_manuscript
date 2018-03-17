@@ -26,6 +26,7 @@ LEVELS = ["high", "intermediate", "low"]
 # `phylobayes` params
 N_STEPS = 5000
 BURNIN = int(N_STEPS * 0.1)
+N_CHAINS = range(2)
 
 TARGET1 = "cds_AAD17229_A/South_Carolina/1/1918_1918//_HA_HA_1"
 TARGET2 = "cds_ABU50586_A/Solomon_Islands/3/2006_2006/08/21_HA_HA_1"
@@ -43,12 +44,14 @@ H3_BETA = 1.28
 
 rule all:
     input:
-        expand("outputs/{aligment_id}_prefs.csv", aligment_id=ALIGNMENT_IDS),
-        "outputs/branch_lengths.csv",
-        "outputs/branch_lengths_norm.csv",
-        "outputs/branch_lengths_norm_all.csv",
-        "outputs/model_by_model.csv",
-        "outputs/corr_prefs.csv"
+        expand("_done_{alignment_id}_chain{chain}.txt",
+               alignment_id=ALIGNMENT_IDS, chain=N_CHAINS)
+        # expand("outputs/{aligment_id}_prefs.csv", aligment_id=ALIGNMENT_IDS),
+        # "outputs/branch_lengths.csv",
+        # "outputs/branch_lengths_norm.csv",
+        # "outputs/branch_lengths_norm_all.csv",
+        # "outputs/model_by_model.csv",
+        # "outputs/corr_prefs.csv"
 
 rule create_phylip_files:
     """
@@ -101,9 +104,9 @@ rule create_sbatch:
         alignment = "_{alignment_id}_rename.phylip",
         tree = "_{alignment_id}_rename.newick",
     output:
-        sbatch = "_{alignment_id}.sbatch"
+        sbatch = "_{alignment_id}_chain{chain}.sbatch"
     params:
-        alignment_id = "_{alignment_id}"
+        alignment_id = "_{alignment_id}_chain{chain}"
     run:
         t = ("#!/bin/bash\n"
              "#SBATCH\n"
@@ -130,9 +133,9 @@ rule run_sbatch:
     """
     message: "Running sbatch"
     input:
-        sbatch = "_{alignment_id}.sbatch"
+        sbatch = "_{alignment_id}_chain{chain}.sbatch"
     output:
-        monitor = "_done_{alignment_id}.txt"
+        monitor = "_done_{alignment_id}_chain{chain}.txt"
     shell:
         "sbatch {input.sbatch}"
 
