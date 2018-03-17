@@ -200,7 +200,7 @@ def main():
     if not os.path.isdir("outputs"):
         os.makedirs("outputs")
     # define the maximum amount of time
-    max_time = 70
+    max_time = 60
 
     # setup up the final dataframe
     df = {"Model": [], "Time": [], "f": [], "Site": []}

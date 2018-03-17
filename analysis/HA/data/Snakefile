@@ -62,7 +62,8 @@ rule all:
     input:
         "subsample/alignment_summary.csv",
         expand("subsample/{strain}_high_{seed}_amino_acid_identity.csv",
-               strain=STRAINS, seed=SEEDS)
+               strain=STRAINS, seed=SEEDS),
+        "subsample/divergence_distances.csv"
 
 # Add in each reference sequence to each set of HA sequences (next 3 rules)
 rule add_in_WSN:
@@ -357,8 +358,8 @@ rule calculate_divergence:
     """
     message: "Summarizing divergence distances"
     input:
-        fastas = expand("subsample/HA_{strain}_{level_name}_{seed}.fasta",
-                        strain=STRAINS, level_name=LEVEL_NAMES, seed=SEEDS)
+        fastas = expand("subsample/HA_{strain}_high_{seed}.fasta",
+                        strain=STRAINS, seed=SEEDS)
     output:
         divergences = "subsample/divergence_distances.csv"
     run:
