@@ -4,7 +4,6 @@
 *.ppvnonsynmutsel
 *.ppvnonsynsubsel
 *.ppvmutsel
-*.trace
 *.synsubsel
 *.synmutsel
 *.subsel
