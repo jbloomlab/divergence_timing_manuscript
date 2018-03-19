@@ -444,8 +444,10 @@ If amino-acid preferences shift during evolution, there simply will not be any m
 The pbMutSel amino-acid preferences are inferred from the natural HA sequences, while the ExpCM amino-acid preferences are experimentally measured and then rescaled by the stringency parameter in \ref{tab:empirical_data}. 
 The pbMutSel preferences are more correlated with the re-scaled average of the H1 and H3 deep mutational scanning preferences than the individual re-scaled H1 and H3 deep mutational scanning preferences are to each other (Pearson's $r$: 0.74 versus 0.52). 
 (B) The ExpCM(H1+H3 avg)+$\Gamma\omega$ and pbMutSel models estimated similar branch lengths when fit to the entire HA tree. 
-\jdbcomment{You need to mention and give a bit of explanation for the coloring. What does it mean for a branch to be ``from'' H1 or H3? Would it be better to say branch ``leading to''? And does that mean leading to it with respect to the root of the tree as shown in \ref{fig:empirical_trees}?}
-The \texttt{phydms} program implementing ExpCM's and the \texttt{PhyloBayes-MPI} program implementing pbMutSel models give branch lengths in different units, so to facilitate direct comparison between the models, we have normalized all branch lengths returned by each program by the length of the branches separating the earliest (A/South Carolina/1918) and latest (A/Solomon Islands/2006) seasonal human H1 sequences on the three. 
+Points denote branch lengths between all pairs of tips on the tree. 
+Blue and orange denote branches that terminate at the H1 and H3 deep mutational scanning reference sequences respectively. 
+\skhcomment{leading to? from? terminate at?}
+The \texttt{phydms} program implementing ExpCM's and the \texttt{PhyloBayes-MPI} program implementing pbMutSel models give branch lengths in different units, so to facilitate direct comparison between the models, we have normalized all branch lengths returned by each program by the length of the branches separating the earliest (A/South Carolina/1918) and latest (A/Solomon Islands/2006) seasonal human H1 sequences on the tree. 
 }
 \end{figure}
 
@@ -475,9 +477,6 @@ Specifically, the long branches leading to the H1 or H3 sequences used in the ex
 The relatively longer branches leading to the experimental sequences when using the ExpCM(H1+H3 avg)+$\Gamma\omega$ suggests that the ``tree average" amino-acid preferences inferred by the pbMutSel model are not as accurate as the preferences from the deep mutational scanning for sequences close to those used in the experiments. 
 However, for sequences distant from those used in the experiments, the ``tree average'' preferences inferred by the pbMutSel model appear to be slightly better than the experimental values.
 Therefore, while the ExpCM and pbMutSel models differ slightly in the extent to which they lengthen different branches, neither model can avoid the tension between the local and global accuracy of amino-acid preferences. 
-
-\subsection*{\jdbcomment{Possible new section?}}
-\jdbcomment{We should think about what happens if we try an ExpCM just on the set of sites that Juhye's paper found did \emph{not} substantially shift in amino-acid preferences between H1 and H3.}
 
 \section*{Discussion}
 
@@ -610,7 +609,12 @@ We used amino-acid preferences measured in deep mutational scans of the A/WSN/19
 We only used sites that can be unambiguously aligned in these H1 and H3 HAs. 
 These alignable sites and their mapping to sequential numbering of the HA sequences used in the deep mutational scanning experiments are in \ref{suppfile:WSN_Perth_map}. 
 The experimentally measured amino-acid preferences masked to just include these alignable sites are in \ref{suppfile:H1_prefs} and \ref{suppfile:H3_prefs}.
-\jdbcomment{Is this right, do the files just have the masked preferences rather than the full set of sites? Also, as described below, we are running up against a limit in supplementary files. So rather than also giving a file with the averaged values, just add a few sentences clearly explaining how the averaging was done.}
+For the average preference set, we took the normalized pairwise average of the H1 and H3 preferences. 
+The preference for every amino acid, $a$, at every site, $r$, in the average preference set is
+\begin{equation}
+\label{eq:pi_avg}
+\pi_{r,a,\rm{(H1+H3\ avg)}} = \frac{\pi_{r,a,\rm{H1}} + \pi_{r,a,\rm{H3}}}{\sum_{a^{\prime}} \pi_{r,a^{\prime},\rm{(H1+H3\ avg)}}}
+\end{equation}
 
 \subsection*{HA sequences and tree topology.}
 
@@ -671,12 +675,6 @@ The external computer programs that we used were
 
 \newpage
 \section*{Supplemental Information}
-
-\jdbcomment{The MBE instructions appear to indicate that you can have at most five \emph{files} (see \url{https://academic.oup.com/mbe/pages/Supplementary_Information}). 
-I would take this to mean that we can have one merged PDF with figures / tables, plus four supplementary files.
-Looking at existing papers seems to confirm this.
-}
-
 
 \begin{suppfig}[H]
 \centerline{\includegraphics[width=\textwidth]{figures/prefs_doud}}
