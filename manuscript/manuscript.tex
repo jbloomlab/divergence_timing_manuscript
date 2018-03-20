@@ -314,11 +314,11 @@ The branch lengths of the HA tree are optimized using the indicated ExpCM or GY9
 The amino-acid preferences defining the model (ExpCM) or implied by the model (GY94) are shown as logo plots for 15 sites in HA; the full set of experimentally measured amino-acid preferences are in \ref{suppfig:prefs_doud}, \ref{suppfig:prefs_lee}, and \ref{suppfig:prefs_average}. 
 The ExpCM's use amino-acid preferences measured in deep mutational scanning of an H1 HA~\citep{doud2016accurate}, an H3 HA~\citep{lee2018deep}, or the average of the measurements for these two HAs.
 Circle denotes the H1 clade and triangle denotes the H3 clade.
-The \texttt{RAxML}-inferred base tree is midpoint rooted and each tree here maintains this rooting.
+The trees are midpoint rooted based on the tree inferred by \texttt{RAxML} using the GTRCAT model. 
 }
 \end{figure}
 
-The foregoing section shows the superiority of ExpCM's to GY94 models for estimating long branches on phylogenies simulated with ExpCM models.
+The foregoing section shows the superiority of ExpCM's to GY94 models for estimating long branches on phylogenies simulated with ExpCM's.
 But how do these models perform on real data?
 Real genes do evolve under functional constraint, but these constraints are almost certainly more complex than what is modeled by an ExpCM.
 However, if ExpCM's do a substantially better job than GY94 models of capturing the true constraints, then we might still expect them to estimate more accurate branch lengths.
@@ -338,7 +338,7 @@ The amino-acid preferences measured for these two HAs are shown in \ref{suppfig:
 \ref{suppfig:prefs_lee}.
 The H1 and H3 HAs have only $\sim$42\% amino-acid identity, and so are separated by a large distance on the phylogenetic tree (see triangle and circle on \ref{fig:empirical_trees}).
 As described in \citet{lee2018deep}, the amino-acid preferences clearly differ between the H1 and H3 HA at a substantial number of sites (these differences are apparent in a simple visual comparison of \ref{suppfig:prefs_doud} and 
-\ref{suppfig:prefs_lee}).
+\ref{suppfig:prefs_lee}, see site 33 as an example).
 Therefore, we also created a third set of amino-acid preferences by averaging the measurements for the H1 and H3 HAs, under the conjecture that these averaged preferences might better describe the ``average'' constraint on sites across the full HA tree.
 These three sets of HA amino-acid preferences define three different ExpCM's.
   
@@ -379,16 +379,16 @@ Importantly, models that account for purifying selection via either $\Gamma\omeg
 \ref{fig:empirical_trees} shows the branch lengths optimized by each model on a common scale.
 The tree's deepest branches are shortest when they are optimized by the GY94 model, which lacks both $\Gamma\omega$ and site-specific amino-acid preferences.
 Adding either $\Gamma\omega$ rate variation or site-specific amino-acid preferences increases the length of the deep branches.
-Specifically, the tree's diameter (distance from the two most divergent tips) is 68\% longer for the GY94+$\Gamma\omega$ model than for the GY94 model (\ref{supptab:tree_diameter}).
-The tree diameter is 24\% and 36\% longer for ExpCM's informed by H1 or H3 amino-acid preferences, respectively, than for GY94, and 67\% longer for the ExpCM informed by the average of the H1 and H3 preferences (\ref{supptab:tree_diameter}).
+Specifically, the tree's diameter (the distance from the two most divergent tips) for the GY94+$\Gamma\omega$ model is 168\% of the GY94 model tree diameter (\ref{supptab:tree_diameter}).
+The tree diameter is 123\% and 136\% of the GY94 model tree diameter for ExpCM's informed by H1 or H3 amino-acid preferences, respectively, and 167\% of the GY94 model for the ExpCM informed by the average of the H1 and H3 preferences (\ref{supptab:tree_diameter}).
 
 The deepening of branch lengths that results from the $\Gamma\omega$ and site-specific amino-acid preference approaches to modeling purifying selection are largely independent.
 This can be seen by examining the ExpCM+$\Gamma\omega$ models, which combine $\Gamma\omega$ rate variation with site-specific amino-acid preferences.
 As shown in \ref{fig:empirical_trees}, these ExpCM+$\Gamma\omega$ models estimate longer branches than models with just $\Gamma\omega$ rate variation (GY94+$\Gamma\omega$) or just site-specific amino-acid preferences (ExpCM's).
-The near independence of these effects is quantified in \ref{supptab:tree_diameter}, which shows that 83\% of the tree diameter extension of ExpCM(H1+H3)+$\Gamma\omega$ versus can be explained by simply adding the extension from incorporating $\Gamma\omega$ (GY94+$\Gamma\omega$ versus GY94) to the extension from incorporating site-specific amino-acid preferences (ExpCM(H1+H3) versus GY94).
+The near independence of these effects is quantified in \ref{supptab:tree_diameter}, which shows that 83\% of the tree diameter extension of ExpCM(H1+H3 avg)+$\Gamma\omega$ versus can be explained by simply adding the extension from incorporating $\Gamma\omega$ (GY94+$\Gamma\omega$ versus GY94) to the extension from incorporating site-specific amino-acid preferences (ExpCM(H1+H3 avg) versus GY94).
 
 However, while adding $\Gamma\omega$ rate variation increases the length of deep branches in a roughly uniform fashion across the tree, the branch lengthening from adding site-specific amino-acid preferences is not uniform across the tree (\ref{fig:empirical_trees}). 
-Instead, the branch lengthening is most pronounced on branches leading to the HA sequence that was used in the deep mutational scanning experiment that informed the ExpCM.
+Instead, the increase in branch length is most pronounced on branches leading to the HA sequence that was used in the deep mutational scanning experiment that informed the ExpCM.
 For instance, the ExpCM informed by the H1 data most dramatically lengthens branches near the H1 clade of the tree, while the ExpCM informed by the H3 data has the largest effect on branches near the H3 clade.
 The ExpCM informed by the average of the H1 and H3 data has a more uniform effect across the tree, but still most strongly extends branches leading to either the H1 or H3 clade.
 Therefore, \ref{fig:empirical_trees} shows that ExpCM's estimate longer branches, but that the effect is shaped by the set of amino-acid preferences used to inform the model.
@@ -407,24 +407,23 @@ Therefore, the preferences measured in each experiment are progressively less co
 }
 \end{figure}
 
-The fact that an ExpCM leads to the most profound lengthening of the branches leading to the sequence used in the experiment can be rationalized in terms of existing knowledge about epistasis during protein evolution.
+The fact that an ExpCM leads to the most profound increase in branch length leading to the sequence used in the experiment can be rationalized in terms of existing knowledge about epistasis during protein evolution.
 Each ExpCM is informed by a single set of experimentally measured amino-acid preferences.
 But in reality, the effect of a mutation at one site in a protein can depend on the amino-acid identities of other sites in the protein~\citep{ortlund2007crystal, gong2013stability, harms2014historical, tufts2014epistasis, starr2018pervasive}. 
 This epistasis can lead to shifts in a protein's amino-acid preferences over evolutionary time~\citep{pollock2012amino, doud2015site, shah2015contingency, bazykin2015changing, haddox2017mapping}.
-Because the deep mutational scanning experiments that inform our ExpCM's were each performed in the context of a single HA genetic background, their measurements do not account for the epistatic shifts in amino-acid preferences that accumulate as HA evolves. 
+Because the deep mutational scanning experiments that inform our ExpCM's were each performed in the context of a single HA genetic background, their measurements do not account for the accumulation of epistatic shifts in amino-acid preferences as HA evolves. 
 Therefore, an ExpCM is expected to most accurately describe the evolution of sequences closely related to the one used in the experiment.
  
 We can observe how shifting amino-acid preferences degrade the accuracy of an ExpCM by fitting the model to trees containing increasingly diverged sequences.
 For both H1 and H3 HAs, we created three phylogenetic trees (\ref{suppfig:subalignments}): a ``low'' divergence tree that contains sequences with $\ge$59\% amino-acid identity to the HA used in the experiment, an ``intermediate'' divergence tree that contains sequences with $\ge$46\% amino-acid identity to the HA in the experiment, and a ``high'' divergence tree that contains all HAs (which have as little as 38\% identity to the HA in the experiment).
 \ref{fig:compete} shows the subtrees containing each of these sets of HA sequences.
-For each subtree, we examined the congruence between site-specific natural selection and the amino-acid preferences measured in the deep mutational scanning experiment. 
-We used the ExpCM stringency parameter $\beta$ to measure this congruence~\citep{bloom2014informed,hilton2017phydms}. 
+For each subtree, we examined the congruence between site-specific natural selection and the amino-acid preferences measured in the deep mutational scanning experiment using the ExpCM stringency parameter $\beta$~\citep{bloom2014informed,hilton2017phydms}. 
 Values of $\beta$ that are $>$1 indicate that natural selection prefers the same amino acids as the experiments but with a greater stringency, suggesting strong congruence between natural selection and the experimental preferences. 
 In contrast, values of $\beta$ that are $<$1 flatten the preferences, suggesting that they provide a relatively poor description of natural selection on the protein.
 
 \ref{fig:compete} shows that as the divergence from the sequence used in the deep mutational scan increases, the value of $\beta$ decreases. 
 This inverse relationship between $\beta$ and overall divergence is seen for the ExpCM's informed by both the H1 and H3 experiments.
-Specifically, as the $\beta$ value decreases, the preferences ``flatten" and so the ExpCM draws less information from the experiment. 
+As $\beta$ value decreases, the preferences ``flatten" and so the ExpCM draws less information from the experiment. 
 At the most extreme value of $\beta = 0$, the preferences would be perfectly uniform and look similar to the GY94 preferences in \ref{fig:empirical_trees}.
 In reality, $\beta$ never reaches a value this low, indicating the deep mutational scanning experiments remain somewhat informative about real natural selection across the entire swath of HAs. 
 However, \ref{fig:compete} shows that the amino-acid preferences clearly become less informative about natural selection as we move away from the experimental sequence on the tree.
@@ -445,8 +444,7 @@ The pbMutSel amino-acid preferences are inferred from the natural HA sequences, 
 The pbMutSel preferences are more correlated with the re-scaled average of the H1 and H3 deep mutational scanning preferences than the individual re-scaled H1 and H3 deep mutational scanning preferences are to each other (Pearson's $r$: 0.74 versus 0.52). 
 (B) The ExpCM(H1+H3 avg)+$\Gamma\omega$ and pbMutSel models estimated similar branch lengths when fit to the entire HA tree. 
 Points denote branch lengths between all pairs of tips on the tree. 
-Blue and orange denote branches that terminate at the H1 and H3 deep mutational scanning reference sequences respectively. 
-\skhcomment{leading to? from? terminate at?}
+Blue and orange denote branches that lead to the H1 and H3 deep mutational scanning reference sequences respectively. 
 The \texttt{phydms} program implementing ExpCM's and the \texttt{PhyloBayes-MPI} program implementing pbMutSel models give branch lengths in different units, so to facilitate direct comparison between the models, we have normalized all branch lengths returned by each program by the length of the branches separating the earliest (A/South Carolina/1918) and latest (A/Solomon Islands/2006) seasonal human H1 sequences on the tree. 
 }
 \end{figure}
@@ -465,6 +463,7 @@ On the other hand, if the major limitation is that no single set of time-homogen
 
 We fit a pbMutSel model to the entire HA phylogenetic tree, and compared the results to those from analyzing the same tree with the best ExpCM, which is the ExpCM(H1+H3 avg)+$\Gamma\omega$ variant.
 This is a direct apple-to-apples comparison, since the pbMutSel model also draws $\omega$ from a gamma-distribution~\citep{rodrigue2014site}.
+\skhcomment{It is not clear how many bins \texttt{Phylobayes MPI} uses. I am going to go back and re-run the analysis specifying $k=4$ bins.}
 First, we compared the amino-acid preferences inferred by the pbMutSel model to the preferences measured in the experiments.
 \ref{fig:phylobayes}A shows that the preferences inferred by pbMutSel are quite similar to the (H1+ H3 avg) obtained by averaging the deep mutational scanning measurements for the H1 and H3 HAs. 
 Notably, the amino-acid preferences from the pbMutSel model are more correlated with the (H1+ H3 avg) than the H1 and H3 measurements are with each other (\ref{fig:phylobayes}A).
@@ -473,7 +472,7 @@ This strong correlation indicates that the ExpCM(H1+H3 avg)+$\Gamma\omega$ is un
 We next compared the branch lengths estimated by using the ExpCM(H1+H3 avg)+$\Gamma\omega$ and pbMutSel models.
 As shown in \ref{fig:phylobayes}B, these two models estimated similar branch lengths across the entire HA phylogenetic tree. 
 However, the estimates are not identical, and the tension between local and global accuracy of the amino-acid preferences is still apparent. 
-Specifically, the long branches leading to the H1 or H3 sequences used in the experiments were estimated to be slightly longer by the ExpCM, while many other branches were estimated to be slightly longer by the pbMutSel model. 
+Specifically, the long branches between the H1 or H3 sequences used in the experiments and all other sequences were estimated to be slightly longer by the ExpCM, while many other branches were estimated to be slightly longer by the pbMutSel model. 
 The relatively longer branches leading to the experimental sequences when using the ExpCM(H1+H3 avg)+$\Gamma\omega$ suggests that the ``tree average" amino-acid preferences inferred by the pbMutSel model are not as accurate as the preferences from the deep mutational scanning for sequences close to those used in the experiments. 
 However, for sequences distant from those used in the experiments, the ``tree average'' preferences inferred by the pbMutSel model appear to be slightly better than the experimental values.
 Therefore, while the ExpCM and pbMutSel models differ slightly in the extent to which they lengthen different branches, neither model can avoid the tension between the local and global accuracy of amino-acid preferences. 
