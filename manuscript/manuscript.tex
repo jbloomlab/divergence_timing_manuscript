@@ -122,7 +122,7 @@ In the case of viruses, there is independent evidence that the estimates of deep
 This discrepancy is caused in part by inadequate models of purifying selection leading to branch-length underestimation.
 Here we examine the effect on branch-length estimation of using models that incorporate experimental measurements of purifying selection.
 We find that models informed by experimentally measured site-specific amino-acid preferences estimate longer deep branches on phylogenies of influenza virus hemagglutinin.
-This deepening of branch lengths is due to more realistic stationary states of the models, and is independent of the branch-length-extension from modeling site-to-site variation in amino-acid substitution rate.
+This lengthening of branches is due to more realistic stationary states of the models, and is independent of the branch-length-extension from modeling site-to-site variation in amino-acid substitution rate.
 The branch-length extension from experimentally informed site-specific models is similar to that achieved by other approaches that allow the stationary state to vary across sites.
 However, the improvements from these site-specific but time-homogeneous and site-independent models are limited by the fact that a protein's amino-acid preferences gradually shift as it evolves.
 Overall, our work underscores the importance of modeling site-specific amino-acid preferences when estimating deep divergence times---but also shows the inherent limitations of approaches that fail to account for how these preferences shift over time. 
@@ -196,7 +196,7 @@ It is also not homogenous among the different amino acids at a given site.
 For instance, some protein sites strongly prefer hydrophobic amino acids, others are constrained to just one or a few amino acids, and yet others tolerate many amino acids.
 In general, these constraints are highly idiosyncratic among sites, and so pose a challenge for phylogenetic substitution models.
 
-Here we consider how purifying selection is handled by codon models, which are the most accurate of the three classes (nucleotide, amino acid, and nucleotide) of phylogenetic substitution models in widespread use~\citep{arenas2015trends}.
+Here we consider how purifying selection is handled by codon models, which are the most accurate of the three classes (nucleotide, codon, and amino acid) of phylogenetic substitution models in widespread use~\citep{arenas2015trends}.
 Standard codon models distinguish between two types of substitutions: synonymous and nonsynonymous.
 The relative rate of these substitutions is referred to as dN/dS or $\omega$.
 In their simplest form, codon substitution models fit a single $\omega$ that represents the gene-wide average fixation rate of nonsynonymous mutations relative to synonymous ones.
@@ -224,12 +224,12 @@ For instance, a GY94+$\Gamma\omega$ model with the commonly used F3X4 stationary
 However, mutation-selection models must additionally specify 19 parameters defining the amino-acid preferences for \emph{each} site (there are 20 amino acids whose preferences are constrained to sum to one).
 This corresponds to $19\times L$ parameters for a protein of length $L$, or 9,500 parameters for a 500-residue protein.
 It is challenging to obtain values for these amino-acid preference parameters in a maximum-likelihood framework without overfitting the data~\citep{rodrigue2013statistical}.
-Here we will primarily use experimentally informed codon models (ExpCM's), which define the site-specific amino-acid preferences parameters \textit{a priori} from deep mutational scanning experiments so that they do not need to be fit from phylogenetic data~\citep[see Methods and][]{bloom2014experimentally, hilton2017phydms, bloom2017identification}.
+Here we will primarily use experimentally informed codon models (ExpCM's), which define the site-specific amino-acid preference parameters \textit{a priori} from deep mutational scanning experiments so that they do not need to be fit from phylogenetic data~\citep[see Methods and][]{bloom2014experimentally, hilton2017phydms, bloom2017identification}.
 Because the amino-acid preference parameters in an ExpCM are obtained from experiments, the number of ExpCM free parameters that are fit from the phylogenetic data are similar to a non-site-specific substitution model.
 An alternative strategy of obtaining the amino-acid preference parameters via Bayesian inference~\citep{lartillot2004bayesian, rodrigue2014site} is discussed in the last section of the Results.
 
 Importantly, these two strategies for modeling purifying selection are not mutually exclusive.
-Mutation-selection models such as ExpCM can still incorporate an $\omega$ parameter, which now represents the relative rate of nonsynonymous to synonymous substitution \emph{after} accounting for the constraints due to the site-specific amino-acid preferences~\citep{bloom2017identification,rodrigue2017detecting}.
+Mutation-selection models such as an ExpCM can still incorporate an $\omega$ parameter, which now represents the relative rate of nonsynonymous to synonymous substitution \emph{after} accounting for the constraints due to the site-specific amino-acid preferences~\citep{bloom2017identification,rodrigue2017detecting}.
 This $\omega$ parameter for an ExpCM can be drawn from a statistical distribution (e.g., a gamma distribution) just like for GY94-style models~\citep{rodrigue2014site,haddox2017mapping}. 
 We will denote such models as ExpCM+$\Gamma\omega$.
 \ref{fig:model_feature}C shows the full spectrum of models that incorporate all combinations of gamma-distributed $\omega$ and site-specific stationary states.
@@ -252,18 +252,18 @@ If the substitution model underestimates the asymptotic sequence identity then i
 The logo plots at top show the amino-acid preferences for some sites in an H1 influenza hemagglutinin protein as experimentally measured by~\citet{doud2016accurate}.
 The graphs show the expected amino-acid identity at that site for two sequences separated by a branch of the indicated length (\ref{eq:f}).
 For the GY94 model, the graphs are identical for all sites since this model does not have site-specific parameters; the same is true for GY94+$\Gamma\omega$.
-The graphs do differ among sites if we use the amino-acid preferences to calculate a different $\omega_r$ value for each site $r$ in a GY94 framework~\citep[\ref{eq:w_r};][]{spielman2015relationship}.
+The graphs do differ among sites if we calculate a different $\omega_r$ for each site $r$ in the GY94 model using the amino-acid preferences~\citep[\ref{eq:w_r};][]{spielman2015relationship}.
 However, all GY94 models, including the one with site-specific $\omega_r$ values, approach the same asymptote since they all have the same stationary state.
-But the ExpCM has different asymptotes for different sites since it accounts for how amino-acid preferences lead to site-specific stationary states.
+The ExpCM has different asymptotes for different sites since it accounts for how amino-acid preferences lead to site-specific stationary states.
 }
 \end{figure}
 
 \ref{fig:decay} shows how different substitution models predict amino-acid sequence identity to decrease as a function of branch length using model parameters fit to a phylogeny of H1 influenza hemagglutinin (HA) genes.
-The GY94 model predicts the same behavior for all sites, since it does not have any site-specific parameters.
-This model predicts an asymptotic sequence divergence of 0.059, which is slightly higher than $\frac{1}{20} = 0.05$ since some of the 20 amino acids are favored due to more redundant codons and biases towards certain nucleotides.
-Intuitively, this asymptotic sequence identity of 0.059 seems low, since like many proteins HA has a highly conserved structure and function that imposes constraints that cause most sites to sample only a small subset of the 20 amino acids among all known HA homologs~\citep{nobusawa1991comparison}.
+The GY94 model predicts the same behavior for all sites, since it does not have any site-specific parameters, with an asymptotic sequence divergence of 0.059. 
+While this predicted sequence divergence is higher than $\frac{1}{20} = 0.05$, due to redundant codon and nucleotide biases favoring certain amino acids, it intuitively feels to low. 
+Like many proteins HA has a highly conserved structure and function that imposes constraints that cause most sites to sample only a small subset of the 20 amino acids among all known HA homologs~\citep{nobusawa1991comparison}.
 
-Accounting for site-to-site rate variation in GY94 models affects the rate at which the asymptotic sequence identity is approached, but not the actual value of this asymptote. 
+Accounting for site-to-site dN/dS rate variation in GY94 models affects the rate at which the asymptotic sequence identity is approached, but not the actual value of this asymptote. 
 For instance, \ref{fig:decay} shows that the GY94+$\Gamma\omega$ model takes longer to reach the asymptote than GY94, but that the asymptote is identical for both models. 
 This fact holds true even if we use experimental measurements of HA's site-specific amino-acid preferences~\citep{doud2016accurate} to calculate a different $\omega_r$ value for each site using the method of \citet{spielman2015relationship} (see \ref{eq:w_r}).
 Specifically, this GY94+$\omega_r$ model predicts that different sites will approach the asymptote at different rates, but the asymptote is always the same (\ref{fig:decay}).
@@ -274,7 +274,7 @@ Different schemes for modeling $\omega$ only multiply elements of the symmetric 
 Therefore, no matter how ``well" a model accounts for site-to-site variation in $\omega$, it will always have the same stationary state as a simple GY94 model. 
 
 However, mutation-selection models such as ExpCM's have site-specific stationary states.
-Therefore, they predict that different sites will have different asymptotic sequence identities (\ref{fig:decay})---a prediction that accords with the empirical observation that some sites are much more variable than others in alignments of highly diverged sequences.
+They predict that different sites will have different asymptotic sequence identities (\ref{fig:decay})---a prediction that accords with the empirical observation that some sites are much more variable than others in alignments of highly diverged sequences.
 For instance, \ref{fig:decay} shows that at sites such as 183 and 305 in the H1 HA, an ExpCM but not a GY94-style model predicts that the divergence will always be low. 
 When sites with highly constrained amino-acid preferences such as these are common, an ExpCM can estimate a long branch length at modest sequence identities that a GY94 model might attribute to a shorter branch.
 
@@ -285,11 +285,11 @@ To directly demonstrate the effect of stationary state and $\Gamma\omega$ rate v
 Specifically, we simulated alignments of sequences along the HA phylogenetic tree in \ref{fig:empirical_trees} using an ExpCM parameterized by the amino-acid preferences of H1 HA as experimentally measured by deep mutational scanning~\citep{doud2016accurate}. We then estimated the branch lengths from the simulated sequences using all the substitution models in \ref{fig:model_feature}C, and compared these estimates to the actual branch lengths used in the simulations.
 
 \begin{figure}
-\centerline{\includegraphics[width=0.85\textwidth]{figures/simulations}}
+\centerline{\includegraphics[width=0.9\textwidth]{figures/simulations}}
 \caption{\label{fig:simulations}
 \textbf{Branch lengths inferred on data simulated under a model with site-specific amino-acid preferences.} 
-We simulated alignments along a phylogenetic tree of HA genes (see Figure~\ref{fig:empirical_trees}) using an ExpCM parameterized by the actual site-specific amino-acid preferences for an H1 HA~\citep{doud2016accurate}.
-We then inferred the branch lengths of this tree on the simulated alignments.
+We simulated alignments along a HA phylogenetic tree (see Figure~\ref{fig:empirical_trees}) using an ExpCM parameterized by the actual site-specific amino-acid preferences for an H1 HA~\citep{doud2016accurate}.
+We then inferred the branch lengths of this tree from the simulated alignments.
 The inferred branch lengths for various models are plotted on the x-axis, and the actual branch lengths used in the simulations are on the y-axis.
 We performed 10 simulations and inferences, and gray points show each inferred branch length from each simulation, and black points show the average of each branch length across simulations.
 The grey dashed line at $y=x$ represents the behavior of an unbiased estimator. 
