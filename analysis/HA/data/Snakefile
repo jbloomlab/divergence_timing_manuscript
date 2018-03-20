@@ -31,7 +31,7 @@ constants.CODON_TO_AA = scipy.append(constants.CODON_TO_AA, [[max_AA_index+1]])
 # Globals ---------------------------------------------------------------------
 
 # HA subtypes to include in the analysis
-NUMBERS = [x for x in range(1, 19) if x not in [12, 15, 17, 18]]
+NUMBERS = [x for x in range(1, 19) if x not in [15, 17, 18]]
 
 # reference sequence names and headers
 WSN_REF = "references/WSN_HA_reference.fasta"
@@ -46,7 +46,7 @@ STRAINS = ["hybrid"]
 
 # Divergence levels for the subsamples
 LEVEL_NAMES = ["lowH1", "intermediateH1", "lowH3", "intermediateH3"]
-LEVELS = [[1, 2, 5, 6], [1, 2, 5, 6, 8, 9, 11, 13, 16],
+LEVELS = [[1, 2, 5, 6], [1, 2, 5, 6, 8, 9, 11, 12, 13, 16],
           [3, 4, 14], [3, 4, 14, 10, 7]]
 assert len(LEVEL_NAMES) == len(set(LEVEL_NAMES))
 assert len(LEVEL_NAMES) == len(LEVELS)
@@ -61,9 +61,9 @@ SEEDS = range(1)
 rule all:
     input:
         "subsample/alignment_summary.csv",
-        expand("subsample/{strain}_high_{seed}_amino_acid_identity.csv",
-               strain=STRAINS, seed=SEEDS),
-        "subsample/divergence_distances.csv"
+        "subsample/divergence_distances.csv",
+        expand("subsample/HA_{strain}_{level_name}_{seed}.fasta",
+               strain=STRAINS, level_name=LEVEL_NAMES, seed=SEEDS)
 
 # Add in each reference sequence to each set of HA sequences (next 3 rules)
 rule add_in_WSN:
@@ -366,7 +366,7 @@ rule calculate_divergence:
         refs = {"WSN": "cds_ABF21278_A/Wilson-Smith/1933_1933//_HA_HA_1",
                 "Perth": "cds_AHX37629_A/Perth/16/2009_2009/04/07_HA_HA_3"}
         df = {"seq_id": [], "divergence": [], "reference": [], "seed": [],
-              "alignment_ref": [], "HA_group":[]}
+              "alignment_ref": [], "HA_group": []}
         for fasta in input.fastas:
             strain = os.path.basename(fasta).split("_")[1]
             seed = os.path.basename(fasta).split("_")[-1].split(".")[0]
@@ -402,7 +402,7 @@ rule make_alignment_summary:
         summary = "subsample/alignment_summary.csv"
     run:
         refs = ["Perth", "WSN"]
-        final = {"alignment_id":[], "reference":[], "min_aa_id":[]}
+        final = {"alignment_id": [], "reference": [], "min_aa_id": []}
         df = pd.read_csv(input.divergences)
         for i in range(len(LEVEL_NAMES)):
             n = LEVEL_NAMES[i]
@@ -415,37 +415,3 @@ rule make_alignment_summary:
                 final["min_aa_id"].append(1-m)
         final = pd.DataFrame(final)
         final.to_csv(output.summary, index=False)
-
-# Create within subtype divergence summary file (next 1 rule)
-rule calc_within_subtype_divergence:
-    """
-    The purpose of this rule is to calculate the within subtype amino-acid
-    identity.
-    """
-    message: "Within subtype amino acid identity"
-    input:
-        alignment = "subsample//HA_{strain}_high_{seed}.fasta",
-        ref = "subsample/seq_list_{seed}.csv"
-    output:
-        subtype = "subsample/{strain}_high_{seed}_amino_acid_identity.csv"
-    params:
-        strain = "{strain}",
-        seed = "{seed}"
-    run:
-        df = {"HA":[], "min_aa_id":[]}
-        ref = pd.read_csv(input.ref)
-        seqs = SeqIO.to_dict(SeqIO.parse(input.alignment, "fasta"))
-        for name, group in ref.groupby(["HA_subtype"]):
-            m = 1.0
-            for pair in itertools.combinations(group["seq_id"], 2):
-                s1 = translate_with_gaps(str(seqs[pair[0]].seq))
-                s2 = translate_with_gaps(str(seqs[pair[1]].seq))
-                aa_id = [1 if s1[x] == s2[x] else 0 for
-                              x in range(len(s1))]
-                aa_id = (sum(aa_id)/len(aa_id))
-                if m > aa_id:
-                    m = aa_id
-            df["HA"].append(name)
-            df["min_aa_id"].append(m)
-        df = pd.DataFrame(df)
-        df.to_csv(output.subtype)
