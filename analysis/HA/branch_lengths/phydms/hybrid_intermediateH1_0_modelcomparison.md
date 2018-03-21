@@ -1,22 +1,22 @@
 | Model                                           | deltaAIC | LogLikelihood | nParams | ParamValues                                              |
 |-------------------------------------------------|----------|---------------|---------|----------------------------------------------------------|
-| ExpCM_HA_average_prefs_gammaomega               | 0.00     | -30942.81     | 7       | alpha_omega=1.58, beta=1.74, beta_omega=9.13, kappa=3.74 |
-| ExpCM_HA_hybridDoud_prefs_gammaomega            | 297.14   | -31091.38     | 7       | alpha_omega=1.52, beta=1.32, beta_omega=9.08, kappa=3.64 |
-| ExpCM_HA_average_prefs                          | 514.20   | -31200.91     | 6       | beta=1.78, kappa=3.45, omega=0.17                        |
-| ExpCM_HA_hybridDoud_prefs                       | 890.52   | -31389.07     | 6       | beta=1.34, kappa=3.38, omega=0.16                        |
-| ExpCM_HA_hybridLee_prefs_gammaomega             | 1733.26  | -31809.44     | 7       | alpha_omega=0.84, beta=1.14, beta_omega=6.63, kappa=3.71 |
-| ExpCM_HA_hybridLee_prefs                        | 2781.82  | -32334.72     | 6       | beta=1.23, kappa=3.43, omega=0.12                        |
-| averaged_ExpCM_HA_hybridLee_prefs_gammaomega    | 2961.54  | -32423.58     | 7       | alpha_omega=0.57, beta=1.62, beta_omega=5.05, kappa=3.70 |
-| averaged_ExpCM_HA_average_prefs_gammaomega      | 2972.30  | -32428.96     | 7       | alpha_omega=0.58, beta=1.34, beta_omega=5.10, kappa=3.70 |
-| averaged_ExpCM_HA_hybridDoud_prefs_gammaomega   | 2988.30  | -32436.96     | 7       | alpha_omega=0.58, beta=1.02, beta_omega=5.11, kappa=3.71 |
-| randomized_ExpCM_HA_average_prefs_gammaomega    | 3045.86  | -32465.74     | 7       | alpha_omega=0.59, beta=0.13, beta_omega=5.29, kappa=3.74 |
-| randomized_ExpCM_HA_hybridDoud_prefs_gammaomega | 3048.92  | -32467.27     | 7       | alpha_omega=0.58, beta=0.09, beta_omega=5.21, kappa=3.71 |
-| randomized_ExpCM_HA_hybridLee_prefs_gammaomega  | 3050.52  | -32468.07     | 7       | alpha_omega=0.59, beta=0.11, beta_omega=5.38, kappa=3.72 |
-| YNGKP_M5                                        | 3328.94  | -32602.28     | 12      | alpha_omega=0.58, beta_omega=6.00, kappa=3.24            |
-| averaged_ExpCM_HA_hybridLee_prefs               | 4849.00  | -33368.31     | 6       | beta=1.22, kappa=3.38, omega=0.09                        |
-| averaged_ExpCM_HA_average_prefs                 | 4854.60  | -33371.11     | 6       | beta=1.00, kappa=3.37, omega=0.09                        |
-| averaged_ExpCM_HA_hybridDoud_prefs              | 4863.36  | -33375.49     | 6       | beta=0.77, kappa=3.37, omega=0.09                        |
-| randomized_ExpCM_HA_average_prefs               | 4906.28  | -33396.95     | 6       | beta=0.08, kappa=3.39, omega=0.09                        |
-| randomized_ExpCM_HA_hybridDoud_prefs            | 4908.40  | -33398.01     | 6       | beta=0.05, kappa=3.40, omega=0.09                        |
-| randomized_ExpCM_HA_hybridLee_prefs             | 4927.50  | -33407.56     | 6       | beta=0.06, kappa=3.35, omega=0.09                        |
-| YNGKP_M0                                        | 5101.32  | -33489.47     | 11      | kappa=2.94, omega=0.08                                   |
+| ExpCM_HA_average_prefs_gammaomega               | 0.00     | -33258.45     | 7       | alpha_omega=1.45, beta=1.72, beta_omega=8.82, kappa=3.68 |
+| ExpCM_HA_hybridDoud_prefs_gammaomega            | 333.14   | -33425.02     | 7       | alpha_omega=1.44, beta=1.29, beta_omega=9.27, kappa=3.58 |
+| ExpCM_HA_average_prefs                          | 615.92   | -33567.41     | 6       | beta=1.75, kappa=3.37, omega=0.16                        |
+| ExpCM_HA_hybridDoud_prefs                       | 1007.30  | -33763.10     | 6       | beta=1.33, kappa=3.31, omega=0.15                        |
+| ExpCM_HA_hybridLee_prefs_gammaomega             | 1735.04  | -34125.97     | 7       | alpha_omega=0.80, beta=1.13, beta_omega=6.49, kappa=3.68 |
+| ExpCM_HA_hybridLee_prefs                        | 2940.32  | -34729.61     | 6       | beta=1.22, kappa=3.37, omega=0.11                        |
+| averaged_ExpCM_HA_hybridLee_prefs_gammaomega    | 2992.32  | -34754.61     | 7       | alpha_omega=0.56, beta=1.67, beta_omega=4.97, kappa=3.66 |
+| averaged_ExpCM_HA_average_prefs_gammaomega      | 3007.16  | -34762.03     | 7       | alpha_omega=0.56, beta=1.36, beta_omega=5.01, kappa=3.66 |
+| averaged_ExpCM_HA_hybridDoud_prefs_gammaomega   | 3026.66  | -34771.78     | 7       | alpha_omega=0.57, beta=1.02, beta_omega=5.14, kappa=3.66 |
+| randomized_ExpCM_HA_average_prefs_gammaomega    | 3089.22  | -34803.06     | 7       | alpha_omega=0.58, beta=0.14, beta_omega=5.37, kappa=3.69 |
+| randomized_ExpCM_HA_hybridDoud_prefs_gammaomega | 3091.70  | -34804.30     | 7       | alpha_omega=0.58, beta=0.10, beta_omega=5.33, kappa=3.68 |
+| randomized_ExpCM_HA_hybridLee_prefs_gammaomega  | 3096.18  | -34806.54     | 7       | alpha_omega=0.59, beta=0.10, beta_omega=5.39, kappa=3.67 |
+| YNGKP_M5                                        | 3388.38  | -34947.64     | 12      | alpha_omega=0.58, beta_omega=6.06, kappa=3.20            |
+| averaged_ExpCM_HA_hybridLee_prefs               | 5076.62  | -35797.76     | 6       | beta=1.25, kappa=3.31, omega=0.09                        |
+| averaged_ExpCM_HA_average_prefs                 | 5081.26  | -35800.08     | 6       | beta=1.01, kappa=3.33, omega=0.08                        |
+| averaged_ExpCM_HA_hybridDoud_prefs              | 5091.04  | -35804.97     | 6       | beta=0.78, kappa=3.33, omega=0.08                        |
+| randomized_ExpCM_HA_average_prefs               | 5140.56  | -35829.73     | 6       | beta=0.07, kappa=3.32, omega=0.09                        |
+| randomized_ExpCM_HA_hybridDoud_prefs            | 5141.02  | -35829.96     | 6       | beta=0.05, kappa=3.33, omega=0.08                        |
+| randomized_ExpCM_HA_hybridLee_prefs             | 5142.94  | -35830.92     | 6       | beta=0.05, kappa=3.32, omega=0.09                        |
+| YNGKP_M0                                        | 5339.32  | -35924.11     | 11      | kappa=2.91, omega=0.07                                   |
