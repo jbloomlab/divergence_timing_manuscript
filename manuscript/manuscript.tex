@@ -328,7 +328,7 @@ The topology of HA phylogenetic trees (\ref{fig:empirical_trees}) makes these se
 HA consists of a number of different subtypes.
 Sequences within a subtype have $>$68\% amino-acid identity, but sequences in different subtypes have as little as 38\% identity.
 However, HA proteins from all subtypes have a highly conserved structure that performs a highly conserved function~\citep{ha2002h5,russell2004h1}.
-We used \texttt{RAxML}~\citep{stamatakis2006raxml} with a nucleotide substitution model  (GTRCAT) to infer a phylogenetic tree for 87 HA sequences drawn from 14 of the 18 subtypes (we excluded bat influenza and three other rare subtypes).
+We used \texttt{RAxML}~\citep{stamatakis2006raxml} with a nucleotide substitution model  (GTRCAT) to infer a phylogenetic tree for 92 HA sequences drawn from 15 of the 18 subtypes (we excluded bat influenza and one other rare subtypes).
 For the rest of this paper, we fix the tree topology to this \texttt{RAxML}-inferred tree.
 Although the nucleotide model used with \texttt{RAxML} to infer this tree topology is probably less accurate than codon models, the modular subtype structure of the HA phylogeny means that most of the phylogenetic uncertainty lies in the length of the long branches separating the subtypes rather than in the tree topology itself.
 
@@ -353,14 +353,14 @@ All ExpCM's fit a stringency parameter $>1$.
      \begin{tabular}{cccccccccc}
         \hline
          Model & $\Delta$AIC & {\shortstack{Log\\ Likelihood}} & $\omega$ & {\shortstack{Stringency\\ parameter ($\beta$)}}\\ \hline
-       	ExpCM  (H1+H3 avg) + $\Gamma\omega$  & 0 & -48751 & 0.19,  0.50,  0.90,  1.86 &  1.70\\
-	ExpCM (H1+H3 avg)  &  950 & -49227 & 0.15 & 1.78\\
-	ExpCM  (H1) + $\Gamma\omega$  & 1306 & -49404  & 0.13 ,  0.44,  0.91,  2.16 & 1.12\\
-	ExpCM (H3) + $\Gamma\omega$ & 1737 & -49620 & 0.09,  0.33,  0.72,  1.77 & 1.28\\
-	ExpCM (H1) & 2556 & -50030 &  0.13 & 1.22\\
-	ExpCM (H3) &  3197 & -50350 & 0.12 & 1.45\\
-	GY94 + $\Gamma\omega$  & 4719 & -51106 & 0.00,  0.03,  0.08,  0.26 & - \\
-	GY94 & 7625 & -52560  & 0.07 & -\\
+       	ExpCM  (H1+H3 avg) + $\Gamma\omega$  & 0 & -51083 & 0.19,  0.50,  0.91,  1.86 &  1.69\\
+	ExpCM (H1+H3 avg)  &  1063 & -51616 & 0.14 & 1.77\\
+	ExpCM  (H1) + $\Gamma\omega$  & 1321 & -51744  & 0.12 ,  0.42,  0.89,  2.13 & 1.11\\
+	ExpCM (H3) + $\Gamma\omega$ & 1777 & -51972 & 0.10,  0.36,  0.76,  1.84 & 1.28\\
+	ExpCM (H1) & 2670 & -52419 &  0.12 & 1.21\\
+	ExpCM (H3) &  3377 & -52773 & 0.12 & 1.43\\
+	GY94 + $\Gamma\omega$  & 4817 & -53487 & 0.00,  0.03,  0.08,  0.24 & - \\
+	GY94 & 7892 & -55025  & 0.07 & -\\
       \end{tabular}
 \end{table}
  
@@ -379,13 +379,13 @@ Importantly, models that account for purifying selection via either $\Gamma\omeg
 \ref{fig:empirical_trees} shows the branch lengths optimized by each model on a common scale.
 The tree's deepest branches are shortest when they are optimized by the GY94 model, which lacks both $\Gamma\omega$ and site-specific amino-acid preferences.
 Adding either $\Gamma\omega$ rate variation or site-specific amino-acid preferences increases the length of the deep branches.
-Specifically, the tree's diameter (the distance from the two most divergent tips) for the GY94+$\Gamma\omega$ model is 168\% of the GY94 model tree diameter (\ref{supptab:tree_diameter}).
-The tree diameter is 123\% and 136\% of the GY94 model tree diameter for ExpCM's informed by H1 or H3 amino-acid preferences, respectively, and 167\% of the GY94 model for the ExpCM informed by the average of the H1 and H3 preferences (\ref{supptab:tree_diameter}).
+Specifically, the tree's diameter (the distance from the two most divergent tips) for the GY94+$\Gamma\omega$ model is 159\% of the GY94 model tree diameter (\ref{supptab:tree_diameter}).
+The tree diameter is 122\% and 135\% of the GY94 model tree diameter for ExpCM's informed by H1 or H3 amino-acid preferences, respectively, and 160\% of the GY94 model for the ExpCM informed by the average of the H1 and H3 preferences (\ref{supptab:tree_diameter}).
 
 The deepening of branch lengths that results from the $\Gamma\omega$ and site-specific amino-acid preference approaches to modeling purifying selection are largely independent.
 This can be seen by examining the ExpCM+$\Gamma\omega$ models, which combine $\Gamma\omega$ rate variation with site-specific amino-acid preferences.
 As shown in \ref{fig:empirical_trees}, these ExpCM+$\Gamma\omega$ models estimate longer branches than models with just $\Gamma\omega$ rate variation (GY94+$\Gamma\omega$) or just site-specific amino-acid preferences (ExpCM's).
-The near independence of these effects is quantified in \ref{supptab:tree_diameter}, which shows that 83\% of the tree diameter extension of ExpCM(H1+H3 avg)+$\Gamma\omega$ versus can be explained by simply adding the extension from incorporating $\Gamma\omega$ (GY94+$\Gamma\omega$ versus GY94) to the extension from incorporating site-specific amino-acid preferences (ExpCM(H1+H3 avg) versus GY94).
+The near independence of these effects is quantified in \ref{supptab:tree_diameter}, which shows that 76\% of the tree diameter extension of ExpCM(H1+H3 avg)+$\Gamma\omega$ versus can be explained by simply adding the extension from incorporating $\Gamma\omega$ (GY94+$\Gamma\omega$ versus GY94) to the extension from incorporating site-specific amino-acid preferences (ExpCM(H1+H3 avg) versus GY94).
 
 However, while adding $\Gamma\omega$ rate variation increases the length of deep branches in a roughly uniform fashion across the tree, the branch lengthening from adding site-specific amino-acid preferences is not uniform across the tree (\ref{fig:empirical_trees}). 
 Instead, the increase in branch length is most pronounced on branches leading to the HA sequence that was used in the deep mutational scanning experiment that informed the ExpCM.
@@ -734,14 +734,14 @@ For each tree, the diameter is reported as a raw value and as a percentage of th
      \begin{tabular}{cccccccccc}
         \hline
          Model & {\shortstack{Tree diameter\\ (average codon substitutions per site)}} & {\shortstack{Percentage of\\ GY94 tree diameter}} \\ \hline
-         GY94 & 11.42 & 100\%\\
-         ExpCM(H1) & 14.11& 123\%\\
-         ExpCM(H3) & 15.50 & 136\%\\
-         ExpCM(H1+H3 avg) & 19.06 & 167\%\\
-         GY94 + $\Gamma\omega$ & 19.13 & 168\%\\
-         ExpCM(H1) + $\Gamma\omega$ & 25.21 & 221\% \\
-         ExpCM(H3) + $\Gamma\omega$ & 26.56 & 233\% \\
-         ExpCM(H1+H3 avg) + $\Gamma\omega$ & 29.82 & 261\% \\
+         GY94 & 12.04 & 100\%\\
+         ExpCM(H1) & 14.70 & 122\%\\
+         ExpCM(H3) & 16.28 & 135\%\\
+         ExpCM(H1+H3 avg) & 19.21 & 160\%\\
+         GY94 + $\Gamma\omega$ & 19.15 & 159\%\\
+         ExpCM(H1) + $\Gamma\omega$ & 24.75 & 206\% \\
+         ExpCM(H3) + $\Gamma\omega$ & 25.03 & 208\% \\
+         ExpCM(H1+H3 avg) + $\Gamma\omega$ & 30.78 & 256\% \\
       \end{tabular}
 \end{supptable}
 \clearpage 
