@@ -326,7 +326,7 @@ However, if ExpCM's do a substantially better job than GY94 models of capturing 
 To test the models on real data, we used actual sequences of influenza HA. 
 The topology of HA phylogenetic trees (\ref{fig:empirical_trees}) makes these sequences an interesting test case for branch-length estimation.
 HA consists of a number of different subtypes.
-Sequences within a subtype have $>$75\% amino-acid identity, but sequences in different subtypes have as little as 38\% identity.
+Sequences within a subtype have $>$68\% amino-acid identity, but sequences in different subtypes have as little as 38\% identity.
 However, HA proteins from all subtypes have a highly conserved structure that performs a highly conserved function~\citep{ha2002h5,russell2004h1}.
 We used \texttt{RAxML}~\citep{stamatakis2006raxml} with a nucleotide substitution model  (GTRCAT) to infer a phylogenetic tree for 87 HA sequences drawn from 14 of the 18 subtypes (we excluded bat influenza and three other rare subtypes).
 For the rest of this paper, we fix the tree topology to this \texttt{RAxML}-inferred tree.
@@ -652,7 +652,7 @@ We performed 10 replicate simulations and estimated the branch lengths for each 
 For \ref{fig:phylobayes}, we fit a pbMutSel model to the full HA tree. 
 We ran one chain for 5000 steps, saved every sample, and discarded the first 500 samples as a burnin. 
 \skhcomment{re: measure of convergence. I need add some analysis to fully address this point. 1. I am going to run 2 chains and assess the congruency between these two chains. 2. I am going to look at the traces using Andrew Rambaut's program tracer. Both of these are in progress}
-We used \texttt{PhyloBayes-MPI} program \texttt{readpb_mpi} to compute the majority-rule consensus tree and the posterior average site-specific amino-acid preferences. 
+We used \texttt{PhyloBayes-MPI} program \texttt{readpb\_mpi} to compute the majority-rule consensus tree and the posterior average site-specific amino-acid preferences. 
 
 In order to make the branch lengths in \ref{fig:phylobayes} comparable between the pbMutSel tree returned by \texttt{PhyloBayes-MPI} and the other trees returned by \texttt{phydms}, we we normalized the branch lengths on the pbMutSel consensus tree and the ExpCM(H1+H3 avg)+$\Gamma\omega$ by dividing each branch by the length from A/South Carolina/1/1918 and A/Solomon Islands/3/2006. 
 These two H1 sequences are early and late representatives of the longest known human influenza lineage, and are of sufficiently high identity that different ExpCM and GY94 substitution models all estimate nearly identical branch lengths separating them. 
@@ -751,6 +751,7 @@ For each tree, the diameter is reported as a raw value and as a percentage of th
 {\bf Model parameters fit to a low divergence tree.}
 We fit GY94 models and an ExpCM defined by H1 deep mutational scanning preferences to the ``low divergence from H1" tree in \ref{fig:compete}. 
 We used these model parameters calculate the expected pairwise sequence identity in \ref{fig:decay} and simulate the sequences in \ref{fig:simulations}. 
+\skhcomment{check this numbers}
 } 
      \begin{tabular}{ccc}
         \hline
@@ -799,5 +800,17 @@ The sequences in this alignment contain only the alignable sites between H1 and 
 Conversion from this numbering scheme to sequential numbering of A/Perth/2009 is in in \ref{suppfile:WSN_Perth_map}. 
 }
 \end{suppfile}
+
+
+\skhcomment{Notes from Sarah to Jesse}
+
+\skhcomment{(1) Within subtype amino acid identity. I didn't want to do a brute force approach so I took 1 million samples the amino-acid identity between pairs of sequences and took the minimum identity of these samples within a subtype. Do you think this is sufficient?}
+
+\skhcomment{(2) The asymptotic sequence divergence of the GY94 model. Currently, I have a value of 0.059 for the asymptotic divergence. I got this value by simply putting a very large value of t into the formula. I tried to do out the math and find the \textit{actual} limit but I got a value 0.0193. I will attach my notes and maybe there is an obvious place where the formula is wrong...}
+
+\begin{equation}
+\label{eq:limit}
+\end{equation}
+
 
 \end{document}
