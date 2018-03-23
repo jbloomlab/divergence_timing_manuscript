@@ -328,7 +328,7 @@ The topology of HA phylogenetic trees (\ref{fig:empirical_trees}) makes these se
 HA consists of a number of different subtypes.
 Sequences within a subtype have $>$68\% amino-acid identity, but sequences in different subtypes have as little as 38\% identity.
 However, HA proteins from all subtypes have a highly conserved structure that performs a highly conserved function~\citep{ha2002h5,russell2004h1}.
-We used \texttt{RAxML}~\citep{stamatakis2006raxml} with a nucleotide substitution model  (GTRCAT) to infer a phylogenetic tree for 92 HA sequences drawn from 15 of the 18 subtypes (we excluded bat influenza and one other rare subtypes).
+We used \texttt{RAxML}~\citep{stamatakis2006raxml} with a nucleotide substitution model  (GTRCAT) to infer a phylogenetic tree for 92 HA sequences drawn from 15 of the 18 subtypes (we excluded bat influenza and one other rare subtype).
 For the rest of this paper, we fix the tree topology to this \texttt{RAxML}-inferred tree.
 Although the nucleotide model used with \texttt{RAxML} to infer this tree topology is probably less accurate than codon models, the modular subtype structure of the HA phylogeny means that most of the phylogenetic uncertainty lies in the length of the long branches separating the subtypes rather than in the tree topology itself.
 
@@ -627,7 +627,7 @@ We also included a small number of sequences from the major human and equine inf
 The resulting alignment contains 92 sequences, and is provided in \ref{suppfile:alignment_high}. 
 
 We created four subalignments with ``low" and ``intermediate" divergence from either the H1 or the H3 deep mutational scanning reference sequence for the analysis in \ref{fig:compete}. 
-The ``low divergence" alignments had $\ge 59\%$ amino-acid identity to the sequence used in the deep mutational scanning, and the ``intermediate divergence" alignments had $\ge 46\%$ identity from the reference sequence(~\ref{suppfig:subalignments}).
+The ``low divergence" alignments had $\ge 59\%$ amino-acid identity to the sequence used in the deep mutational scanning, and the ``intermediate divergence" alignments had $\ge 46\%$ identity from the reference sequence~(\ref{suppfig:subalignments}).
 
 We inferred the tree topology of each alignment using \texttt{RAxML}~\citep{stamatakis2006raxml} and the GTRCAT model. 
 We estimated the branch lengths of this fixed topology using each ExpCM and GY94 models with \texttt{phydms\_comprehensive}~\citep{hilton2017phydms}. 
@@ -644,9 +644,7 @@ For each model, we calculated the expected amino-acid sequence identity for two 
 where $a$ ranges over all 20 amino acids, $x \in a$ indicates that $x$ ranges over all codons that encode amino-acid $a$, $p_{r,x}$ is the stationary state of the model at site $r$ and codon $x$ (given by \ref{eq:px} for GY94-family models, and \ref{eq:prx} for ExpCM-family models), and $\left[e^{t\mathbf{P_r}}\right]_{xy}$ is the value in row $x$ and column $y$ of the matrix obtained by exponentiating the product of $t$ and the substitution matrix $\mathbf{P_r}$ for site $r$ (defined by \ref{eq:GY94} for GY94-family models and \ref{eq:ExpCM} for ExpCM-family models).
 
 \subsection*{Simulations}
-For \ref{fig:simulations}, we simulated sequences using \texttt{pyvolve}~\citep{spielman2015pyvolve} along the full HA tree using an ExpCM defined by parameters fit to the ``low divergence'' H1 subtree. 
-
-We performed 10 replicate simulations and estimated the branch lengths for each replicate using \texttt{phydms\_comprehensive}~\citep{hilton2017phydms}. 
+For \ref{fig:simulations}, we simulated sequences using \texttt{pyvolve}~\citep{spielman2015pyvolve} along the full HA tree using an ExpCM defined by parameters fit to the ``low divergence'' H1 subtree~(\ref{supptab:fit_params}). We performed 10 replicate simulations and estimated the branch lengths for each replicate using \texttt{phydms\_comprehensive}~\citep{hilton2017phydms}. 
 
 \subsection*{pbMutSel inference with \texttt{PhyloBayes-MPI}.}
 For \ref{fig:phylobayes}, we fit a pbMutSel model to the full HA tree. 
@@ -751,7 +749,6 @@ For each tree, the diameter is reported as a raw value and as a percentage of th
 {\bf Model parameters fit to a low divergence tree.}
 We fit GY94 models and an ExpCM defined by H1 deep mutational scanning preferences to the ``low divergence from H1" tree in \ref{fig:compete}. 
 We used these model parameters calculate the expected pairwise sequence identity in \ref{fig:decay} and simulate the sequences in \ref{fig:simulations}. 
-\skhcomment{check this numbers}
 } 
      \begin{tabular}{ccc}
         \hline
@@ -802,15 +799,13 @@ Conversion from this numbering scheme to sequential numbering of A/Perth/2009 is
 \end{suppfile}
 
 
-\skhcomment{Notes from Sarah to Jesse}
+\noindent\skhcomment{Notes from Sarah to Jesse}
 
-\skhcomment{(1) Within subtype amino acid identity. I didn't want to do a brute force approach so I took 1 million samples the amino-acid identity between pairs of sequences and took the minimum identity of these samples within a subtype. Do you think this is sufficient?}
+\noindent\skhcomment{\textbf{(1) Within subtype amino acid identity.} When describing the structure of the HA tree we comment that within a subtype HA sequences are $\ge 68\%$ identical on an amino acid level. To calculate this number I didn't want to look just at the tree of 92 sequences we used for the analysis because we might have missed the most diverged pair of sequences within a subtype. I also didn't want to take a brute force approach and calculate the pairwise identity of \textit{every} sequence I downloaded fro IVR or build a tree with all of these sequences. To get the number 68\% I took 1 million samples of pairs of sequence for each subtype and calculated the mean divergence between these 18 million samples. Do you think this is sufficient? Is there an alternative way which makes more sense?}
 
-\skhcomment{(2) The asymptotic sequence divergence of the GY94 model. Currently, I have a value of 0.059 for the asymptotic divergence. I got this value by simply putting a very large value of t into the formula. I tried to do out the math and find the \textit{actual} limit but I got a value 0.0193. I will attach my notes and maybe there is an obvious place where the formula is wrong...}
+\noindent\skhcomment{\textbf{(2) The asymptotic sequence divergence of the GY94 model.} In the discussion of the decay to stationary state plot, we comment that the asymptotic sequence divergence of the GY94 model is 0.059. I got this value by simply putting a very large value of $t$ (time) into the equation. I tried to find the true asymptotic divergence by solving the limit of the equation as t approaches infinity. When I did this I got a value of 0.0193. This is too low. I've attached my notes, is there a place where my math is obviously wrong?}
 
-\begin{equation}
-\label{eq:limit}
-\end{equation}
+\noindent\skhcomment{\textbf{(3) pbMutSel re-run.} I am going to re-run the pbMutSel analysis making two major changes. The first is I am going to specify the number of bins for the gamma distribution so there are exactly the same number of bins as in the ExpCM+$\Gamma\omega$ ($K=4$). The second change I am going to make is to run two parallel chains. I will use the amount of  congruency between the parallel chains along with the trace files to assess the convergence of the model. The server is going to be undergoing some maintenance this weekend so I might not have the results until mid next week. However, when I was first getting the pbMutSel model up and running I ran two chains in parallel on a similar (but not identical) tree and the results were very congruent. That is, I am not too worried about the results changing in the pbMutSel section. }
 
 
 \end{document}
