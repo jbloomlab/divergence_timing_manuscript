@@ -45,7 +45,7 @@ def create_model_ExpCM(param, prefs):
     return phydmslib.models.ExpCM(prefs, kappa=params["kappa"], omega=params["omega"],
         beta=params["beta"], mu=0.3, phi=phi, freeparams=['mu'])
 
-def get_stationarystate(model,start,length):
+def get_stationarystate(model ,target_sites):
     amino_acids = list(AA_TO_INDEX.keys())
     prefs = {}
     for amino_acid in amino_acids:
@@ -55,7 +55,7 @@ def get_stationarystate(model,start,length):
     final_cols = ["site"] + amino_acids
 
     # extract the stationary state
-    for r in range(start, start + length):
+    for r in target_sites:
         prefs["site"].append(r)
         for amino_acid in amino_acids:
             amino_acid_index = AA_TO_INDEX[amino_acid]
@@ -68,12 +68,11 @@ def get_stationarystate(model,start,length):
 
 def main():
     # set up params for runs
-    start_site = 117
-    number_of_sites = 15
+    target_sites = [111, 109, 113, 114, 115]
     phydms_dir = "../HA/branch_lengths/phydms/"
     prefs_dir = "../HA/data/references/"
     YNGKP_M0_modelparams_fname = "{0}hybrid_lowH1_0_YNGKP_M0_modelparams.txt".format(phydms_dir)
-    YNGKP_M5_modelaprams_fname = "{0}hybrid_lowH1_0_YNGKP_M5_modelparams.txt".format(phydms_dir)
+    YNGKP_M5_modelprams_fname = "{0}hybrid_lowH1_0_YNGKP_M5_modelparams.txt".format(phydms_dir)
     ExpCM_modelparams_fname = "{0}hybrid_lowH1_0_ExpCM_HA_hybridDoud_prefs_modelparams.txt".format(phydms_dir)
     Doud_prefs_fname = "{0}HA_hybridDoud_prefs.csv".format(prefs_dir)
     if not os.path.isdir("outputs"):
@@ -81,16 +80,16 @@ def main():
 
     # ExpCM
     model = create_model_ExpCM(ExpCM_modelparams_fname, Doud_prefs_fname)
-    prefs = get_stationarystate(model, start_site, number_of_sites)
+    prefs = get_stationarystate(model, target_sites)
     prefs.to_csv("outputs/ExpCM_stationarystate.csv", index=False)
 
     # YNGKP M0
     model = create_model_YNGKP_M0(YNGKP_M0_modelparams_fname, 565)
-    prefs = get_stationarystate(model, start_site, number_of_sites)
+    prefs = get_stationarystate(model,target_sites)
     prefs.to_csv("outputs/YNGKP_M0_stationarystate.csv", index=False)
 
     # extract the wr values from YNGKP M5 and YNGKP
-    df = pd.read_csv(YNGKP_M5_modelaprams_fname, sep=" = ", engine="python", header=None)
+    df = pd.read_csv(YNGKP_M5_modelprams_fname, sep=" = ", engine="python", header=None)
     alpha_omega = df[df[0] == "alpha_omega"][1].iloc[0]
     beta_omega = df[df[0] == "beta_omega"][1].iloc[0]
     wr = list(phydmslib.models.DiscreteGamma(alpha_omega, beta_omega, 4))
@@ -98,7 +97,7 @@ def main():
     value_type = ["omega","omega", "omega", "omega", "omega", "gamma", "gamma"]
     model_list = ["M5", "M5", "M5", "M5", "M0", "alpha_omega", "beta_omega"]
     df = pd.DataFrame({"model":model_list, "omega":wr, "type":value_type})
-    df.to_csv("outputs/wr.csv", index=False)
+    df.to_csv("outputs/M0_M5_omegas.csv", index=False)
 
 if __name__ == '__main__':
     main()

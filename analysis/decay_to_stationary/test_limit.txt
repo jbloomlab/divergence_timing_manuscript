@@ -1,0 +1,11 @@
+kappa = 1
+omega = 1
+phi0A = 0.25
+phi0C = 0.25
+phi0G = 0.25
+phi1A = 0.25
+phi1C = 0.25
+phi1G = 0.25
+phi2A = 0.25
+phi2C = 0.25
+phi2G = 0.25
