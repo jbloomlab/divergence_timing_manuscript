@@ -617,14 +617,14 @@ The preference for every amino acid $a$ at every site $r$ in the average prefere
 
 \subsection*{HA sequences and tree topology.}
 
-We downloaded all full-length, coding sequences for 14 of the 18 HA subtypes from the Influenza Virus Resource Database~\citep{bao2008influenza} in June of 2017. 
-We excluded rare subtypes 12, 15, 17, and 18, which have limited sequences in the database.  
+We downloaded all full-length, coding sequences for 15 of the 18 Influenza A virus HA subtypes from the Influenza Virus Resource Database~\citep{bao2008influenza} in June of 2017. 
+We excluded rare subtypes 15, 17, and 18, which have limited sequences in the database.  
 We filtered and aligned the sequences using \texttt{phydms\_prepalignment}~\citep{hilton2017phydms}. 
 Specifically, we used \texttt{phydms\_prepalignment} with the flag \texttt{--minidentity 0.3} to remove sequences with ambiguous nucleotides, premature stops, or frameshift mutations as well as redundant sequences.  
 We also removed all codon sites which that are not alignable between the H1 HA and H3 HA used in the deep mutational scanning experiments (these alignable sites are listed in  \ref{suppfile:WSN_Perth_map}). 
 We subsampled the remaining sequences to five per subtype with $\le 1$ sequence per year per subtype. 
 We also included a small number of sequences from the major human and equine influenza lineages to ensure representation of these well-studied lineages. 
-The resulting alignment contains 87 sequences, and is provided in \ref{suppfile:alignment_high}. 
+The resulting alignment contains 92 sequences, and is provided in \ref{suppfile:alignment_high}. 
 
 We created four subalignments with ``low" and ``intermediate" divergence from either the H1 or the H3 deep mutational scanning reference sequence for the analysis in \ref{fig:compete}. 
 The ``low divergence" alignments had $\ge 59\%$ amino-acid identity to the sequence used in the deep mutational scanning, and the ``intermediate divergence" alignments had $\ge 46\%$ identity from the reference sequence(~\ref{suppfig:subalignments}).
