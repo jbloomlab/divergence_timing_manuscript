@@ -132,11 +132,22 @@ Overall, our work underscores the importance of modeling site-specific amino-aci
 
 \section*{Introduction} 
 
+\jdbcomment{I have commented on the general structure of the Introduction, which I think is mostly OK. 
+Add in references next, as this is crucial.
+The Intro should frame the general problem and describe specifically what is already known.
+Right now it does a bit too much of repeating your first two sections of Results.
+In particular, there is some balance between how much goes in Intro and Results. 
+Right now we have a lot of good background in Results, so don't get too repetitive in Intro.}
+
 When studying a protein's evolutionary history, it is important to understand the timescale at which the evolutionary events have occurred. 
 For example, understanding how long a particular viral lineage has been circulating informs hypotheses about population size, evolutionary rate, and possible previous hosts. Molecular phylogenetic is commonly used to make sure estimates of time since the divergence of two lineages. 
 Under a molecular clock assumption, the branch lengths on a phylogenetic tree can be transformed into estimates of absolute time. 
 However, it has been observed that these phylogenetic estimates often appear to estimate times since deep divergences that appear to be too recent. 
 That is, when two nodes are separated by a very long branch, the phylogenetic estimate of this branch length often appears to be too short, which leads to an estimate of time that is too recent. 
+\jdbcomment{I would make the first sentence more general than just proteins.
+Second sentence: good idea to use viruses as examples, but try to make the sentence a bit more specific and less general---also, population size may not be relevant to estimates of deep divergence times.
+For the last part, can we in fact cite general non-viral references about times being too recent? 
+If you can't find several good ones, then just drop that and make first paragraph solely about divergence estimates and have next paragraph go into underestimation.}
 
 In the case of viruses, there is independent evidence that the estimates of these deep divergences are indeed too recent. 
 The times since the divergence of lineages within lentiviruses, paramyxoviruses and filoviruses have been estimated by methods which rely on information outside of or in addition to the viral phylogenetic tree.  
@@ -145,6 +156,9 @@ For example, there are multiple examples of filovirus integrations into the geno
 Using these viral integrations and the fossil dates of the rodent species tree, the divergence of two main filovirus groups has been estimated to be $>7$ millions years ago. 
 This estimate stands in stark contrast to the phylogenetic estimate of filovirus divergence which estimates this event happened $\sim 10,000$ years ago. 
 All together, this indicates that phylogenetic branch length estimation does truly have a systematic bias towards underestimation. 
+\jdbcomment{Good content, although obviously needs references.
+Also, I think it is best to have at most one or two general sentences and then get right into specific examples.
+So I think paragraph would be stronger if you just have one (or two) general sentences and then bring up at least two specific examples, and finally return to general with ``similar things have been seen in viruses X, Y, and Z (citing each).}
 
 Branch length underestimation is due in part to inadequate modeling of purifying selection. 
 During evolution, protein sites do not sample all 20 available amino-acids equally. 
@@ -152,6 +166,10 @@ Instead, proteins have site-specific amino-acid preferences which are necessary 
 Failure to account for these constraints will lead to branch length underestimation because the model will assume that sequences which have been evolving for a very long period of time should be more diverged than is actually the case. 
 Furthermore, the site-specific amino-acid preferences at one site are often dependent on the amino-acid identity at another site. 
 As a result, the preferences ``shift" over time time due to the accumulation of substitutions in other parts of the protein.  
+\jdbcomment{Start with: "The under-estimation of deep branches is known to occur in part due to...
+Also, we need to make this paragraph about what has \emph{already} been shown. 
+It is not clear how much of what you argue here is things you can clearly cite to previous papers versus your new results.
+So overall content is good, but make this paragraph talk about prior literature with specific citations to specific points.}
 
 Most phylogenetic substitution models are time-homogenous and site-independent: they do not take into account how sites may interact with each other or how preferences may shift over time. 
 However, they can model purifying selection with varying degrees of complexity. 
@@ -160,6 +178,7 @@ This variation accounts for the fact that constrained sites will have a lower ra
 However, the stationary state of this model, which describes the expected sequence composition after a very long evolutionary time, will be exactly the same as a model without any variation in the dN/dS parameter. 
 Alternatively, models can have site-specific stationary states which explicitly acknowledge the protein's site-specific amino-acid preferences. 
 Such models should estimate deep divergence times because model still expects relatively low sequence divergence even after a very long evolutionary time. 
+\jdbcomment{Generally good (except for lack of citations), but again is last point the one you are making or something that you can clearly cite from literature? See comment after next paragraph.}
 
 Here, we tested the effect of modeling site-specific amino-acid preferences though a model with a site-specific stationary state on an influenza hemagglutinin (HA) phylogenetic tree. 
 Specifically, we used Experimentally Informed Codon Models (ExpCM's) defined by site-specific amino-acid preferences measured by a high-throughput functional assay called deep mutational scanning. 
@@ -168,6 +187,18 @@ We found that the extension in branch length due modeling purifying selection vi
 However, our results make it clear that the site-specific amino-preferences of HA are constant across the entire tree. 
 In particular, the branch lengthening is most pronounced on branches leading to the HA sequence that was used in the deep mutational scanning experiment that parameterized the ExpCM.
 These results underscore the importance of modeling how site-specific purifying selection affects the stationary state when estimating deep divergence times---but also shows the inherent limitations of approaches that fail to model how this selection shifts over time. 
+\jdbcomment{Looking at this final paragraph, I would suggest structuring it and the two above it (last three) like this:
+\begin{itemize}
+\item Under-estimation can result from failure to model purifying selection.
+\item Most models are homogenous / independent, and model by rate variation.
+\item Some models use site-specific stationary states.
+\item Here we use ExpCMs and find...
+\end{itemize}
+So overall, pretty good structure that you already have but don't put too much of your results into the Introduction.
+
+The one thing that you need to add is a better description of deep mutational scanning. 
+So I would say spend less time repeating your results and more time providing that background in the last paragraph (or an additional added paragraph).
+}
 
 
 \section*{Results}
@@ -225,7 +256,7 @@ However, mutation-selection models must additionally specify 19 parameters defin
 This corresponds to $19\times L$ parameters for a protein of length $L$, or 9,500 parameters for a 500-residue protein.
 It is challenging to obtain values for these amino-acid preference parameters in a maximum-likelihood framework without overfitting the data~\citep{rodrigue2013statistical}.
 Here we will primarily use experimentally informed codon models (ExpCM's), which define the site-specific amino-acid preference parameters \textit{a priori} from deep mutational scanning experiments so that they do not need to be fit from phylogenetic data~\citep[see Methods and][]{bloom2014experimentally, hilton2017phydms, bloom2017identification}.
-Because the amino-acid preference parameters in an ExpCM are obtained from experiments, the number of ExpCM free parameters that are fit from the phylogenetic data are similar to a non-site-specific substitution model.
+Because the amino-acid preference parameters in an ExpCM are obtained from experiments, the number of ExpCM free parameters is similar to a non-site-specific substitution model.
 An alternative strategy of obtaining the amino-acid preference parameters via Bayesian inference~\citep{lartillot2004bayesian, rodrigue2014site} is discussed in the last section of the Results.
 
 Importantly, these two strategies for modeling purifying selection are not mutually exclusive.
@@ -259,9 +290,10 @@ The ExpCM has different asymptotes for different sites since it accounts for how
 \end{figure}
 
 \ref{fig:decay} shows how different substitution models predict amino-acid sequence identity to decrease as a function of branch length using model parameters fit to a phylogeny of H1 influenza hemagglutinin (HA) genes.
-The GY94 model predicts the same behavior for all sites, since it does not have any site-specific parameters, with an asymptotic sequence divergence of 0.059. 
-While this predicted sequence divergence is higher than $\frac{1}{20} = 0.05$, due to redundant codon and nucleotide biases favoring certain amino acids, it intuitively feels to low. 
-Like many proteins HA has a highly conserved structure and function that imposes constraints that cause most sites to sample only a small subset of the 20 amino acids among all known HA homologs~\citep{nobusawa1991comparison}.
+The GY94 model predicts the same behavior for all sites, since it does not have any site-specific parameters, with an asymptotic sequence identity of 0.059. 
+While this predicted sequence identity is higher than $\frac{1}{20} = 0.05$, due to redundant codon and nucleotide biases favoring certain amino acids, it is much lower than the pairwise identity of even the most diverged HAs in nature.
+While it is of course possible that the identity of HAs in nature would become even lower given more time, it seems biochemically improbable that it would ever become as low as 0.059. 
+The reason is that like many proteins HA has a highly conserved structure and function that imposes constraints that cause many sites to sample only a small subset of the 20 amino acids among all known HA homologs~\citep{nobusawa1991comparison}.
 
 Accounting for site-to-site dN/dS rate variation in GY94 models affects the rate at which the asymptotic sequence identity is approached, but not the actual value of this asymptote. 
 For instance, \ref{fig:decay} shows that the GY94+$\Gamma\omega$ model takes longer to reach the asymptote than GY94, but that the asymptote is identical for both models. 
@@ -275,7 +307,7 @@ Therefore, no matter how ``well" a model accounts for site-to-site variation in 
 
 However, mutation-selection models such as ExpCM's have site-specific stationary states.
 They predict that different sites will have different asymptotic sequence identities (\ref{fig:decay})---a prediction that accords with the empirical observation that some sites are much more variable than others in alignments of highly diverged sequences.
-For instance, \ref{fig:decay} shows that at sites such as 183 and 305 in the H1 HA, an ExpCM but not a GY94-style model predicts that the divergence will always be low. 
+For instance, \ref{fig:decay} shows that at sites such as 183 and 305 in the H1 HA, an ExpCM but not a GY94-style model predicts that the identity will always be relatively high. 
 When sites with highly constrained amino-acid preferences such as these are common, an ExpCM can estimate a long branch length at modest sequence identities that a GY94 model might attribute to a shorter branch.
 
 
@@ -288,7 +320,7 @@ Specifically, we simulated alignments of sequences along the HA phylogenetic tre
 \centerline{\includegraphics[width=0.9\textwidth]{figures/simulations}}
 \caption{\label{fig:simulations}
 \textbf{Branch lengths inferred on data simulated under a model with site-specific amino-acid preferences.} 
-We simulated alignments along a HA phylogenetic tree (see Figure~\ref{fig:empirical_trees}) using an ExpCM parameterized by the actual site-specific amino-acid preferences for an H1 HA~\citep{doud2016accurate}.
+We simulated alignments along a HA phylogenetic tree (see \ref{fig:empirical_trees}) using an ExpCM parameterized by the actual site-specific amino-acid preferences for an H1 HA~\citep{doud2016accurate}.
 We then inferred the branch lengths of this tree from the simulated alignments.
 The inferred branch lengths for various models are plotted on the x-axis, and the actual branch lengths used in the simulations are on the y-axis.
 We performed 10 simulations and inferences, and gray points show each inferred branch length from each simulation, and black points show the average of each branch length across simulations.
@@ -310,7 +342,7 @@ Therefore, models with uniform stationary states underestimate the length of lon
 \centerline{\includegraphics[width=\textwidth]{figures/empirical_trees.pdf}}
 \caption{\label{fig:empirical_trees}
 \textbf{Effect of site-specific amino-acid preferences and $\Gamma\omega$ rate variation on HA branch length estimation.} 
-The branch lengths of the HA tree are optimized using the indicated ExpCM or GY94 model. 
+The branch lengths of the HA tree were optimized using the indicated ExpCM or GY94 model. 
 The amino-acid preferences defining the model (ExpCM) or implied by the model (GY94) are shown as logo plots for 15 sites in HA; the full set of experimentally measured amino-acid preferences are in \ref{suppfig:prefs_doud}, \ref{suppfig:prefs_lee}, and \ref{suppfig:prefs_average}. 
 The ExpCM's use amino-acid preferences measured in deep mutational scanning of an H1 HA~\citep{doud2016accurate}, an H3 HA~\citep{lee2018deep}, or the average of the measurements for these two HAs.
 Circle denotes the H1 clade and triangle denotes the H3 clade.
@@ -333,13 +365,13 @@ For the rest of this paper, we fix the tree topology to this \texttt{RAxML}-infe
 Although the nucleotide model used with \texttt{RAxML} to infer this tree topology is probably less accurate than codon models, the modular subtype structure of the HA phylogeny means that most of the phylogenetic uncertainty lies in the length of the long branches separating the subtypes rather than in the tree topology itself.
 
 Deep mutational scanning has been used to measure the amino-acid preferences of all sites in two different HAs.
-One scan measured the site-specific amino-acid preferences of an H1 HA~\citep{doud2016accurate} and the other measured the preferences of an H3 HA~\citep{lee2018deep}.
+One scan measured the preferences of an H1 HA~\citep{doud2016accurate} and the other measured the preferences of an H3 HA~\citep{lee2018deep}.
 The amino-acid preferences measured for these two HAs are shown in \ref{suppfig:prefs_doud} and 
 \ref{suppfig:prefs_lee}.
 The H1 and H3 HAs have only $\sim$42\% amino-acid identity, and so are separated by a large distance on the phylogenetic tree (see triangle and circle on \ref{fig:empirical_trees}).
 As described in \citet{lee2018deep}, the amino-acid preferences clearly differ between the H1 and H3 HA at a substantial number of sites (these differences are apparent in a simple visual comparison of \ref{suppfig:prefs_doud} and 
-\ref{suppfig:prefs_lee}, see site 33 as an example).
-Therefore, we also created a third set of amino-acid preferences by averaging the measurements for the H1 and H3 HAs, under the conjecture that these averaged preferences might better describe the ``average'' constraint on sites across the full HA tree.
+\ref{suppfig:prefs_lee}; see site 33 as an example).
+Therefore, we also created a third set of amino-acid preferences by averaging the measurements for the H1 and H3 HAs, under the conjecture that these averaged preferences might better describe the ``average'' constraint on sites across the full HA tree \jdbcomment{reference suppfig with the average logo plot here}.
 These three sets of HA amino-acid preferences define three different ExpCM's.
   
 \begin{table}[t!]
@@ -439,6 +471,7 @@ If amino-acid preferences shift during evolution, there simply will not be any m
 \centerline{\includegraphics[width=0.99\textwidth]{figures/phylobayes.pdf}}
 \caption{\label{fig:phylobayes}
 \textbf{Models inferred from natural sequences have similar stationary states to models defined by experimental preferences and estimate similar branch lengths.}
+\jdbcomment{Move the general text that applies to the all the figure (e.g., the first two sentences below) to \emph{before} the (A) label.}
 (A) We fit an ExpCM(H1+H3 avg)+$\Gamma\omega$ and a pbMutSel to the full HA tree in \ref{fig:empirical_trees}. 
 The pbMutSel amino-acid preferences are inferred from the natural HA sequences, while the ExpCM amino-acid preferences are experimentally measured and then rescaled by the stringency parameter in \ref{tab:empirical_data}. 
 The pbMutSel preferences are more correlated with the re-scaled average of the H1 and H3 deep mutational scanning preferences than the individual re-scaled H1 and H3 deep mutational scanning preferences are to each other (Pearson's $r$: 0.74 versus 0.52). 
@@ -478,7 +511,9 @@ However, for sequences distant from those used in the experiments, the ``tree av
 Therefore, while the ExpCM and pbMutSel models differ slightly in the extent to which they lengthen different branches, neither model can avoid the tension between the local and global accuracy of amino-acid preferences. 
 
 \section*{Discussion}
-
+\jdbcomment{Add references to this section.
+Also, I think we are mostly using ``preferences'' rather than ``stationary state'', so use the former except in cases where the latter clearly makes more sense (e.g., talking about math rather than model.
+}
 Here, we tested the effect of models with site-specific stationary states on branch length estimation for the phylogenetic tree of highly diverged influenza HA sequences. 
 We used site-specific stationary state models called ExpCM's, which are defined by amino-acid preferences measured by deep mutational scanning. 
 We found that the ExpCM's estimated longer branches and did so independently from substitution rate variation via $\Gamma\omega$. 
@@ -495,8 +530,20 @@ The site-specific amino-acid preferences of a protein shift across time and mode
 The ExpCM's defined by preferences measured in one of two highly diverged HA's had the largest effect on branches near the HA from the experiment. 
 The local effect of the ExpCM's defined by a single preference set indicate that different parts of the tree have different stationary states. 
 This point is underscored by the comparison of the ExpCM defined by the average preference set and the pbMutSel model, which infers the stationary state from the natural sequences. 
-Even though the stationary state of the pbMutSel model is more representative of the global stationary state, the ExpCM with average preferences has a larger effect on the branches from the H1 and H3 sequences. 
+Even though the stationary state of the pbMutSel model is more representative of the global stationary state \jdbcomment{maybe ``tree average'' rather than ``global''}, the ExpCM with average preferences has a larger effect on the branches from the H1 and H3 sequences. 
 Therefore, while it is clear that modeling site-specific amino-acid preferences is important, neither one of these models is able to capture how these preferences shift over time.
+
+\jdbcomment{In particular, you need to add literature about how preferences shift.
+These can mostly be citations worked into above. 
+In particular, there are two types of citations: papers about how preferences shift over time. 
+This would include Hugh's paper and ones cited therein. 
+You don't need to cite all general papers on epistasis, but just the ones that focus on this in terms of preferences.
+
+Second, papers about the idea of modeling non-independence in phylogenetics.
+I believe that Richard Goldstein and David Pollock have a recent \textit{Nature Ecology \& Evolution} paper on this---look it up and also pull in relevant citations that they make.
+Also, there may be some paper in this area by Rodrigue and Lartillot.
+There are also a few cited in the third-to-last paragraph of discussion here (\url{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4626756/}).
+}
 
 Clearly, the site-independence and time-homogeneity assumptions of the ExpCM and pbMutSel models inhibit their ability to accurately describe the effect of epistasis.
 In order to fully address the bias towards underestimation of divergence times by phylogenetic models, these models need to be able to accommodate how site-specific amino-acid preferences shift over time. 
@@ -506,6 +553,7 @@ Another strategy would be to allow the stationary state to shift over lineages i
 Such a model might be still be site-independent but, by breaking the time-homogeneity assumption, would capture some effect of the shifting preferences. 
 Models which account for epistasis would be inherently more complex but it clear from our results that it is important to capture how preferences shift over time to accurately estimate long branch lengths.
 
+\clearpage
 \section*{Methods}
 
 \subsection*{Substitution models}
@@ -529,8 +577,9 @@ P_{xy} =
   \end{cases}
 \end{equation}
 where $\mathcal{A}\left(x\right)$ is the amino-acid encoded by codon $x$, $\kappa$ is the transition-transversion rate, $\Phi_y$ is the equilibrium frequency of codon $y$, and $\omega$ is the relative rate of nonsynonymous and synonymous substitutions.
-We define the codon frequency parameters, $\Phi_y$, using the ``corrected F3X4" method from~\citep{pond2010correcting}. 
+We define the codon frequency parameters, $\Phi_y$, using the ``corrected F3X4" method from~\citet{pond2010correcting}. 
 This method calculates the $\Phi_y$ values from the empirical alignment frequencies but corrects for the exclusion of sequences with premature stop codons from the analysis. 
+\jdbcomment{Also add a sentence saying how under these F3X4 there are 9 parameters defining $\Phi_x$.}
 
 The frequency $p_x$ of codon $x$ in the stationary state of a GY94 model is simply 
 \begin{equation}
@@ -547,7 +596,7 @@ Briefly, the rate of substitution $P_{r,xy}$ of site $r$ from codon $x$ to $y$ i
 \label{eq:ExpCM}
 P_{r,xy} = Q_{xy} \times F_{r,xy}
 \end{equation}
-where $Q_{xy}$ is proportional to the rate of mutation from $x$ to $y$, and $F_{r,xy}$ is proportional to the probability that this mutation fixes.
+where $Q_{xy}$ is proportional to the rate of mutation from $x$ to $y$, $F_{r,xy}$ is proportional to the probability that this mutation fixes, and the diagonal elements $P_{xx}$ are set by $P_{xx} = -\sum_{z \ne x} P_{xz}$. 
 
 The rate of mutation $Q_{xy}$ is assumed to be uniform across sites, and takes an HKY85-like~\citep{hasegawa1985dating} form as 
 \begin{equation}
@@ -672,6 +721,8 @@ The external computer programs that we used were
 
 \newpage
 \section*{Supplemental Information}
+
+\jdbcomment{Further increase the number of rows in the logo plots to make them larger. Since we aren't under length constraints for supplement, might as well make them readable. Maybe 8 or so rows instead?}
 
 \begin{suppfig}[H]
 \centerline{\includegraphics[width=\textwidth]{figures/prefs_doud}}
@@ -803,9 +854,26 @@ Conversion from this numbering scheme to sequential numbering of A/Perth/2009 is
 
 \noindent\skhcomment{\textbf{(1) Within subtype amino acid identity.} When describing the structure of the HA tree we comment that within a subtype HA sequences are $\ge 68\%$ identical on an amino acid level. To calculate this number I didn't want to look just at the tree of 92 sequences we used for the analysis because we might have missed the most diverged pair of sequences within a subtype. I also didn't want to take a brute force approach and calculate the pairwise identity of \textit{every} sequence I downloaded fro IVR or build a tree with all of these sequences. To get the number 68\% I took 1 million samples of pairs of sequence for each subtype and calculated the mean divergence between these 18 million samples. Do you think this is sufficient? Is there an alternative way which makes more sense?}
 
+\jdbcomment{This seems fine, except you should take the \emph{minimum} rather than the \emph{mean} divergence between these samples.
+Did you actually take minimum and just have typo in your comment above?
+}
+
 \noindent\skhcomment{\textbf{(2) The asymptotic sequence divergence of the GY94 model.} In the discussion of the decay to stationary state plot, we comment that the asymptotic sequence divergence of the GY94 model is 0.059. I got this value by simply putting a very large value of $t$ (time) into the equation. I tried to find the true asymptotic divergence by solving the limit of the equation as t approaches infinity. When I did this I got a value of 0.0193. This is too low. I've attached my notes, is there a place where my math is obviously wrong?}
+
+\jdbcomment{
+It is not true that all elements of $\mathbf{D}$ are $< 0$.
+In fact, the principle eigenvector of a irreducible and acyclcic stochastic matrix is 1, and since $\mathbf{D}$ is a stochastic matrix minus the identity matrix, that means that it has one eigenvalue that is 0 and the rest are $< 0$.
+I'm not sure how all the math works out, but I know that it should end up being the case that $\left[\lim_{t \rightarrow \infty} e^{t \mathbf{P_r}}\right]_{xy} = p_{r,x}$ (see \url{https://en.wikipedia.org/wiki/Stochastic_matrix}).
+
+So the correct formula for the asymptotic sequence divergence at site $r$ must be
+\begin{equation}
+\sum_a \sum_{x \in a} p_{r,x} \sum_{y \in a} p_{r, y}.
+\end{equation}
+You can see that this is true without even doing all the complicated matrix exponential limits: at stationary state, the probability of being $x$ at site $r$ is $p_{r,x}$.
+}
 
 \noindent\skhcomment{\textbf{(3) pbMutSel re-run.} I am going to re-run the pbMutSel analysis making two major changes. The first is I am going to specify the number of bins for the gamma distribution so there are exactly the same number of bins as in the ExpCM+$\Gamma\omega$ ($K=4$). The second change I am going to make is to run two parallel chains. I will use the amount of  congruency between the parallel chains along with the trace files to assess the convergence of the model. The server is going to be undergoing some maintenance this weekend so I might not have the results until mid next week. However, when I was first getting the pbMutSel model up and running I ran two chains in parallel on a similar (but not identical) tree and the results were very congruent. That is, I am not too worried about the results changing in the pbMutSel section. }
 
+\jdbcomment{OK, sounds fine.}
 
 \end{document}
