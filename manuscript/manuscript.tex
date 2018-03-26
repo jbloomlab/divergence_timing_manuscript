@@ -371,7 +371,7 @@ The amino-acid preferences measured for these two HAs are shown in \ref{suppfig:
 The H1 and H3 HAs have only $\sim$42\% amino-acid identity, and so are separated by a large distance on the phylogenetic tree (see triangle and circle on \ref{fig:empirical_trees}).
 As described in \citet{lee2018deep}, the amino-acid preferences clearly differ between the H1 and H3 HA at a substantial number of sites (these differences are apparent in a simple visual comparison of \ref{suppfig:prefs_doud} and 
 \ref{suppfig:prefs_lee}; see site 33 as an example).
-Therefore, we also created a third set of amino-acid preferences by averaging the measurements for the H1 and H3 HAs, under the conjecture that these averaged preferences might better describe the ``average'' constraint on sites across the full HA tree \jdbcomment{reference suppfig with the average logo plot here}.
+Therefore, we also created a third set of amino-acid preferences by averaging the measurements for the H1 and H3 HAs, under the conjecture that these averaged preferences might better describe the ``average'' constraint on sites across the full HA tree~(\ref{suppfig:prefs_average}).
 These three sets of HA amino-acid preferences define three different ExpCM's.
   
 \begin{table}[t!]
@@ -471,10 +471,9 @@ If amino-acid preferences shift during evolution, there simply will not be any m
 \centerline{\includegraphics[width=0.99\textwidth]{figures/phylobayes.pdf}}
 \caption{\label{fig:phylobayes}
 \textbf{Models inferred from natural sequences have similar stationary states to models defined by experimental preferences and estimate similar branch lengths.}
-\jdbcomment{Move the general text that applies to the all the figure (e.g., the first two sentences below) to \emph{before} the (A) label.}
-(A) We fit an ExpCM(H1+H3 avg)+$\Gamma\omega$ and a pbMutSel to the full HA tree in \ref{fig:empirical_trees}. 
+We fit an ExpCM(H1+H3 avg)+$\Gamma\omega$ and a pbMutSel to the full HA tree in \ref{fig:empirical_trees}. 
 The pbMutSel amino-acid preferences are inferred from the natural HA sequences, while the ExpCM amino-acid preferences are experimentally measured and then rescaled by the stringency parameter in \ref{tab:empirical_data}. 
-The pbMutSel preferences are more correlated with the re-scaled average of the H1 and H3 deep mutational scanning preferences than the individual re-scaled H1 and H3 deep mutational scanning preferences are to each other (Pearson's $r$: 0.74 versus 0.52). 
+(A) The pbMutSel preferences are more correlated with the re-scaled average of the H1 and H3 deep mutational scanning preferences than the individual re-scaled H1 and H3 deep mutational scanning preferences are to each other (Pearson's $r$: 0.74 versus 0.52). 
 (B) The ExpCM(H1+H3 avg)+$\Gamma\omega$ and pbMutSel models estimated similar branch lengths when fit to the entire HA tree. 
 Points denote branch lengths between all pairs of tips on the tree. 
 Blue and orange denote branches that lead to the H1 and H3 deep mutational scanning reference sequences respectively. 
@@ -578,8 +577,9 @@ P_{xy} =
 \end{equation}
 where $\mathcal{A}\left(x\right)$ is the amino-acid encoded by codon $x$, $\kappa$ is the transition-transversion rate, $\Phi_y$ is the equilibrium frequency of codon $y$, and $\omega$ is the relative rate of nonsynonymous and synonymous substitutions.
 We define the codon frequency parameters, $\Phi_y$, using the ``corrected F3X4" method from~\citet{pond2010correcting}. 
-This method calculates the $\Phi_y$ values from the empirical alignment frequencies but corrects for the exclusion of sequences with premature stop codons from the analysis. 
-\jdbcomment{Also add a sentence saying how under these F3X4 there are 9 parameters defining $\Phi_x$.}
+There are nine parameters describing the nucleotide frequencies at each codon site (the nucleotides are constrained to sum to one at each codon position) \skhcomment{which} are calculated from the empirical alignment frequencies. 
+The ``corrected F3X4" method calculates the $\Phi_y$ values from these nucleotide frequencies but corrects for the exclusion of sequences with premature stop codons from the analysis. 
+\skhcomment{check}
 
 The frequency $p_x$ of codon $x$ in the stationary state of a GY94 model is simply 
 \begin{equation}
@@ -722,8 +722,6 @@ The external computer programs that we used were
 \newpage
 \section*{Supplemental Information}
 
-\jdbcomment{Further increase the number of rows in the logo plots to make them larger. Since we aren't under length constraints for supplement, might as well make them readable. Maybe 8 or so rows instead?}
-
 \begin{suppfig}[H]
 \centerline{\includegraphics[width=\textwidth]{figures/prefs_doud}}
 \caption{\label{suppfig:prefs_doud}
@@ -848,32 +846,5 @@ The sequences in this alignment contain only the alignable sites between H1 and 
 Conversion from this numbering scheme to sequential numbering of A/Perth/2009 is in in \ref{suppfile:WSN_Perth_map}. 
 }
 \end{suppfile}
-
-
-\noindent\skhcomment{Notes from Sarah to Jesse}
-
-\noindent\skhcomment{\textbf{(1) Within subtype amino acid identity.} When describing the structure of the HA tree we comment that within a subtype HA sequences are $\ge 68\%$ identical on an amino acid level. To calculate this number I didn't want to look just at the tree of 92 sequences we used for the analysis because we might have missed the most diverged pair of sequences within a subtype. I also didn't want to take a brute force approach and calculate the pairwise identity of \textit{every} sequence I downloaded fro IVR or build a tree with all of these sequences. To get the number 68\% I took 1 million samples of pairs of sequence for each subtype and calculated the mean divergence between these 18 million samples. Do you think this is sufficient? Is there an alternative way which makes more sense?}
-
-\jdbcomment{This seems fine, except you should take the \emph{minimum} rather than the \emph{mean} divergence between these samples.
-Did you actually take minimum and just have typo in your comment above?
-}
-
-\noindent\skhcomment{\textbf{(2) The asymptotic sequence divergence of the GY94 model.} In the discussion of the decay to stationary state plot, we comment that the asymptotic sequence divergence of the GY94 model is 0.059. I got this value by simply putting a very large value of $t$ (time) into the equation. I tried to find the true asymptotic divergence by solving the limit of the equation as t approaches infinity. When I did this I got a value of 0.0193. This is too low. I've attached my notes, is there a place where my math is obviously wrong?}
-
-\jdbcomment{
-It is not true that all elements of $\mathbf{D}$ are $< 0$.
-In fact, the principle eigenvector of a irreducible and acyclcic stochastic matrix is 1, and since $\mathbf{D}$ is a stochastic matrix minus the identity matrix, that means that it has one eigenvalue that is 0 and the rest are $< 0$.
-I'm not sure how all the math works out, but I know that it should end up being the case that $\left[\lim_{t \rightarrow \infty} e^{t \mathbf{P_r}}\right]_{xy} = p_{r,x}$ (see \url{https://en.wikipedia.org/wiki/Stochastic_matrix}).
-
-So the correct formula for the asymptotic sequence divergence at site $r$ must be
-\begin{equation}
-\sum_a \sum_{x \in a} p_{r,x} \sum_{y \in a} p_{r, y}.
-\end{equation}
-You can see that this is true without even doing all the complicated matrix exponential limits: at stationary state, the probability of being $x$ at site $r$ is $p_{r,x}$.
-}
-
-\noindent\skhcomment{\textbf{(3) pbMutSel re-run.} I am going to re-run the pbMutSel analysis making two major changes. The first is I am going to specify the number of bins for the gamma distribution so there are exactly the same number of bins as in the ExpCM+$\Gamma\omega$ ($K=4$). The second change I am going to make is to run two parallel chains. I will use the amount of  congruency between the parallel chains along with the trace files to assess the convergence of the model. The server is going to be undergoing some maintenance this weekend so I might not have the results until mid next week. However, when I was first getting the pbMutSel model up and running I ran two chains in parallel on a similar (but not identical) tree and the results were very congruent. That is, I am not too worried about the results changing in the pbMutSel section. }
-
-\jdbcomment{OK, sounds fine.}
 
 \end{document}
