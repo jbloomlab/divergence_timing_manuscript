@@ -230,10 +230,10 @@ def main():
 
         for x in target_codons:
             prx = pr[x]
+            answer = 0
             for y in target_codons:
-                A_Ainv_xy = A_Ainv[x,y]
-                answer = prx * A_Ainv_xy
-                final += answer
+                answer += pr[y]
+            final += (answer * prx)
     print(final)
 
 
