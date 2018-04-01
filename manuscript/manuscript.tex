@@ -132,74 +132,27 @@ Overall, our work underscores the importance of modeling site-specific amino-aci
 
 \section*{Introduction} 
 
-\jdbcomment{I have commented on the general structure of the Introduction, which I think is mostly OK. 
-Add in references next, as this is crucial.
-The Intro should frame the general problem and describe specifically what is already known.
-Right now it does a bit too much of repeating your first two sections of Results.
-In particular, there is some balance between how much goes in Intro and Results. 
-Right now we have a lot of good background in Results, so don't get too repetitive in Intro.}
+Phylogenetics and the concept of a molecular clock are commonly used to estimate the time since the divergence of two lineages, which places evolutionary events on an absolute timescale.
+However, in the case of viruses, there is independent evidence that the phylogenetic estimates of deep divergences are too recent. 
+For example, integration of filoviruses into their host genomes indicate that the filoviridiae family diverged 7-12 million years ago while the phylogenetic estimate of this event is only $\sim$10,000 years ago~\citep{carroll2013molecular, taylor2014evidence}.  
+Similarly, the phylogenetic estimate of when major simian immunodeficiency virus (SIV) groups diverged is almost 100 times more recent than the estimate based on the geographic isolation of SIV host species~\citep{wertheim2009dating, worobey2010island}. 
+These examples, along with other similar discrepancies with measles virus~\citep{furuse2010origin, rhazes1848treatise}, coronavirus~\citep{wertheim2013case}, and hepatitis B virus~\citep{fares2002revised}, indicate that phylogenetic methods have a systematic bias toward underestimation of deep branches. 
 
-When studying a protein's evolutionary history, it is important to understand the timescale at which the evolutionary events have occurred. 
-For example, understanding how long a particular viral lineage has been circulating informs hypotheses about population size, evolutionary rate, and possible previous hosts. Molecular phylogenetic is commonly used to make sure estimates of time since the divergence of two lineages. 
-Under a molecular clock assumption, the branch lengths on a phylogenetic tree can be transformed into estimates of absolute time. 
-However, it has been observed that these phylogenetic estimates often appear to estimate times since deep divergences that appear to be too recent. 
-That is, when two nodes are separated by a very long branch, the phylogenetic estimate of this branch length often appears to be too short, which leads to an estimate of time that is too recent. 
-\jdbcomment{I would make the first sentence more general than just proteins.
-Second sentence: good idea to use viruses as examples, but try to make the sentence a bit more specific and less general---also, population size may not be relevant to estimates of deep divergence times.
-For the last part, can we in fact cite general non-viral references about times being too recent? 
-If you can't find several good ones, then just drop that and make first paragraph solely about divergence estimates and have next paragraph go into underestimation.}
+This underestimation is known to occur in part due to inadequate models of purifying selection. 
+During evolution protein sites do not sample all amino acids evenly.  
+Instead, functional constraint leads to different rates of amino-acid substitution at different sites in the protein and repeated substitutions at a given site~\citep{brown1982mitochondrial}. 
+If phylogenetic substitution models fail to account for this constraint, they will underestimate deep branches~\citep{wertheim2011purifying, halpern1998evolutionary}. 
 
-In the case of viruses, there is independent evidence that the estimates of these deep divergences are indeed too recent. 
-The times since the divergence of lineages within lentiviruses, paramyxoviruses and filoviruses have been estimated by methods which rely on information outside of or in addition to the viral phylogenetic tree.  
-These independent estimates are often orders of magnitude older than the estimates using the viral phylogenetic tree only. 
-For example, there are multiple examples of filovirus integrations into the genomes of rodents. 
-Using these viral integrations and the fossil dates of the rodent species tree, the divergence of two main filovirus groups has been estimated to be $>7$ millions years ago. 
-This estimate stands in stark contrast to the phylogenetic estimate of filovirus divergence which estimates this event happened $\sim 10,000$ years ago. 
-All together, this indicates that phylogenetic branch length estimation does truly have a systematic bias towards underestimation. 
-\jdbcomment{Good content, although obviously needs references.
-Also, I think it is best to have at most one or two general sentences and then get right into specific examples.
-So I think paragraph would be stronger if you just have one (or two) general sentences and then bring up at least two specific examples, and finally return to general with ``similar things have been seen in viruses X, Y, and Z (citing each).}
+Predicting the functional constraints of protein in nature is difficult but laboratory experiments allow for the direct test of a mutation on protein function~\citep{dean2007mechanistic, harms2013evolutionary}. 
+Generally in such experiments,  protein variants are generated and then assayed for their functionality relative to wildtype. 
+Now, with the the advent of deep mutational scanning~\citep{fowler2014deep}, these experiments can be performed in a high-throughput, comprehensive, and quantitative fashion. 
+A deep mutational scan of a protein measured the effect of every amino-acid change on a protein's functionality in lab, which creates a map of the protein's site-specific amino-acid preferences.
+These experimental measurements can be incorporated into site-specific phylogenetic models called experimentally informed codon models (ExpCM's) which tend to describe the evolution of a protein better than standard, site-uniform models~\citep{bloom2014experimentally, hilton2017phydms, bloom2017identification, haddox2018mapping, lee2018deep, doud2015site}.
 
-Branch length underestimation is due in part to inadequate modeling of purifying selection. 
-During evolution, protein sites do not sample all 20 available amino-acids equally. 
-Instead, proteins have site-specific amino-acid preferences which are necessary to maintain the structure and function of the protein. 
-Failure to account for these constraints will lead to branch length underestimation because the model will assume that sequences which have been evolving for a very long period of time should be more diverged than is actually the case. 
-Furthermore, the site-specific amino-acid preferences at one site are often dependent on the amino-acid identity at another site. 
-As a result, the preferences ``shift" over time time due to the accumulation of substitutions in other parts of the protein.  
-\jdbcomment{Start with: "The under-estimation of deep branches is known to occur in part due to...
-Also, we need to make this paragraph about what has \emph{already} been shown. 
-It is not clear how much of what you argue here is things you can clearly cite to previous papers versus your new results.
-So overall content is good, but make this paragraph talk about prior literature with specific citations to specific points.}
-
-Most phylogenetic substitution models are time-homogenous and site-independent: they do not take into account how sites may interact with each other or how preferences may shift over time. 
-However, they can model purifying selection with varying degrees of complexity. 
-One method is to allow the parameter controlling the rate of nonsynonymous to synonymous substitution, the dN/dS parameter, to vary among the protein sites. 
-This variation accounts for the fact that constrained sites will have a lower rate of amino-acid substitution than mutationally constrained sites. 
-However, the stationary state of this model, which describes the expected sequence composition after a very long evolutionary time, will be exactly the same as a model without any variation in the dN/dS parameter. 
-Alternatively, models can have site-specific stationary states which explicitly acknowledge the protein's site-specific amino-acid preferences. 
-Such models should estimate deep divergence times because model still expects relatively low sequence divergence even after a very long evolutionary time. 
-\jdbcomment{Generally good (except for lack of citations), but again is last point the one you are making or something that you can clearly cite from literature? See comment after next paragraph.}
-
-Here, we tested the effect of modeling site-specific amino-acid preferences though a model with a site-specific stationary state on an influenza hemagglutinin (HA) phylogenetic tree. 
-Specifically, we used Experimentally Informed Codon Models (ExpCM's) defined by site-specific amino-acid preferences measured by a high-throughput functional assay called deep mutational scanning. 
-We found that these ExpCM's estimated longer branches. 
-We found that the extension in branch length due modeling purifying selection via a site-specific stationary state is largely independent of the the effect of modeling purifying selection through rate variation. 
-However, our results make it clear that the site-specific amino-preferences of HA are constant across the entire tree. 
-In particular, the branch lengthening is most pronounced on branches leading to the HA sequence that was used in the deep mutational scanning experiment that parameterized the ExpCM.
-These results underscore the importance of modeling how site-specific purifying selection affects the stationary state when estimating deep divergence times---but also shows the inherent limitations of approaches that fail to model how this selection shifts over time. 
-\jdbcomment{Looking at this final paragraph, I would suggest structuring it and the two above it (last three) like this:
-\begin{itemize}
-\item Under-estimation can result from failure to model purifying selection.
-\item Most models are homogenous / independent, and model by rate variation.
-\item Some models use site-specific stationary states.
-\item Here we use ExpCMs and find...
-\end{itemize}
-So overall, pretty good structure that you already have but don't put too much of your results into the Introduction.
-
-The one thing that you need to add is a better description of deep mutational scanning. 
-So I would say spend less time repeating your results and more time providing that background in the last paragraph (or an additional added paragraph).
-}
-
+Here we use ExpCM's to estimate branch lengths on an influenza hemagglutinin phylogenetic tree and find that these site-specific models estimate longer deep branches. 
+We find this extension of branch length is mostly independent from common method of account for purifying selection by rate variation. 
+We also found that the ExpCM's estimated similar branch lengths to a site-specific model which infers the amino-acid preferences from the phylogenetic data~\citep{lartillot2004bayesian, rodrigue2014site}.
+However, the results from these site-specific models are limited by an effect of purifying selection which is not accounted for in current models - how amino-acid preferences shift over time due to epistasis.
 
 \section*{Results}
 
@@ -261,7 +214,7 @@ An alternative strategy of obtaining the amino-acid preference parameters via Ba
 
 Importantly, these two strategies for modeling purifying selection are not mutually exclusive.
 Mutation-selection models such as an ExpCM can still incorporate an $\omega$ parameter, which now represents the relative rate of nonsynonymous to synonymous substitution \emph{after} accounting for the constraints due to the site-specific amino-acid preferences~\citep{bloom2017identification,rodrigue2017detecting}.
-This $\omega$ parameter for an ExpCM can be drawn from a statistical distribution (e.g., a gamma distribution) just like for GY94-style models~\citep{rodrigue2014site,haddox2017mapping}. 
+This $\omega$ parameter for an ExpCM can be drawn from a statistical distribution (e.g., a gamma distribution) just like for GY94-style models~\citep{rodrigue2014site,haddox2018mapping}. 
 We will denote such models as ExpCM+$\Gamma\omega$.
 \ref{fig:model_feature}C shows the full spectrum of models that incorporate all combinations of gamma-distributed $\omega$ and site-specific stationary states.
 
@@ -442,7 +395,7 @@ Therefore, the preferences measured in each experiment are progressively less co
 The fact that an ExpCM leads to the most profound increase in branch length leading to the sequence used in the experiment can be rationalized in terms of existing knowledge about epistasis during protein evolution.
 Each ExpCM is informed by a single set of experimentally measured amino-acid preferences.
 But in reality, the effect of a mutation at one site in a protein can depend on the amino-acid identities of other sites in the protein~\citep{ortlund2007crystal, gong2013stability, harms2014historical, tufts2014epistasis, starr2018pervasive}. 
-This epistasis can lead to shifts in a protein's amino-acid preferences over evolutionary time~\citep{pollock2012amino, doud2015site, shah2015contingency, bazykin2015changing, haddox2017mapping}.
+This epistasis can lead to shifts in a protein's amino-acid preferences over evolutionary time~\citep{pollock2012amino, doud2015site, shah2015contingency, bazykin2015changing, haddox2018mapping}.
 Because the deep mutational scanning experiments that inform our ExpCM's were each performed in the context of a single HA genetic background, their measurements do not account for the accumulation of epistatic shifts in amino-acid preferences as HA evolves. 
 Therefore, an ExpCM is expected to most accurately describe the evolution of sequences closely related to the one used in the experiment.
  
@@ -510,6 +463,32 @@ However, for sequences distant from those used in the experiments, the ``tree av
 Therefore, while the ExpCM and pbMutSel models differ slightly in the extent to which they lengthen different branches, neither model can avoid the tension between the local and global accuracy of amino-acid preferences. 
 
 \section*{Discussion}
+
+\noindent\skhcomment{\textbf{reference summary}}
+
+\noindent\skhcomment{\textit{how preferences shift over time:}
+\begin{itemize} 
+\item \citet{haddox2018mapping}: The amino-acid preferences from two diverged HIV env homologs are significantly shifted at several sites. 
+\item \citet{ortlund2007crystal}: Small, permissive mutations are needed for a large functional/conformational change from ancestral to extant protein. 
+\item \citet{gong2013stability}: Stabilizing mutations allow for otherwise destabilizing mutations to occur at T-cell epitopes in NP. 
+\item \citet{harms2014historical}: Contingency is strong because only a few permissive genotypes exist. 
+\item \citet{tufts2014epistasis}: Mutations in Hb from ancestral to extant sequences are highly dependent on the order. 
+\item \citet{starr2018pervasive}: The evolutionary history of Hsp90 shows strong contingency/entrenchment and that the epistasis was primarily caused by specific interactions between sites. 
+\item \citet{pollock2012amino}: Introduces the idea of evolutionary stokes shift - proteins tend to adjust to substitutions such that the propensity for that mutation is higher after the substitution than before it (making reversion less likely). 
+\item \citet{doud2015site}: The amino-acid preferences from influenza NP homologs are shifted at a small number of sites.
+\item \citet{shah2015contingency}: Most mutations which are selected for via purifying selection are epistatic, contingent on the previous substitutions, and become entrenched. Computational model. 
+\item \citet{bazykin2015changing}: Review article. The set of amino-acids at a given position which confer the greatest fitness advantage change over time. 
+\end{itemize}
+}
+
+\noindent\skhcomment{\textit{Phylogenetic models which account for shifting amino-acid preferences:}
+\begin{itemize} 
+\item \citet{rodrigue2005site}: Amino-acid model which accounts for the structural fitness of a sequence along with empirical amino-acid frequencies. 
+\item \citet{choi2007quantifying}: Codon model which accounts accounts for solvent accessibility and pairwise interactions (tertiary structure) along with empirical amino-acid frequencies.
+\item \citet{bordner2013new}: Modeling site interdependence using factor graphs. Similar mathematically structure to \citet{rodrigue2005site} but with a slightly different interpretation of the parameters. Amino acid
+\item \citet{goldstein2017sequence}: Model based on statistical mechanics which describes the stability of a sequence as a function of the interaction of a given site an all other sites as well as a thermodynamic bath. 
+\end{itemize}
+}
 \jdbcomment{Add references to this section.
 Also, I think we are mostly using ``preferences'' rather than ``stationary state'', so use the former except in cases where the latter clearly makes more sense (e.g., talking about math rather than model.
 }
@@ -710,7 +689,7 @@ The external computer programs that we used were
 \begin{itemize} 
 \item \texttt{phydms}~\citep{hilton2017phydms} version 2.2.2 (available at \url{github.com/jbloomlab/phydms}) to fit the ExpCM and GY94 models.
 \item \texttt{pyvolve}~\citep{spielman2015pyvolve} version 0.8.7 (available at \url{https://github.com/sjspielman/pyvolve}) to simulate the sequences.
-\item \texttt{PhyloBayes-MPI}~\citep{rodrigue2014site} version 1.8 (available at \url{https://github.com/bayesiancook/pbmpi}) to fit the pbMutSel model. 
+\item \texttt{PhyloBayes-MPI}~\citep{rodrigue2014site} version 1.8 (available at \url{https://github.com/bayesiancook/pbmpi}) to \skhcomment{fit} the pbMutSel model. 
 \item \texttt{RAxML}~\citep{stamatakis2006raxml} version 8.2.11 (available at \url{https://github.com/stamatak/standard-RAxML} to infer tree topology.
 \item We used \texttt{ggplot2}~\citep{wickham2016ggplot2}, \texttt{ggtree}~\citep{yu2017ggtree}, and \texttt{ggseqlogo}~\citep{wagih2017ggseqlogo} for visualization of the results.
 \end{itemize}
