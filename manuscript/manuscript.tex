@@ -463,73 +463,32 @@ However, for sequences distant from those used in the experiments, the ``tree av
 Therefore, while the ExpCM and pbMutSel models differ slightly in the extent to which they lengthen different branches, neither model can avoid the tension between the local and global accuracy of amino-acid preferences. 
 
 \section*{Discussion}
-
-\noindent\skhcomment{\textbf{reference summary}}
-
-\noindent\skhcomment{\textit{how preferences shift over time:}
-\begin{itemize} 
-\item \citet{haddox2018mapping}: The amino-acid preferences from two diverged HIV env homologs are significantly shifted at several sites. 
-\item \citet{ortlund2007crystal}: Small, permissive mutations are needed for a large functional/conformational change from ancestral to extant protein. 
-\item \citet{gong2013stability}: Stabilizing mutations allow for otherwise destabilizing mutations to occur at T-cell epitopes in NP. 
-\item \citet{harms2014historical}: Contingency is strong because only a few permissive genotypes exist. 
-\item \citet{tufts2014epistasis}: Mutations in Hb from ancestral to extant sequences are highly dependent on the order. 
-\item \citet{starr2018pervasive}: The evolutionary history of Hsp90 shows strong contingency/entrenchment and that the epistasis was primarily caused by specific interactions between sites. 
-\item \citet{pollock2012amino}: Introduces the idea of evolutionary stokes shift - proteins tend to adjust to substitutions such that the propensity for that mutation is higher after the substitution than before it (making reversion less likely). 
-\item \citet{doud2015site}: The amino-acid preferences from influenza NP homologs are shifted at a small number of sites.
-\item \citet{shah2015contingency}: Most mutations which are selected for via purifying selection are epistatic, contingent on the previous substitutions, and become entrenched. Computational model. 
-\item \citet{bazykin2015changing}: Review article. The set of amino-acids at a given position which confer the greatest fitness advantage change over time. 
-\end{itemize}
-}
-
-\noindent\skhcomment{\textit{Phylogenetic models which account for shifting amino-acid preferences:}
-\begin{itemize} 
-\item \citet{rodrigue2005site}: Amino-acid model which accounts for the structural fitness of a sequence along with empirical amino-acid frequencies. 
-\item \citet{choi2007quantifying}: Codon model which accounts accounts for solvent accessibility and pairwise interactions (tertiary structure) along with empirical amino-acid frequencies.
-\item \citet{bordner2013new}: Modeling site interdependence using factor graphs. Similar mathematically structure to \citet{rodrigue2005site} but with a slightly different interpretation of the parameters. Amino acid
-\item \citet{goldstein2017sequence}: Model based on statistical mechanics which describes the stability of a sequence as a function of the interaction of a given site an all other sites as well as a thermodynamic bath. 
-\end{itemize}
-}
-\jdbcomment{Add references to this section.
-Also, I think we are mostly using ``preferences'' rather than ``stationary state'', so use the former except in cases where the latter clearly makes more sense (e.g., talking about math rather than model.
-}
+  
 Here, we tested the effect of models with site-specific stationary states on branch length estimation for the phylogenetic tree of highly diverged influenza HA sequences. 
 We used site-specific stationary state models called ExpCM's, which are defined by amino-acid preferences measured by deep mutational scanning. 
 We found that the ExpCM's estimated longer branches and did so independently from substitution rate variation via $\Gamma\omega$. 
 We also found that the ExpCM's estimated branch lengths of a similar length to models which infer the stationary state from the natural sequences in a Bayesian framework.  
 
-These results underscore the importance of modeling site-specific amino-acid preferences when estimating long branchs. 
+These results underscore the importance of modeling site-specific amino-acid preferences when estimating long branches. 
 As the simulations \ref{fig:simulations} show, models with uniform stationary states will always underestimate the lengths of branches which have evolved under site-specific constraints. 
-The results with the influenza HA sequences shows that models with site-specific stationary states estimate longer branches when the stationary state is accurate. 
-However, it is also clear that the accuracy of the ExpCM's stationary state degrades as the tree becomes more diverged from the HA used in the deep mutational scan. 
-The desired effect of estimating long, accurate branches can only be achieved when the stationary state is accurate across the entire tree. 
+The results with the influenza HA sequences show that models with site-specific amino-acid preferences estimate longer branches when the preferences are accurate. 
+However, it is also clear that the accuracy amino-acid preferences defining the ExpCM's degrade as the tree becomes more diverged from the HA used in the deep mutational scan. 
+The desired effect of estimating long, accurate branches will only be achieve when the stationary state is accurate across the entire tree. 
 
-However, it is clear from our results that a major limitation of site-independent, time-homogenous models is their inability to capture epistatic interactions. 
+Therefore, it is clear from our results that a major limitation of site-independent, time-homogenous models is their inability to capture epistatic interactions. 
+It is well established that a protein's site-specific amino-acid preferences are contextually dependent~\citep{gong2013stability, harms2014historical, tufts2014epistasis, ortlund2007crystal} and shift as the protein accumulates substitutions overtime~\citep{haddox2018mapping, starr2018pervasive, pollock2012amino, doud2015site, shah2015contingency,bazykin2015changing}. 
+The site-specific amino-acid preferences we used to define the ExpCM's were measured in only one genetic background. 
+Therefore, these preferences are only one snapshot of the functional constraints on a protein and do not capture any of the changes over time. 
+The model's ignorance of shifting preferences is reflected in our results: the ExpCM's have the largest effect on branch length extension near the HA from the experiment. 
+Furthermore, this is a limitation of all time-homogenous models. 
+Even though the stationary state of the pbMutSel model is more representative of the ``tree average" stationary state, the ExpCM with average preferences has a larger effect on the branches from the H1 and H3 sequences. 
 The site-specific amino-acid preferences of a protein shift across time and models with a single stationary state across the entire tree cannot capture these dynamics. 
-The ExpCM's defined by preferences measured in one of two highly diverged HA's had the largest effect on branches near the HA from the experiment. 
-The local effect of the ExpCM's defined by a single preference set indicate that different parts of the tree have different stationary states. 
-This point is underscored by the comparison of the ExpCM defined by the average preference set and the pbMutSel model, which infers the stationary state from the natural sequences. 
-Even though the stationary state of the pbMutSel model is more representative of the global stationary state \jdbcomment{maybe ``tree average'' rather than ``global''}, the ExpCM with average preferences has a larger effect on the branches from the H1 and H3 sequences. 
-Therefore, while it is clear that modeling site-specific amino-acid preferences is important, neither one of these models is able to capture how these preferences shift over time.
-
-\jdbcomment{In particular, you need to add literature about how preferences shift.
-These can mostly be citations worked into above. 
-In particular, there are two types of citations: papers about how preferences shift over time. 
-This would include Hugh's paper and ones cited therein. 
-You don't need to cite all general papers on epistasis, but just the ones that focus on this in terms of preferences.
-
-Second, papers about the idea of modeling non-independence in phylogenetics.
-I believe that Richard Goldstein and David Pollock have a recent \textit{Nature Ecology \& Evolution} paper on this---look it up and also pull in relevant citations that they make.
-Also, there may be some paper in this area by Rodrigue and Lartillot.
-There are also a few cited in the third-to-last paragraph of discussion here (\url{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4626756/}).
-}
+Therefore, while it is clear that modeling site-specific amino-acid preferences is important, neither the ExpCM nor the pbMutSel is able to capture how these preferences shift over time.
 
 Clearly, the site-independence and time-homogeneity assumptions of the ExpCM and pbMutSel models inhibit their ability to accurately describe the effect of epistasis.
-In order to fully address the bias towards underestimation of divergence times by phylogenetic models, these models need to be able to accommodate how site-specific amino-acid preferences shift over time. 
-One way to achieve this goal would be to void the site-independence assumption and create a model which explicitly describes the interactions between sites in a protein. 
-However, while even modeling simple pairwise interactions would be a daunting task, epistasis could have higher order interactions which be extremely difficult to model. 
-Another strategy would be to allow the stationary state to shift over lineages in the tree. 
-Such a model might be still be site-independent but, by breaking the time-homogeneity assumption, would capture some effect of the shifting preferences. 
-Models which account for epistasis would be inherently more complex but it clear from our results that it is important to capture how preferences shift over time to accurately estimate long branch lengths.
+Models which account for the context-dependence of amino-acid preferences have been developed but thus far have been restricted to a few sequences~\citep{rodrigue2005site, choi2007quantifying}, short evolutionary distances~\citep{bordner2013new}, or simulated sequences~\citep{goldstein2017sequence}.
+As these models develop further, it may be able to estimate the branches on highly diverged trees, such as influenza HA, while accounting for both the site-specific amino-acid preferences and how these preferences shift over time. 
+Models which account for epistasis will always be inherently more complex but it is clear from our results that it is important to capture how preferences shift in order to accurately model the evolution of highly diverged proteins in nature and accurately estimate long branch lengths. 
 
 \clearpage
 \section*{Methods}
@@ -556,9 +515,8 @@ P_{xy} =
 \end{equation}
 where $\mathcal{A}\left(x\right)$ is the amino-acid encoded by codon $x$, $\kappa$ is the transition-transversion rate, $\Phi_y$ is the equilibrium frequency of codon $y$, and $\omega$ is the relative rate of nonsynonymous and synonymous substitutions.
 We define the codon frequency parameters, $\Phi_y$, using the ``corrected F3X4" method from~\citet{pond2010correcting}. 
-There are nine parameters describing the nucleotide frequencies at each codon site (the nucleotides are constrained to sum to one at each codon position) \skhcomment{which} are calculated from the empirical alignment frequencies. 
+There are nine parameters describing the nucleotide frequencies at each codon site (the nucleotides are constrained to sum to one at each codon position),  and these parameter values are calculated from the empirical alignment frequencies. 
 The ``corrected F3X4" method calculates the $\Phi_y$ values from these nucleotide frequencies but corrects for the exclusion of sequences with premature stop codons from the analysis. 
-\skhcomment{check}
 
 The frequency $p_x$ of codon $x$ in the stationary state of a GY94 model is simply 
 \begin{equation}
@@ -689,7 +647,7 @@ The external computer programs that we used were
 \begin{itemize} 
 \item \texttt{phydms}~\citep{hilton2017phydms} version 2.2.2 (available at \url{github.com/jbloomlab/phydms}) to fit the ExpCM and GY94 models.
 \item \texttt{pyvolve}~\citep{spielman2015pyvolve} version 0.8.7 (available at \url{https://github.com/sjspielman/pyvolve}) to simulate the sequences.
-\item \texttt{PhyloBayes-MPI}~\citep{rodrigue2014site} version 1.8 (available at \url{https://github.com/bayesiancook/pbmpi}) to \skhcomment{fit} the pbMutSel model. 
+\item \texttt{PhyloBayes-MPI}~\citep{rodrigue2014site} version 1.8 (available at \url{https://github.com/bayesiancook/pbmpi}) to fit the pbMutSel model. 
 \item \texttt{RAxML}~\citep{stamatakis2006raxml} version 8.2.11 (available at \url{https://github.com/stamatak/standard-RAxML} to infer tree topology.
 \item We used \texttt{ggplot2}~\citep{wickham2016ggplot2}, \texttt{ggtree}~\citep{yu2017ggtree}, and \texttt{ggseqlogo}~\citep{wagih2017ggseqlogo} for visualization of the results.
 \end{itemize}
