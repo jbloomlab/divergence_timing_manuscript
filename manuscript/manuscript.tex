@@ -133,15 +133,34 @@ Overall, our work underscores the importance of modeling site-specific amino-aci
 \section*{Introduction} 
 
 Phylogenetics and the concept of a molecular clock are commonly used to estimate the time since the divergence of two lineages, which places evolutionary events on an absolute timescale.
+\jdbcomment{First sentence not good.
+The first part basically makes sense, but the second part doesn't follow.
+Under a molecular clock you can estimate relative divergence times using phylogenetics.
+Absolute timescales require a molecular clock \emph{plus} some absolute calibration points.
+I would elaborate by breaking this into 2 or 3 sentences that independently discuss phylogenetics, molecular clock, and absolute timescale in a general fashion. 
+Include some citations to general reviews or papers in this area.
+Then have a paragraph break and go into next paragraph.
+This will yield two shorter paragraphs that cleanly divide the general concept from the specifics about viruses.}
 However, in the case of viruses, there is independent evidence that the phylogenetic estimates of deep divergences are too recent. 
-For example, integration of filoviruses into their host genomes indicate that the filoviridiae family diverged 7-12 million years ago while the phylogenetic estimate of this event is only $\sim$10,000 years ago~\citep{carroll2013molecular, taylor2014evidence}.  
+For example, integration of filoviruses into their host genomes indicate that the filoviridiae family diverged 7-12 million years ago\jdbcomment{rather than going ``... million years ago while the...'' instead break with a dash: ``... million years ago---but the phylogenetic estimate...''' This sentence structure more clearly draws the contrast. Also, the wording is a bit unclear about what is being dated: ``the filiviridae family diverged'''. Diverged from what? Then ``event'' in the next part. What ``event''? Choose more precise wording.} while the phylogenetic estimate of this event is only $\sim$10,000 years ago~\citep{carroll2013molecular, taylor2014evidence}.  
 Similarly, the phylogenetic estimate of when major simian immunodeficiency virus (SIV) groups diverged is almost 100 times more recent than the estimate based on the geographic isolation of SIV host species~\citep{wertheim2009dating, worobey2010island}. 
-These examples, along with other similar discrepancies with measles virus~\citep{furuse2010origin, rhazes1848treatise}, coronavirus~\citep{wertheim2013case}, and hepatitis B virus~\citep{fares2002revised}, indicate that phylogenetic methods have a systematic bias toward underestimation of deep branches. 
+These examples, along with other similar discrepancies with measles virus~\citep{furuse2010origin, rhazes1848treatise}, coronavirus~\citep{wertheim2013case}, and hepatitis B virus~\citep{fares2002revised}, indicate that phylogenetic methods have a systematic bias toward underestimation of deep branches.
+\jdbcomment{This ending is good, except that you have not introduced the nomenclature of branches or deep branches yet. Perhaps that could be remedied in the re-structured first paragraph above, which would take more time to talk about phylogenetics, what branch lengths mean, and absolute time in 2-3 sentences rather than all mashed together in one.} 
 
 This underestimation is known to occur in part due to inadequate models of purifying selection. 
 During evolution protein sites do not sample all amino acids evenly.  
 Instead, functional constraint leads to different rates of amino-acid substitution at different sites in the protein and repeated substitutions at a given site~\citep{brown1982mitochondrial}. 
 If phylogenetic substitution models fail to account for this constraint, they will underestimate deep branches~\citep{wertheim2011purifying, halpern1998evolutionary}. 
+
+\jdbcomment{I have some more subtle wording suggestions the previous paragraph, but it is pretty good structure wise.
+However, I don't think it transitions well to the next paragraph.
+There is a bit of a conceptual gap.
+Add something that bridges about how current approaches to better model this purifying selection are fundamentally statistical in that they try to \emph{infer} the purifying selection from the evolutionary process, such as by statistical distributions of rate variation or site-specific stationary states. 
+Cite some papers for that.
+You don't need to go into a lot of detail as that is covered in first Results section, but do mention that most approaches do this by trying to statistically infer selection.
+Then transition into next paragraph about how these constrains can be measured experimentally.
+However, for this paper, I think the first two general sentences about experiments aren't needed.
+Just jump directly to deep mutational, talking about how this new experimental approach can measure the site-specific purifying selection quantitatively for all sites.}
 
 Predicting the functional constraints of protein in nature is difficult but laboratory experiments allow for the direct test of a mutation on protein function~\citep{dean2007mechanistic, harms2013evolutionary}. 
 Generally in such experiments,  protein variants are generated and then assayed for their functionality relative to wildtype. 
@@ -149,10 +168,10 @@ Now, with the the advent of deep mutational scanning~\citep{fowler2014deep}, the
 A deep mutational scan of a protein measured the effect of every amino-acid change on a protein's functionality in lab, which creates a map of the protein's site-specific amino-acid preferences.
 These experimental measurements can be incorporated into site-specific phylogenetic models called experimentally informed codon models (ExpCM's) which tend to describe the evolution of a protein better than standard, site-uniform models~\citep{bloom2014experimentally, hilton2017phydms, bloom2017identification, haddox2018mapping, lee2018deep, doud2015site}.
 
-Here we use ExpCM's to estimate branch lengths on an influenza hemagglutinin phylogenetic tree and find that these site-specific models estimate longer deep branches. 
+Here we use ExpCM's to estimate branch lengths on an influenza hemagglutinin phylogenetic tree and find that these site-specific models estimate longer deep branches. \jdbcomment{Make this first sentence a bit broader, and say that we examine how using ExpCM's and other forms of modeling purifying selection affects estimates of deep divergence times of HA or something like that. Idea is correct, but the sentence seems a bit too narrow. Also, it is probably better to break into two sentences: one is what you investigate, and the second is what you find. Right now, both are in the same sentence.}
 We find this extension of branch length is mostly independent from common method of account for purifying selection by rate variation. 
 We also found that the ExpCM's estimated similar branch lengths to a site-specific model which infers the amino-acid preferences from the phylogenetic data~\citep{lartillot2004bayesian, rodrigue2014site}.
-However, the results from these site-specific models are limited by an effect of purifying selection which is not accounted for in current models - how amino-acid preferences shift over time due to epistasis.
+However, the results from these site-specific models are limited by an effect of purifying selection which is not accounted for in current models - \jdbcomment{Look up the difference between a hyphen and em-dash} how amino-acid preferences shift over time due to epistasis.
 
 \section*{Results}
 
