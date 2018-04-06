@@ -132,32 +132,33 @@ Overall, our work underscores the importance of modeling site-specific amino-aci
 
 \section*{Introduction} 
 
-Phylogenetics is commonly used to estimate the time since the divergence of two lineages. 
-Under the assumption of a molecular clock~\citep{zuckerkandl1965}, the branch lengths on a phylogenetic tree can be transformed into estimates of time~\citep{yang2012molecular}. 
-When a calibration point exists, these timing estimates of evolutionary events can be placed on an absolute timescale. 
+Molecular phylogenetics is commonly used to estimate the historical timing of evolutionary events \citep{yang2012molecular}. 
+However, phylogenetic estimates of the divergence times of many viral lineages are clearly too recent~\citep{duchene2014analyses, aiewsakun2016time}.
+For example, the integration of filoviruses into their host genomes indicate that Ebola and Marburg virus diverged from their common ancestor 7 to 12 million years ago---but the estimate of this divergence time based on phylogenetic analyses of the viral sequences is only $\sim$10,000 years ago~\citep{carroll2013molecular, taylor2014evidence}. 
+Similarly, the phylogenetic estimate of when major simian immunodeficiency virus groups diverged is almost 100 times more recent than the estimate based on the geographic isolation of their host species~\citep{wertheim2009dating, worobey2010island}. 
+These examples, along with other similar discrepancies with measles virus~\citep{furuse2010origin, rhazes1848treatise}\jdbcomment{add paper specifically emphasizing discrepancy}, coronavirus~\citep{wertheim2013case}, and hepatitis B virus~\citep{fares2002revised}, indicate that phylogenetic methods have a systematic bias toward underestimation of deep branches.
 
-However, in the case of viruses, there is independent evidence that the phylogenetic estimates of deep divergences are too recent. 
-For example, the integration of filoviruses into their host genomes indicate that the two main clades of filoviridae, ebolovirus and marburg virus, diverged from their common ancestor 7-12 million years ago---but the phylogenetic estimate of this divergence of ebolavirus and margburgvirus is only $\sim$10,000 years ago~\citep{carroll2013molecular, taylor2014evidence}. 
-Similarly, the phylogenetic estimate of when major simian immunodeficiency virus (SIV) groups diverged is almost 100 times more recent than the estimate based on the geographic isolation of SIV host species~\citep{wertheim2009dating, worobey2010island}. 
-These examples, along with other similar discrepancies with measles virus~\citep{furuse2010origin, rhazes1848treatise}, coronavirus~\citep{wertheim2013case}, and hepatitis B virus~\citep{fares2002revised}, indicate that phylogenetic methods have a systematic bias toward underestimation of deep branches.
+This underestimation occurs in part because phylogenetic models do a poor job of describing the real natural selection on protein-coding genes. 
+These genes evolve under purifying selection to maintain the structure and function of the proteins they encode. 
+In general, these constraints are highly idiosyncratic among sites~\citep{echave2016causes}.
+However, most phylogenetic models try to account for these constraints using relatively simple approaches such as allowing the rate of substitution to vary across sites according to some statistical distribution~\citep{yang1994maximum,yang2000codon}.
+These models of purifying selection are usually inadequate~\citep{duchene2015substitution, duchene2015evaluating}, potentially causing branch lengths to be severely underestimated~\citep{wertheim2011purifying, halpern1998evolutionary}.
 
-This underestimation is known to occur in part due to inadequate models of purifying selection. 
-During evolution protein sites do not sample all amino acids evenly.  
-Instead, functional constraint leads to different rates of amino-acid substitution at different sites in the protein and repeated substitutions at a given site~\citep{brown1982mitochondrial}. 
-If phylogenetic substitution models fail to account for this constraint, they will underestimate deep branches~\citep{wertheim2011purifying, halpern1998evolutionary}. 
-Most substitution models account for constraint by trying to statistically infer selection. 
-Some models allow the rate of amino-acid substitution to vary among sites according to some statistical distribution~\citep{yang1994maximum,yang2000codon}\skhcomment{models from wertheim2001purifying?}. 
-Other models account for this site-specific constraints via site-specific stationary state describing the frequency of every amino acid at every site in the protein~\citep{halpern1998evolutionary,yang2008mutation,rodrigue2010mutation,tamuri2012estimating,mccandlish2014modeling, le2008phylogenetic}
+More recent work has used mutation-selection models to better account for purifying selection~\citep{halpern1998evolutionary,yang2008mutation,rodrigue2010mutation,tamuri2012estimating,mccandlish2014modeling}.
+These models explicitly account for the fact that different protein sites prefer different amino acids, and so can improve phylogenetic estimates when there are deep branches~\jdbcomment{cite any papers that show this is true. Maybe the CAT model and the one on long-branch attraction?}.
+However, these approaches still ultimately involving inferring the site-specific purifying selection from natural sequence data.
 
-A protein's functional constraints can be measured experimentally rather than inferred statistically~\citep{dean2007mechanistic, harms2013evolutionary}. 
-Recently, a new experimental approach called deep mutational scanning~\citep{fowler2014deep} has been developed which can measure the site-specific purifying selection quantitatively for all sites in a protein. 
-These experimental measurements can be incorporated into site-specific phylogenetic models called experimentally informed codon models (ExpCM's) which tend to describe the evolution of a protein better than standard, site-uniform models~\citep{bloom2014experimentally, hilton2017phydms, bloom2017identification, haddox2018mapping, lee2018deep, doud2015site}.
+Even more recently, it has become possible to directly measure purifying selection on proteins using deep mutational scanning.
+This high-throughput approach involves experimentally measuring how each amino-acid mutation affects protein function in the lab~\citep{fowler2014deep}.
+The resulting experimental measurements of which amino acids are preferred at each protein site can be used to inform phylogenetic substitution models~\citep{bloom2014experimentally}.
+These experimentally informed codon models (ExpCM's) generally exhibit much better phylogenetic fit than most standard substitution models~\citep{hilton2017phydms, haddox2018mapping, lee2018deep, doud2015site}.
 
-Here we examined how ExpCM's and other forms of modeling purifying selection affects the estimates of deep divergence times of influenza virus hemagglutinin (HA). 
-We found that models with site-specific measurements of purifying selection estimates longer deep branches. 
-We found this extension of branch length is mostly independent from common method of account for purifying selection by rate variation. 
-We also found that the ExpCM's estimated similar branch lengths to a site-specific model which infers the amino-acid preferences from the phylogenetic data~\citep{lartillot2004bayesian, rodrigue2014site}.
-However, the results from these site-specific models are limited by an effect of purifying selection which is not accounted for in current models---how amino-acid preferences shift over time due to epistasis.
+Here we examined how using ExpCM's and other models of purifying selection affects the estimates of deep divergence times on a phylogenetic tree of influenza virus hemagglutinin (HA). 
+We found that ExpCMs that model site-specific amino-acid preferences estimate longer deep branches. 
+This extension of branch length is mostly independent and additive with that achieved by the more conventional approach of modeling rate variation. 
+ExpCM's that use experimental data estimate similar branch lengths to a mutation-selection model that infers the amino-acid preferences from the natural sequence data~\citep{lartillot2004bayesian, rodrigue2014site}.
+However, we also show that all of these mutation-selection models are limited by their failure to account for another feature of purifying selection: the fact that a site's amino-acid preferences shift over time due to epistasis.
+Therefore, truly accurate analyses of deep phylogenies need to account for the fact that amino-acid preferences vary across time as well as across sites.
 
 \section*{Results}
 
@@ -178,12 +179,6 @@ In the logo plots, each column is a site in the protein and the height of each l
 Here we will use substitution models from the Goldman-Yang~\citep[GY94;][]{goldman1994codon,yang2000codon} and experimentally informed codon model~\citep[ExpCM;][]{hilton2017phydms} families with and without gamma-distributed $\omega$ to represent all possible combinations.
 }
 \end{figure}
-
-Proteins evolve under purifying selection to maintain their structure and function. 
-This purifying selection is not homogenous across sites in a protein.
-It is also not homogenous among the different amino acids at a given site.
-For instance, some protein sites strongly prefer hydrophobic amino acids, others are constrained to just one or a few amino acids, and yet others tolerate many amino acids.
-In general, these constraints are highly idiosyncratic among sites, and so pose a challenge for phylogenetic substitution models.
 
 Here we consider how purifying selection is handled by codon models, which are the most accurate of the three classes (nucleotide, codon, and amino acid) of phylogenetic substitution models in widespread use~\citep{arenas2015trends}.
 Standard codon models distinguish between two types of substitutions: synonymous and nonsynonymous.
