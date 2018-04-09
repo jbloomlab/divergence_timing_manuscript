@@ -1,11 +1,11 @@
 # Divergence Timing Manuscript
 
-This repository is for the project by Sarah Hilton and Jesse Bloom analyzing the effect of site-specific stationary state substitution models on the estimation of long branch lengths.
-Specifically, it looks at the difference of HA tree branch lengths using ExpCMs and YNGKP models.
+This repository holds the data, code, and manuscript for the project by Sarah Hilton and Jesse Bloom that analyzes the effect of using models with site-specific stationary states on the estimation of deep branches.
+Specifically, this project looks at the difference between GY94 models and ExpCM's on the estimation of branch lengths on an influenza HA phylogenetic tree.
 
-The manuscript is titled "Experimentally informed site-specific substitution models deepen phylogenetic estimates of the divergence of viral lineages."
+The manuscript is titled "Modeling site-specific amino-acid preferences deepens phylogenetic estimates of the divergence of viral proteins."
 
-This repo contains the following directories
+This repo contains the following directories:
 
 [`./manuscript/`](./manuscript/): contains the manuscript describing the project.
 

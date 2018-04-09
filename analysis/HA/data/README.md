@@ -26,5 +26,5 @@ The directory is organized as follows
 ### Notes  
 
 • I used the standard `phydms_prepalignment` parameters *except* I set a very low `minidentity` threshold of 0.3.  
-• For simplicity, I am only going to track `./raw/` (as a `.zip`), `./aligned/`, and [`./subsample/`](./subsample/). For a clean run, unzip `./raw/`, remove [`./subsample/`](./subsample/), and run the [`Snakefile`](Snakefile). It takes about ~45 minutes for a clean run on the cluster.   
+• For simplicity, I am only going to track `./raw/` (as a `.zip`), `./aligned/` (as a `.zip`), and [`./subsample/`](./subsample/). For a clean run, unzip `./raw/`, remove [`./subsample/`](./subsample/), and run the [`Snakefile`](Snakefile). It takes about ~45 minutes for a clean run on the cluster.   
 • The alignment step is the longest. To simple generate new replicates or add in new required sequences, unzip `./aligned`, remove [`./subsample`](./subsample/), and run [`Snakefile`](Snakefile). This should take only a few minutes.

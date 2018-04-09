@@ -14,7 +14,7 @@ where $a$ are amino acids, $x$ are codons, $p_{r,x}$ is the stationary state of 
 
 ### Spielman $\omega_r$
 
-A site-specific variation rate can be inferred from an ExpCM, following [spielman2015the](https://academic.oup.com/mbe/article/32/4/1097/1077799).
+A site-specific variation rate can be inferred from an ExpCM, following [spielman2015relationship](https://academic.oup.com/mbe/article/32/4/1097/1077799).
 
 This quantity is
 $\omega_r = \frac{\sum_x \sum_{y \in N_x}p_{r,x}P_{r,xy}}{\sum_x \sum_{y \in Nx}p_{r,x}Q_{xy}}$
@@ -44,7 +44,7 @@ The fourth model (`GY94 + $\omega_r$`) is also defined by the parameters in [`YN
 
 The preferences for the `ExpCM` model are in [`HA_hybridDoud_prefs.csv`](../HA/data/references/HA_hybridDoud_prefs.csv).
 
-## Script
+## Code
 
 The code is found in [`decay_to_stationary_plot.py`](decay_to_stationary_plot.py).
 
