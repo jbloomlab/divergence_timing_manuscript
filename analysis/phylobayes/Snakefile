@@ -17,7 +17,7 @@ ALIGNMENT_DIR = "../HA/data/subsample/"
 PHYDMS_DIR = "../HA/branch_lengths/phydms/"
 
 # Alignment IDs
-#ALIGNMENT_IDS = ["_".join(os.path.basename(x).split(".")[0].split("_")[1:])
+# ALIGNMENT_IDS = ["_".join(os.path.basename(x).split(".")[0].split("_")[1:])
 #                 for x in glob.glob("{0}/*.fasta".format(ALIGNMENT_DIR))]
 ALIGNMENT_IDS = ["hybrid_high_0"]
 SEEDS = [int(x.split("_")[-1]) for x in ALIGNMENT_IDS]
@@ -45,13 +45,15 @@ H3_BETA = 1.28
 rule all:
     input:
         expand("_done_{alignment_id}_chain{chain}.txt",
-               alignment_id=ALIGNMENT_IDS, chain=N_CHAINS)
-        # expand("outputs/{aligment_id}_prefs.csv", aligment_id=ALIGNMENT_IDS),
-        # "outputs/branch_lengths.csv",
-        # "outputs/branch_lengths_norm.csv",
-        # "outputs/branch_lengths_norm_all.csv",
-        # "outputs/model_by_model.csv",
-        # "outputs/corr_prefs.csv"
+               alignment_id=ALIGNMENT_IDS, chain=N_CHAINS),
+        expand("outputs/{aligment_id}_chain{chain}_prefs.csv",
+               aligment_id=ALIGNMENT_IDS, chain=N_CHAINS),
+        "outputs/branch_lengths.csv",
+        "outputs/branch_lengths_norm.csv",
+        "outputs/branch_lengths_norm_all.csv",
+        "outputs/model_by_model.csv",
+        "outputs/corr_prefs.csv",
+        "outputs/corr_prefs_chains.csv"
 
 rule create_phylip_files:
     """
@@ -114,7 +116,7 @@ rule create_sbatch:
              "#SBATCH -e {0}.err\n"
              "#SBATCH -p largenode\n"
              "#SBATCH -n 16\n"
-	         "#SBATCH --mem=300000\n"
+             "#SBATCH --mem=300000\n"
              "#SBATCH -t 5-00:00:00\n\n"
              "module load PhyloBayes-MPI\n\n"
              "mpirun pb_mpi -x 1 {1} -mutsel -d {3} -T {4} -f -dgam 4 -dp {0} \n"
@@ -146,9 +148,9 @@ rule create_prefs:
     """
     message: "Creating prefs"
     input:
-        aap = "_{aligment_id}.aap"
+        aap = "_{aligment_id}_chain{chain}.aap"
     output:
-        prefs = "outputs/{aligment_id}_prefs.csv"
+        prefs = "outputs/{aligment_id}_chain{chain}_prefs.csv"
     run:
         aas = list(constants.AA_TO_INDEX.keys())
         aas.sort()  # ABC order
@@ -170,7 +172,8 @@ rule calc_branch_lengths:
     """
     message: "Calculate branch lengths"
     input:
-        pb = expand("_{alignment_id}.con.tre", alignment_id=ALIGNMENT_IDS),
+        pb = expand("_{alignment_id}_chain0.con.tre",
+                    alignment_id=ALIGNMENT_IDS),
         maps = expand("_map_{alignment_id}.csv", alignment_id=ALIGNMENT_IDS)
     output:
         summary = "outputs/branch_lengths.csv"
@@ -182,7 +185,7 @@ rule calc_branch_lengths:
         for run in input.pb:
             model_name = "pb"
             alignment_id = "_".join(os.path.basename(run).split(".")[0]
-                                    .split("_")[1:])
+                                    .split("_")[1:-1])
             # set up map to change sequence names
             m = pd.read_csv("_map_{0}.csv".format(alignment_id))
             m = dict(zip(m['new_name'], m['old_name']))
@@ -307,7 +310,7 @@ rule make_corr_prefs:
     """
     message: "Creating prefs correlation summary file"
     input:
-        pb_prefs = expand("outputs/{aligment_id}_prefs.csv",
+        pb_prefs = expand("outputs/{aligment_id}_chain0_prefs.csv",
                           aligment_id=ALIGNMENT_IDS)
     output:
         corr = "outputs/corr_prefs.csv"
@@ -333,5 +336,28 @@ rule make_corr_prefs:
             new_name = "mutSel_{0}".format(pb.split("_")[-3])
             profiles = melt_df(pd.read_csv(pb), new_name)
             final = pd.merge(final, profiles, on=['site', 'amino_acid'])
+
+        final.to_csv(output.corr, index=False)
+
+rule make_corr_prefs_chain:
+    """
+    The purpose of this rule is to make a summary file with the preferences
+    from all chains of the phylobayes run
+    """
+    message: "Creating prefs correlation summary file"
+    input:
+        pb_prefs = expand("outputs/{aligment_id}_chain{chain}_prefs.csv",
+                          aligment_id=ALIGNMENT_IDS, chain=N_CHAINS)
+    output:
+        corr = "outputs/corr_prefs_chains.csv"
+    run:
+        prefs = []
+        for pb in input.pb_prefs:
+            new_name = pb.split("_")[-2]
+            profiles = melt_df(pd.read_csv(pb), new_name)
+            prefs.append(profiles)
+        final = prefs[0]
+        for i in range(1, len(prefs)):
+            final = pd.merge(final, prefs[i], on=['site', 'amino_acid'])
 
         final.to_csv(output.corr, index=False)
