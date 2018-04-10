@@ -463,39 +463,36 @@ However, for sequences distant from those used in the experiments, the ``tree av
 Therefore, while the ExpCM and pbMutSel models differ slightly in the extent to which they lengthen different branches, neither model can avoid the tension between the local and global accuracy of amino-acid preferences. 
 
 \section*{Discussion}
-  
-Here, we tested the effect of models with site-specific stationary states on branch length estimation for the phylogenetic tree of highly diverged influenza HA sequences. 
-We used site-specific stationary state models called ExpCM's, which are defined by amino-acid preferences measured by deep mutational scanning. 
-We found that the ExpCM's estimated longer branches and did so independently from substitution rate variation via $\Gamma\omega$. 
-We also found that the ExpCM's estimated branch lengths of a similar length to models which infer the stationary state from the natural sequences in a Bayesian framework.  
-\jdbcomment{Make this paragraph a bit more general and less focused on ExpCM's.
-The content is mostly good, but phrase it as we tested how rate variation and site-specific amino-acid preferences affect these things, and we used ExpCMs' to model preferences.
-In general, the language should be a bit more general in Discussion and broader.}
+ 
+Here we tested how rate variation and site-specific amino-acid preferences affect the estimation of deep branches on phylogenetic trees. 
+We used ExpCM's defined by deep mutational scanning experiments to model site-specific amino-acid preferences and found that these models estimate longer branches than the GY94 model with a uniform stationary state. 
+We found that ExpCM's estimate similar branch lengths to models which infer their stationary state from the natural sequences. 
+Finally, we found that the extension in branch length from site-specific amino-acid preferences is mostly independent from rate variation. 
 
 These results underscore the importance of modeling site-specific amino-acid preferences when estimating long branches. 
-As the simulations \ref{fig:simulations} show, models with uniform stationary states will always underestimate the lengths of branches which have evolved under site-specific constraints. 
-The results with the influenza HA sequences show that models with site-specific amino-acid preferences estimate longer branches when the preferences are accurate. 
-However, it is also clear that the accuracy amino-acid preferences defining the ExpCM's degrade as the tree becomes more diverged from the HA used in the deep mutational scan. 
-The desired effect of estimating long, accurate branches will only be achieve when the stationary state is accurate across the entire tree. 
-\jdbcomment{I don't love the structure here. It is better to have one major point per paragraph. But the preceding paragraph has a topic sentence that is about the importance of preferences, but then the last part is about how they don't extrapolate well. That second point belongs in the next paragraph. The one above would be a good one to talk about why modeling prefs are important.}
+As the simulations in \ref{fig:simulations} show, models with uniform stationary states will always underestimate the lengths of branches which have evolved under strong site-specific constraints. 
+We also found that the ExpCM's with the site-specific stationary states estimated longer branches than the GY94 model on the phylogenetic tree of influenza HA. 
 
-Therefore, it is clear from our results that a major limitation of site-independent, time-homogenous models is their inability to capture epistatic interactions. 
+However, it is also clear that the amino-acid preferences defining the ExpCM's do not extrapolate well over a very diverged tree. 
 It is well established that a protein's site-specific amino-acid preferences are contextually dependent~\citep{gong2013stability, harms2014historical, tufts2014epistasis, ortlund2007crystal} and shift as the protein accumulates substitutions overtime~\citep{haddox2018mapping, starr2018pervasive, pollock2012amino, doud2015site, shah2015contingency,bazykin2015changing}. 
-The site-specific amino-acid preferences we used to define the ExpCM's were measured in only one genetic background. 
-Therefore, these preferences are only one snapshot of the functional constraints on a protein and do not capture any of the changes over time. 
-The model's ignorance of shifting preferences is reflected in our results: the ExpCM's have the largest effect on branch length extension near the HA from the experiment. 
-Furthermore, this is a limitation of all time-homogenous models. 
+The site-specific amino-acid preferences we used to define the ExpCM's were only measured in one genetic background. 
+These preferences are only one snapshot of the functional constraint and do not capture any of the changes over time. 
+The model's ignorance of shifting preferences is reflected in our results: The ExpCM's have the largest effect on branch length extension near the HA from the experiment. 
+
+The effect of shifting preferences on branch length estimation is not specific to ExpCM's but is a general limitation of site-independent, time-homogenous models. 
 Even though the stationary state of the pbMutSel model is more representative of the ``tree average" stationary state, the ExpCM with average preferences has a larger effect on the branches from the H1 and H3 sequences. 
 The site-specific amino-acid preferences of a protein shift across time and models with a single stationary state across the entire tree cannot capture these dynamics. 
 Therefore, while it is clear that modeling site-specific amino-acid preferences is important, neither the ExpCM nor the pbMutSel is able to capture how these preferences shift over time.
-\jdbcomment{Again, break preceding into two paragraphs for two points. The first point is that ExpCM's don't extrapolate well when you get too far away from the focal sequence. The next point (which should be a new paragraph) is that this is a \emph{general} feature of this type of model as shown by pbMutSeq.}
 
-\jdbcomment{In the next paragraph, try to use the term shifting preferences rather than epistasis, as that is what we are talking about. The preferences do shift because of epistasis, so you can use that word. But we are not trying to use our models to accurately describe the effect of epistasis. We're trying to use them to model long-term evolution, and run into problems because preferences shift, which is due to epistasis.}
-Clearly, the site-independence and time-homogeneity assumptions of the ExpCM and pbMutSel models inhibit their ability to accurately describe the effect of epistasis.
-Models which account for the context-dependence of amino-acid preferences have been developed but thus far have been restricted to a few sequences~\citep{rodrigue2005site, choi2007quantifying}, short evolutionary distances~\citep{bordner2013new}, or simulated sequences~\citep{goldstein2017sequence}.
-As these models develop further, it may be able to estimate the branches on highly diverged trees, such as influenza HA, while accounting for both the site-specific amino-acid preferences and how these preferences shift over time. 
-Models which account for epistasis will always be inherently more complex but it is clear from our results that it is important to capture how preferences shift in order to accurately model the evolution of highly diverged proteins in nature and accurately estimate long branch lengths. 
-\jdbcomment{Make clear that there are two challenges associated with context-dependent models: evaluating them mathematically, and knowing the right function to model the shifting preferences. Right now these two challenges are not clearly separated in the logical flow.}
+Clearly, the site-independence and time-homogeneity assumptions of the ExpCM's and pbMutSel models inhibit their ability to accurately describe the effect of shifting preferences. 
+Models which account for context-dependent of amino-acid preferences have been developed but are still in their infancy. 
+Currently, there are two main challenges associated with context-dependence models. 
+The first challenge is how to efficiently evaluate these inherently more complex models mathematically so the models can be applied to large phylogenetic trees. 
+The second challenge is developing the correct function to model shifting preferences. 
+One strategy to to account for context-dependence is to evaluate amino-acid changes as how they might affect protein structure.
+However, in nature a protein may undergo conformational changes in order to perform some function. 
+Models which account for shifting preferences should also be flexible enough to be able to describe multiple, necessary protein conformations. 
+Such models will be critical for describing the long-term evolution of a protein and accurately estimating the length of deep branches on phylogenetic trees. 
 
 \clearpage
 \section*{Methods}
