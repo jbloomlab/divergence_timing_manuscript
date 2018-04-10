@@ -448,7 +448,6 @@ On the other hand, if the major limitation is that no single set of time-homogen
 
 We fit a pbMutSel model to the entire HA phylogenetic tree, and compared the results to those from analyzing the same tree with the best ExpCM, which is the ExpCM(H1+H3 avg)+$\Gamma\omega$ variant.
 This is a direct apple-to-apples comparison, since the pbMutSel model also draws $\omega$ from a gamma-distribution~\citep{rodrigue2014site}.
-\skhcomment{It is not clear how many bins \texttt{Phylobayes MPI} uses. I am going to go back and re-run the analysis specifying $k=4$ bins.}
 First, we compared the amino-acid preferences inferred by the pbMutSel model to the preferences measured in the experiments.
 \ref{fig:phylobayes}A shows that the preferences inferred by pbMutSel are quite similar to the (H1+ H3 avg) obtained by averaging the deep mutational scanning measurements for the H1 and H3 HAs. 
 Notably, the amino-acid preferences from the pbMutSel model are more correlated with the (H1+ H3 avg) than the H1 and H3 measurements are with each other (\ref{fig:phylobayes}A).
@@ -641,13 +640,12 @@ For \ref{fig:simulations}, we simulated sequences using \texttt{pyvolve}~\citep{
 
 \subsection*{pbMutSel inference with \texttt{PhyloBayes-MPI}.}
 For \ref{fig:phylobayes}, we fit a pbMutSel model to the full HA tree. 
-We ran one chain for 5000 steps, saved every sample, and discarded the first 500 samples as a burnin. 
-\skhcomment{re: measure of convergence. I need add some analysis to fully address this point. 1. I am going to run 2 chains and assess the congruency between these two chains. 2. I am going to look at the traces using Andrew Rambaut's program tracer. Both of these are in progress}
+We ran one chain for 5500 steps, saved every sample, and discarded the first 550 samples as a burnin. 
 We used \texttt{PhyloBayes-MPI} program \texttt{readpb\_mpi} to compute the majority-rule consensus tree and the posterior average site-specific amino-acid preferences. 
+Convergence was assessed visually using Tracer~\skhcomment{Rambaut et al, 2018} and by the correlation of amino-acid preferences inferred by two independent chains (r=0.996). 
 
 In order to make the branch lengths in \ref{fig:phylobayes} comparable between the pbMutSel tree returned by \texttt{PhyloBayes-MPI} and the other trees returned by \texttt{phydms}, we we normalized the branch lengths on the pbMutSel consensus tree and the ExpCM(H1+H3 avg)+$\Gamma\omega$ by dividing each branch by the length from A/South Carolina/1/1918 and A/Solomon Islands/3/2006. 
 These two H1 sequences are early and late representatives of the longest known human influenza lineage, and are of sufficiently high identity that different ExpCM and GY94 substitution models all estimate nearly identical branch lengths separating them. 
-\skhcomment{add new run parameters}
 
 \subsection*{Software versions and computer code}
 All code used for the analyses in this paper is available at \url{https://github.com/jbloomlab/divergence_timing_manuscript}. \skhcomment{make repo public}
