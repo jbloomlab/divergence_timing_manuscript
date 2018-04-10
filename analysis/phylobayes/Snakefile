@@ -37,8 +37,8 @@ TARGET = "{0}_{1}".format(TARGET[0], TARGET[1])
 AVG_PREFS = "../HA/data/references/HA_average_prefs.csv"
 H1_PREFS = "../HA/data/references/HA_hybridDoud_prefs.csv"
 H3_PREFS = "../HA/data/references/HA_hybridLee_prefs.csv"
-AVG_BETA = 1.7
-H1_BETA = 1.12
+AVG_BETA = 1.69
+H1_BETA = 1.11
 H3_BETA = 1.28
 # Rules -----------------------------------------------------------------------
 
@@ -172,7 +172,7 @@ rule calc_branch_lengths:
     """
     message: "Calculate branch lengths"
     input:
-        pb = expand("_{alignment_id}_chain0.con.tre",
+        pb = expand("_{alignment_id}_chain1.con.tre",
                     alignment_id=ALIGNMENT_IDS),
         maps = expand("_map_{alignment_id}.csv", alignment_id=ALIGNMENT_IDS)
     output:
@@ -310,7 +310,7 @@ rule make_corr_prefs:
     """
     message: "Creating prefs correlation summary file"
     input:
-        pb_prefs = expand("outputs/{aligment_id}_chain0_prefs.csv",
+        pb_prefs = expand("outputs/{aligment_id}_chain1_prefs.csv",
                           aligment_id=ALIGNMENT_IDS)
     output:
         corr = "outputs/corr_prefs.csv"
@@ -333,7 +333,7 @@ rule make_corr_prefs:
         final = pd.merge(final, result, on=['site', 'amino_acid'])
 
         for pb in input.pb_prefs:
-            new_name = "mutSel_{0}".format(pb.split("_")[-3])
+            new_name = "mutSel_{0}".format(pb.split("_")[-4])
             profiles = melt_df(pd.read_csv(pb), new_name)
             final = pd.merge(final, profiles, on=['site', 'amino_acid'])
 
