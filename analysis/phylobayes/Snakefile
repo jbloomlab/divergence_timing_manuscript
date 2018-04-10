@@ -9,7 +9,6 @@ from phydmslib import constants
 import pandas as pd
 import numpy as np
 from pymodules.utils import *
-import dms_tools2.plot
 
 
 # Globals ---------------------------------------------------------------------
@@ -18,13 +17,14 @@ ALIGNMENT_DIR = "../HA/data/subsample/"
 PHYDMS_DIR = "../HA/branch_lengths/phydms/"
 
 # Alignment IDs
-ALIGNMENT_IDS = ["_".join(os.path.basename(x).split(".")[0].split("_")[1:])
-                 for x in glob.glob("{0}/*.fasta".format(ALIGNMENT_DIR))]
+#ALIGNMENT_IDS = ["_".join(os.path.basename(x).split(".")[0].split("_")[1:])
+#                 for x in glob.glob("{0}/*.fasta".format(ALIGNMENT_DIR))]
+ALIGNMENT_IDS = ["hybrid_high_0"]
 SEEDS = [int(x.split("_")[-1]) for x in ALIGNMENT_IDS]
 LEVELS = ["high", "intermediate", "low"]
 
 # `phylobayes` params
-N_STEPS = 5000
+N_STEPS = 5500
 BURNIN = int(N_STEPS * 0.1)
 N_CHAINS = range(2)
 
@@ -112,14 +112,14 @@ rule create_sbatch:
              "#SBATCH\n"
              "#SBATCH -o {0}.out\n"
              "#SBATCH -e {0}.err\n"
-             "#SBATCH -p campus\n"
+             "#SBATCH -p largenode\n"
              "#SBATCH -n 16\n"
+	         "#SBATCH --mem=300000\n"
              "#SBATCH -t 5-00:00:00\n\n"
-             "module load OpenMPI/1.8.4-GCC-4.9.2\n\n"
-             "mpirun /home/mrg/Work/phylobayes/pbmpi/data/pb_mpi -x 1 {1}"
-             " -mutsel -d {3} -T {4} -dp {0}\n"
-             "/home/mrg/Work/phylobayes/pbmpi/data/readpb_mpi -x {2} {0}\n"
-             "/home/mrg/Work/phylobayes/pbmpi/data/bpcomp -x {2} 5 {0}\n"
+             "module load PhyloBayes-MPI\n\n"
+             "mpirun pb_mpi -x 1 {1} -mutsel -d {3} -T {4} -f -dgam 4 -dp {0} \n"
+             "readpb_mpi -x {2} {0}\n"
+             "bpcomp -x {2} 5 {0}\n"
              "touch _done{0}.txt"
              .format(params.alignment_id, N_STEPS, BURNIN, input.alignment,
                      input.tree)
