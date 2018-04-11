@@ -462,38 +462,33 @@ Therefore, while the ExpCM and pbMutSel models differ slightly in the extent to 
 
 \section*{Discussion}
  
-Here we tested how rate variation and site-specific amino-acid preferences affect the estimation of deep branches on phylogenetic trees. 
-We used ExpCM's defined by deep mutational scanning experiments to model site-specific amino-acid preferences and found that these models estimate longer branches than the GY94 model with a uniform stationary state. 
-We found that ExpCM's estimate similar branch lengths to models which infer their stationary state from the natural sequences. 
-Finally, we found that the extension in branch length from site-specific amino-acid preferences is mostly independent from rate variation. 
+We examined how estimates of deep branch lengths on phylogenetic trees are affected by accounting for the fact that proteins prefer specific amino acids at specific sites. 
+We did this by comparing inferences from models informed by experimental measurements of site-specific amino-acid preferences with more conventional codon substitution models, as well as with models that infer the amino-acid preferences from the natural sequences.
+We found that models that account for site-specific amino-acid preferences estimated deeper long branches, regardless of whether these preferences are measured experimentally or inferred from the sequence alignment.
+Additionally, we showed that the extension in branch length from site-specific amino-acid preferences is mostly independent of the extension that results from simply modeling rate variation. 
 
-These results underscore the importance of modeling site-specific amino-acid preferences when estimating long branches. 
-As the simulations in \ref{fig:simulations} show, models with uniform stationary states will always underestimate the lengths of branches which have evolved under strong site-specific constraints. 
-We also found that the ExpCM's with the site-specific stationary states estimated longer branches than the GY94 model on the phylogenetic tree of influenza HA. 
+Overall, our results underscore the importance of modeling purifying selection in a way that is more nuanced than simply allowing the substitution rate to vary across sites.
+Protein sites do not simply differ in their rates of substitution---different sites also prefer different amino acids.
+There are now two ways to account for this fact: using models informed by deep mutational scanning experiments, or using models that infer site-specific amino-acid preferences from the natural sequence alignment.
+Combining either type of model with rate variation increases the inferred length of deep branches relative to models that only incorporate rate variation.
 
-However, it is also clear that the amino-acid preferences defining the ExpCM's do not extrapolate well over a very diverged tree. 
-It is well established that a protein's site-specific amino-acid preferences are contextually dependent~\citep{gong2013stability, harms2014historical, tufts2014epistasis, ortlund2007crystal} and shift as the protein accumulates substitutions overtime~\citep{haddox2018mapping, starr2018pervasive, pollock2012amino, doud2015site, shah2015contingency,bazykin2015changing}. 
-The site-specific amino-acid preferences we used to define the ExpCM's were only measured in one genetic background. 
-Therefore, these preferences are only one snapshot of the functional constraint and do not capture any of the changes over time. 
-The model's ignorance of shifting preferences is reflected in our results: The ExpCM's have the largest effect on branch length extension near the HA from the experiment. 
+However, assuming a single set of site-specific amino-acid preferences is still an imperfect way to model evolution over a highly diverged phylogenetic tree. 
+In the case of the experimentally informed models, it is fairly obvious why this is true: the amino-acid preferences are measured in just one genetic background, and therefore provide only a single snapshot of preferences that shift over evolutionary time due to epistasis~\citep{pollock2012amino, shah2015contingency, bazykin2015changing, haddox2018mapping, starr2018pervasive, doud2015site}. 
+As a result, experimentally measured amino-acid preferences are most accurate for sequences similar to the one used in the experiment, and so cause the largest increases in branch length in that region of the phylogenetic tree.
+However, this limitation is not unique to experimentally informed models, but is a general limitation of describing purifying selection using a single set of site-independent and time-homogenous amino-acid preferences.
+For instance, we showed that averaging experimental measurements on two protein homologs does a somewhat better job of capturing the ``average'' constraint across the tree, and performs similarly to approaches that infer the ``average'' preferences from natural sequence data~\citep{rodrigue2010mutation,rodrigue2014site}.
+But even these ``average'' preferences exhibit a tradeoff between local and global accuracy for the inference of deep branch lengths.
 
-The effect of shifting preferences on branch length estimation is not specific to ExpCM's but is a general limitation of site-independent, time-homogenous models. 
-Even though the stationary state of the pbMutSel model is more representative of the ``tree average" stationary state, the ExpCM with average preferences has a larger effect on the branches from the H1 and H3 sequences. 
-The site-specific amino-acid preferences of a protein shift across time and models with a single stationary state across the entire tree cannot capture these dynamics. 
-Therefore, while it is clear that modeling site-specific amino-acid preferences is important, neither the ExpCM nor the pbMutSel is able to capture how these preferences shift over time.
-
-Clearly, the site-independence and time-homogeneity assumptions of the ExpCM's and pbMutSel models inhibit their ability to accurately describe the effect of shifting preferences. 
-Models which account for context-dependent of amino-acid preferences have been developed but are still in their infancy.
-Thus far their application has been restricted to a few sequences~\citep{rodrigue2005site, choi2007quantifying}, short evolutionary distances~\citep{bordner2013new}, or simulated sequences~\citep{goldstein2017sequence}.  
-
-Currently, there are two main challenges associated with context-dependence models. 
-The first challenge is how to efficiently evaluate these inherently more complex models mathematically so the models can be applied to large phylogenetic trees~\citep{rodrigue2009computational}. 
-The second challenge is developing the correct function to model shifting preferences. 
-For example, \citet{rodrigue2009computational} showed that while site-dependent amino-acid models outperformed site-independent amino-acid models, they were outperformed by sophisticated site-independent codon models.
-Most context-dependent models evaluate amino-acid changes as how they might affect a single protein conformation~\citep{rodrigue2005site, choi2007quantifying,bordner2013new, goldstein2017sequence}.
-However, in nature a protein may undergo conformational changes in order to perform some function. 
-Models which account for shifting preferences should also be flexible enough to be able to describe multiple, necessary protein conformations. 
-Such models will be critical for describing the long-term evolution of a protein and accurately estimating the length of deep branches on phylogenetic trees. 
+So while modeling site-specific amino-acid preferences is a clear improvement over most conventional models, the next step towards greater accuracy will require relaxing the assumption that these preferences are time homogeneous and site independent.
+Of course, many authors have pointed out the shortcomings of models that fail to account for the full site-interdependent complexity of purifying selection~\citep{rodrigue2005site, choi2007quantifying, pollock2012amino, goldstein2017sequence}.
+However, the challenge is to overcome these shortcomings with models that are tractable for real phylogenetic questions.
+There are two main issues: first, the Felsenstein pruning algorithm~\citep{felsenstein1981evolutionary} that is typically used to evaluate phylogenetic likelihoods breaks down when sites are no longer treated independently.
+Some alternative algorithms have been proposed~\citep{bordner2013new,rodrigue2009computational,rodrigue2005site, choi2007quantifying}, but they are still in their infancy.
+Second, site-interdependent models require a realistic ``fitness function'' that describes the interactions among sites.
+It appears that typical structural modeling programs are insufficient for this purpose~\citep{rodrigue2009computational}.
+But hope comes from experimental progress in measuring actual site-interdependent constraints on proteins~\citep{olson2014comprehensive,wu2016adaptation,steinberg2016shifting,li2016fitness}, combined with new methods for using these measurements to parameterize fitness functions~\citep{sailer2017detecting,otwinowski2018inferring,otwinowski2018protein}.
+Perhaps some day such truly realistic models might be useful for phylogenetic inference.
+Until that day, our work shows that modeling a single set of time homogenous amino-acid preferences provides at least some improvement.
 
 \clearpage
 \section*{Methods}
