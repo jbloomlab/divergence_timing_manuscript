@@ -265,14 +265,14 @@ When sites with highly constrained amino-acid preferences such as these are comm
 \subsection*{Simulations demonstrate how failure to model site-specific amino-acid preferences leads to branch-length underestimation.}
 
 To directly demonstrate the effect of stationary state and $\Gamma\omega$ rate variation on branch-length estimation, we tested the ability of a variety of models to accurately infer branch lengths on simulated data (\ref{fig:simulations}).
-Specifically, we simulated alignments of sequences along the HA phylogenetic tree in \ref{fig:empirical_trees} using an ExpCM parameterized by the amino-acid preferences of H1 HA as experimentally measured by deep mutational scanning~\citep{doud2016accurate}. We then estimated the branch lengths from the simulated sequences using all the substitution models in \ref{fig:model_feature}C, and compared these estimates to the actual branch lengths used in the simulations.
+Specifically, we simulated alignments of sequences along the HA phylogenetic tree using an ExpCM parameterized by the amino-acid preferences of H1 HA as experimentally measured by deep mutational scanning~\citep{doud2016accurate}. We then estimated the branch lengths from the simulated sequences using all the substitution models in \ref{fig:model_feature}C, and compared these estimates to the actual branch lengths used in the simulations.
 Note that these simulations closely parallel those performed by \citet{halpern1998evolutionary} and \citet{wertheim2011purifying}.
 
 \begin{figure}
 \centerline{\includegraphics[width=0.9\textwidth]{figures/simulations}}
 \caption{\label{fig:simulations}
 \textbf{Branch lengths inferred on data simulated under a model with site-specific amino-acid preferences.} 
-We simulated alignments along a HA phylogenetic tree (see \ref{fig:empirical_trees}) using an ExpCM parameterized by the actual site-specific amino-acid preferences for an H1 HA~\citep{doud2016accurate}.
+We simulated alignments along a HA phylogenetic tree using an ExpCM parameterized by the actual site-specific amino-acid preferences for an H1 HA~\citep{doud2016accurate}.
 We then inferred the branch lengths of this tree from the simulated alignments.
 The inferred branch lengths for various models are plotted on the x-axis, and the actual branch lengths used in the simulations are on the y-axis.
 We performed 10 simulations and inferences, and gray points show each inferred branch length from each simulation, and black points show the average of each branch length across simulations.
@@ -290,19 +290,6 @@ Therefore, models with uniform stationary states underestimate the length of lon
 
 
 \subsection*{Experimentally informed site-specific models estimate longer branches on real data.}
-
-\begin{figure}
-\centerline{\includegraphics[width=\textwidth]{figures/empirical_trees.pdf}}
-\caption{\label{fig:empirical_trees}
-\textbf{Effect of site-specific amino-acid preferences and $\Gamma\omega$ rate variation on HA branch length estimation.} 
-The branch lengths of the HA tree were optimized using the indicated ExpCM or GY94 model. 
-The amino-acid preferences defining the model (ExpCM) or implied by the model (GY94) are shown as logo plots for 15 sites in HA; the full set of experimentally measured amino-acid preferences are in \ref{suppfig:prefs_doud}, \ref{suppfig:prefs_lee}, and \ref{suppfig:prefs_average}. 
-The ExpCMs use amino-acid preferences measured in deep mutational scanning of an H1 HA~\citep{doud2016accurate}, an H3 HA~\citep{lee2018deep}, or the average of the measurements for these two HAs.
-Circle denotes the H1 clade and triangle denotes the H3 clade.
-The root of each tree is placed where it would fall if the tree was midpoint rooted using the branch lengths inferred by \texttt{RAxML} using the GTRCAT model. 
-The branch lengths are plotted for quantitative comparison in \ref{fig:empirical_scatter}. 
-}
-\end{figure}
 
 The foregoing section shows the superiority of ExpCMs to GY94 models for estimating long branches on phylogenies simulated with ExpCMs.
 But how do these models perform on real data?
@@ -322,7 +309,7 @@ Deep mutational scanning has been used to measure the amino-acid preferences of 
 One scan measured the preferences of an H1 HA~\citep{doud2016accurate} and the other measured the preferences of an H3 HA~\citep{lee2018deep}.
 The amino-acid preferences measured for these two HAs are shown in \ref{suppfig:prefs_doud} and 
 \ref{suppfig:prefs_lee}.
-The H1 and H3 HAs have only $\sim$42\% amino-acid identity, and so are separated by a large distance on the phylogenetic tree (see triangle and circle on \ref{fig:empirical_trees}).
+The H1 and H3 HAs have only $\sim$42\% amino-acid identity.
 As described in \citet{lee2018deep}, the amino-acid preferences clearly differ between the H1 and H3 HA at a substantial number of sites (these differences are apparent in a simple visual comparison of \ref{suppfig:prefs_doud} and 
 \ref{suppfig:prefs_lee}; see site 33 as an example).
 Therefore, we also created a third set of amino-acid preferences by averaging the measurements for the H1 and H3 HAs, under the conjecture that these averaged preferences might better describe the ``average'' constraint on sites across the full HA tree~(\ref{suppfig:prefs_average}).
@@ -349,6 +336,20 @@ All ExpCMs fit a stringency parameter $>1$.
 	GY94 & 7892 & -55025  & 0.07 & -\\
       \end{tabular}
 \end{table}
+
+
+\begin{figure}
+\centerline{\includegraphics[width=\textwidth]{figures/empirical_trees.pdf}}
+\caption{\label{fig:empirical_trees}
+\textbf{Effect of site-specific amino-acid preferences and $\Gamma\omega$ rate variation on HA branch length estimation.} 
+The branch lengths of the HA tree were optimized using the indicated ExpCM or GY94 model. 
+The amino-acid preferences defining the model (ExpCM) or implied by the model (GY94) are shown as logo plots for 15 sites in HA; the full set of experimentally measured amino-acid preferences are in \ref{suppfig:prefs_doud}, \ref{suppfig:prefs_lee}, and \ref{suppfig:prefs_average}. 
+The ExpCMs use amino-acid preferences measured in deep mutational scanning of an H1 HA~\citep{doud2016accurate}, an H3 HA~\citep{lee2018deep}, or the average of the measurements for these two HAs.
+Circle denotes the H1 clade and triangle denotes the H3 clade.
+The root of each tree is placed where it would fall if the tree was midpoint rooted using the branch lengths inferred by \texttt{RAxML} using the GTRCAT model. 
+This figure enables qualitative visualization of the trees; for a quantitative comparison of branch lengths optimized by different models, see \ref{fig:empirical_scatter}. 
+}
+\end{figure}
  
 We fit the GY94 model and each of the three ExpCMs to the fixed HA tree topology estimated using \texttt{RAxML}, and also tested a version of each model with $\Gamma\omega$ rate variation.
 \ref{tab:empirical_data} shows that all ExpCMs fit the actual data much better than the GY94 models.
@@ -364,13 +365,13 @@ This more realistic null model gives ExpCMs enhanced power to detect diversifyin
 \begin{figure}
 \centerline{\includegraphics[width=\textwidth]{figures/empirical_scatter.pdf}}
 \caption{\label{fig:empirical_scatter}
-\textbf{Modeling site-specific amino-acid preferences using deep mutational scanning experiments does not extend branch lengths uniformly across the HA tree.}
-We quantitatively plotted the branch lengths in \ref{fig:empirical_trees} for comparison.
-Points denote the branch lengths between all pairs of tips on the tree. 
-Blue and orange denote branches that lead to the H1 and H3 deep mutational scanning reference sequences respectively. 
-The site-specific amino-acid preference set defining the ExpCM is labeled above each each plot.
-(A) The ExpCMs defined by the H1, H3, or H1+H3 average deep mutational scanning amino-acid preferences estimate longer branches from the reference sequence used in the respective deep mutational scanning experiment. 
-(B) The addition of $\Gamma\omega$ rate variation leads to more uniform extension of branch length than the addition of site-specific amino-acid preferences.
+\textbf{Modeling site-specific amino-acid preferences using deep mutational scanning experiments extends branch lengths, especially for branches leading to the HA used in the experiment.}
+The points indicate the total length of branches separating all pairs of tips on the HA phylogenetic tree when the tree is optimized under the indicated model. 
+Blue and orange denote branches that lead to the H1 and H3 HAs used in the deep mutational scanning. 
+The amino-acid preference set defining the ExpCM is labeled above each each plot.
+(A) ExpCMs defined by amino-acid preferences from any of the deep mutational scanning experiments estimate generally longer branches than the GY94 model, with the increase particularly pronounced for branches leading to the HA used in the experiment. 
+(B) The addition of $\Gamma\omega$ rate variation further extends branch lengths, without any apparent bias towards the HAs used in the experiment.
+Note that this figure shows the same data as \ref{fig:empirical_trees} in a different form.
 }
 \end{figure}
 
@@ -386,7 +387,7 @@ This can be seen by examining the ExpCM+$\Gamma\omega$ models, which combine $\G
 As shown in \ref{fig:empirical_trees}, these ExpCM+$\Gamma\omega$ models estimate longer branches than models with just $\Gamma\omega$ rate variation (GY94+$\Gamma\omega$) or just site-specific amino-acid preferences (ExpCMs).
 The near independence of these effects is quantified in \ref{supptab:tree_diameter}, which shows that 76\% of the tree diameter extension of ExpCM(H1+H3 avg)+$\Gamma\omega$ versus can be explained by simply adding the extension from incorporating $\Gamma\omega$ (GY94+$\Gamma\omega$ versus GY94) to the extension from incorporating site-specific amino-acid preferences (compare ExpCM(H1+H3 avg) to GY94).
 
-However, while adding $\Gamma\omega$ rate variation increases the length of deep branches in a roughly uniform fashion across the tree, the branch lengthening from adding site-specific amino-acid preferences is not uniform across the tree (\ref{fig:empirical_scatter}). 
+However, while adding $\Gamma\omega$ rate variation increases the length of deep branches in a roughly uniform fashion across the tree, the branch lengthening from adding site-specific amino-acid preferences is not uniform across the tree (\ref{fig:empirical_trees} and \ref{fig:empirical_scatter}). 
 Instead, the increase in branch length is most pronounced on branches leading to the HA sequence that was used in the deep mutational scanning experiment that informed the ExpCM.
 For instance, the ExpCM informed by the H1 data most dramatically lengthens branches near the H1 clade of the tree, while the ExpCM informed by the H3 data has the largest effect on branches near the H3 clade.
 The ExpCM informed by the average of the H1 and H3 data has a more uniform effect across the tree, but still most strongly extends branches leading to either the H1 or H3 clade.
