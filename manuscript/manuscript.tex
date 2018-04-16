@@ -365,10 +365,10 @@ This more realistic null model gives ExpCMs enhanced power to detect diversifyin
 \centerline{\includegraphics[width=\textwidth]{figures/empirical_scatter.pdf}}
 \caption{\label{fig:empirical_scatter}
 \textbf{Modeling site-specific amino-acid preferences using deep mutational scanning experiments does not extend branch lengths uniformly across the HA tree.}
+We quantitatively plotted the branch lengths in \ref{fig:empirical_trees} for comparison.
 Points denote the branch lengths between all pairs of tips on the tree. 
 Blue and orange denote branches that lead to the H1 and H3 deep mutational scanning reference sequences respectively. 
-The site-specific amino-acid preferences defining the ExpCM's are labeled above each plot.
-These data are the branch lengths in \ref{fig:empirical_trees} plotted quantitatively for comparison.
+The site-specific amino-acid preference set defining the ExpCM is labeled above each each plot.
 (A) The ExpCMs defined by the H1, H3, or H1+H3 average deep mutational scanning amino-acid preferences estimate longer branches from the reference sequence used in the respective deep mutational scanning experiment. 
 (B) The addition of $\Gamma\omega$ rate variation leads to more uniform extension of branch length than the addition of site-specific amino-acid preferences.
 }
@@ -426,7 +426,7 @@ As $\beta$ decreases, the preferences ``flatten" and so the ExpCM draws less inf
 At the most extreme value of $\beta = 0$, the preferences would be perfectly uniform and look similar to the GY94 preferences in \ref{fig:empirical_trees}.
 In reality, $\beta$ never reaches a value this low, indicating the deep mutational scanning experiments remain somewhat informative about real natural selection across the entire swath of HAs. 
 However, \ref{fig:compete} shows that the amino-acid preferences clearly become less informative about natural selection as we move away from the experimental sequence on the tree.
-This shifting of amino-acid preferences helps explain why the ExpCM informed by the average of the H1 and H3 experiments performs best (\ref{tab:empirical_data} and \ref{fig:empirical_trees}): averaging the measurements across these two HAs is a heuristic method of accounting for shifts in preferences during HA evolution. 
+This shifting of amino-acid preferences helps explain why the ExpCM informed by the average of the H1 and H3 experiments performs best (\ref{tab:empirical_data}, \ref{fig:empirical_trees}, and \ref{fig:empirical_scatter}): averaging the measurements across these two HAs is a heuristic method of accounting for shifts in preferences during HA evolution. 
  
 The fact that amino-acid preferences shift as a protein evolves leaves us with an inherent tension: models with site-specific amino-acid preferences only become important for accurate branch-length estimation as sequences become increasingly diverged, but this same divergence degrades the accuracy of extrapolating the amino-acid preferences from any given experiment across the phylogenetic tree.
 Crucially, this problem is more fundamental than the inability of a single deep mutational scanning experiment to measure amino-acid preferences in more than one genetic background.
