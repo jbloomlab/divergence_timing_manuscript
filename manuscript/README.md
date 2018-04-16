@@ -1,6 +1,6 @@
 # Manuscript
 
-This directory contains the manuscript for [Modeling site-specific amino-acid preferences deepens phylogenetic estimates of the divergence of viral proteins](manuscript.pdf).
+This directory contains the manuscript for [Modeling site-specific amino-acid preferences deepens phylogenetic estimates of viral divergence](manuscript.pdf).
 
 ## Manuscript text
 
