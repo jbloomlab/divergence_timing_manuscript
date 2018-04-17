@@ -4,7 +4,7 @@ This directory contains the manuscript for [Modeling site-specific amino-acid pr
 
 ## Manuscript text
 
-The text is found in the file [`manuscript.tex`].
+The text is found in the file [`manuscript.tex`](manuscript.tex).
 
 ## Figures
 
