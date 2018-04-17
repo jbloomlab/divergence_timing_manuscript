@@ -5,6 +5,9 @@ Specifically, this project looks at the difference between GY94 models and ExpCM
 
 The manuscript is titled "Modeling site-specific amino-acid preferences deepens phylogenetic estimates of viral divergence."
 
+A pre-print describing this study is [available on _bioRxiv_ at DOI 10.1101/302703](https://doi.org/10.1101/302703).
+
+
 This repo contains the following directories:
 
 [`./manuscript/`](./manuscript/): contains the manuscript describing the project.
