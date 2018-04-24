@@ -7,7 +7,7 @@ This directory contains the data from the deep mutational scans of HA.
 This includes the scan performed by Mike Doud and Jesse Bloom ([doud2016accurate](http://www.mdpi.com/1999-4915/8/6/155)) in the HA H1 strain WSN and the scan performed by Juhye Lee and Jesse Bloom (lee2017Perth) in the HA H3 strain Perth/09. This directory includes **the wildtype sequence for each scan** as well as the **site-specific amino-acid preferences measured by each scan**.
 
 ### Wildtype sequences
-[`WSN_HA_reference.fasta`](WSN_HA_reference.fasta) and `Perth_HA_reference.fasta`(Perth_HA_reference.fasta) are the nucleotide sequences used by [doud2016accurate](http://www.mdpi.com/1999-4915/8/6/155) and [lee2016Perth]() to perform the DMS.
+[`WSN_HA_reference.fasta`](WSN_HA_reference.fasta) and [`Perth_HA_reference.fasta`](Perth_HA_reference.fasta) are the nucleotide sequences used by [doud2016accurate](http://www.mdpi.com/1999-4915/8/6/155) and [lee2016Perth]() to perform the DMS.
 
 [`WSN_hybrid_reference.fasta`](WSN_hybrid_reference.fasta) is the WSN reference sequence but only contains the sites *shared* between WSN and Perth.
 
