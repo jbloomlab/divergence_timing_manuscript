@@ -658,8 +658,16 @@ In order to make the branch lengths in \ref{fig:phylobayes} comparable between t
 These two H1 sequences are early and late representatives of the longest known human influenza lineage, and are of sufficiently high identity that different ExpCM and GY94 substitution models all estimate nearly identical branch lengths separating them. 
 
 \subsection*{Software versions and computer code}
-All code used for the analyses in this paper is available at \url{https://github.com/jbloomlab/divergence_timing_manuscript}.
-External computer programs used were \texttt{phydms}~\citep{hilton2017phydms} version 2.2.2, \texttt{pyvolve}~\citep{spielman2015pyvolve} version 0.8.7, \texttt{PhyloBayes-MPI}~\citep{rodrigue2014site} version 1.8, \texttt{RAxML}~\citep{stamatakis2006raxml} version 8.2.11 (available at \url{https://github.com/stamatak/standard-RAxML}), \texttt{ggplot2}~\citep{wickham2016ggplot2}, \texttt{ggtree}~\citep{yu2017ggtree}, \texttt{ggseqlogo}~\citep{wagih2017ggseqlogo}, and \texttt{snakemake}~\citep{koster2012snakemake} version 3.11.2.
+ All code used for the analyses in this paper is available at \url{https://github.com/jbloomlab/divergence_timing_manuscript}.
+The external computer programs that we used were
+\begin{itemize} 
+\item \texttt{phydms}~\citep{hilton2017phydms} version 2.2.2 (available at \url{github.com/jbloomlab/phydms}) to fit the ExpCM and GY94 models.
+\item \texttt{pyvolve}~\citep{spielman2015pyvolve} version 0.8.7 (available at \url{https://github.com/sjspielman/pyvolve}) to simulate the sequences.
+\item \texttt{PhyloBayes-MPI}~\citep{rodrigue2014site} version 1.8 (available at \url{https://github.com/bayesiancook/pbmpi}) to fit the pbMutSel model. 
+\item \texttt{RAxML}~\citep{stamatakis2006raxml} version 8.2.11 (available at \url{https://github.com/stamatak/standard-RAxML}) to infer tree topology.
+\item We used \texttt{ggplot2}~\citep{wickham2016ggplot2}, \texttt{ggtree}~\citep{yu2017ggtree}, and \texttt{ggseqlogo}~\citep{wagih2017ggseqlogo} for visualization of the results.
+\item \texttt{snakemake}~\citep{koster2012snakemake} version 3.11.2 (available at \url{https://snakemake.readthedocs.io/en/stable/}) to run the pipelines.
+\end{itemize}
 
 \subsection*{Acknowledgments}
 We thank Erick Matsen and Trevor Bedford for helpful comments about the project and manuscript.
@@ -667,6 +675,7 @@ SKH is supported in part by training grant T32AI083203 from the NIAID of the Nat
 This work was supported by the NIAID and NIGMS of the NIH under grant numbers R01AI127893 and R01GM102198. 
 JDB is supported in part by a Faculty Scholars grant from the Howard Hughes Medical Institute and the Simons Foundation.
 The funders had no role in study design, data collection and analysis, decision to publish, or preparation of the manuscript.
+All code and data used for the analyses in this paper is available at https://github.com/jbloomlab/ divergence_timing_manuscript.
 
 \clearpage 
 \bibliographystyle{mbe}
