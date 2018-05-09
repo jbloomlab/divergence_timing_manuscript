@@ -145,7 +145,7 @@ However, most phylogenetic models try to account for these constraints using rel
 These models of purifying selection are usually inadequate~\citep{duchene2015substitution, duchene2015evaluating}, potentially causing branch lengths to be severely underestimated~\citep{wertheim2011purifying, halpern1998evolutionary}.
 
 More recent work has used mutation-selection models to better account for purifying selection~\citep{halpern1998evolutionary,yang2008mutation,rodrigue2010mutation,tamuri2012estimating,mccandlish2014modeling}.
-These models explicitly incorporate the fact that different protein sites prefer different amino acids, and so can improve phylogenetic estimates when there are deep branches~\citep{philippe1998good, lartillot2007suppression, le2008phylogenetic, si2008empirical, wang2008class}.
+These models explicitly incorporate the fact that different protein sites prefer different amino acids, and so can improve phylogenetic estimates when there are deep branches~\citep{philippe1998good, lartillot2007suppression, le2008phylogenetic, si2008empirical, wang2008class, susko2018accelerated}.
 However, these approaches require inferring the site-specific purifying selection from natural sequence data.
 
 Even more recently, it has become possible to directly measure purifying selection on proteins using deep mutational scanning.
@@ -652,7 +652,7 @@ For \ref{fig:simulations}, we simulated sequences using \texttt{pyvolve}~\citep{
 For \ref{fig:phylobayes}, we fit a pbMutSel model to the full HA tree. 
 We ran one chain for 5500 steps, saved every sample, and discarded the first 550 samples as a burnin. 
 We used \texttt{PhyloBayes-MPI} program \texttt{readpb\_mpi} to compute the majority-rule consensus tree and the posterior average site-specific amino-acid preferences. 
-Convergence was assessed visually using Tracer (\url{http://tree.bio.ed.ac.uk/software/tracer/}) and by the correlation of amino-acid preferences inferred by two independent chains (r=0.996). 
+Convergence was assessed visually using Tracer \citep{rambaut2018posterior} and by the correlation of amino-acid preferences inferred by two independent chains (r=0.996). 
 
 In order to make the branch lengths in \ref{fig:phylobayes} comparable between the pbMutSel tree returned by \texttt{PhyloBayes-MPI} and the other trees returned by \texttt{phydms}, we we normalized the branch lengths on the pbMutSel consensus tree and the ExpCM(H1+H3 avg)+$\Gamma\omega$ by dividing each branch by the length from A/South Carolina/1/1918 and A/Solomon Islands/3/2006. 
 These two H1 sequences are early and late representatives of the longest known human influenza lineage, and are of sufficiently high identity that different ExpCM and GY94 substitution models all estimate nearly identical branch lengths separating them. 
@@ -675,7 +675,7 @@ SKH is supported in part by training grant T32AI083203 from the NIAID of the Nat
 This work was supported by the NIAID and NIGMS of the NIH under grant numbers R01AI127893 and R01GM102198. 
 JDB is supported in part by a Faculty Scholars grant from the Howard Hughes Medical Institute and the Simons Foundation.
 The funders had no role in study design, data collection and analysis, decision to publish, or preparation of the manuscript.
-All code and data used for the analyses in this paper is available at https://github.com/jbloomlab/ divergence_timing_manuscript.
+All code and data used for the analyses in this paper is available at \url{https://github.com/jbloomlab/ divergence_timing_manuscript}.
 
 \clearpage 
 \bibliographystyle{mbe}
