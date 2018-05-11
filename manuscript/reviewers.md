@@ -1,0 +1,7 @@
+- Stephanie Spielman; stephanie.spielman@temple.edu; Dr. Spielman is an expert in site-specific models substitution models.
+- Nicolas Rodrigue; Nicolas.Rodrigue@carleton.ca; Dr. Rodrigue is an expert in site-specific substitution models.
+- David McCandlish; mccandlish@cshl.edu; Dr. McCandlish is an expert in protein epistasis and deep mutational scanning.
+- Nicholas Lartillot; nicolas.lartillot@univ-lyon1.fr; Dr. Lartillot is an expert in site-specific substitution models.
+- Sebastian Duchene; sebastian.duchene@unimelb.edu.au; Dr. Duchêne is an expert in viral evolution, including dating evolutionary events.
+- Eddie Holmes; ech15@psu.edu; Dr. Holmes is an expert in viral evolution.
+- Richard Neher; richard.neher@unibas.ch; Dr. Neher is an expert in viral evolution. 

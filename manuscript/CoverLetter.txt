@@ -6,12 +6,18 @@ We request Aris Katzourakis as an editor. After seeing a pre-print of the manusc
 
 In this manuscript, we examine the reasons that phylogenetic dating methods can underestimate the length of deep branches on phylogenetic trees. Specifically, we use a new class of phylogenetic substitution models that are informed by direct experimental measurements of functional constraints. We show that these substitution models deepen the branches on a phylogenetic tree of influenza hemagglutinin, and that the reason is that they better model the evolutionary stationary state at each site. However, we also show that the improvements from such models are limited because epistasis can change the stationary state at each site. Overall, our work shows how to better estimate deep branch lengths, but also reveals ways that all current approaches continue to have shortcomings.
 
-This work will be of broad interest to researchers in the field of virus evolution, where estimating divergence times from sequence data is a central task. We therefore think that you will find the manuscript highly appropriate for virus evolution.
+This work will be of broad interest to researchers in the field of virus evolution, where estimating divergence times from sequence data is a central task. We therefore think that you will find the manuscript highly appropriate for Virus Evolution.
 
-Finally, we note that our work meets the journal's high standards for data and code availability. Specifically, all analysis code used to generate the figures in the manuscript is openly available at XXX.
+Finally, we note that our work meets the journal's high standards for data and code availability. Specifically, all analysis code used to generate the figures in the manuscript is openly available at https://github.com/jbloomlab/divergence_timing_manuscript.
 
 As reviewers, we suggest:
-XXX
+- Dr. Stephanie Spielman, an expert in site-specific models substitution models.
+- Dr. Nicolas Rodrigue, an expert in site-specific substitution models.
+- Dr. David McCandlish, an expert in protein epistasis and deep mutational scanning.
+- Dr. Nicholas Lartillot, an expert in site-specific substitution models.
+- Dr. Sebastian Duchene, an expert in viral evolution, including dating evolutionary events.
+- Dr. Eddie Holmes, an expert in viral evolution.
+- Dr. Richard Neher, an expert in viral evolution.
 
 Thanks for your time and consideration.
 
