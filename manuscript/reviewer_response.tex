@@ -1,0 +1,95 @@
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+\usepackage{color}
+\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex	
+								
+												
+\usepackage{amssymb}
+\usepackage{hyperref}
+
+\newcommand{\comment}[1]{{\color{red}[\textsl{#1}]}}
+\newcommand{\response}[1]{{\color{black}#1}}
+\newcommand\skhcomment[1]{{\color{magenta}[#1]}}
+
+
+\title{Response to reviews of ``Modeling site-specific amino-acid preferences deepens phylogenetic estimates of viral divergence'' for \textit{Virus Evolution}}
+\author{Sarah K. Hilton and Jesse D. Bloom}
+
+\begin{document}
+\maketitle
+
+\emph{Below, the reviewer comments {\color{blue} are in blue}, and our responses are in black.}
+\skhcomment{Change title?}
+\skhcomment{Here is what we have to do for submission/revision: We revise the manuscript by clicking ``Create a Revision" under ``Action" in on the author page of the submission site. We cannot make revisions to the original submitted version and instead must upload a new file. We should highlight changes using colored or boldface text. We can respond to author comments in a submission box. Try to be specific in the response to the reviewers. Our review is due on October 9th.}
+\skhcomment{I don't know if we can upload this latex document but we can at least write out the responses here.}
+
+\color{blue}
+
+\subsection*{Reviewer \#1 Comments}
+
+\subsubsection*{Comments:} 
+This is a very interesting manuscript about the consequences of not modeling site-specific amino-acid preferences when estimating sequence divergence (branch lengths in a phylogeny). 
+What the Authors are pointing out in this article is clearly a major conceptual and methodological problem in practical phylogenetic analyses of viral sequences, and I think it is really important to raise the awareness of people interested in viral evolution about this problem. 
+The explanations given by the Authors about the issue and about the methods that can be used to address it are cristal clear, with nice simulations and convincing analyses of empirical sequence data. 
+For those reasons, I strongly recommend this manuscript. 
+I would have only very minor comments and suggestions: 
+
+\response{}
+
+\subsubsection*{Minor points} 
+
+(1) The title is slightly misleading: it seems to suggest that the article introduces a molecular dating method accounting for site-specific amino-acid preferences, which it does not do (no problem here: developing such a method would require substantial software development, way beyond the scope of this article, so this is not the question) ? but then, perhaps the title should be a bit more explicit about the exact content. 
+What about:  ``Modeling site-specific amino-acid preferences deepens phylogenetic estimates of viral sequence divergence" 
+\response{}
+
+(2) different codons for the same protein are treated as selectively equivalent: different codons for the same amino-acid? 
+\response{}
+
+(3) An alternative strategy of obtaining the amino-acid preference parameters via Bayesian inference (Lartillot and Philippe, 2004; Rodrigue and Lartillot, 2014) is discussed in the last section of the Results. 
+Perhaps could be rephrased: an alternative strategy for dealing with amino-acid preferences across sites is to consider them formally, not as parameters, but as random-effects across sites, and to infer them using Bayesian inference.
+\response{}
+
+(4) when explaining the saturation problem, it could be useful to discriminate between sequence identity and sequence divergence, e.g.: 
+a substitution model transforms sequence identity into branch length. I would say: ``a substitution model transforms sequence *divergence* into branch length." 
+similarly: 
+``the transformation of sequence *divergence* to branch length is trivial when sequence identity is high". 
+\response{}
+
+(5) The invariance of the asymptotic sequence identity under different schemes for modeling $\omega$ is a fundamental feature of the mathematics of *this type of* reversible substitution models. 
+\response{}
+
+\subsection*{Reviewer \#2 Comments} 
+
+\subsubsection*{Comments:} 
+In this paper, Hilton and Bloom examine the performace of substitution models that explicitly incorporate experimental information about purifying selection. 
+They find that they can estimate much longer branches in deep sections of phylogenetic trees, compared to traditional substitution models, and those that account for purifying selection (such as those implemented in PAML and HyPhy). 
+I find that this is an interesting and important piece of work that is well written. 
+Indeed, I find that the introduction is illuminating in explaining the difference between substitution models for protein coding data. 
+I am happy to recommend this paper for publication, but I found some key aspects were neglected that can be improved with simple analyses and some clarifications in the text: 
+\response{}
+
+\subsubsection*{Minor points:} 
+
+In page 9 it is explained that a fixed tree topology was used for the subsequent analyses. 
+I certainly agree with the authors that the model used in RAxML to estimate this tree probably underestimates branch lengths and that topological errors are negligible, but can they comment on how this could be tested using the ExpCM or codon models, given that they require substantially more computation? 
+In other words, how suitable are these models to infer the tree topology, in addition to branch lengths? 
+It is likely that most virus phylogenetic analyses can estimate a reasonable topology, but what about cases where there are very short branches next to very long branches (Felsenstein zone)? 
+I do not recommend additional analyses for this part, but I think that discussing this would be very useful. 
+\response{} 
+
+One key point in this study, which the authors acknowledge, is that estimating branch lengths accurately is key to infer evolutionary timescales. 
+In this respect, is it possible to show for the simulations and empirical data how a root-to-tip regression (i.e. TempEst/pathogen) differs between the different substitution models? 
+I would imagine that using more realistic models leads to better clocklike behaviour. 
+However, it may be that a time-dependent rate phenomenon will be clearer, such that deeper branches will exhibit a predictably slower rate than those that are more recent. 
+\response{}
+
+Finally, the authors refer to the adequacy of substitution models. 
+There has been some work in this field, also known as absolute model fit. 
+This raises the question as to whether it is possible and valuable to assess the adequacy of these models, for example, using posterior predictive methods. 
+Moreover, can the authors comment on the adequacy of the models described here for the flu empirical data? 
+\response{}
+
+\end{document}  
