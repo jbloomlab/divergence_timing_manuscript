@@ -1,7 +1,7 @@
 % Use only LaTeX2e, calling the article.cls class and 12-point type.
 %DIF LATEXDIFF DIFFERENCE FILE
 %DIF DEL manuscript_original_submission.tex   Fri Aug 17 05:48:29 2018
-%DIF ADD manuscript.tex                       Fri Aug 17 06:01:15 2018
+%DIF ADD manuscript.tex                       Fri Aug 17 08:43:28 2018
 
 \documentclass[11pt]{article}
 
@@ -320,7 +320,7 @@ Accounting for site-to-site dN/dS rate variation in GY94 models affects the rate
 For instance, \ref{fig:decay} shows that the GY94+$\Gamma\omega$ model takes longer to reach the asymptote than GY94, but that the asymptote is identical for both models. 
 This fact holds true even if we use experimental measurements of HA's site-specific amino-acid preferences~\citep{doud2016accurate} to calculate a different $\omega_r$ value for each site using the method of \citet{spielman2015relationship} (see \ref{eq:w_r}).
 Specifically, this GY94+$\omega_r$ model predicts that different sites will approach the asymptote at different rates, but the asymptote is always the same (\ref{fig:decay}).
-The invariance of the asymptotic sequence identity under different schemes for modeling $\omega$ is a fundamental feature of the mathematics of \DIFaddbegin \DIFadd{this type of }\DIFaddend reversible substitution models.
+The invariance of the asymptotic sequence identity under different schemes for modeling $\omega$ is a fundamental feature of the mathematics of \DIFdelbegin \DIFdel{reversible substitution models}\DIFdelend \DIFaddbegin \DIFadd{this type of reversible substitution model}\DIFaddend .
 These models are reversible stochastic matrices, which can be decomposed into stationary states and symmetric exchangeability matrices~\citep{nielsen2006statistical}.
 The stationary state is invariant with respect to multiplication of the symmetric exchangeability matrix by any non-zero number.
 Different schemes for modeling $\omega$ only multiply elements of the symmetric exchangeability matrix.
@@ -373,11 +373,12 @@ Sequences within a subtype have $>$68\% amino-acid identity, but sequences in di
 However, HA proteins from all subtypes have a highly conserved structure that performs a highly conserved function~\citep{ha2002h5,russell2004h1}.
 We used \texttt{RAxML}~\citep{stamatakis2006raxml} with a nucleotide substitution model  (GTRCAT) to infer a phylogenetic tree for 92 HA sequences drawn from 15 of the 18 subtypes (we excluded bat influenza and one other rare subtype).
 For the rest of this paper, we fix the tree topology to this \texttt{RAxML}-inferred tree.
-Although the nucleotide model used with \texttt{RAxML} to infer this tree topology is probably less accurate than codon models, the modular subtype structure of the HA phylogeny means that most of the phylogenetic uncertainty lies in the length of the long branches separating the subtypes rather than in the tree topology itself\DIFaddbegin \DIFadd{.
-This confidence in the }\texttt{\DIFadd{RAxML}}\DIFadd{(GTRCAT)-inferred tree is certainly not universal and in other cases more complex, biologically-realistic models may be necessary for accurate topology inference. 
-For instance, others have shown that models with site-specific amino-acid preferences can avoid topological errors such as long-branch attraction~\mbox{%DIFAUXCMD
-\citep{lartillot2007suppression}}\hspace{0pt}%DIFAUXCMD
-}\DIFaddend .
+Although the nucleotide model used with \texttt{RAxML} to infer this tree topology is probably less accurate than codon models, the modular subtype structure of the HA phylogeny \DIFaddbegin \DIFadd{(the tree is clearly divided into widely separated clades) }\DIFaddend means that most of the phylogenetic uncertainty lies in the length of the long branches separating the subtypes rather than in the tree topology itself.
+\DIFaddbegin \DIFadd{We note that other genes may have phylogenetic structures that are more prone to topological uncertainty. 
+In such cases, the accuracy of the substitution model may be important for avoiding topological errors such as long-branch attraction~\mbox{%DIFAUXCMD
+\citep{felsenstein1978cases,lartillot2007suppression}}\hspace{0pt}%DIFAUXCMD
+.
+}\DIFaddend 
 
 Deep mutational scanning has been used to measure the amino-acid preferences of all sites in two different HAs.
 One scan measured the preferences of an H1 HA~\citep{doud2016accurate} and the other measured the preferences of an H3 HA~\citep{lee2018deep}.
@@ -561,6 +562,10 @@ Overall, our results underscore the importance of modeling purifying selection i
 Protein sites do not simply differ in their rates of substitution---different sites also prefer different amino acids.
 There are now two ways to account for this fact: using models informed by deep mutational scanning experiments, or using models that infer site-specific amino-acid preferences from the natural sequence alignment.
 Combining either type of model with rate variation increases the inferred length of deep branches relative to models that only incorporate rate variation.
+\DIFaddbegin \DIFadd{We expect that further improvements could be achieved by also incorporating other factors such as host-specific substitution rates~\mbox{%DIFAUXCMD
+\citep{worobey2014synchronized} }\hspace{0pt}%DIFAUXCMD
+that are known to be important for modeling the evolution of viral genes such as HA.
+}\DIFaddend 
 
 However, assuming a single set of site-specific amino-acid preferences is still an imperfect way to model evolution over a highly diverged phylogenetic tree. 
 In the case of the experimentally informed models, it is fairly obvious why this is true: the amino-acid preferences are measured in just one genetic background, and therefore provide only a single snapshot of preferences that shift over evolutionary time due to epistasis~\citep{pollock2012amino, shah2015contingency, bazykin2015changing, haddox2018mapping, starr2018pervasive, doud2015site}. 
@@ -576,7 +581,11 @@ There are two main issues: first, the Felsenstein pruning algorithm~\citep{felse
 Some alternative algorithms have been proposed~\citep{bordner2013new,rodrigue2009computational,rodrigue2005site, choi2007quantifying}, but they are still in their infancy.
 Second, site-interdependent models require a realistic ``fitness function'' that describes the interactions among sites.
 It appears that typical structural modeling programs are insufficient for this purpose~\citep{rodrigue2009computational}.
-But hope comes from experimental progress in measuring actual site-interdependent constraints on proteins~\citep{olson2014comprehensive,wu2016adaptation,steinberg2016shifting,li2016fitness}, combined with new methods for using these measurements to parameterize fitness functions~\citep{sailer2017detecting,otwinowski2018inferring,otwinowski2018protein}.
+But hope comes from experimental progress in measuring actual site-interdependent constraints on proteins~\citep{olson2014comprehensive,wu2016adaptation,steinberg2016shifting,li2016fitness}, combined with new methods for using these measurements to parameterize fitness functions~\DIFdelbegin \DIFdel{\mbox{%DIFAUXCMD
+\citep{sailer2017detecting,otwinowski2018inferring,otwinowski2018protein}}\hspace{0pt}%DIFAUXCMD
+}\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\citep{sailer2017detecting,otwinowski2018inferring}}\hspace{0pt}%DIFAUXCMD
+}\DIFaddend .
 Perhaps some day such truly realistic models might be useful for phylogenetic inference.
 Until that day, our work shows that modeling a single set of time homogenous amino-acid preferences provides at least some improvement.
 
