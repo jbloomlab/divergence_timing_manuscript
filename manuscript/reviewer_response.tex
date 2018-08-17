@@ -111,7 +111,7 @@ I do not recommend additional analyses for this part, but I think that discussin
 \response{This is a highly relevant point when thinking about the larger context of our work. 
 
 As the reviewer noted, our current work only assesses how the site-specific models affect branch length, but not the topology of the tree itself. 
-For the specific HA phylogenetic tree analyzed in our paper, the different models seem very unlikely to substantially affect tree topology since the tree is clearly divided into widely separated clades (a ``modular'' tree structure), meaning that event the nucleotide model in \texttt{RAxML} produces a reasonable tree. 
+For the specific HA phylogenetic tree analyzed in our paper, the different models seem very unlikely to substantially affect tree topology since the tree is clearly divided into widely separated clades (a ``modular'' tree structure), meaning that even the nucleotide model in \texttt{RAxML} produces a reasonable tree. 
 We have updated the text to more clearly explain why we think that the substitution model is unlikely to have much affect on topology \emph{for the specific HA tree that we analyze}. 
 
 However, as the reviewer notes, for other trees the model may markedly affect the topology as well as the branch lengths.
@@ -133,7 +133,7 @@ The reason is that the HA sequences we use are from influenza viruses from sever
 It has been shown that these hosts each have their own specific evolutionary rate~\citep{worobey2014synchronized} (e.g., HA evolves \emph{much} faster in humans than birds, probably due to immune selection).
 However, our current implementation does \emph{not} incorporate host-specific rates, which therefore will confound clocklike behavior.
 We agree with the reviewer that in principle accounting for the substitution model issues discussed in our manuscript in conjunction with the host-specific rate issues discussed by others should improve clocklike behavior.
-Since there is not currently software that does both of these, are are unable to actually do this.
+Since there is not currently software that does both of these, we are unable to actually do this.
 However, we have added mention of this point in the Discussion.
 }
 

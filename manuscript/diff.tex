@@ -1,7 +1,7 @@
 % Use only LaTeX2e, calling the article.cls class and 12-point type.
 %DIF LATEXDIFF DIFFERENCE FILE
-%DIF DEL manuscript_original_submission.tex   Fri Aug 17 05:48:29 2018
-%DIF ADD manuscript.tex                       Fri Aug 17 08:43:28 2018
+%DIF DEL manuscript_original_submission.tex   Thu May 10 09:06:36 2018
+%DIF ADD manuscript.tex                       Fri Aug 17 08:51:52 2018
 
 \documentclass[11pt]{article}
 
@@ -126,50 +126,11 @@
 \providecommand{\DIFaddendFL}{} %DIF PREAMBLE
 \providecommand{\DIFdelbeginFL}{} %DIF PREAMBLE
 \providecommand{\DIFdelendFL}{} %DIF PREAMBLE
+%DIF END PREAMBLE EXTENSION ADDED BY LATEXDIFF
+%DIF PREAMBLE EXTENSION ADDED BY LATEXDIFF
 %DIF HYPERREF PREAMBLE %DIF PREAMBLE
 \providecommand{\DIFadd}[1]{\texorpdfstring{\DIFaddtex{#1}}{#1}} %DIF PREAMBLE
 \providecommand{\DIFdel}[1]{\texorpdfstring{\DIFdeltex{#1}}{}} %DIF PREAMBLE
-\newcommand{\DIFscaledelfig}{0.5}
-%DIF HIGHLIGHTGRAPHICS PREAMBLE %DIF PREAMBLE
-\RequirePackage{settobox} %DIF PREAMBLE
-\RequirePackage{letltxmacro} %DIF PREAMBLE
-\newsavebox{\DIFdelgraphicsbox} %DIF PREAMBLE
-\newlength{\DIFdelgraphicswidth} %DIF PREAMBLE
-\newlength{\DIFdelgraphicsheight} %DIF PREAMBLE
-% store original definition of \includegraphics %DIF PREAMBLE
-\LetLtxMacro{\DIFOincludegraphics}{\includegraphics} %DIF PREAMBLE
-\newcommand{\DIFaddincludegraphics}[2][]{{\color{green}\fbox{\DIFOincludegraphics[#1]{#2}}}} %DIF PREAMBLE
-\newcommand{\DIFdelincludegraphics}[2][]{% %DIF PREAMBLE
-\sbox{\DIFdelgraphicsbox}{\DIFOincludegraphics[#1]{#2}}% %DIF PREAMBLE
-\settoboxwidth{\DIFdelgraphicswidth}{\DIFdelgraphicsbox} %DIF PREAMBLE
-\settoboxtotalheight{\DIFdelgraphicsheight}{\DIFdelgraphicsbox} %DIF PREAMBLE
-\scalebox{\DIFscaledelfig}{% %DIF PREAMBLE
-\parbox[b]{\DIFdelgraphicswidth}{\usebox{\DIFdelgraphicsbox}\\[-\baselineskip] \rule{\DIFdelgraphicswidth}{0em}}\llap{\resizebox{\DIFdelgraphicswidth}{\DIFdelgraphicsheight}{% %DIF PREAMBLE
-\setlength{\unitlength}{\DIFdelgraphicswidth}% %DIF PREAMBLE
-\begin{picture}(1,1)% %DIF PREAMBLE
-\thicklines\linethickness{2pt} %DIF PREAMBLE
-{\color[rgb]{1,0,0}\put(0,0){\framebox(1,1){}}}% %DIF PREAMBLE
-{\color[rgb]{1,0,0}\put(0,0){\line( 1,1){1}}}% %DIF PREAMBLE
-{\color[rgb]{1,0,0}\put(0,1){\line(1,-1){1}}}% %DIF PREAMBLE
-\end{picture}% %DIF PREAMBLE
-}\hspace*{3pt}}} %DIF PREAMBLE
-} %DIF PREAMBLE
-\LetLtxMacro{\DIFOaddbegin}{\DIFaddbegin} %DIF PREAMBLE
-\LetLtxMacro{\DIFOaddend}{\DIFaddend} %DIF PREAMBLE
-\LetLtxMacro{\DIFOdelbegin}{\DIFdelbegin} %DIF PREAMBLE
-\LetLtxMacro{\DIFOdelend}{\DIFdelend} %DIF PREAMBLE
-\DeclareRobustCommand{\DIFaddbegin}{\DIFOaddbegin \let\includegraphics\DIFaddincludegraphics} %DIF PREAMBLE
-\DeclareRobustCommand{\DIFaddend}{\DIFOaddend \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
-\DeclareRobustCommand{\DIFdelbegin}{\DIFOdelbegin \let\includegraphics\DIFdelincludegraphics} %DIF PREAMBLE
-\DeclareRobustCommand{\DIFdelend}{\DIFOaddend \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
-\LetLtxMacro{\DIFOaddbeginFL}{\DIFaddbeginFL} %DIF PREAMBLE
-\LetLtxMacro{\DIFOaddendFL}{\DIFaddendFL} %DIF PREAMBLE
-\LetLtxMacro{\DIFOdelbeginFL}{\DIFdelbeginFL} %DIF PREAMBLE
-\LetLtxMacro{\DIFOdelendFL}{\DIFdelendFL} %DIF PREAMBLE
-\DeclareRobustCommand{\DIFaddbeginFL}{\DIFOaddbeginFL \let\includegraphics\DIFaddincludegraphics} %DIF PREAMBLE
-\DeclareRobustCommand{\DIFaddendFL}{\DIFOaddendFL \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
-\DeclareRobustCommand{\DIFdelbeginFL}{\DIFOdelbeginFL \let\includegraphics\DIFdelincludegraphics} %DIF PREAMBLE
-\DeclareRobustCommand{\DIFdelendFL}{\DIFOaddendFL \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
 %DIF END PREAMBLE EXTENSION ADDED BY LATEXDIFF
 
 \begin{document} 
@@ -274,9 +235,9 @@ It is challenging to obtain values for these amino-acid preference parameters in
 Here we will primarily use experimentally informed codon models (ExpCMs), which define the site-specific amino-acid preference parameters \textit{a priori} from deep mutational scanning experiments so that they do not need to be fit from phylogenetic data~\citep[see Methods and][]{bloom2014experimentally, hilton2017phydms, bloom2017identification}.
 Because the amino-acid preference parameters in an ExpCM are obtained from experiments, the number of ExpCM free parameters is similar to a non-site-specific substitution model.
 An alternative strategy \DIFdelbegin \DIFdel{of obtaining the }\DIFdelend \DIFaddbegin \DIFadd{to account for site-specific }\DIFaddend amino-acid \DIFdelbegin \DIFdel{preference parametersvia Bayesian inference~\mbox{%DIFAUXCMD
-\citep{lartillot2004bayesian, rodrigue2014site}}\hspace{0pt}%DIFAUXCMD
+\citep{lartillot2004bayesian, rodrigue2014site}}%DIFAUXCMD
 }\DIFdelend \DIFaddbegin \DIFadd{preferences is to formally consider them as random effects across sites, rather than parameters, and infer them using Bayesian methods~\mbox{%DIFAUXCMD
-\citep{lartillot2004bayesian, rodrigue2014site}}\hspace{0pt}%DIFAUXCMD
+\citep{lartillot2004bayesian, rodrigue2014site}}%DIFAUXCMD
 .
 This strategy }\DIFaddend is discussed in the last section of the Results.
 
@@ -376,7 +337,7 @@ For the rest of this paper, we fix the tree topology to this \texttt{RAxML}-infe
 Although the nucleotide model used with \texttt{RAxML} to infer this tree topology is probably less accurate than codon models, the modular subtype structure of the HA phylogeny \DIFaddbegin \DIFadd{(the tree is clearly divided into widely separated clades) }\DIFaddend means that most of the phylogenetic uncertainty lies in the length of the long branches separating the subtypes rather than in the tree topology itself.
 \DIFaddbegin \DIFadd{We note that other genes may have phylogenetic structures that are more prone to topological uncertainty. 
 In such cases, the accuracy of the substitution model may be important for avoiding topological errors such as long-branch attraction~\mbox{%DIFAUXCMD
-\citep{felsenstein1978cases,lartillot2007suppression}}\hspace{0pt}%DIFAUXCMD
+\citep{felsenstein1978cases,lartillot2007suppression}}%DIFAUXCMD
 .
 }\DIFaddend 
 
@@ -563,7 +524,7 @@ Protein sites do not simply differ in their rates of substitution---different si
 There are now two ways to account for this fact: using models informed by deep mutational scanning experiments, or using models that infer site-specific amino-acid preferences from the natural sequence alignment.
 Combining either type of model with rate variation increases the inferred length of deep branches relative to models that only incorporate rate variation.
 \DIFaddbegin \DIFadd{We expect that further improvements could be achieved by also incorporating other factors such as host-specific substitution rates~\mbox{%DIFAUXCMD
-\citep{worobey2014synchronized} }\hspace{0pt}%DIFAUXCMD
+\citep{worobey2014synchronized} }%DIFAUXCMD
 that are known to be important for modeling the evolution of viral genes such as HA.
 }\DIFaddend 
 
@@ -582,9 +543,9 @@ Some alternative algorithms have been proposed~\citep{bordner2013new,rodrigue200
 Second, site-interdependent models require a realistic ``fitness function'' that describes the interactions among sites.
 It appears that typical structural modeling programs are insufficient for this purpose~\citep{rodrigue2009computational}.
 But hope comes from experimental progress in measuring actual site-interdependent constraints on proteins~\citep{olson2014comprehensive,wu2016adaptation,steinberg2016shifting,li2016fitness}, combined with new methods for using these measurements to parameterize fitness functions~\DIFdelbegin \DIFdel{\mbox{%DIFAUXCMD
-\citep{sailer2017detecting,otwinowski2018inferring,otwinowski2018protein}}\hspace{0pt}%DIFAUXCMD
+\citep{sailer2017detecting,otwinowski2018inferring,otwinowski2018protein}}%DIFAUXCMD
 }\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
-\citep{sailer2017detecting,otwinowski2018inferring}}\hspace{0pt}%DIFAUXCMD
+\citep{sailer2017detecting,otwinowski2018inferring}}%DIFAUXCMD
 }\DIFaddend .
 Perhaps some day such truly realistic models might be useful for phylogenetic inference.
 Until that day, our work shows that modeling a single set of time homogenous amino-acid preferences provides at least some improvement.
@@ -755,7 +716,7 @@ The external computer programs that we used were
 \subsection*{Acknowledgments}
 We thank Erick Matsen and Trevor Bedford for helpful comments about the project and manuscript.
 SKH is supported in part by training grant T32AI083203 from the NIAID of the National Institutes of Health.
-This work was supported by the NIAID and NIGMS of the NIH under grant numbers R01AI127893 and R01GM102198. 
+This work was supported by the NIAID and NIGMS of the NIH under grant numbers R01AI127893 and \DIFdelbegin \DIFdel{R01GM102198}\DIFdelend \DIFaddbegin \DIFadd{R35GM126911}\DIFaddend . 
 JDB is supported in part by a Faculty Scholars grant from the Howard Hughes Medical Institute and the Simons Foundation.
 The funders had no role in study design, data collection and analysis, decision to publish, or preparation of the manuscript.
 All code and data used for the analyses in this paper is available at \url{https://github.com/jbloomlab/divergence_timing_manuscript}.
