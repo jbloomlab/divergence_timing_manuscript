@@ -10,6 +10,6 @@ A pre-print describing this study is [available on _bioRxiv_ at DOI 10.1101/3027
 
 This repo contains the following directories:
 
-[`./manuscript/`](./manuscript/): contains the manuscript describing the project.
+[./manuscript/](./manuscript/): contains the manuscript describing the project.
 
-[`./analysis/`](./analysis/): contains the code and analysis for the project.
+[./analysis/](./analysis/): contains the code and analysis for the project.
