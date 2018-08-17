@@ -172,7 +172,7 @@ We will refer to M0 Goldman-Yang models simply as GY94 models (\ref{eq:GY94}).
 The gene-wide $\omega$ is usually $<1$~\citep{murrell2015gene}, and crudely represents the fact that many amino-acid substitutions are under purifying selection.
 
 \begin{figure}
-\centerline{\includegraphics[width=0.90\textwidth]{figures/model_feature.pdf}}
+\centerline{\includegraphics[width=0.90\textwidth]{fig1.pdf}}
 \caption{\label{fig:model_feature}
 \textbf{Different ways codon models account for purifying selection.}
 (A) The dN/dS parameter, $\omega$, can be defined as one gene-wide average (orange triangle) or allowed to vary according to some statistical distribution (blue line). 
@@ -229,7 +229,7 @@ For instance, if all 20 amino acids are equally likely in the stationary state, 
 If the substitution model underestimates the asymptotic sequence identity then it will also underestimate long branch lengths, since it will predict that sequences that have evolved for a very long time should be more diverged than is actually the case.
 
 \begin{figure}
-\centerline{\includegraphics[width=0.90\textwidth]{figures/decay.pdf}}
+\centerline{\includegraphics[width=0.90\textwidth]{fig2.pdf}}
 \caption{\label{fig:decay}
 \textbf{Effect of stationary state and $\Gamma\omega$ rate variation on predicted asymptotic sequence divergence.}
 The logo plots at top show the amino-acid preferences for some sites in an H1 influenza hemagglutinin protein as experimentally measured by~\citet{doud2016accurate}.
@@ -270,7 +270,7 @@ Specifically, we simulated alignments of sequences along the HA phylogenetic tre
 Note that these simulations closely parallel those performed by \citet{halpern1998evolutionary} and \citet{wertheim2011purifying}.
 
 \begin{figure}
-\centerline{\includegraphics[width=0.9\textwidth]{figures/simulations}}
+\centerline{\includegraphics[width=0.9\textwidth]{fig3.pdf}}
 \caption{\label{fig:simulations}
 \textbf{Branch lengths inferred on data simulated under a model with site-specific amino-acid preferences.} 
 We simulated alignments along a HA phylogenetic tree using an ExpCM parameterized by the actual site-specific amino-acid preferences for an H1 HA~\citep{doud2016accurate}.
@@ -342,7 +342,7 @@ All ExpCMs fit a stringency parameter $>1$.
 
 
 \begin{figure}
-\centerline{\includegraphics[width=\textwidth]{figures/empirical_trees.pdf}}
+\centerline{\includegraphics[width=\textwidth]{fig4.pdf}}
 \caption{\label{fig:empirical_trees}
 \textbf{Effect of site-specific amino-acid preferences and $\Gamma\omega$ rate variation on HA branch length estimation.} 
 The branch lengths of the HA tree were optimized using the indicated ExpCM or GY94 model. 
@@ -366,7 +366,7 @@ The ExpCM $\omega$ is the relative rate of fixation of nonsynonymous to synonymo
 This more realistic null model gives ExpCMs enhanced power to detect diversifying selection for amino-acid change~\citep{bloom2017identification, rodrigue2017detecting}, which is known to occur at some sites in HA due to immune selection~\citep{bedford2014integrating}.
 
 \begin{figure}
-\centerline{\includegraphics[width=\textwidth]{figures/empirical_scatter.pdf}}
+\centerline{\includegraphics[width=\textwidth]{fig5.pdf}}
 \caption{\label{fig:empirical_scatter}
 \textbf{Modeling site-specific amino-acid preferences using deep mutational scanning experiments extends branch lengths, especially for branches leading to the HA used in the experiment.}
 The points indicate the total length of branches separating all pairs of tips on the HA phylogenetic tree when the tree is optimized under the indicated model. 
@@ -399,7 +399,7 @@ Therefore, \ref{fig:empirical_trees} and \ref{fig:empirical_scatter} show that E
 \subsection*{Shifting amino-acid preferences limit the benefits of models with site-specific stationary states for estimating long branch lengths.}
 
 \begin{figure}
-\centerline{\includegraphics[width=0.75\textwidth]{figures/compete}}
+\centerline{\includegraphics[width=0.75\textwidth]{fig6.pdf}}
 \caption{\label{fig:compete}
 \textbf{The congruence between natural selection and the deep mutational scanning measurements decreases with sequence divergence.} 
 We fit an ExpCM informed by the H1 or H3 deep mutational scanning experiments to trees spanning sequences with low, intermediate, and high divergence from the sequence used in the experiment. 
@@ -439,7 +439,7 @@ If amino-acid preferences shift during evolution, there simply will not be any s
 \subsection*{A model with amino-acid preferences estimated from natural sequences gives similar results to an ExpCM}
 
 \begin{figure}
-\centerline{\includegraphics[width=0.99\textwidth]{figures/phylobayes.pdf}}
+\centerline{\includegraphics[width=0.99\textwidth]{fig7.pdf}}
 \caption{\label{fig:phylobayes}
 \textbf{Models inferred from natural sequences have similar stationary states to models defined by experimental preferences and estimate similar branch lengths.}
 We fit an ExpCM(H1+H3 avg)+$\Gamma\omega$ and a pbMutSel to the full HA tree in \ref{fig:empirical_trees}. 
@@ -693,7 +693,7 @@ All code and data used for the analyses in this paper is available at \url{https
 \section*{Supplemental Information}
 
 \begin{suppfig}[H]
-\centerline{\includegraphics[width=\textwidth]{figures/prefs_doud}}
+\centerline{\includegraphics[width=\textwidth]{suppfig1.pdf}}
 \caption{\label{suppfig:prefs_doud}
 \textbf{H1 HA amino-acid preferences measured by deep mutational scanning.}
 Each column represents a site in the HA protein, and the height of each letter is proportional to the preference for the amino acid measured by~\citet{doud2016accurate} and then re-scaled by the stringency parameter in \ref{tab:empirical_data}. 
@@ -705,7 +705,7 @@ The conversion between the numbering scheme in this figure and sequential number
 
 
 \begin{suppfig}[H]
-\centerline{\includegraphics[width=\textwidth]{figures/prefs_lee}}
+\centerline{\includegraphics[width=\textwidth]{suppfig2.pdf}}
 \caption{\label{suppfig:prefs_lee}
 \textbf{H3 HA amino-acid preferences measured by deep mutational scanning.}
 Similar to \ref{suppfig:prefs_doud} but shows the re-scaled preferences for the H3 HA as measured by \citet{lee2018deep}.
@@ -714,7 +714,7 @@ Similar to \ref{suppfig:prefs_doud} but shows the re-scaled preferences for the 
 \clearpage 
 
 \begin{suppfig}[H]
-\centerline{\includegraphics[width=\textwidth]{figures/prefs_average}}
+\centerline{\includegraphics[width=\textwidth]{suppfig3.pdf}}
 \caption{\label{suppfig:prefs_average}
 \textbf{Average of H1 HA  and H3 HA amino-acid preferences measured by deep mutational scanning.}
 Similar to \ref{suppfig:prefs_doud} but shows the re-scaled average of the preferences for the H1 and H3 HAs.
@@ -723,7 +723,7 @@ Similar to \ref{suppfig:prefs_doud} but shows the re-scaled average of the prefe
 \clearpage 
 
 \begin{suppfig}[H]
-\centerline{\includegraphics[width=\textwidth]{figures/prefs_mutSel}}
+\centerline{\includegraphics[width=\textwidth]{suppfig4.pdf}}
 \caption{\label{suppfig:prefs_mutSel}
 \textbf{Amino-acid preferences inferred by the pbMutSel model.}
 Similar to \ref{suppfig:prefs_doud}, but shows the preferences inferred by fitting the pbMutSel model to the full HA tree.
@@ -732,7 +732,7 @@ Similar to \ref{suppfig:prefs_doud}, but shows the preferences inferred by fitti
 \clearpage 
 
 \begin{suppfig}[H]
-\centerline{\includegraphics[width=0.50\textwidth]{figures/divergence_distances.pdf}}
+\centerline{\includegraphics[width=0.50\textwidth]{suppfig5.pdf}}
 \caption{\label{suppfig:subalignments}
 \textbf{Overall divergence for subtrees.}
 We created two subalignments for each HA used in the deep mutational scanning experiments. 
