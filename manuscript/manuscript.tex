@@ -195,7 +195,7 @@ A GY94+$\Gamma\omega$ captures the fact that the rate of nonsynonymous substitut
 However, these models do not capture the fact that the same amino-acid mutation can have very different effects at different sites. 
 
 Mutation-selection models account for the fact that purifying selection depends idiosyncratically on the specific amino-acid mutation at each site~\citep{halpern1998evolutionary,yang2008mutation,rodrigue2010mutation,tamuri2012estimating,mccandlish2014modeling}.
-\textcolor{red}{Here we will consider mutation-selection models where the site-specific selection is assumed to act solely at the protein level (different codons for the same amino acid are treated as selectively equivalent)}.
+Here we will consider mutation-selection models where the site-specific selection is assumed to act solely at the protein level (different codons for the same amino acid are treated as selectively equivalent).
 Such models explicitly define a different set of amino-acid preferences at each site in the protein. 
 This more mechanistic formulation results in a site-specific stationary state (\ref{fig:model_feature}B). 
 These models capture the site-to-site variation in amino-acid composition that is an obvious features of real proteins, and usually better describe actual evolution than models with only rate variation as assessed by Bayesian or maximum-likelihood criteria~\citep{lartillot2004bayesian, le2008phylogenetic, si2008empirical, wang2008class, rodrigue2010mutation,bloom2014experimentally,bloom2014informed,hilton2017phydms}.
@@ -208,8 +208,8 @@ This corresponds to $19\times L$ parameters for a protein of length $L$, or 9,50
 It is challenging to obtain values for these amino-acid preference parameters in a maximum-likelihood framework without overfitting the data~\citep{rodrigue2013statistical}.
 Here we will primarily use experimentally informed codon models (ExpCMs), which define the site-specific amino-acid preference parameters \textit{a priori} from deep mutational scanning experiments so that they do not need to be fit from phylogenetic data~\citep[see Methods and][]{bloom2014experimentally, hilton2017phydms, bloom2017identification}.
 Because the amino-acid preference parameters in an ExpCM are obtained from experiments, the number of ExpCM free parameters is similar to a non-site-specific substitution model.
-\textcolor{red}{An alternative strategy to deal with site-specific amino-acid preferences is to consider them formally random-effects across sites rather than parameters, and to infer them using Bayesian inference~\citep{lartillot2004bayesian, rodrigue2014site}. 
-This strategy is discussed in the last section of the Results.}
+An alternative strategy to account for site-specific amino-acid preferences is to formally consider them as random effects across sites, rather than parameters, and infer them using Bayesian methods~\citep{lartillot2004bayesian, rodrigue2014site}.
+This strategy is discussed in the last section of the Results.
 
 Importantly, these two strategies for modeling purifying selection are not mutually exclusive.
 Mutation-selection models such as an ExpCM can still incorporate an $\omega$ parameter, which now represents the relative rate of nonsynonymous to synonymous substitution \emph{after} accounting for the constraints due to the site-specific amino-acid preferences~\citep{bloom2017identification,rodrigue2017detecting}.
@@ -218,12 +218,12 @@ We will denote such models as ExpCM+$\Gamma\omega$.
 \ref{fig:model_feature}C shows the full spectrum of models that incorporate all combinations of gamma-distributed $\omega$ and site-specific stationary states.
 
 \subsection*{Effect of stationary state and rate variation on branch-length estimation}
-Given a single branch, a substitution model transforms sequence identity into branch length.
+Given a single branch, a substitution model transforms sequence divergence into branch length.
 Under a molecular-clock assumption, this branch length is proportional to time.
-The transformation from sequence identity to branch length is trivial when the sequence identity is high.
+The transformation from sequence divergence to branch length is trivial when the sequence identity is high.
 For instance, when there has only been one substitution, then the sequence identity will simply be $\frac{L - 1}{L}$ for a gene of $L$ sites, and even a simple exponential model~\citep{zuckerkandl1965} will correctly infer the short branch length of $1/L$ substitutions per site.
 However, as substitutions accumulate it becomes progressively more likely for multiple changes to occur at the same site.
-In this regime, the accuracy of the substitution model becomes critical for transforming sequence identity into branch length.
+In this regime, the accuracy of the substitution model becomes critical for transforming sequence divergence into branch length.
 Any time-homogenous substitution model predicts that after a very large number of substitutions, two related sequences will approach some asymptotic amino-acid sequence identity.
 For instance, if all 20 amino acids are equally likely in the stationary state, then this asymptotic sequence identity will be $\frac{1}{20} = 0.05$.
 If the substitution model underestimates the asymptotic sequence identity then it will also underestimate long branch lengths, since it will predict that sequences that have evolved for a very long time should be more diverged than is actually the case.
@@ -251,7 +251,7 @@ Accounting for site-to-site dN/dS rate variation in GY94 models affects the rate
 For instance, \ref{fig:decay} shows that the GY94+$\Gamma\omega$ model takes longer to reach the asymptote than GY94, but that the asymptote is identical for both models. 
 This fact holds true even if we use experimental measurements of HA's site-specific amino-acid preferences~\citep{doud2016accurate} to calculate a different $\omega_r$ value for each site using the method of \citet{spielman2015relationship} (see \ref{eq:w_r}).
 Specifically, this GY94+$\omega_r$ model predicts that different sites will approach the asymptote at different rates, but the asymptote is always the same (\ref{fig:decay}).
-The invariance of the asymptotic sequence identity under different schemes for modeling $\omega$ is a fundamental feature of the mathematics of reversible substitution models.
+The invariance of the asymptotic sequence identity under different schemes for modeling $\omega$ is a fundamental feature of the mathematics of this type of reversible substitution models.
 These models are reversible stochastic matrices, which can be decomposed into stationary states and symmetric exchangeability matrices~\citep{nielsen2006statistical}.
 The stationary state is invariant with respect to multiplication of the symmetric exchangeability matrix by any non-zero number.
 Different schemes for modeling $\omega$ only multiply elements of the symmetric exchangeability matrix.
@@ -305,6 +305,8 @@ However, HA proteins from all subtypes have a highly conserved structure that pe
 We used \texttt{RAxML}~\citep{stamatakis2006raxml} with a nucleotide substitution model  (GTRCAT) to infer a phylogenetic tree for 92 HA sequences drawn from 15 of the 18 subtypes (we excluded bat influenza and one other rare subtype).
 For the rest of this paper, we fix the tree topology to this \texttt{RAxML}-inferred tree.
 Although the nucleotide model used with \texttt{RAxML} to infer this tree topology is probably less accurate than codon models, the modular subtype structure of the HA phylogeny means that most of the phylogenetic uncertainty lies in the length of the long branches separating the subtypes rather than in the tree topology itself.
+This confidence in the \texttt{RAxML}(GTRCAT)-inferred tree is certainly not universal and in other cases more complex, biologically-realistic models may be necessary for accurate topology inference. 
+For instance, others have shown that models with site-specific amino-acid preferences can avoid topological errors such as long-branch attraction~\citep{lartillot2007suppression}.
 
 Deep mutational scanning has been used to measure the amino-acid preferences of all sites in two different HAs.
 One scan measured the preferences of an H1 HA~\citep{doud2016accurate} and the other measured the preferences of an H3 HA~\citep{lee2018deep}.
